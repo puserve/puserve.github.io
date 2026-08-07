@@ -37,12 +37,10 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Logo PUSERVE */
-        nav h2.logo {
-            color: white;
-            font-weight: 800;
-            letter-spacing: 1px;
-            font-size: 1.5rem;
+        /* Logo PUSERVE (Gambar) */
+        nav img.logo-img {
+            height: 40px; /* Ukuran logo di HP */
+            width: auto;
             cursor: pointer;
         }
 
@@ -70,32 +68,18 @@
         .nav-links {
             display: none; /* Sembunyikan menu link di HP */
             list-style: none;
-            gap: 20px;
+            gap: 25px;
             align-items: center;
         }
         .nav-links li a {
             text-decoration: none;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             font-size: 1rem;
             font-weight: 500;
             transition: color 0.3s ease;
         }
         .nav-links li a:hover {
             color: white;
-        }
-        /* Tombol 'Join' di Nav */
-        .btn-join-nav {
-            background: white;
-            color: #0a3622;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: transform 0.2s ease;
-        }
-        .btn-join-nav:hover {
-            transform: scale(1.05);
         }
 
         /* Tampilan Laptop (Desktop) - Menjadi Horizontal */
@@ -109,8 +93,8 @@
                 border-radius: 50px;
                 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             }
-            nav h2.logo {
-                font-size: 1.8rem;
+            nav img.logo-img {
+                height: 50px; /* Logo sedikit lebih besar di laptop */
             }
             .nav-links {
                 display: flex; /* Munculkan menu link */
@@ -165,7 +149,7 @@
             gap: 15px; /* Jarak antar elemen teks */
         }
 
-        /* Teks Hierarchy ala HP lo */
+        /* Teks Hierarchy */
         .hero-small-text {
             font-size: 0.9rem;
             font-weight: 500;
@@ -205,7 +189,7 @@
         /* Tampilan Laptop (Desktop) untuk Hero */
         @media screen and (min-width: 1024px) {
             .hero {
-                border-radius: 0; /* Hapus sudut melengkung bawah di laptop agar terlihat profesional */
+                border-radius: 0; /* Hapus sudut melengkung bawah di laptop */
             }
             .hero-content h1 {
                 font-size: 5rem; /* Font jauh lebih besar di laptop */
@@ -213,6 +197,33 @@
             .hero-content p.hero-description {
                 font-size: 1.3rem; /* Font deskripsi lebih besar di laptop */
             }
+        }
+
+        /* Brand Marquee (Logo-logo Partner/Sponsor) */
+        .brand-section {
+            padding: 50px 20px;
+            background: white;
+            text-align: center;
+        }
+        .brand-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 60px;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .brand-logos img {
+            height: 65px;
+            object-fit: contain;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            filter: grayscale(100%); /* Bikin logonya abu-abu biar elegan */
+        }
+        .brand-logos img:hover {
+            opacity: 1;
+            filter: grayscale(0%); /* Balik ke warna asli pas di-hover */
         }
 
         /* Container Global */
@@ -245,7 +256,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
-            margin-bottom: 120px;
+            margin-bottom: 50px;
         }
         .activity-card {
             position: relative;
@@ -293,36 +304,6 @@
             opacity: 0.9;
         }
 
-        /* Team Section */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 40px;
-            text-align: center;
-        }
-        .team-member img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        .team-member:hover img {
-            transform: translateY(-10px);
-        }
-        .team-member h4 {
-            color: #0a3622;
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-        .team-member p {
-            color: #666;
-            font-size: 1rem;
-            margin-top: 5px;
-        }
-
         /* Animasi Scroll (Framer Effect) */
         .fade-up {
             opacity: 0;
@@ -347,47 +328,47 @@
 </head>
 <body>
 
-    <!-- Navigasi ala Pulma Framer - Mobile First -->
+    <!-- Navigasi -->
     <nav>
-        <h2 class="logo">PUSERVE</h2>
+        <img src="https://i.postimg.cc/cHbwfJ6J/LOGO-PUSERVE.png" class="logo-img" alt="Logo PUSERVE">
         
-        <!-- Menu Hamburger di HP -->
         <div class="menu-icon">
             <span></span>
             <span></span>
             <span></span>
         </div>
 
-        <!-- Menu Links Horizontal di Laptop -->
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#activities">Activities</a></li>
-            <li><a href="#team">Our Team</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="#" class="btn-join-nav">Join</a></li>
         </ul>
     </nav>
 
-    <!-- Hero Section ala Pulma - Edge-to-edge Video -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-overlay"></div>
         <video autoplay loop muted playsinline>
-            <!-- Ganti src ini dengan video beneran PUSERVE -->
+            <!-- Ganti src ini dengan link video lo nantinya -->
             <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
         </video>
         <div class="hero-content fade-up">
-            <!-- Teks kecil teratas dengan sun iconemas -->
             <div class="hero-small-text">
-                <!-- Sun Icon SVGemas -->
                 <svg viewBox="0 0 24 24">
                     <path d="M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,12,14Zm-1-8V4a1,1,0,0,1,2,0V6a1,1,0,0,1-2,0Zm0,14V18a1,1,0,0,1,2,0v2a1,1,0,0,1-2,0ZM6,11H4a1,1,0,0,1,0-2H6a1,1,0,0,1,0,2Zm14,0H18a1,1,0,0,1,0-2h2a1,1,0,0,1,0,2Zm-2.83-6.17a1,1,0,0,1,1.41,1.41L16.41,7a1,1,0,1,1-1.41-1.41ZM7.76,15.24a1,1,0,0,1,1.41,1.41L7,18.83a1,1,0,0,1-1.41-1.41ZM18.83,16.41a1,1,0,0,1-1.41,1.41L16.41,17a1,1,0,1,1,1.41-1.41ZM7,5a1,1,0,0,1,1.41,1.41L5.59,7.83a1,1,0,0,1-1.41-1.41Z"/>
                 </svg>
                 <span>HELPED PRESIDENT UNIVERSITY PROTECT THE ENVIRONMENT</span>
             </div>
-            <!-- Judul utama denganhighlightemas -->
             <h1>We build solutions for environmental action, education, and <span class="highlight">care</span>.</h1>
-            <!-- Deskripsi deskriptif -->
             <p class="hero-description">"Dari manusia untuk lingkungan dan dari lingkungan untuk manusia kembali."</p>
+        </div>
+    </section>
+
+    <!-- Brand Section (Logo-logo) -->
+    <section class="brand-section fade-up">
+        <div class="brand-logos">
+            <img src="https://i.postimg.cc/nLMW9VFP/LOGO-PU.png" alt="President University Logo">
+            <img src="https://i.postimg.cc/2jb3Cnns/Desain-tanpa-judul-20260807-131132-0000.png" alt="Brand Logo Tambahan">
         </div>
     </section>
 
@@ -430,36 +411,14 @@
                 </div>
             </div>
         </div>
-
-        <!-- Meet Our Team -->
-        <div id="team" class="fade-up">
-            <h2 class="section-title">Meet Our Team</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Edeline">
-                    <h4>Edeline Stefanie Baskoro</h4>
-                    <p>Chairperson</p>
-                </div>
-                <div class="team-member">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Team 2">
-                    <h4>Nama Anggota</h4>
-                    <p>Divisi Acara</p>
-                </div>
-                <div class="team-member">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Team 3">
-                    <h4>Nama Anggota</h4>
-                    <p>Humas</p>
-                </div>
-            </div>
-        </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
+    <!-- Footer / Contact (Bisa lo isi data kontak PUSERVE nantinya) -->
+    <footer id="contact">
         <p>&copy; 2026 PUSERVE - President University. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript buat Animasi Scroll ala Framer -->
+    <!-- JavaScript buat Animasi Scroll -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const observerOptions = {
