@@ -31,13 +31,12 @@
             top: 0;
             left: 0;
             z-index: 100;
-            background: rgba(10, 54, 34, 0.4);
+            background: rgba(10, 54, 34, 0.6);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Navbar Logos Container */
         .nav-logos {
             display: flex;
             align-items: center;
@@ -50,7 +49,6 @@
             object-fit: contain;
         }
 
-        /* Hamburger Menu */
         .menu-icon {
             display: flex;
             flex-direction: column;
@@ -66,11 +64,8 @@
             border-radius: 2px;
             transition: all 0.3s ease;
         }
-        .menu-icon span:last-child {
-            margin-bottom: 0;
-        }
+        .menu-icon span:last-child { margin-bottom: 0; }
 
-        /* Laptop Menu Links */
         .nav-links {
             display: none;
             list-style: none;
@@ -84,11 +79,8 @@
             font-weight: 500;
             transition: color 0.3s ease;
         }
-        .nav-links li a:hover {
-            color: white;
-        }
+        .nav-links li a:hover { color: white; }
 
-        /* Desktop View */
         @media screen and (min-width: 1024px) {
             nav {
                 width: 85%;
@@ -97,20 +89,10 @@
                 transform: translateX(-50%);
                 padding: 15px 40px;
                 border-radius: 50px;
-                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             }
-            .nav-logos {
-                gap: 25px;
-            }
-            .nav-logos img {
-                height: 45px;
-            }
-            .nav-links {
-                display: flex;
-            }
-            .menu-icon {
-                display: none;
-            }
+            .nav-logos img { height: 45px; }
+            .nav-links { display: flex; }
+            .menu-icon { display: none; }
         }
 
         /* Hero Section */
@@ -123,8 +105,8 @@
             justify-content: center;
             text-align: center;
             overflow: hidden;
-            border-bottom-left-radius: 60px;
-            border-bottom-right-radius: 60px;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
         }
         .hero video {
             position: absolute;
@@ -144,7 +126,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, rgba(10,54,34,0.4) 0%, rgba(10,54,34,0.85) 100%);
+            background: linear-gradient(180deg, rgba(10,54,34,0.5) 0%, rgba(10,54,34,0.9) 100%);
             z-index: -1;
         }
         .hero-content {
@@ -153,270 +135,324 @@
             max-width: 900px;
             padding: 30px;
             margin-top: 80px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
         }
-
-        /* Text Hierarchy */
         .hero-small-text {
             font-size: 0.9rem;
             font-weight: 500;
             letter-spacing: 1px;
-            opacity: 0.7;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .hero-small-text svg {
-            width: 16px;
-            height: 16px;
-            fill: #f5cf21;
-        }
-        
-        .hero-content h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -2px;
-        }
-        .hero-content h1 span.highlight {
             color: #f5cf21;
+            margin-bottom: 15px;
         }
-
-        .hero-content p.hero-description {
-            font-size: 1.1rem;
-            font-weight: 400;
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-top: 20px;
             opacity: 0.9;
-            margin-top: 15px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
-        @media screen and (min-width: 1024px) {
-            .hero { border-radius: 0; }
-            .hero-content h1 { font-size: 5rem; }
-            .hero-content p.hero-description { font-size: 1.3rem; }
-        }
-
-        /* Global Container */
-        .container {
+        /* Containers */
+        .section-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 100px 20px;
+            padding: 80px 20px;
         }
         .section-title {
             text-align: center;
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: #0a3622;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             font-weight: 800;
-            letter-spacing: -1px;
         }
 
-        /* About Section */
+        /* About Us */
         .about-text {
             text-align: center;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             line-height: 1.8;
             color: #4a4a4a;
             max-width: 800px;
-            margin: 0 auto 100px auto;
+            margin: 0 auto;
         }
 
-        /* Activities Section */
-        .activities-grid {
+        /* Grid System for Events */
+        .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
-        .activity-card {
-            position: relative;
-            border-radius: 30px;
+        .card {
+            border-radius: 20px;
             overflow: hidden;
-            height: 400px;
-            cursor: pointer;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            background-color: #0a3622;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background: white;
+            transition: transform 0.3s ease;
         }
-        .activity-card img {
+        .card:hover { transform: translateY(-5px); }
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .card-content { padding: 25px; }
+        .card-content h3 { color: #0a3622; margin-bottom: 10px; }
+        .card-content p { color: #666; font-size: 0.95rem; line-height: 1.5; }
+
+        /* News Section (Grid Style) */
+        .news-section {
+            background-color: #0a3622;
+            color: white;
+            padding: 80px 20px;
+        }
+        .news-section .section-title { color: white; }
+        .news-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media screen and (min-width: 900px) {
+            .news-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto auto;
+            }
+            .news-main { grid-row: span 2; }
+        }
+        .news-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .news-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            min-height: 200px;
+            display: block;
         }
-        .activity-card:hover img {
-            transform: scale(1.05);
-        }
-        .activity-info {
+        .news-main img { min-height: 420px; }
+        .news-overlay {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 30px;
-            background: linear-gradient(0deg, rgba(10,54,34,0.95) 0%, rgba(10,54,34,0.6) 100%);
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 20px;
         }
-        .activity-card:hover .activity-info {
-            opacity: 1;
-        }
-        .activity-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-        .activity-info p {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            opacity: 0.9;
-        }
+        .news-overlay h4 { font-size: 1.2rem; margin-bottom: 5px; }
+        .news-main .news-overlay h4 { font-size: 1.8rem; }
 
-        /* Scroll Animation */
+        /* Impact Stories */
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .quote-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 5px solid #f5cf21;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .quote-text { font-style: italic; color: #4a4a4a; margin-bottom: 15px; }
+        .quote-author { font-weight: 700; color: #0a3622; }
+
+        /* Contact / Join Us */
+        .join-section {
+            text-align: center;
+            background: #e9f2eb;
+            padding: 80px 20px;
+            border-radius: 40px;
+            margin: 40px auto;
+            max-width: 1200px;
+        }
+        .whatsapp-btn {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        .whatsapp-btn:hover { transform: scale(1.05); }
+
+        /* Animations */
         .fade-up {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-        /* Footer */
         footer {
-            background-color: #0a3622;
+            background: #0a3622;
             color: white;
             text-align: center;
-            padding: 40px 20px;
-            border-top-left-radius: 40px;
-            border-top-right-radius: 40px;
+            padding: 30px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation with 3 Logos -->
+    <!-- Navigation -->
     <nav>
         <div class="nav-logos">
-            <img src="https://i.postimg.cc/nLMW9VFP/LOGO-PU.png" alt="President University Logo">
-            <img src="https://i.postimg.cc/2jb3Cnns/LOGO-CEDRS.png" alt="CEDRS Logo">
-            <img src="https://i.postimg.cc/cHbwfJ6J/LOGO-PUSERVE.png" alt="PUSERVE Logo">
+            <img src="https://i.postimg.cc/nLMW9VFP/LOGO-PU.png" alt="President University">
+            <img src="https://i.postimg.cc/2jb3Cnns/LOGO-CEDRS.png" alt="CEDRS">
+            <img src="https://i.postimg.cc/cHbwfJ6J/LOGO-PUSERVE.png" alt="PUSERVE">
         </div>
         
         <div class="menu-icon">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
 
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
-            <li><a href="#activities">Activities</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="team.html">Our Team</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
         <div class="hero-overlay"></div>
-        <video autoplay loop muted playsinline>
-            <source src="https://dl.dropboxusercontent.com/scl/fi/85ms31fmjbjjvz5guhyt3/forest-bg.mp4?rlkey=c94ig0uo1tjrz029xqg07bv7a&st=frayq885&dl=0" type="video/mp4">
+        <video id="bg-video" autoplay loop muted playsinline>
+            <source src="forestbg.webm" type="video/webm">
         </video>
         <div class="hero-content fade-up">
-            <div class="hero-small-text">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12,8a4,4,0,1,0,4,4A4,4,0,0,0,12,8Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,12,14Zm-1-8V4a1,1,0,0,1,2,0V6a1,1,0,0,1-2,0Zm0,14V18a1,1,0,0,1,2,0v2a1,1,0,0,1-2,0ZM6,11H4a1,1,0,0,1,0-2H6a1,1,0,0,1,0,2Zm14,0H18a1,1,0,0,1,0-2h2a1,1,0,0,1,0,2Zm-2.83-6.17a1,1,0,0,1,1.41,1.41L16.41,7a1,1,0,1,1-1.41-1.41ZM7.76,15.24a1,1,0,0,1,1.41,1.41L7,18.83a1,1,0,0,1-1.41-1.41ZM18.83,16.41a1,1,0,0,1-1.41,1.41L16.41,17a1,1,0,1,1,1.41-1.41ZM7,5a1,1,0,0,1,1.41,1.41L5.59,7.83a1,1,0,0,1-1.41-1.41Z"/>
-                </svg>
-                <span>HELPED PRESIDENT UNIVERSITY PROTECT THE ENVIRONMENT</span>
-            </div>
-            <h1>We build solutions for environmental action, education, and <span class="highlight">care</span>.</h1>
-            <p class="hero-description">"From humanity for the environment, and from the environment back to humanity."</p>
+            <div class="hero-small-text">HELPING PROTECT OUR ENVIRONMENT</div>
+            <h1>We build solutions for environmental action and education.</h1>
+            <p>From humanity for the environment, and from the environment back to humanity.</p>
         </div>
     </section>
 
-    <div class="container">
-        <!-- What is PUSERVE? -->
-        <div id="about" class="fade-up">
-            <h2 class="section-title">What is PUSERVE?</h2>
-            <p class="about-text">
-                PUSERVE (President University Serve Environment) is a student organization dedicated to environmental action. pokoknya ini organisasi SSE (Suka Suka Edel)
-            </p>
-        </div>
+    <!-- About Us -->
+    <section id="about" class="section-container fade-up">
+        <h2 class="section-title">What is PUSERVE?</h2>
+        <p class="about-text">
+            PUSERVE (President University Serve Environment) is a student organization dedicated to real environmental action. We believe that small steps can create a massive impact for our planet and future generations.
+        </p>
+    </section>
 
-        <!-- Activities / Events -->
-        <div id="activities" class="fade-up">
-            <h2 class="section-title">Our Activities</h2>
-            <div class="activities-grid">
-                
-                <!-- Program 1: Future Eco Leaders (FEL) -->
-                <div class="activity-card">
-                    <img src="https://placehold.co/800x600/0a3622/f5cf21?text=Coming+Soon&font=Montserrat" alt="Coming Soon">
-                    <div class="activity-info">
-                        <h3>Future Eco Leaders</h3>
-                        <p>An official onboarding and leadership development program for new PUSERVE members. It includes interactive training, organizational culture orientation, and an official inauguration.</p>
-                    </div>
+    <!-- Upcoming Events -->
+    <section class="section-container fade-up">
+        <h2 class="section-title">Upcoming Events</h2>
+        <div class="grid-3">
+            <div class="card">
+                <img src="https://i.postimg.cc/vHdmpXts/COMING-SOON-2.png" alt="Future Eco Leaders">
+                <div class="card-content">
+                    <h3>Future Eco Leaders</h3>
+                    <p>An official onboarding and leadership development program for new PUSERVE members.</p>
                 </div>
-
-                <!-- Program 2: GRECON 2026 -->
-                <div class="activity-card">
-                    <img src="https://placehold.co/800x600/0a3622/f5cf21?text=Coming+Soon&font=Montserrat" alt="Coming Soon">
-                    <div class="activity-info">
-                        <h3>GRECON 2026</h3>
-                        <p>A regional youth convention bringing together student delegates, NGOs, and the Ministry of Environment for concrete environmental action. We collect plastic waste to donate the proceeds to charity organizations.</p>
-                    </div>
+            </div>
+            <div class="card">
+                <img src="https://i.postimg.cc/vHdmpXts/COMING-SOON-2.png" alt="GRECON 2026">
+                <div class="card-content">
+                    <h3>GRECON 2026</h3>
+                    <p>A regional youth convention focused on concrete environmental action and waste management.</p>
                 </div>
-                
-                <!-- Program 3: PUSERVE IGNITE -->
-                <div class="activity-card">
-                    <img src="https://placehold.co/800x600/0a3622/f5cf21?text=Coming+Soon&font=Montserrat" alt="Coming Soon">
-                    <div class="activity-info">
-                        <h3>PUSERVE IGNITE</h3>
-                        <p>An environmental program held to celebrate World Environment Day. It provides a platform for students to create innovative solutions through competitions, educational activities, and sustainability campaigns.</p>
-                    </div>
+            </div>
+            <div class="card">
+                <img src="https://i.postimg.cc/vHdmpXts/COMING-SOON-2.png" alt="PUSERVE Ignite">
+                <div class="card-content">
+                    <h3>PUSERVE IGNITE</h3>
+                    <p>An environmental program providing a platform for students to create innovative solutions.</p>
                 </div>
-
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer -->
-    <footer id="contact">
+    <!-- News (Grid Layout) -->
+    <section id="news" class="news-section fade-up">
+        <h2 class="section-title">Latest News</h2>
+        <div class="news-grid">
+            <!-- Main News Item -->
+            <div class="news-item news-main">
+                <img src="https://i.postimg.cc/vHdmpXts/COMING-SOON-2.png" alt="News">
+                <div class="news-overlay">
+                    <h4>Major Environmental Initiative Launched by PUSERVE</h4>
+                    <p>Read full story</p>
+                </div>
+            </div>
+            <!-- Smaller News Items -->
+            <div class="news-item">
+                <img src="https://i.postimg.cc/vHdmpXts/COMING-SOON-2.png" alt="News">
+                <div class="news-overlay"><h4>Campus Clean Up Success</h4></div>
+            </div>
+            <div class="news-item">
+                <img src="https://i.postimg.cc/vHdmpXts/COMING-SOON-2.png" alt="News">
+                <div class="news-overlay"><h4>New Partnership Announced</h4></div>
+            </div>
+            <div class="news-item">
+                <img src="https://i.postimg.cc/vHdmpXts/COMING-SOON-2.png" alt="News">
+                <div class="news-overlay"><h4>Student Innovations 2026</h4></div>
+            </div>
+            <div class="news-item">
+                <img src="https://i.postimg.cc/vHdmpXts/COMING-SOON-2.png" alt="News">
+                <div class="news-overlay"><h4>Upcoming Workshops</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Stories -->
+    <section class="section-container fade-up">
+        <h2 class="section-title">Impact Stories</h2>
+        <div class="impact-grid">
+            <div class="quote-card">
+                <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
+                <p class="quote-author">Student Volunteer</p>
+            </div>
+            <div class="quote-card">
+                <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
+                <p class="quote-author">NGO Partner</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Us / Contact -->
+    <section id="contact" class="join-section fade-up">
+        <h2 class="section-title">Let's Collaborate</h2>
+        <p class="about-text">Want to partner with us or join our upcoming initiatives? We are always looking for passionate individuals and organizations to work together for a better environment.</p>
+        <!-- Ganti 628123456789 dengan nomor WA lo -->
+        <a href="https://wa.me/628123456789" class="whatsapp-btn" target="_blank">Chat us on WhatsApp</a>
+    </section>
+
+    <footer>
         <p>&copy; 2026 PUSERVE. President University. All rights reserved.</p>
     </footer>
 
-    <!-- Scroll Animation -->
+    <!-- Scripts -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15 
-            };
+        // Force Video Loop fallback
+        const video = document.getElementById('bg-video');
+        video.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
 
-            const observer = new IntersectionObserver((entries, observer) => {
+        // Scroll Animation
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
+            }, { threshold: 0.1 });
 
-            const fadeUpElements = document.querySelectorAll('.fade-up');
-            fadeUpElements.forEach(el => {
-                observer.observe(el);
-            });
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
         });
     </script>
-
 </body>
 </html>
