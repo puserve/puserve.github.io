@@ -81,6 +81,43 @@
         }
         .nav-links li a:hover { color: white; }
 
+        /* Dropdown Menu Style */
+        .dropdown {
+            position: relative;
+            padding: 10px 0; /* Memberi area hover yang lebih luas */
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: rgba(10, 54, 34, 0.85);
+            min-width: 160px;
+            border-radius: 15px;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 0;
+            margin-top: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dropdown-content a {
+            display: block;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-size: 0.95rem;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .dropdown-content a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
         @media screen and (min-width: 1024px) {
             nav {
                 width: 85%;
@@ -271,9 +308,9 @@
             margin: 40px auto;
             max-width: 1200px;
         }
-        .whatsapp-btn {
+        .contact-btn {
             display: inline-block;
-            background-color: #25D366;
+            background-color: #0a3622;
             color: white;
             padding: 15px 40px;
             border-radius: 30px;
@@ -283,7 +320,7 @@
             margin-top: 20px;
             transition: transform 0.2s;
         }
-        .whatsapp-btn:hover { transform: scale(1.05); }
+        .contact-btn:hover { transform: scale(1.05); }
 
         /* Animations */
         .fade-up {
@@ -317,9 +354,17 @@
 
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
-            <li><a href="events.html">Events</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="team.html">Our Team</a></li>
+            
+            <!-- Dropdown Menu Explore -->
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Explore ▾</a>
+                <div class="dropdown-content">
+                    <a href="events.html">Events</a>
+                    <a href="news.html">News</a>
+                    <a href="team.html">Our Team</a>
+                </div>
+            </li>
+            
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -424,8 +469,7 @@
     <section id="contact" class="join-section fade-up">
         <h2 class="section-title">Let's Collaborate</h2>
         <p class="about-text">Want to partner with us or join our upcoming initiatives? We are always looking for passionate individuals and organizations to work together for a better environment.</p>
-        <!-- Ganti 628123456789 dengan nomor WA lo -->
-        <a href="https://wa.me/628123456789" class="whatsapp-btn" target="_blank">Chat us on WhatsApp</a>
+        <a href="mailto:preserve.presuniv@gmail.com" class="contact-btn">Email Us</a>
     </section>
 
     <footer>
