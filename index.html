@@ -203,6 +203,25 @@
         .fade-up.visible { opacity: 1; transform: translateY(0); }
 
         footer { background: #0a3622; color: white; text-align: center; padding: 30px; }
+        
+        /* Screenshot Watermark Protection */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            max-width: 800px;
+            height: 100vh;
+            background-image: url('LOGO_PUSERVE.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.03; /* Sangat samar, ubah ke 0.05 kalau kurang kelihatan */
+            z-index: 9999; /* Posisi paling depan menutupi konten */
+            pointer-events: none; /* Biar web tetap bisa diklik & di-scroll */
+        }
     </style>
 </head>
 <body>
