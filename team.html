@@ -3,50 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUSERVE | Coming Soon</title>
+    <title>Our Team | PUSERVE</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: #f4f9f5; color: #1a1a1a; display: flex; flex-direction: column; min-height: 100vh; }
+        body { background-color: #f4f9f5; color: #1a1a1a; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         
-        /* Navbar Solid Green */
-        nav { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; background: #0a3622; border-bottom: 2px solid #f5cf21; }
+        /* Navbar */
+        nav { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; background: #0a3622; border-bottom: 2px solid #f5cf21; position: relative; z-index: 100; }
         .nav-logos { display: flex; align-items: center; gap: 15px; }
         .nav-logos img { height: 35px; width: auto; object-fit: contain; }
-        .nav-links { list-style: none; display: flex; gap: 25px; align-items: center; }
+        
+        .menu-icon { display: flex; flex-direction: column; cursor: pointer; width: 25px; z-index: 101; }
+        .menu-icon span { background: white; height: 2px; width: 100%; margin-bottom: 5px; border-radius: 2px; transition: all 0.3s ease; }
+        .menu-icon span:last-child { margin-bottom: 0; }
+
+        .nav-links { display: none; list-style: none; gap: 25px; align-items: center; }
+        .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 75px; right: 25px; background: rgba(10, 54, 34, 0.95); padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); align-items: flex-start; z-index: 100; }
         .nav-links li a { text-decoration: none; color: rgba(255, 255, 255, 0.9); font-size: 1rem; font-weight: 500; transition: color 0.3s ease; }
         .nav-links li a:hover { color: white; }
         
-        /* Dropdown */
-        .dropdown { position: relative; padding: 10px 0; }
-        .dropdown-content { display: none; position: absolute; background: rgba(10, 54, 34, 0.98); min-width: 160px; border-radius: 15px; top: 100%; left: 50%; transform: translateX(-50%); padding: 10px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(255, 255, 255, 0.1); z-index: 100; }
+        .dropdown { position: relative; padding: 10px 0; width: 100%; }
+        .dropdown-content { display: none; position: absolute; background: rgba(10, 54, 34, 0.85); min-width: 160px; border-radius: 15px; top: 100%; left: 0; padding: 10px 0; z-index: 102; }
+        @media screen and (max-width: 1023px) { .dropdown-content { position: static; background: transparent; box-shadow: none; padding-left: 15px; margin-top: 10px; } .dropdown-content a { text-align: left; padding: 8px 10px; } }
         .dropdown-content a { display: block; padding: 12px 20px; color: rgba(255, 255, 255, 0.9); text-align: center; font-size: 0.95rem; }
-        .dropdown-content a:hover { color: white; background: rgba(255, 255, 255, 0.1); }
+        .dropdown-content a:hover { background: rgba(255, 255, 255, 0.1); }
         .dropdown:hover .dropdown-content { display: block; }
         
-        @media screen and (min-width: 1024px) {
-            nav { padding: 15px 40px; }
-            .nav-logos img { height: 45px; }
+        @media screen and (min-width: 1024px) { nav { padding: 15px 40px; } .nav-logos img { height: 45px; } .nav-links { display: flex; flex-direction: row; position: static; background: transparent; padding: 0; align-items: center; } .dropdown-content { left: 50%; transform: translateX(-50%); } .dropdown-content a { text-align: center; } .menu-icon { display: none; } }
+
+        /* HEADER SECTION */
+        .team-header {
+            text-align: center;
+            padding: 60px 20px 20px;
+        }
+        .team-header h1 {
+            font-size: 3rem;
+            color: #0a3622;
+            font-weight: 800;
         }
 
-        /* Content Area */
-        .content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; }
-        .content img { max-width: 100%; height: auto; max-height: 400px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 30px; }
-        .content h1 { font-size: 2.5rem; color: #0a3622; margin-bottom: 15px; font-weight: 800; }
-        .content p { font-size: 1.1rem; color: #666; max-width: 600px; line-height: 1.6; }
+        /* ADVISOR & BOD SECTION */
+        .exec-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .advisor-card {
+            margin: 0 auto 50px;
+            max-width: 250px;
+        }
+        .advisor-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+
+        .bod-group-photo {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .bod-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .exec-card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+        .exec-name { font-size: 1.2rem; font-weight: 700; color: #0a3622; }
+        .exec-title { font-size: 0.95rem; color: #666; font-weight: 500; }
+
+        /* DIVISIONS SECTION */
+        .divisions-container {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+        
+        .div-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .div-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .div-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .div-card-header {
+            padding: 20px;
+            text-align: center;
+        }
+        .div-card-header h3 {
+            color: #0a3622;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Accordion Button */
+        .accordion-btn {
+            background: #0a3622;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .accordion-btn:hover { background: #072517; }
+
+        /* Accordion Content (Hidden by default) */
+        .accordion-content {
+            display: none;
+            padding: 20px;
+            background: #f4f9f5;
+            border-top: 1px solid #eee;
+            text-align: left;
+        }
+        
+        .role-group { margin-bottom: 15px; }
+        .role-title { font-size: 0.85rem; color: #666; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; }
+        .role-name { font-size: 1rem; color: #1a1a1a; font-weight: 600; }
+
+        /* Chips Design for Members */
+        .chip-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 5px; }
+        .chip {
+            background: #0a3622;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        /* Anonymous Empty Slot Styling */
+        .chip.anon, .role-name.anon {
+            background: rgba(10, 54, 34, 0.1);
+            color: #666;
+            font-style: italic;
+        }
+        .role-name.anon { background: none; }
 
         footer { background: #0a3622; color: white; text-align: center; padding: 30px; margin-top: auto; }
     </style>
 </head>
 <body>
 
+    <!-- Navigation -->
     <nav>
         <div class="nav-logos">
             <a href="index.html"><img src="LOGO_PU.png" alt="President University"></a>
             <a href="index.html"><img src="LOGO_CEDRS.png" alt="CEDRS"></a>
             <a href="index.html"><img src="LOGO_PUSERVE.png" alt="PUSERVE"></a>
         </div>
+        <div class="menu-icon"><span></span><span></span><span></span></div>
         <ul class="nav-links">
             <li><a href="index.html">Back to Home</a></li>
             <li class="dropdown">
@@ -60,15 +196,314 @@
         </ul>
     </nav>
 
-    <div class="content">
-        <img src="coming_soon.png" alt="Coming Soon">
-        <h1>Meet Our Team - Coming Soon</h1>
-        <p>We are preparing something amazing for you. Stay tuned for updates and the latest information about our environmental actions!</p>
+    <div class="team-header">
+        <h1>MEET OUR TEAM</h1>
     </div>
 
-    <footer>
-        <p>&copy; 2026 PUSERVE. President University. All rights reserved.</p>
-    </footer>
+    <!-- ADVISOR & BOD -->
+    <section class="exec-section">
+        <!-- Advisor -->
+        <div class="advisor-card">
+            <img src="yunita.jpeg" alt="Dr. Ir. Yunita Ismail, M.Si.">
+            <div class="exec-name">Dr. Ir. Yunita Ismail, M.Si.</div>
+            <div class="exec-title">ADVISOR</div>
+        </div>
 
+        <!-- BOD Group Photo -->
+        <img src="boe.jpeg" alt="Board of Directors" class="bod-group-photo">
+
+        <!-- BOD Individuals -->
+        <div class="bod-grid">
+            <div class="exec-card">
+                <img src="stei.jpeg" alt="Steiryn Cersey Kately Sumajow">
+                <div class="exec-name">Steiryn Cersey Kately Sumajow</div>
+                <div class="exec-title">Vice Chairperson I</div>
+            </div>
+            <div class="exec-card">
+                <img src="edel.jpeg" alt="Edeline Stefanie Baskoro">
+                <div class="exec-name">Edeline Stefanie Baskoro</div>
+                <div class="exec-title">Chairperson</div>
+            </div>
+            <div class="exec-card">
+                <img src="noel.jpeg" alt="Noel Jacob Ottley">
+                <div class="exec-name">Noel Jacob Ottley, C.MC.</div>
+                <div class="exec-title">Vice Chairperson II</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVISIONS SECTION -->
+    <section class="divisions-container">
+        <div class="div-grid">
+
+            <!-- SECRETARY -->
+            <div class="div-card">
+                <img src="secretary.jpeg" alt="Secretary Division">
+                <div class="div-card-header">
+                    <h3>Secretary</h3>
+                    <button class="accordion-btn" onclick="toggleTeam('sec')">View Team ▾</button>
+                </div>
+                <div id="sec" class="accordion-content">
+                    <div class="role-group">
+                        <div class="role-title">Head of Division</div>
+                        <div class="role-name">Nada Citra Indah</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Vice Head of Division</div>
+                        <div class="role-name anon">Anonymous</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Members</div>
+                        <div class="chip-container">
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TREASURER -->
+            <div class="div-card">
+                <img src="treasurer.jpeg" alt="Treasurer Division">
+                <div class="div-card-header">
+                    <h3>Treasurer</h3>
+                    <button class="accordion-btn" onclick="toggleTeam('tre')">View Team ▾</button>
+                </div>
+                <div id="tre" class="accordion-content">
+                    <div class="role-group">
+                        <div class="role-title">Head of Division</div>
+                        <div class="role-name">Sinta Khoridatul Bahiyah</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Vice Head of Division</div>
+                        <div class="role-name">Kanzha</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Members</div>
+                        <div class="chip-container">
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HUMAN RESOURCES -->
+            <div class="div-card">
+                <img src="hr.jpeg" alt="Human Resources Division">
+                <div class="div-card-header">
+                    <h3>Human Resources</h3>
+                    <button class="accordion-btn" onclick="toggleTeam('hr')">View Team ▾</button>
+                </div>
+                <div id="hr" class="accordion-content">
+                    <div class="role-group">
+                        <div class="role-title">Head of Division</div>
+                        <div class="role-name">Jensen Joseph Wenur</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Vice Head of Division</div>
+                        <div class="role-name anon">Anonymous</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Members</div>
+                        <div class="chip-container">
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GENERAL RESOURCES -->
+            <div class="div-card">
+                <img src="gr.jpeg" alt="General Resources Division">
+                <div class="div-card-header">
+                    <h3>General Resources</h3>
+                    <button class="accordion-btn" onclick="toggleTeam('gr')">View Team ▾</button>
+                </div>
+                <div id="gr" class="accordion-content">
+                    <div class="role-group">
+                        <div class="role-title">Head of Division</div>
+                        <div class="role-name">Hafiz Izzandi Pratama</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Vice Head of Division</div>
+                        <div class="role-name">I Gusti Gede Wastu Widyatama</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Members</div>
+                        <div class="chip-container">
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROI -->
+            <div class="div-card">
+                <img src="roi.jpeg" alt="ROI Division">
+                <div class="div-card-header">
+                    <h3>ROI</h3>
+                    <button class="accordion-btn" onclick="toggleTeam('roi')">View Team ▾</button>
+                </div>
+                <div id="roi" class="accordion-content">
+                    <div class="role-group">
+                        <div class="role-title">Head of Division</div>
+                        <div class="role-name">Muh. Ahsan Ilham Safatullah Zulni</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Vice Head of Division</div>
+                        <div class="role-name anon">Anonymous</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Members</div>
+                        <div class="chip-container">
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INTERNAL -->
+            <div class="div-card">
+                <img src="intpr.jpeg" alt="Internal Division">
+                <div class="div-card-header">
+                    <h3>Internal</h3>
+                    <button class="accordion-btn" onclick="toggleTeam('int')">View Team ▾</button>
+                </div>
+                <div id="int" class="accordion-content">
+                    <div class="role-group">
+                        <div class="role-title">Head of Division</div>
+                        <div class="role-name">Whitney Mutiara Matindas</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Vice Head of Division</div>
+                        <div class="role-name">Nayla Aida Harin Savitri</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Members</div>
+                        <div class="chip-container">
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXTERNAL -->
+            <div class="div-card">
+                <img src="extpr.jpeg" alt="External Division">
+                <div class="div-card-header">
+                    <h3>External</h3>
+                    <button class="accordion-btn" onclick="toggleTeam('ext')">View Team ▾</button>
+                </div>
+                <div id="ext" class="accordion-content">
+                    <div class="role-group">
+                        <div class="role-title">Head of Division</div>
+                        <div class="role-name anon">Anonymous</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Vice Head of Division</div>
+                        <div class="role-name anon">Anonymous</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Members</div>
+                        <div class="chip-container">
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MULTIMEDIA -->
+            <div class="div-card">
+                <img src="mtdd.jpeg" alt="Multimedia Division">
+                <div class="div-card-header">
+                    <h3>Multimedia</h3>
+                    <button class="accordion-btn" onclick="toggleTeam('mul')">View Team ▾</button>
+                </div>
+                <div id="mul" class="accordion-content">
+                    <div class="role-group">
+                        <div class="role-title">Head of Division</div>
+                        <div class="role-name">Donna Amelia Michael</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Vice Head of Division</div>
+                        <div class="role-name anon">Anonymous</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Members</div>
+                        <div class="chip-container">
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DOCUMENTATION -->
+            <div class="div-card">
+                <img src="docum.jpeg" alt="Documentation Division">
+                <div class="div-card-header">
+                    <h3>Documentation</h3>
+                    <button class="accordion-btn" onclick="toggleTeam('doc')">View Team ▾</button>
+                </div>
+                <div id="doc" class="accordion-content">
+                    <div class="role-group">
+                        <div class="role-title">Head of Division</div>
+                        <div class="role-name anon">Anonymous</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Vice Head of Division</div>
+                        <div class="role-name">Jeremia Sinarta Girsang</div>
+                    </div>
+                    <div class="role-group">
+                        <div class="role-title">Members</div>
+                        <div class="chip-container">
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                            <span class="chip anon">Anonymous</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer><p>&copy; 2026 PUSERVE. President University. All rights reserved.</p></footer>
+
+    <!-- Scripts -->
+    <script>
+        // Hamburger Menu Toggle
+        const menuIcon = document.querySelector('.menu-icon');
+        const navLinks = document.querySelector('.nav-links');
+        menuIcon.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Accordion Logic for Team Divisions
+        function toggleTeam(id) {
+            const content = document.getElementById(id);
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>
