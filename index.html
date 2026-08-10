@@ -131,6 +131,11 @@
         .section-title { text-align: center; font-size: 2.5rem; color: #0a3622; margin-bottom: 40px; font-weight: 800; }
         .about-text { text-align: center; font-size: 1.2rem; line-height: 1.8; color: #4a4a4a; max-width: 800px; margin: 0 auto; }
 
+        /* Bantalan pelindung biar judul nggak nabrak navbar */
+        section[id] {
+            scroll-margin-top: 120px; 
+        }
+
         /* WHAT WE SERVE */
         .serve-marquee { background-color: #0a3622; color: #f5cf21; padding: 12px 0; overflow: hidden; white-space: nowrap; position: relative; display: flex; }
         .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite; font-weight: 800; font-size: 1rem; letter-spacing: 2px; }
