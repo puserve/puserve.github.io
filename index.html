@@ -75,8 +75,27 @@
         .warning-header { color: #ff3333; font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; letter-spacing: 2px; animation: blinkWarning 1s infinite; }
         .easter-egg-content img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px dashed #f5cf21; }
         .prank-text { color: #f5cf21; font-weight: 700; font-size: 1.1rem; line-height: 1.6; }
-        .close-egg { position: absolute; top: -15px; right: -15px; font-size: 1.5rem; background: #ff3333; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 3px solid #1a1a1a; transition: 0.2s; }
-        .close-egg:hover { transform: scale(1.1); }
+      .close-egg { 
+            position: absolute; 
+            top: -20px; 
+            right: -20px; 
+            font-size: 2.2rem; 
+            background: #ff3333; 
+            color: white; 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            cursor: pointer; 
+            border: 3px solid #f4f9f5; /* Garis tepi putih bersih biar nggak kotor */
+            transition: 0.2s; 
+            padding-bottom: 5px; /* Trik biar simbol X bener-bener rata tengah */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+        .close-egg:hover { transform: scale(1.15); background: white; color: #ff3333; border-color: #ff3333; }
         
         @keyframes blinkWarning { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         @keyframes glitch { 0%, 100% { transform: scale(1) translate(0); } 25% { transform: scale(1.02) translate(5px, 5px); } 50% { transform: scale(0.98) translate(-5px, -5px); } 75% { transform: scale(1.05) translate(5px, -5px); } }
