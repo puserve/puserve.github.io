@@ -8,11 +8,18 @@
     <meta name="keywords" content="PUSERVE, President University, Environment, Student Organization, Cikarang, Sustainability, Mahasiswa Peduli Lingkungan">
     
     <style>
-        /* Base Settings */
+        /* Base Settings & Micro-interactions */
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap');
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Smooth Scroll Feature */
+        html { scroll-behavior: smooth; }
         body { background-color: #f4f9f5; color: #1a1a1a; overflow-x: hidden; }
+
+        /* Custom Text Highlight Feature */
+        ::selection { background-color: #0a3622; color: #f5cf21; }
+        ::-moz-selection { background-color: #0a3622; color: #f5cf21; }
 
         /* -------------------------------------
            1. SPLASH SCREEN (LIQUID GOLD REVEAL)
@@ -21,9 +28,7 @@
         #preloader.hide-preloader { transform: translateY(-100%); opacity: 0; pointer-events: none; }
         
         .logo-loader-container { position: relative; width: 180px; height: 180px; display: flex; justify-content: center; align-items: center; }
-        
         .logo-dimmed { position: absolute; width: 100%; height: 100%; object-fit: contain; opacity: 0.1; filter: grayscale(100%); }
-        
         .logo-filled { 
             position: absolute; width: 100%; height: 100%; object-fit: contain; 
             clip-path: inset(100% 0 0 0); 
@@ -59,10 +64,30 @@
         .close-lightbox { position: absolute; top: 20px; right: 30px; color: white; font-size: 3rem; cursor: pointer; z-index: 2; transition: color 0.3s; }
         .close-lightbox:hover { color: #f5cf21; }
 
+        /* -------------------------------------
+           5. SECRET EASTER EGG MODAL
+        ---------------------------------------- */
+        #easter-egg-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(10, 54, 34, 0.95); z-index: 99999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s ease; backdrop-filter: blur(15px); }
+        #easter-egg-modal.show { opacity: 1; pointer-events: auto; }
+        .easter-egg-content { background: #1a1a1a; border: 3px solid #ff3333; padding: 30px; border-radius: 20px; text-align: center; color: white; max-width: 450px; transform: scale(0.8); transition: 0.3s; position: relative; box-shadow: 0 0 50px rgba(255, 51, 51, 0.3); }
+        #easter-egg-modal.show .easter-egg-content { transform: scale(1); animation: glitch 0.3s ease-in-out; }
+        
+        .warning-header { color: #ff3333; font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; letter-spacing: 2px; animation: blinkWarning 1s infinite; }
+        .easter-egg-content img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px dashed #f5cf21; }
+        .prank-text { color: #f5cf21; font-weight: 700; font-size: 1.1rem; line-height: 1.6; }
+        .close-egg { position: absolute; top: -15px; right: -15px; font-size: 1.5rem; background: #ff3333; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 3px solid #1a1a1a; transition: 0.2s; }
+        .close-egg:hover { transform: scale(1.1); }
+        
+        @keyframes blinkWarning { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes glitch { 0%, 100% { transform: scale(1) translate(0); } 25% { transform: scale(1.02) translate(5px, 5px); } 50% { transform: scale(0.98) translate(-5px, -5px); } 75% { transform: scale(1.05) translate(5px, -5px); } }
+
         /* Navigation */
         nav { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; background: rgba(10, 54, 34, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .nav-logos { display: flex; align-items: center; gap: 15px; }
         .nav-logos img { height: 35px; width: auto; object-fit: contain; }
+        #secret-trigger-logo { cursor: pointer; transition: transform 0.2s; }
+        #secret-trigger-logo:active { transform: scale(0.9); }
+        
         .menu-icon { display: flex; flex-direction: column; cursor: pointer; width: 25px; z-index: 101; }
         .menu-icon span { background: white; height: 2px; width: 100%; margin-bottom: 5px; border-radius: 2px; transition: all 0.3s ease; }
         .menu-icon span:last-child { margin-bottom: 0; }
@@ -89,7 +114,12 @@
         .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); z-index: -2; object-fit: cover; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(10,54,34,0.5) 0%, rgba(10,54,34,0.9) 100%); z-index: -1; }
         .hero-content { z-index: 1; color: white; max-width: 900px; padding: 30px; margin-top: 80px; }
-        .hero-small-text { font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; color: #f5cf21; margin-bottom: 15px; }
+        
+        /* Typewriter Text Style */
+        .hero-small-text { font-size: 0.95rem; font-weight: 700; letter-spacing: 2px; color: #f5cf21; margin-bottom: 15px; min-height: 20px; display: inline-block; border-right: 2px solid transparent; }
+        .hero-small-text.typing { border-right: 2px solid #f5cf21; animation: blinkCaret 0.75s step-end infinite; }
+        @keyframes blinkCaret { from, to { border-color: transparent } 50% { border-color: #f5cf21; } }
+
         .hero-content h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.2; letter-spacing: -1px; margin-bottom: 25px; }
         .hero-content p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; }
         
@@ -180,12 +210,23 @@
         </div>
     </div>
 
+    <!-- 4. SECRET EASTER EGG MODAL -->
+    <div id="easter-egg-modal">
+        <div class="easter-egg-content">
+            <span class="close-egg" onclick="closeEgg()">&times;</span>
+            <div class="warning-header">⚠️ CLASSIFIED PUSERVE ARCHIVE ⚠️</div>
+            <img src="easter_egg.jpeg" alt="Top Secret Easter Egg">
+            <p class="prank-text">"You found the secret! Don't forget to throw your trash in the right bin! ♻️"</p>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav>
         <div class="nav-logos">
-            <img src="LOGO_PU.png" alt="President University">
-            <img src="LOGO_CEDRS.png" alt="CEDRS">
-            <img src="LOGO_PUSERVE.png" alt="PUSERVE">
+            <a href="#about"><img src="LOGO_PU.png" alt="President University"></a>
+            <a href="#about"><img src="LOGO_CEDRS.png" alt="CEDRS"></a>
+            <!-- Logo PUSERVE yang dikasih ID khusus buat Trigger Prank -->
+            <img src="LOGO_PUSERVE.png" alt="PUSERVE" id="secret-trigger-logo" title="PUSERVE">
         </div>
         <div class="menu-icon"><span></span><span></span><span></span></div>
         <ul class="nav-links">
@@ -209,7 +250,9 @@
             <source src="forestbg.webm" type="video/webm">
         </video>
         <div class="hero-content fade-up">
-            <div class="hero-small-text">HELPING PROTECT OUR ENVIRONMENT</div>
+            <!-- Teks ini dibiarkan kosong, nanti diisi otomatis pakai Typewriter JS -->
+            <div class="hero-small-text" id="typewriter-text"></div>
+            
             <h1>We build solutions for environmental action and education.</h1>
             <p>From humanity for the environment, and from the environment back to humanity.</p>
             <button class="play-btn" onclick="openLightbox()">▶ Watch Our Journey</button>
@@ -432,15 +475,61 @@
 
     <!-- Scripts -->
     <script>
-        // --- 1. SPLASH SCREEN SCRIPT ---
+        // --- 1. SPLASH SCREEN & TYPEWRITER SCRIPT ---
         window.addEventListener('load', function() {
             setTimeout(function() {
+                // Hilangin preloader setelah 3 detik
                 const preloader = document.getElementById('preloader');
                 preloader.classList.add('hide-preloader');
-            }, 3000); // 3 detik pas buat ngisi emasnya
+                
+                // Jalankan efek Typewriter 1x aja setelah layar kebelah
+                setTimeout(startTypewriter, 500); 
+            }, 3000); 
         });
 
-        // --- 2. SCROLL PROGRESS TREE SCRIPT ---
+        function startTypewriter() {
+            const text = "HELPING PROTECT OUR ENVIRONMENT";
+            const speed = 70; // Kecepatan ngetik per huruf
+            let i = 0;
+            const element = document.getElementById("typewriter-text");
+            element.classList.add('typing'); // Munculin kursor ketik
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    // Berhenti kalau udah beres, hilangin efek kursor kelap-kelip
+                    setTimeout(() => { element.classList.remove('typing'); }, 2000); 
+                }
+            }
+            type();
+        }
+
+        // --- 2. EASTER EGG (PRANK) SCRIPT ---
+        let logoClicks = 0;
+        let logoTimer;
+        const secretLogo = document.getElementById('secret-trigger-logo');
+        
+        secretLogo.addEventListener('click', () => {
+            logoClicks++;
+            clearTimeout(logoTimer);
+            
+            // Kalau nggak diklik lagi dalam 1.5 detik, counternya keriset
+            logoTimer = setTimeout(() => { logoClicks = 0; }, 1500); 
+            
+            if (logoClicks >= 5) {
+                document.getElementById('easter-egg-modal').classList.add('show');
+                logoClicks = 0; // Reset biar bisa diprank lagi
+            }
+        });
+
+        function closeEgg() {
+            document.getElementById('easter-egg-modal').classList.remove('show');
+        }
+
+        // --- 3. SCROLL PROGRESS TREE SCRIPT ---
         window.addEventListener('scroll', function() {
             const scrollTrunk = document.getElementById('scroll-tree-trunk');
             const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -449,7 +538,7 @@
             scrollTrunk.style.height = scrollPercent + '%';
         });
 
-        // --- 3. DYNAMIC LEAVES CURSOR SCRIPT ---
+        // --- 4. DYNAMIC LEAVES CURSOR SCRIPT ---
         document.addEventListener('mousemove', function(e) {
             if(Math.random() > 0.90) {
                 const leaf = document.createElement('div');
@@ -461,7 +550,7 @@
             }
         });
 
-        // --- 4. CINEMATIC VIDEO LIGHTBOX SCRIPT ---
+        // --- 5. CINEMATIC VIDEO LIGHTBOX SCRIPT ---
         const lightbox = document.getElementById('video-lightbox');
         const lightboxVid = document.getElementById('lightbox-vid');
         
@@ -475,16 +564,16 @@
             lightboxVid.currentTime = 0; 
         }
 
-        // --- 5. VIDEO LOOP SCRIPT ---
+        // --- 6. VIDEO LOOP SCRIPT ---
         const video = document.getElementById('bg-video');
         video.addEventListener('ended', function() { this.currentTime = 0; this.play(); }, false);
 
-        // --- 6. MOBILE MENU SCRIPT ---
+        // --- 7. MOBILE MENU SCRIPT ---
         const menuIcon = document.querySelector('.menu-icon');
         const navLinks = document.querySelector('.nav-links');
         menuIcon.addEventListener('click', () => { navLinks.classList.toggle('active'); });
 
-        // --- 7. SCROLL ANIMATION SCRIPT ---
+        // --- 8. SCROLL ANIMATION SCRIPT ---
         document.addEventListener("DOMContentLoaded", function() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
@@ -492,7 +581,7 @@
             document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
         });
 
-        // --- 8. 3D TILT EFFECT SCRIPT ---
+        // --- 9. 3D TILT EFFECT SCRIPT ---
         const tiltCards = document.querySelectorAll('.tilt-card');
         tiltCards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
