@@ -11,96 +11,62 @@
         /* Base Settings */
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap');
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #f4f9f5; color: #1a1a1a; overflow-x: hidden; }
+
+        /* -------------------------------------
+           1. SPLASH SCREEN (PRELOADER)
+        ---------------------------------------- */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background-color: #0a3622;
+            z-index: 999999; /* Paling depan menutupi segalanya */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
         }
-        body {
-            background-color: #f4f9f5;
-            color: #1a1a1a;
-            overflow-x: hidden;
+        #preloader.hide-preloader {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .pulse-logo {
+            width: 180px;
+            animation: pulse 1.2s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(245, 207, 33, 0.2)); }
+            100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 25px rgba(245, 207, 33, 0.6)); }
         }
         
         /* Responsive Navigation */
-        nav {
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 100;
-            background: rgba(10, 54, 34, 0.6);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+        nav { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; background: rgba(10, 54, 34, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .nav-logos { display: flex; align-items: center; gap: 15px; }
         .nav-logos img { height: 35px; width: auto; object-fit: contain; }
-
         .menu-icon { display: flex; flex-direction: column; cursor: pointer; width: 25px; z-index: 101; }
         .menu-icon span { background: white; height: 2px; width: 100%; margin-bottom: 5px; border-radius: 2px; transition: all 0.3s ease; }
         .menu-icon span:last-child { margin-bottom: 0; }
 
         /* Mobile Menu */
         .nav-links { display: none; list-style: none; gap: 25px; align-items: center; }
-        .nav-links.active {
-            display: flex; flex-direction: column; position: absolute; top: 75px; right: 25px;
-            background: rgba(10, 54, 34, 0.95); padding: 20px 30px; border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1);
-            align-items: flex-start;
-        }
+        .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 75px; right: 25px; background: rgba(10, 54, 34, 0.95); padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); align-items: flex-start; }
         .nav-links li a { text-decoration: none; color: rgba(255, 255, 255, 0.9); font-size: 1rem; font-weight: 500; transition: color 0.3s ease; }
         .nav-links li a:hover { color: white; }
 
         /* Dropdown Menu */
         .dropdown { position: relative; padding: 10px 0; width: 100%; }
-        .dropdown-content {
-            display: none; position: absolute; background: rgba(10, 54, 34, 0.85); min-width: 160px;
-            border-radius: 15px; top: 100%; left: 0; padding: 10px 0; margin-top: 5px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(255, 255, 255, 0.1); z-index: 102;
-        }
-        @media screen and (max-width: 1023px) {
-            .dropdown-content { position: static; background: transparent; box-shadow: none; border: none; padding-left: 15px; margin-top: 10px; }
-            .dropdown-content a { text-align: left; padding: 8px 10px; }
-        }
+        .dropdown-content { display: none; position: absolute; background: rgba(10, 54, 34, 0.85); min-width: 160px; border-radius: 15px; top: 100%; left: 0; padding: 10px 0; margin-top: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(255, 255, 255, 0.1); z-index: 102; }
+        @media screen and (max-width: 1023px) { .dropdown-content { position: static; background: transparent; box-shadow: none; border: none; padding-left: 15px; margin-top: 10px; } .dropdown-content a { text-align: left; padding: 8px 10px; } }
         .dropdown-content a { display: block; padding: 12px 20px; color: rgba(255, 255, 255, 0.9); text-align: center; font-size: 0.95rem; transition: background 0.3s ease, color 0.3s ease; }
         .dropdown-content a:hover { color: white; background: rgba(255, 255, 255, 0.1); }
         .dropdown:hover .dropdown-content { display: block; }
 
-        @media screen and (min-width: 1024px) {
-            nav { width: 85%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; }
-            .nav-logos img { height: 45px; }
-            .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; }
-            .dropdown-content { left: 50%; transform: translateX(-50%); }
-            .dropdown-content a { text-align: center; }
-            .menu-icon { display: none; }
-        }
+        @media screen and (min-width: 1024px) { nav { width: 85%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; } .nav-logos img { height: 45px; } .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; } .dropdown-content { left: 50%; transform: translateX(-50%); } .dropdown-content a { text-align: center; } .menu-icon { display: none; } }
 
         /* Screenshot Watermark Protection */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90vw;
-            max-width: 800px;
-            height: 100vh;
-            background-image: url('LOGO_PUSERVE.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            opacity: 0.03; 
-            z-index: 9999;
-            pointer-events: none;
-        }
+        body::after { content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; height: 100vh; background-image: url('LOGO_PUSERVE.png'); background-repeat: no-repeat; background-position: center; background-size: contain; opacity: 0.03; z-index: 9999; pointer-events: none; }
 
         /* Hero Section */
         .hero { position: relative; height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
@@ -117,95 +83,45 @@
         .about-text { text-align: center; font-size: 1.2rem; line-height: 1.8; color: #4a4a4a; max-width: 800px; margin: 0 auto; }
 
         /* -------------------------------------
-           AUTO-SCROLLING TICKER (INFINITE LOOP)
+           WHAT WE SERVE (Marquee & 3D Tilt Cards)
         ---------------------------------------- */
-        /* Running Text (Marquee Atas) */
-        .serve-marquee {
-            background-color: #0a3622;
-            color: #f5cf21;
-            padding: 12px 0;
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-            display: flex;
-        }
-        .marquee-content {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 25s linear infinite;
-            font-weight: 800;
-            font-size: 1rem;
-            letter-spacing: 2px;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } 
-        }
+        .serve-marquee { background-color: #0a3622; color: #f5cf21; padding: 12px 0; overflow: hidden; white-space: nowrap; position: relative; display: flex; }
+        .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite; font-weight: 800; font-size: 1rem; letter-spacing: 2px; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Card Ticker Setup (Untuk What We Serve & Impact Stories) */
-        .ticker-wrapper {
-            width: 100%;
-            overflow: hidden;
-            padding: 20px 0;
-            position: relative;
-        }
-        .ticker-track {
-            display: flex;
-            width: fit-content;
-            animation: scrollTicker 40s linear infinite;
-        }
-        .ticker-track:hover {
-            animation-play-state: paused; /* Berhenti kalau disentuh/di-hover */
-        }
-        .ticker-set {
-            display: flex;
-            gap: 20px;
-            padding-right: 20px; /* Jarak antara set 1 dan set duplikatnya */
-        }
-        @keyframes scrollTicker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Geser tepat 50% biar looping sempurna */
-        }
+        .ticker-wrapper { width: 100%; overflow: hidden; padding: 20px 0 40px; position: relative; perspective: 1000px; }
+        .ticker-track { display: flex; width: fit-content; animation: scrollTicker 40s linear infinite; padding: 20px 0; }
+        .ticker-track:hover { animation-play-state: paused; }
+        .ticker-set { display: flex; gap: 30px; padding-right: 30px; }
+        @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* Card Styles dalam Ticker */
         .serve-carousel-section { background-color: #e9f2eb; padding: 50px 0 60px; overflow: hidden; }
         .serve-carousel-section .section-title { margin-bottom: 30px; font-size: 2.5rem; }
         
+        /* 3D Target Classes */
         .serve-card {
-            width: 320px;
-            flex-shrink: 0;
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            border-left: 5px solid #f5cf21;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+            width: 320px; flex-shrink: 0; background: white; padding: 25px; border-radius: 15px; border-left: 5px solid #f5cf21; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05); transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
-        .serve-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .serve-card h4 { color: #0a3622; font-size: 1.2rem; margin-bottom: 12px; font-weight: 800; }
-        .serve-card p { color: #555; font-size: 0.95rem; line-height: 1.6; }
+        .serve-card h4 { color: #0a3622; font-size: 1.2rem; margin-bottom: 12px; font-weight: 800; transform: translateZ(30px); }
+        .serve-card p { color: #555; font-size: 0.95rem; line-height: 1.6; transform: translateZ(20px); }
 
         .quote-card {
-            width: 380px;
-            flex-shrink: 0;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            border-left: 5px solid #f5cf21;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+            width: 380px; flex-shrink: 0; background: white; padding: 30px; border-radius: 20px; border-left: 5px solid #f5cf21; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05); transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
-        .quote-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .quote-text { font-style: italic; color: #4a4a4a; margin-bottom: 20px; line-height: 1.6; font-size: 1.05rem; }
-        .quote-author { font-weight: 800; color: #0a3622; font-size: 1.1rem; }
-        .quote-position { font-weight: 500; color: #888; font-size: 0.9rem; margin-top: 3px; }
+        .quote-text { font-style: italic; color: #4a4a4a; margin-bottom: 20px; line-height: 1.6; font-size: 1.05rem; transform: translateZ(30px); }
+        .quote-author { font-weight: 800; color: #0a3622; font-size: 1.1rem; transform: translateZ(25px); }
+        .quote-position { font-weight: 500; color: #888; font-size: 0.9rem; margin-top: 3px; transform: translateZ(20px); }
 
-        /* Grid System for Events */
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); background: white; transition: transform 0.3s ease; }
-        .card:hover { transform: translateY(-5px); }
-        .card img { width: 100%; height: 250px; object-fit: cover; }
-        .card-content { padding: 25px; }
+        /* Grid System for Events (Also 3D Target) */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; perspective: 1000px; }
+        .card { 
+            border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.05); background: white; 
+            display: block; text-decoration: none; transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .card img { width: 100%; height: 250px; object-fit: cover; transform: translateZ(20px); scale: 1.05; }
+        .card-content { padding: 25px; transform: translateZ(30px); }
         .card-content h3 { color: #0a3622; margin-bottom: 10px; }
         .card-content p { color: #666; font-size: 0.95rem; line-height: 1.5; }
 
@@ -233,6 +149,11 @@
 </head>
 <body>
 
+    <!-- 1. SPLASH SCREEN (PRELOADER) -->
+    <div id="preloader">
+        <img src="LOGO_PUSERVE.png" alt="PUSERVE" class="pulse-logo">
+    </div>
+
     <!-- Navigation -->
     <nav>
         <div class="nav-logos">
@@ -240,11 +161,7 @@
             <img src="LOGO_CEDRS.png" alt="CEDRS">
             <img src="LOGO_PUSERVE.png" alt="PUSERVE">
         </div>
-        
-        <div class="menu-icon">
-            <span></span><span></span><span></span>
-        </div>
-
+        <div class="menu-icon"><span></span><span></span><span></span></div>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li class="dropdown">
@@ -281,69 +198,66 @@
     </section>
 
     <!-- WHAT WE SERVE (Marquee & Auto-Scroll Carousel) -->
-    <!-- 1. Running Text (Marquee) -->
     <div class="serve-marquee fade-up">
         <div class="marquee-content">
             REAL ENVIRONMENTAL ACTION &nbsp;&bull;&nbsp; ECOLOGICAL EDUCATION &nbsp;&bull;&nbsp; RESEARCH & INNOVATION &nbsp;&bull;&nbsp; COMMUNITY COLLABORATION &nbsp;&bull;&nbsp; CREATIVE ADVOCACY &nbsp;&bull;&nbsp; EMPOWERING CHANGEMAKERS &nbsp;&bull;&nbsp; REAL ENVIRONMENTAL ACTION &nbsp;&bull;&nbsp; ECOLOGICAL EDUCATION &nbsp;&bull;&nbsp; RESEARCH & INNOVATION &nbsp;&bull;&nbsp; COMMUNITY COLLABORATION &nbsp;&bull;&nbsp; CREATIVE ADVOCACY &nbsp;&bull;&nbsp; EMPOWERING CHANGEMAKERS &nbsp;&bull;&nbsp; 
         </div>
     </div>
 
-    <!-- 2. Auto-Scroll Text Cards -->
     <section class="serve-carousel-section fade-up">
         <h2 class="section-title">What We Serve</h2>
-        
         <div class="ticker-wrapper">
             <div class="ticker-track">
                 <!-- SET 1 -->
                 <div class="ticker-set">
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Real Action</h4>
                         <p>Executing tree planting, waste clean-ups, and ecosystem restoration for a sustainable future.</p>
                     </div>
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Ecological Education</h4>
                         <p>Building ecological literacy and training environmentally conscious leaders through intensive programs.</p>
                     </div>
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Research & Innovation</h4>
                         <p>Designing applicable solutions and action plans based on strong environmental data and observation.</p>
                     </div>
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Community Collaboration</h4>
                         <p>Building cross-sector networks connecting students, local communities, NGOs, and governments.</p>
                     </div>
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Creative Advocacy</h4>
                         <p>Spreading sustainability values through inclusive digital campaigns and interactive media.</p>
                     </div>
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Empowering Changemakers</h4>
                         <p>Providing a dynamic platform for students to innovate and make a real-world impact.</p>
                     </div>
                 </div>
-                <!-- SET 2 (Duplikat untuk ilusi loop tanpa putus) -->
+                <!-- SET 2 -->
                 <div class="ticker-set">
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Real Action</h4>
                         <p>Executing tree planting, waste clean-ups, and ecosystem restoration for a sustainable future.</p>
                     </div>
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Ecological Education</h4>
                         <p>Building ecological literacy and training environmentally conscious leaders through intensive programs.</p>
                     </div>
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Research & Innovation</h4>
                         <p>Designing applicable solutions and action plans based on strong environmental data and observation.</p>
                     </div>
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Community Collaboration</h4>
                         <p>Building cross-sector networks connecting students, local communities, NGOs, and governments.</p>
                     </div>
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Creative Advocacy</h4>
                         <p>Spreading sustainability values through inclusive digital campaigns and interactive media.</p>
                     </div>
-                    <div class="serve-card">
+                    <div class="serve-card tilt-card">
                         <h4>Empowering Changemakers</h4>
                         <p>Providing a dynamic platform for students to innovate and make a real-world impact.</p>
                     </div>
@@ -356,21 +270,21 @@
     <section class="section-container fade-up">
         <h2 class="section-title">Upcoming Events</h2>
         <div class="grid-3">
-            <a href="events-fel2026.html" class="card" style="text-decoration: none; display: block;">
+            <a href="events-fel2026.html" class="card tilt-card">
                 <img src="coming_soon.png" alt="Future Eco Leaders 2026">
                 <div class="card-content">
                     <h3>Future Eco Leaders 2026</h3>
                     <p>An official onboarding and leadership development program for new PUSERVE members.</p>
                 </div>
             </a>
-            <a href="events-grecon2026.html" class="card" style="text-decoration: none; display: block;">
+            <a href="events-grecon2026.html" class="card tilt-card">
                 <img src="coming_soon.png" alt="GRECON 2026">
                 <div class="card-content">
                     <h3>GRECON 2026</h3>
                     <p>A regional youth convention focused on concrete environmental action and waste management.</p>
                 </div>
             </a>
-            <a href="events-ignite2026.html" class="card" style="text-decoration: none; display: block;">
+            <a href="events-ignite2026.html" class="card tilt-card">
                 <img src="coming_soon.png" alt="PUSERVE Ignite 2026">
                 <div class="card-content">
                     <h3>PUSERVE IGNITE 2026</h3>
@@ -393,87 +307,79 @@
         </div>
     </section>
 
-    <!-- Impact Stories (Auto-Scroll Ticker) -->
+    <!-- Impact Stories -->
     <section class="section-container fade-up" style="overflow: hidden;">
         <h2 class="section-title">Impact Stories</h2>
-        
         <div class="ticker-wrapper" style="padding-top: 10px;">
-            <div class="ticker-track" style="animation-duration: 35s;"> <!-- Durasi lebih cepat dikit karena kartunya lebih lebar -->
+            <div class="ticker-track" style="animation-duration: 35s;"> 
                 
                 <!-- SET 1 -->
                 <div class="ticker-set">
-                    <!-- The Prank Card (Card 1) -->
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
                         <p class="quote-author">Edeline Stefanie Baskoro</p>
                         <p class="quote-position">Chairperson of PUSERVE 2026/2027</p>
                     </div>
-                    <!-- The Real Cards -->
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
                         <p class="quote-author">Student Volunteer</p>
                         <p class="quote-position">PUSERVE Member</p>
                     </div>
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
                         <p class="quote-author">NGO Partner</p>
                         <p class="quote-position">External Collaborator</p>
                     </div>
-                    <!-- Sengaja di-duplikat lagi di dalam SET 1 biar layarnya penuh sebelum diloop ke SET 2 -->
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
                         <p class="quote-author">Edeline Stefanie Baskoro</p>
                         <p class="quote-position">Chairperson of PUSERVE 2026/2027</p>
                     </div>
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
                         <p class="quote-author">Student Volunteer</p>
                         <p class="quote-position">PUSERVE Member</p>
                     </div>
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
                         <p class="quote-author">NGO Partner</p>
                         <p class="quote-position">External Collaborator</p>
                     </div>
                 </div>
 
-                <!-- SET 2 (Duplikat Mutlak dari SET 1) -->
+                <!-- SET 2 -->
                 <div class="ticker-set">
-                    <!-- The Prank Card (Card 1) -->
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
                         <p class="quote-author">Edeline Stefanie Baskoro</p>
                         <p class="quote-position">Chairperson of PUSERVE 2026/2027</p>
                     </div>
-                    <!-- The Real Cards -->
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
                         <p class="quote-author">Student Volunteer</p>
                         <p class="quote-position">PUSERVE Member</p>
                     </div>
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
                         <p class="quote-author">NGO Partner</p>
                         <p class="quote-position">External Collaborator</p>
                     </div>
-                    <!-- Duplikat isi dalam SET -->
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
                         <p class="quote-author">Edeline Stefanie Baskoro</p>
                         <p class="quote-position">Chairperson of PUSERVE 2026/2027</p>
                     </div>
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
                         <p class="quote-author">Student Volunteer</p>
                         <p class="quote-position">PUSERVE Member</p>
                     </div>
-                    <div class="quote-card">
+                    <div class="quote-card tilt-card">
                         <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
                         <p class="quote-author">NGO Partner</p>
                         <p class="quote-position">External Collaborator</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -501,18 +407,62 @@
 
     <!-- Scripts -->
     <script>
+        // --- 1. SPLASH SCREEN SCRIPT ---
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const preloader = document.getElementById('preloader');
+                preloader.classList.add('hide-preloader');
+            }, 800); // Layar kebuka setelah 0.8 detik biar animasinya sempet dinikmatin
+        });
+
+        // --- 2. VIDEO LOOP SCRIPT ---
         const video = document.getElementById('bg-video');
         video.addEventListener('ended', function() { this.currentTime = 0; this.play(); }, false);
 
+        // --- 3. MOBILE MENU SCRIPT ---
         const menuIcon = document.querySelector('.menu-icon');
         const navLinks = document.querySelector('.nav-links');
         menuIcon.addEventListener('click', () => { navLinks.classList.toggle('active'); });
 
+        // --- 4. SCROLL ANIMATION SCRIPT ---
         document.addEventListener("DOMContentLoaded", function() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
             }, { threshold: 0.1 });
             document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        });
+
+        // --- 5. 3D TILT EFFECT SCRIPT ---
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Kalkulasi kemiringan (Max 12 derajat biar tetep elegan)
+                const rotateX = ((y - centerY) / centerY) * -12; 
+                const rotateY = ((x - centerX) / centerX) * 12;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                card.style.boxShadow = `${-rotateY}px ${rotateX}px 30px rgba(0,0,0,0.1)`;
+                card.style.transition = 'none'; // Matikan transisi pas digerakin biar nempel sama kursor
+            });
+
+            card.addEventListener('mouseleave', () => {
+                // Balik ke posisi normal secara perlahan pas mouse keluar
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                card.style.boxShadow = `0 15px 35px rgba(0,0,0,0.05)`;
+                card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease'; 
+            });
+            
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'none';
+            });
         });
     </script>
 </body>
