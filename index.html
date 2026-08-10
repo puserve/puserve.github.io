@@ -75,11 +75,13 @@
         .warning-header { color: #ff3333; font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; letter-spacing: 2px; animation: blinkWarning 1s infinite; }
         .easter-egg-content img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px dashed #f5cf21; }
         .prank-text { color: #f5cf21; font-weight: 700; font-size: 1.1rem; line-height: 1.6; }
-      .close-egg { 
+.close-egg { 
             position: absolute; 
             top: -20px; 
             right: -20px; 
-            font-size: 2.2rem; 
+            font-size: 2rem; 
+            font-family: sans-serif; /* Pakai font standar sistem biar sejajar sempurna */
+            line-height: 1;
             background: #ff3333; 
             color: white; 
             width: 45px; 
@@ -89,9 +91,8 @@
             justify-content: center; 
             align-items: center; 
             cursor: pointer; 
-            border: 3px solid #f4f9f5; /* Garis tepi putih bersih biar nggak kotor */
+            border: 3px solid #f4f9f5; 
             transition: 0.2s; 
-            padding-bottom: 5px; /* Trik biar simbol X bener-bener rata tengah */
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             z-index: 10;
         }
