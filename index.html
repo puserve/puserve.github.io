@@ -83,6 +83,25 @@
             .menu-icon { display: none; }
         }
 
+        /* Screenshot Watermark Protection */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90vw;
+            max-width: 800px;
+            height: 100vh;
+            background-image: url('LOGO_PUSERVE.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            opacity: 0.03; 
+            z-index: 9999;
+            pointer-events: none;
+        }
+
         /* Hero Section */
         .hero { position: relative; height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
         .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); z-index: -2; object-fit: cover; }
@@ -98,9 +117,9 @@
         .about-text { text-align: center; font-size: 1.2rem; line-height: 1.8; color: #4a4a4a; max-width: 800px; margin: 0 auto; }
 
         /* -------------------------------------
-           WHAT WE SERVE (Marquee + Carousel)
+           AUTO-SCROLLING TICKER (INFINITE LOOP)
         ---------------------------------------- */
-        /* Running Text (Marquee) */
+        /* Running Text (Marquee Atas) */
         .serve-marquee {
             background-color: #0a3622;
             color: #f5cf21;
@@ -120,53 +139,66 @@
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Digeser 50% karena ada teks duplikat di dalamnya */
+            100% { transform: translateX(-50%); } 
         }
 
-        /* Text Card Carousel */
-        .serve-carousel-section {
-            background-color: #e9f2eb;
-            padding: 50px 0 60px;
+        /* Card Ticker Setup (Untuk What We Serve & Impact Stories) */
+        .ticker-wrapper {
+            width: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+            position: relative;
         }
-        .serve-carousel-section .section-title {
-            margin-bottom: 30px;
-            font-size: 2rem;
+        .ticker-track {
+            display: flex;
+            width: fit-content;
+            animation: scrollTicker 40s linear infinite;
         }
-        .carousel-track {
+        .ticker-track:hover {
+            animation-play-state: paused; /* Berhenti kalau disentuh/di-hover */
+        }
+        .ticker-set {
             display: flex;
             gap: 20px;
-            padding: 10px 20px 20px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            padding-right: 20px; /* Jarak antara set 1 dan set duplikatnya */
         }
-        .carousel-track::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
+        @keyframes scrollTicker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Geser tepat 50% biar looping sempurna */
+        }
+
+        /* Card Styles dalam Ticker */
+        .serve-carousel-section { background-color: #e9f2eb; padding: 50px 0 60px; overflow: hidden; }
+        .serve-carousel-section .section-title { margin-bottom: 30px; font-size: 2.5rem; }
         
         .serve-card {
-            min-width: 280px;
-            max-width: 300px;
+            width: 320px;
+            flex-shrink: 0;
             background: white;
             padding: 25px;
             border-radius: 15px;
             border-left: 5px solid #f5cf21;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            scroll-snap-align: start;
-            flex-shrink: 0;
             transition: transform 0.3s;
         }
-        .serve-card:hover { transform: translateY(-5px); }
-        .serve-card h4 {
-            color: #0a3622;
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-            font-weight: 800;
+        .serve-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .serve-card h4 { color: #0a3622; font-size: 1.2rem; margin-bottom: 12px; font-weight: 800; }
+        .serve-card p { color: #555; font-size: 0.95rem; line-height: 1.6; }
+
+        .quote-card {
+            width: 380px;
+            flex-shrink: 0;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 5px solid #f5cf21;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
         }
-        .serve-card p {
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
+        .quote-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .quote-text { font-style: italic; color: #4a4a4a; margin-bottom: 20px; line-height: 1.6; font-size: 1.05rem; }
+        .quote-author { font-weight: 800; color: #0a3622; font-size: 1.1rem; }
+        .quote-position { font-weight: 500; color: #888; font-size: 0.9rem; margin-top: 3px; }
 
         /* Grid System for Events */
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -180,12 +212,6 @@
         /* News Section */
         .news-section { background-color: #0a3622; color: white; padding: 80px 20px; }
         .news-section .section-title { color: white; }
-
-        /* Impact Stories */
-        .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .quote-card { background: white; padding: 30px; border-radius: 20px; border-left: 5px solid #f5cf21; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-        .quote-text { font-style: italic; color: #4a4a4a; margin-bottom: 15px; }
-        .quote-author { font-weight: 700; color: #0a3622; }
 
         /* Contact / Join Us */
         .join-section { text-align: center; background: #e9f2eb; padding: 80px 20px; border-radius: 40px; margin: 40px auto; max-width: 1200px; }
@@ -203,25 +229,6 @@
         .fade-up.visible { opacity: 1; transform: translateY(0); }
 
         footer { background: #0a3622; color: white; text-align: center; padding: 30px; }
-        
-        /* Screenshot Watermark Protection */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90vw;
-            max-width: 800px;
-            height: 100vh;
-            background-image: url('LOGO_PUSERVE.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            opacity: 0.03; /* Sangat samar, ubah ke 0.05 kalau kurang kelihatan */
-            z-index: 9999; /* Posisi paling depan menutupi konten */
-            pointer-events: none; /* Biar web tetap bisa diklik & di-scroll */
-        }
     </style>
 </head>
 <body>
@@ -240,8 +247,6 @@
 
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
-            
-            <!-- Dropdown Menu Explore -->
             <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">Explore ▾</a>
                 <div class="dropdown-content">
@@ -250,7 +255,6 @@
                     <a href="team.html">Our Team</a>
                 </div>
             </li>
-            
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -276,43 +280,74 @@
         </p>
     </section>
 
-    <!-- NEW SECTION: WHAT WE SERVE (Marquee & Carousel) -->
+    <!-- WHAT WE SERVE (Marquee & Auto-Scroll Carousel) -->
     <!-- 1. Running Text (Marquee) -->
     <div class="serve-marquee fade-up">
         <div class="marquee-content">
-            <!-- Teks sengaja diduplikat agar animasi loopingnya mulus tanpa putus -->
             REAL ENVIRONMENTAL ACTION &nbsp;&bull;&nbsp; ECOLOGICAL EDUCATION &nbsp;&bull;&nbsp; RESEARCH & INNOVATION &nbsp;&bull;&nbsp; COMMUNITY COLLABORATION &nbsp;&bull;&nbsp; CREATIVE ADVOCACY &nbsp;&bull;&nbsp; EMPOWERING CHANGEMAKERS &nbsp;&bull;&nbsp; REAL ENVIRONMENTAL ACTION &nbsp;&bull;&nbsp; ECOLOGICAL EDUCATION &nbsp;&bull;&nbsp; RESEARCH & INNOVATION &nbsp;&bull;&nbsp; COMMUNITY COLLABORATION &nbsp;&bull;&nbsp; CREATIVE ADVOCACY &nbsp;&bull;&nbsp; EMPOWERING CHANGEMAKERS &nbsp;&bull;&nbsp; 
         </div>
     </div>
 
-    <!-- 2. Text Cards Carousel -->
+    <!-- 2. Auto-Scroll Text Cards -->
     <section class="serve-carousel-section fade-up">
-        <h2 class="section-title" style="margin-bottom: 20px; font-size: 2rem;">What We Serve</h2>
+        <h2 class="section-title">What We Serve</h2>
         
-        <div class="carousel-track">
-            <div class="serve-card">
-                <h4>Real Action</h4>
-                <p>Executing tree planting, waste clean-ups, and ecosystem restoration for a sustainable future.</p>
-            </div>
-            <div class="serve-card">
-                <h4>Ecological Education</h4>
-                <p>Building ecological literacy and training environmentally conscious leaders through intensive programs.</p>
-            </div>
-            <div class="serve-card">
-                <h4>Research & Innovation</h4>
-                <p>Designing applicable solutions and action plans based on strong environmental data and observation.</p>
-            </div>
-            <div class="serve-card">
-                <h4>Community Collaboration</h4>
-                <p>Building cross-sector networks connecting students, local communities, NGOs, and governments.</p>
-            </div>
-            <div class="serve-card">
-                <h4>Creative Advocacy</h4>
-                <p>Spreading sustainability values through inclusive digital campaigns and interactive media.</p>
-            </div>
-            <div class="serve-card">
-                <h4>Empowering Changemakers</h4>
-                <p>Providing a dynamic platform for students to innovate and make a real-world impact.</p>
+        <div class="ticker-wrapper">
+            <div class="ticker-track">
+                <!-- SET 1 -->
+                <div class="ticker-set">
+                    <div class="serve-card">
+                        <h4>Real Action</h4>
+                        <p>Executing tree planting, waste clean-ups, and ecosystem restoration for a sustainable future.</p>
+                    </div>
+                    <div class="serve-card">
+                        <h4>Ecological Education</h4>
+                        <p>Building ecological literacy and training environmentally conscious leaders through intensive programs.</p>
+                    </div>
+                    <div class="serve-card">
+                        <h4>Research & Innovation</h4>
+                        <p>Designing applicable solutions and action plans based on strong environmental data and observation.</p>
+                    </div>
+                    <div class="serve-card">
+                        <h4>Community Collaboration</h4>
+                        <p>Building cross-sector networks connecting students, local communities, NGOs, and governments.</p>
+                    </div>
+                    <div class="serve-card">
+                        <h4>Creative Advocacy</h4>
+                        <p>Spreading sustainability values through inclusive digital campaigns and interactive media.</p>
+                    </div>
+                    <div class="serve-card">
+                        <h4>Empowering Changemakers</h4>
+                        <p>Providing a dynamic platform for students to innovate and make a real-world impact.</p>
+                    </div>
+                </div>
+                <!-- SET 2 (Duplikat untuk ilusi loop tanpa putus) -->
+                <div class="ticker-set">
+                    <div class="serve-card">
+                        <h4>Real Action</h4>
+                        <p>Executing tree planting, waste clean-ups, and ecosystem restoration for a sustainable future.</p>
+                    </div>
+                    <div class="serve-card">
+                        <h4>Ecological Education</h4>
+                        <p>Building ecological literacy and training environmentally conscious leaders through intensive programs.</p>
+                    </div>
+                    <div class="serve-card">
+                        <h4>Research & Innovation</h4>
+                        <p>Designing applicable solutions and action plans based on strong environmental data and observation.</p>
+                    </div>
+                    <div class="serve-card">
+                        <h4>Community Collaboration</h4>
+                        <p>Building cross-sector networks connecting students, local communities, NGOs, and governments.</p>
+                    </div>
+                    <div class="serve-card">
+                        <h4>Creative Advocacy</h4>
+                        <p>Spreading sustainability values through inclusive digital campaigns and interactive media.</p>
+                    </div>
+                    <div class="serve-card">
+                        <h4>Empowering Changemakers</h4>
+                        <p>Providing a dynamic platform for students to innovate and make a real-world impact.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -358,17 +393,87 @@
         </div>
     </section>
 
-    <!-- Impact Stories -->
-    <section class="section-container fade-up">
+    <!-- Impact Stories (Auto-Scroll Ticker) -->
+    <section class="section-container fade-up" style="overflow: hidden;">
         <h2 class="section-title">Impact Stories</h2>
-        <div class="impact-grid">
-            <div class="quote-card">
-                <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
-                <p class="quote-author">Student Volunteer</p>
-            </div>
-            <div class="quote-card">
-                <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
-                <p class="quote-author">NGO Partner</p>
+        
+        <div class="ticker-wrapper" style="padding-top: 10px;">
+            <div class="ticker-track" style="animation-duration: 35s;"> <!-- Durasi lebih cepat dikit karena kartunya lebih lebar -->
+                
+                <!-- SET 1 -->
+                <div class="ticker-set">
+                    <!-- The Prank Card (Card 1) -->
+                    <div class="quote-card">
+                        <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
+                        <p class="quote-author">Edeline Stefanie Baskoro</p>
+                        <p class="quote-position">Chairperson of PUSERVE 2026/2027</p>
+                    </div>
+                    <!-- The Real Cards -->
+                    <div class="quote-card">
+                        <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
+                        <p class="quote-author">Student Volunteer</p>
+                        <p class="quote-position">PUSERVE Member</p>
+                    </div>
+                    <div class="quote-card">
+                        <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
+                        <p class="quote-author">NGO Partner</p>
+                        <p class="quote-position">External Collaborator</p>
+                    </div>
+                    <!-- Sengaja di-duplikat lagi di dalam SET 1 biar layarnya penuh sebelum diloop ke SET 2 -->
+                    <div class="quote-card">
+                        <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
+                        <p class="quote-author">Edeline Stefanie Baskoro</p>
+                        <p class="quote-position">Chairperson of PUSERVE 2026/2027</p>
+                    </div>
+                    <div class="quote-card">
+                        <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
+                        <p class="quote-author">Student Volunteer</p>
+                        <p class="quote-position">PUSERVE Member</p>
+                    </div>
+                    <div class="quote-card">
+                        <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
+                        <p class="quote-author">NGO Partner</p>
+                        <p class="quote-position">External Collaborator</p>
+                    </div>
+                </div>
+
+                <!-- SET 2 (Duplikat Mutlak dari SET 1) -->
+                <div class="ticker-set">
+                    <!-- The Prank Card (Card 1) -->
+                    <div class="quote-card">
+                        <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
+                        <p class="quote-author">Edeline Stefanie Baskoro</p>
+                        <p class="quote-position">Chairperson of PUSERVE 2026/2027</p>
+                    </div>
+                    <!-- The Real Cards -->
+                    <div class="quote-card">
+                        <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
+                        <p class="quote-author">Student Volunteer</p>
+                        <p class="quote-position">PUSERVE Member</p>
+                    </div>
+                    <div class="quote-card">
+                        <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
+                        <p class="quote-author">NGO Partner</p>
+                        <p class="quote-position">External Collaborator</p>
+                    </div>
+                    <!-- Duplikat isi dalam SET -->
+                    <div class="quote-card">
+                        <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
+                        <p class="quote-author">Edeline Stefanie Baskoro</p>
+                        <p class="quote-position">Chairperson of PUSERVE 2026/2027</p>
+                    </div>
+                    <div class="quote-card">
+                        <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
+                        <p class="quote-author">Student Volunteer</p>
+                        <p class="quote-position">PUSERVE Member</p>
+                    </div>
+                    <div class="quote-card">
+                        <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
+                        <p class="quote-author">NGO Partner</p>
+                        <p class="quote-position">External Collaborator</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
