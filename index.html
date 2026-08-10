@@ -142,14 +142,22 @@
 </head>
 <body>
 
-    <!-- 1. SPLASH SCREEN (PRELOADER) -->
+  <!-- 1. SPLASH SCREEN (LINE DRAWING + PRELOADER) -->
     <div id="preloader">
-        <img src="LOGO_PUSERVE.png" alt="PUSERVE" class="pulse-logo">
-    </div>
-
-    <!-- 2. SCROLL PROGRESS TREE -->
-    <div id="scroll-tree-container">
-        <div id="scroll-tree-trunk"></div>
+        <!-- SVG Kerangka Logo Buatan (Digambar dari garis) -->
+        <svg class="drawing-logo" viewBox="0 0 100 100" fill="none" stroke="#f5cf21" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <!-- 3 Lingkaran Atas -->
+            <circle cx="50" cy="35" r="16" />
+            <circle cx="34" cy="55" r="16" />
+            <circle cx="66" cy="55" r="16" />
+            <!-- Batang Tengah & Akar -->
+            <line x1="50" y1="58" x2="50" y2="90" />
+            <path d="M30 70 C30 85, 20 90, 20 90" />
+            <path d="M70 70 C70 85, 80 90, 80 90" />
+        </svg>
+        
+        <!-- Gambar Logo Asli (Muncul setelah garis selesai) -->
+        <img src="LOGO_PUSERVE.png" alt="PUSERVE" class="real-logo">
     </div>
 
     <!-- 3. CINEMATIC VIDEO LIGHTBOX -->
