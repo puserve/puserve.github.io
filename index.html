@@ -15,12 +15,40 @@
         body { background-color: #f4f9f5; color: #1a1a1a; overflow-x: hidden; }
 
         /* -------------------------------------
-           1. SPLASH SCREEN (PRELOADER)
+           1. SPLASH SCREEN (LINE DRAWING + PRELOADER)
         ---------------------------------------- */
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #0a3622; z-index: 999999; display: flex; justify-content: center; align-items: center; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease; }
         #preloader.hide-preloader { transform: translateY(-100%); opacity: 0; pointer-events: none; }
-        .pulse-logo { width: 180px; animation: pulse 1.2s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
-        @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(245, 207, 33, 0.2)); } 100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 25px rgba(245, 207, 33, 0.6)); } }
+        
+        /* Animasi Garis Kerangka */
+        .drawing-logo {
+            width: 160px; height: 160px;
+            position: absolute;
+            z-index: 2;
+        }
+        .drawing-logo path, .drawing-logo circle, .drawing-logo line {
+            stroke-dasharray: 150;
+            stroke-dashoffset: 150;
+            animation: drawLine 2s ease-in-out forwards;
+        }
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+
+        /* Animasi Muncul Logo Asli */
+        .real-logo {
+            width: 170px;
+            position: absolute;
+            z-index: 1;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: revealRealLogo 1.5s ease-in-out 1.8s forwards; 
+        }
+        @keyframes revealRealLogo {
+            0% { opacity: 0; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(245, 207, 33, 0.6)); }
+            100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 25px rgba(245, 207, 33, 0.8)); }
+        }
         
         /* -------------------------------------
            2. SCROLL PROGRESS TREE
@@ -142,7 +170,7 @@
 </head>
 <body>
 
-  <!-- 1. SPLASH SCREEN (LINE DRAWING + PRELOADER) -->
+    <!-- 1. SPLASH SCREEN (LINE DRAWING + PRELOADER) -->
     <div id="preloader">
         <!-- SVG Kerangka Logo Buatan (Digambar dari garis) -->
         <svg class="drawing-logo" viewBox="0 0 100 100" fill="none" stroke="#f5cf21" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -160,11 +188,15 @@
         <img src="LOGO_PUSERVE.png" alt="PUSERVE" class="real-logo">
     </div>
 
+    <!-- 2. SCROLL PROGRESS TREE -->
+    <div id="scroll-tree-container">
+        <div id="scroll-tree-trunk"></div>
+    </div>
+
     <!-- 3. CINEMATIC VIDEO LIGHTBOX -->
     <div id="video-lightbox">
         <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
         <div class="lightbox-content">
-            <!-- Nanti src-nya bisa diganti sama file video after-movie PUSERVE asli -->
             <video id="lightbox-vid" controls>
                 <source src="forestbg.webm" type="video/webm">
                 Your browser does not support HTML video.
@@ -326,10 +358,9 @@
         </div>
     </section>
 
-    <!-- Impact Stories (Auto-Scroll Ticker) -->
+    <!-- Impact Stories -->
     <section class="section-container fade-up" style="overflow: hidden;">
         <h2 class="section-title">Impact Stories</h2>
-        
         <div class="ticker-wrapper" style="padding-top: 10px;">
             <div class="ticker-track" style="animation-duration: 35s;"> 
                 <!-- SET 1 -->
@@ -408,19 +439,13 @@
         <p class="about-text">Want to partner with us or join our upcoming initiatives? We are always looking for passionate individuals and organizations to work together for a better environment.</p>
         <a href="mailto:preserve.presuniv@gmail.com" class="contact-btn">Email Us</a>
 
-      <!-- Social Media Links -->
+        <!-- Social Media Links -->
         <div class="social-links">
-            <!-- Instagram -->
             <a href="https://www.instagram.com/puserve.presuniv?igsh=MW85MXo1Y3IxbjZyZg==" target="_blank" class="social-icon" aria-label="Instagram">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </a>
-            <!-- TikTok -->
             <a href="https://www.tiktok.com/@puserve.presuniv?_r=1&_t=ZS-98jMbW6NvY0" target="_blank" class="social-icon" aria-label="TikTok">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
             </a>
         </div>
     </section>
@@ -428,7 +453,7 @@
     <footer>
         <p>&copy; 2026 PUSERVE. President University. All rights reserved.</p>
     </footer>
-    
+
     <!-- Scripts -->
     <script>
         // --- 1. SPLASH SCREEN SCRIPT ---
@@ -436,7 +461,7 @@
             setTimeout(function() {
                 const preloader = document.getElementById('preloader');
                 preloader.classList.add('hide-preloader');
-            }, 800); 
+            }, 3500); 
         });
 
         // --- 2. SCROLL PROGRESS TREE SCRIPT ---
@@ -450,19 +475,13 @@
 
         // --- 3. DYNAMIC LEAVES CURSOR SCRIPT ---
         document.addEventListener('mousemove', function(e) {
-            // Membatasi jumlah daun yang dirender biar web nggak nge-lag (hanya muncul ~10% dari setiap pergerakan mouse)
             if(Math.random() > 0.90) {
                 const leaf = document.createElement('div');
                 leaf.className = 'cursor-leaf';
-                // Offset sedikit dari ujung kursor
                 leaf.style.left = (e.clientX + 10) + 'px';
                 leaf.style.top = (e.clientY + 10) + 'px';
                 document.body.appendChild(leaf);
-                
-                // Hapus elemen HTML daun setelah animasinya selesai (1 detik) biar memori aman
-                setTimeout(() => {
-                    leaf.remove();
-                }, 1000);
+                setTimeout(() => { leaf.remove(); }, 1000);
             }
         });
 
@@ -477,7 +496,7 @@
         function closeLightbox() {
             lightbox.classList.remove('show');
             lightboxVid.pause();
-            lightboxVid.currentTime = 0; // Reset video ke awal
+            lightboxVid.currentTime = 0; 
         }
 
         // --- 5. VIDEO LOOP SCRIPT ---
