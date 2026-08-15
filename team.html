@@ -51,7 +51,7 @@
         @keyframes blinkWarning { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         @keyframes glitch { 0%, 100% { transform: scale(1) translate(0); } 25% { transform: scale(1.02) translate(5px, 5px); } 50% { transform: scale(0.98) translate(-5px, -5px); } 75% { transform: scale(1.05) translate(5px, -5px); } }
 
-        /* Navigation (Smart Auto Hide) */
+        /* Navigation */
         nav { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; background: rgba(10, 54, 34, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); transition: top 0.4s ease-in-out, background 0.4s ease; box-shadow: 0 4px 30px rgba(0,0,0,0.1);}
         nav.nav-hidden { top: -120px !important; } 
         .nav-logos { display: flex; align-items: center; gap: 15px; }
@@ -86,46 +86,57 @@
 
         /* Containers & Titles */
         .section-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 80px; }
+        .category-title { font-size: 2.2rem; color: #0a3622; margin-bottom: 40px; font-weight: 800; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center;}
+        .category-title::after { content: ''; width: 60px; height: 4px; background: #f5cf21; border-radius: 2px; margin-top: 15px; }
         
         /* -------------------------------------
-           NEW: PROFESSIONAL TEAM LAYOUT
+           NEW: PROFESSIONAL HIERARCHY LAYOUT
         ---------------------------------------- */
         
-        /* 1. Advisor Section (Center VIP) */
+        /* 1. Advisor Section */
         .advisor-section { display: flex; justify-content: center; margin-bottom: 80px; }
-        .advisor-card { text-align: center; padding: 30px; background: white; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); border-top: 5px solid #f5cf21; max-width: 350px; position: relative; transform-style: preserve-3d; transition: transform 0.4s ease; }
+        .advisor-card { text-align: center; padding: 40px 30px; background: white; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); border-top: 5px solid #f5cf21; max-width: 350px; transform-style: preserve-3d; transition: transform 0.4s ease; width: 100%;}
         .advisor-card:hover { transform: translateY(-10px); }
         .advisor-img { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; margin: 0 auto 20px; border: 4px solid #f4f9f5; box-shadow: 0 10px 20px rgba(10,54,34,0.2); }
         .advisor-name { font-size: 1.4rem; color: #0a3622; font-weight: 800; margin-bottom: 5px; }
         .advisor-role { font-size: 0.9rem; font-weight: 800; color: #f5cf21; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* 2. Board of Directors - Group Photo */
+        .bod-group-card { max-width: 900px; margin: 0 auto 50px; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.06); transition: 0.4s ease; border: 1px solid rgba(0,0,0,0.03);}
+        .bod-group-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
+        .bod-group-card .div-img-wrapper { height: 400px; width: 100%; overflow: hidden; position: relative; background: #e9f2eb; }
+        .bod-group-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .bod-group-card:hover img { transform: scale(1.05); }
         
-        /* 2. Divisions Grid (Cinematic Group Cards) */
-        .divisions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; }
-        @media screen and (max-width: 768px) { .divisions-grid { grid-template-columns: 1fr; } }
-        
-        .division-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.06); transition: transform 0.4s ease, box-shadow 0.4s ease; display: flex; flex-direction: column; }
-        .division-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
-        
-        .div-img-wrapper { height: 320px; width: 100%; overflow: hidden; background: #e9f2eb; position: relative;}
-        .div-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        .division-card:hover .div-img-wrapper img { transform: scale(1.08); }
-        
-        /* Glassmorphism Name Tag */
-        .div-tag { position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(10, 54, 34, 0.85); backdrop-filter: blur(8px); padding: 15px 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); transform: translateY(10px); opacity: 0.9; transition: 0.4s ease;}
-        .division-card:hover .div-tag { transform: translateY(0); opacity: 1; }
+        /* Glassmorphism Title Tag */
+        .div-tag { position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(10, 54, 34, 0.85); backdrop-filter: blur(8px); padding: 15px 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); transform: translateY(10px); opacity: 0.9; transition: 0.4s ease; text-align: left;}
+        .division-card:hover .div-tag, .bod-group-card:hover .div-tag { transform: translateY(0); opacity: 1; }
         .div-name { color: white; font-size: 1.4rem; font-weight: 800; margin-bottom: 3px; }
-        .div-count { color: #f5cf21; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        .div-desc { color: rgba(255,255,255,0.8); font-size: 0.95rem; font-weight: 500; }
 
-        .div-body { padding: 30px; }
-        .div-body p { color: #555; font-size: 1.05rem; line-height: 1.6; }
+        /* 3. Board of Directors - Personal Cards */
+        .bod-personal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto 100px; }
+        .bod-person-card { background: white; border-radius: 20px; padding: 35px 20px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.06); border-top: 4px solid #0a3622; transition: 0.4s ease; }
+        .bod-person-card:hover { transform: translateY(-8px); border-color: #f5cf21;}
+        .bod-person-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 4px solid #e9f2eb; transition: 0.3s; }
+        .bod-person-card:hover .bod-person-img { border-color: #f5cf21; }
+        .person-name { font-size: 1.25rem; color: #0a3622; font-weight: 800; margin-bottom: 5px; line-height: 1.3;}
+        .person-role { font-size: 0.85rem; font-weight: 800; color: #f5cf21; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* 3. Grand Cabinet Parallax Section */
-        .grand-cabinet { width: 100%; height: 60vh; min-height: 400px; display: flex; align-items: center; justify-content: center; position: relative; margin-top: 40px; margin-bottom: -60px; /* Connects to footer */ }
+        /* 4. Divisions Grid (Cinematic Group Cards) */
+        .divisions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
+        @media screen and (max-width: 768px) { .divisions-grid { grid-template-columns: 1fr; } .bod-group-card .div-img-wrapper { height: 250px; } }
         
-        /* GANTI URL DI BAWAH INI DENGAN FOTO FULL ANGKATAN LU NANTI */
+        .division-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.06); transition: transform 0.4s ease, box-shadow 0.4s ease; display: flex; flex-direction: column; border: 1px solid rgba(0,0,0,0.03);}
+        .division-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.1); }
+        .division-card .div-img-wrapper { height: 280px; width: 100%; overflow: hidden; background: #e9f2eb; position: relative;}
+        .division-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .division-card:hover img { transform: scale(1.08); }
+
+        /* 5. Grand Cabinet Parallax Section */
+        .grand-cabinet { width: 100%; height: 60vh; min-height: 400px; display: flex; align-items: center; justify-content: center; position: relative; margin-top: 40px; margin-bottom: -60px; }
         .grand-cabinet::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('coming_soon.png'); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; z-index: -2; }
         .grand-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(10,54,34,0.3) 0%, rgba(10,54,34,0.9) 100%); z-index: -1; }
-        
         .grand-text { text-align: center; color: white; z-index: 1; padding: 20px; }
         .grand-text h2 { font-size: 3rem; font-weight: 800; margin-bottom: 10px; color: #f5cf21; text-shadow: 0 4px 15px rgba(0,0,0,0.5);}
         .grand-text p { font-size: 1.2rem; font-weight: 500; opacity: 0.9; }
@@ -162,7 +173,7 @@
 </head>
 <body>
 
-    <!-- 1. SPLASH SCREEN (LIQUID GOLD REVEAL) -->
+    <!-- 1. SPLASH SCREEN -->
     <div id="preloader">
         <div class="logo-loader-container">
             <img src="LOGO_PUSERVE.png" alt="Loading" class="logo-dimmed">
@@ -223,69 +234,145 @@
         <!-- SECTION: ADVISOR -->
         <div class="advisor-section fade-up">
             <div class="advisor-card tilt-card">
-                <!-- Foto Bu Yunita -->
-                <img src="coming_soon.png" alt="Dr. Ir. Yunita Ismail" class="advisor-img">
+                <img src="yunita.jpeg" alt="Dr. Ir. Yunita Ismail" class="advisor-img">
                 <h3 class="advisor-name">Dr. Ir. Yunita Ismail, M.Si.</h3>
                 <span class="advisor-role">Advisor</span>
             </div>
         </div>
 
-        <!-- SECTION: DIVISIONS GRID -->
+        <!-- SECTION: BOARD OF DIRECTORS -->
+        <h2 class="category-title fade-up">Board of Directors</h2>
+        
+        <!-- BoD Group Photo -->
+        <div class="bod-group-card fade-up">
+            <div class="div-img-wrapper">
+                <img src="boe.jpeg" alt="Board of Directors Group">
+                <div class="div-tag">
+                    <h4 class="div-name">Executive Board</h4>
+                    <span class="div-desc">Orchestrating PUSERVE's vision and strategic goals.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- BoD Personal Cards -->
+        <div class="bod-personal-grid fade-up">
+            <div class="bod-person-card tilt-card">
+                <img src="edel.jpeg" alt="Edeline Stefanie Baskoro" class="bod-person-img">
+                <h3 class="person-name">Edeline Stefanie Baskoro</h3>
+                <span class="person-role">Chairperson</span>
+            </div>
+            <div class="bod-person-card tilt-card">
+                <img src="stei.jpeg" alt="Steiryn Cersey Kately Sumajow" class="bod-person-img">
+                <h3 class="person-name">Steiryn Cersey Kately Sumajow</h3>
+                <span class="person-role">Vice Chairperson I</span>
+            </div>
+            <div class="bod-person-card tilt-card">
+                <img src="noel.jpeg" alt="Noel Jacob Ottley, C.MC." class="bod-person-img">
+                <h3 class="person-name">Noel Jacob Ottley, C.MC.</h3>
+                <span class="person-role">Vice Chairperson II</span>
+            </div>
+        </div>
+
+        <!-- SECTION: DIVISIONS -->
+        <h2 class="category-title fade-up">Our Divisions</h2>
         <div class="divisions-grid fade-up">
             
-            <!-- DIVISION 1: Board of Directors -->
+            <!-- 1. Secretary -->
             <div class="division-card">
                 <div class="div-img-wrapper">
-                    <img src="coming_soon.png" alt="Board of Directors">
+                    <img src="secretary.jpeg" alt="Secretary Division">
                     <div class="div-tag">
-                        <h4 class="div-name">Board of Directors</h4>
-                        <span class="div-count">4 Members</span>
+                        <h4 class="div-name">Secretary</h4>
+                        <span class="div-desc">Managing administrations and legal records.</span>
                     </div>
-                </div>
-                <div class="div-body">
-                    <p>The core leadership orchestrating PUSERVE's vision, operations, and strategic environmental goals across the university.</p>
                 </div>
             </div>
 
-            <!-- DIVISION 2: Environmental Action -->
+            <!-- 2. Treasurer -->
             <div class="division-card">
                 <div class="div-img-wrapper">
-                    <img src="coming_soon.png" alt="Environmental Action Division">
+                    <img src="treasurer.jpeg" alt="Treasurer Division">
                     <div class="div-tag">
-                        <h4 class="div-name">Environmental Action</h4>
-                        <span class="div-count">12 Members</span>
+                        <h4 class="div-name">Treasurer</h4>
+                        <span class="div-desc">Handling financial planning and budgets.</span>
                     </div>
-                </div>
-                <div class="div-body">
-                    <p>The frontline executors responsible for hands-on activities like waste management, planting, and ecological restoration.</p>
                 </div>
             </div>
 
-            <!-- DIVISION 3: Creative & Advocacy -->
+            <!-- 3. Human Resources -->
             <div class="division-card">
                 <div class="div-img-wrapper">
-                    <img src="coming_soon.png" alt="Creative & Advocacy Division">
+                    <img src="hr.jpeg" alt="Human Resources Division">
                     <div class="div-tag">
-                        <h4 class="div-name">Creative & Advocacy</h4>
-                        <span class="div-count">10 Members</span>
+                        <h4 class="div-name">Human Resources</h4>
+                        <span class="div-desc">Developing our members' capacity and unity.</span>
                     </div>
-                </div>
-                <div class="div-body">
-                    <p>The creative minds spreading sustainability values through digital campaigns, designs, and interactive media advocacy.</p>
                 </div>
             </div>
 
-            <!-- DIVISION 4: Community Partnership -->
+            <!-- 4. General Resources -->
             <div class="division-card">
                 <div class="div-img-wrapper">
-                    <img src="coming_soon.png" alt="Community Partnership Division">
+                    <img src="gr.jpeg" alt="General Resources Division">
                     <div class="div-tag">
-                        <h4 class="div-name">Community Partnership</h4>
-                        <span class="div-count">8 Members</span>
+                        <h4 class="div-name">General Resources</h4>
+                        <span class="div-desc">Equipping and maintaining operational assets.</span>
                     </div>
                 </div>
-                <div class="div-body">
-                    <p>Building cross-sector networks connecting our students with NGOs, local communities, and government bodies.</p>
+            </div>
+
+            <!-- 5. Research, Observation, and Innovation -->
+            <div class="division-card">
+                <div class="div-img-wrapper">
+                    <img src="roi.jpeg" alt="Research, Observation, and Innovation Division">
+                    <div class="div-tag">
+                        <h4 class="div-name">Research, Observation & Innovation</h4>
+                        <span class="div-desc">Designing data-driven environmental solutions.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Internal Public Relations -->
+            <div class="division-card">
+                <div class="div-img-wrapper">
+                    <img src="intpr.jpeg" alt="Internal PR Division">
+                    <div class="div-tag">
+                        <h4 class="div-name">Internal Public Relations</h4>
+                        <span class="div-desc">Connecting and communicating within the campus.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. External Public Relations -->
+            <div class="division-card">
+                <div class="div-img-wrapper">
+                    <img src="extpr.jpeg" alt="External PR Division">
+                    <div class="div-tag">
+                        <h4 class="div-name">External Public Relations</h4>
+                        <span class="div-desc">Building networks with NGOs and the community.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Multimedia -->
+            <div class="division-card">
+                <div class="div-img-wrapper">
+                    <img src="mtdd.jpeg" alt="Multimedia Division">
+                    <div class="div-tag">
+                        <h4 class="div-name">Multimedia</h4>
+                        <span class="div-desc">Spreading awareness through creative digital design.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. Documentation -->
+            <div class="division-card">
+                <div class="div-img-wrapper">
+                    <img src="docum.jpeg" alt="Documentation Division">
+                    <div class="div-tag">
+                        <h4 class="div-name">Documentation</h4>
+                        <span class="div-desc">Capturing and archiving every environmental action.</span>
+                    </div>
                 </div>
             </div>
 
@@ -353,7 +440,6 @@
     <!-- Scripts -->
     <script>
         // --- 1. SAFE DYNAMIC GREETING ---
-        // (Tetap ada biar gak error, tapi gak nampilin apa-apa di halaman ini)
         const hour = new Date().getHours();
         let greetingText = "";
         if (hour >= 5 && hour < 12) greetingText = "Good Morning, Eco-Warrior! 🌅";
