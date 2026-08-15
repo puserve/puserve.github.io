@@ -16,7 +16,7 @@
         /* Smooth Scroll & Pelindung Judul Navbar */
         html { scroll-behavior: smooth; }
         body { background-color: #f4f9f5; color: #1a1a1a; overflow-x: hidden; }
-        section[id] { scroll-margin-top: 120px; } /* Jarak aman saat di-scroll dari navbar */
+        section[id] { scroll-margin-top: 120px; }
 
         /* Custom Text Highlight */
         ::selection { background-color: #0a3622; color: #f5cf21; }
@@ -30,17 +30,9 @@
         
         .logo-loader-container { position: relative; width: 180px; height: 180px; display: flex; justify-content: center; align-items: center; }
         .logo-dimmed { position: absolute; width: 100%; height: 100%; object-fit: contain; opacity: 0.1; filter: grayscale(100%); }
-        .logo-filled { 
-            position: absolute; width: 100%; height: 100%; object-fit: contain; 
-            clip-path: inset(100% 0 0 0); 
-            animation: fillUp 2s cubic-bezier(0.77, 0, 0.175, 1) 0.5s forwards;
-            filter: drop-shadow(0 0 20px rgba(245, 207, 33, 0.6));
-        }
+        .logo-filled { position: absolute; width: 100%; height: 100%; object-fit: contain; clip-path: inset(100% 0 0 0); animation: fillUp 2s cubic-bezier(0.77, 0, 0.175, 1) 0.5s forwards; filter: drop-shadow(0 0 20px rgba(245, 207, 33, 0.6)); }
 
-        @keyframes fillUp {
-            0% { clip-path: inset(100% 0 0 0); }
-            100% { clip-path: inset(0 0 0 0); }
-        }
+        @keyframes fillUp { 0% { clip-path: inset(100% 0 0 0); } 100% { clip-path: inset(0 0 0 0); } }
 
         /* -------------------------------------
            2. SCROLL PROGRESS TREE & BACK TO TOP
@@ -48,14 +40,7 @@
         #scroll-tree-container { position: fixed; top: 0; right: 0; width: 8px; height: 100vh; background: rgba(10, 54, 34, 0.1); z-index: 9998; pointer-events: none; }
         #scroll-tree-trunk { width: 100%; background: #f5cf21; height: 0%; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; transition: height 0.1s ease-out; box-shadow: 0 0 10px rgba(245, 207, 33, 0.5); }
         
-        #back-to-top {
-            position: fixed; bottom: -80px; right: 30px; width: 55px; height: 55px;
-            background-color: #0a3622; color: #f5cf21; border-radius: 50%;
-            display: flex; justify-content: center; align-items: center; font-size: 1.8rem;
-            cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 2px solid #f5cf21;
-            transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), transform 0.3s, background-color 0.3s, color 0.3s;
-            z-index: 998;
-        }
+        #back-to-top { position: fixed; bottom: -80px; right: 30px; width: 55px; height: 55px; background-color: #0a3622; color: #f5cf21; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 2px solid #f5cf21; transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), transform 0.3s, background-color 0.3s, color 0.3s; z-index: 998; }
         #back-to-top.show { bottom: 30px; }
         #back-to-top:hover { transform: translateY(-8px) scale(1.1); background-color: #f5cf21; color: #0a3622; border-color: #0a3622; }
 
@@ -88,7 +73,6 @@
         .easter-egg-content img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px dashed #f5cf21; }
         .prank-text { color: #f5cf21; font-weight: 700; font-size: 1.1rem; line-height: 1.6; }
         
-        /* Tombol X yang rata tengah sempurna */
         .close-egg { position: absolute; top: -20px; right: -20px; font-size: 2rem; font-family: sans-serif; line-height: 1; background: #ff3333; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 3px solid #f4f9f5; transition: 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 10; }
         .close-egg:hover { transform: scale(1.15); background: white; color: #ff3333; border-color: #ff3333; }
         
@@ -97,7 +81,7 @@
 
         /* Navigation - Includes Smart Auto Hide */
         nav { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; background: rgba(10, 54, 34, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); transition: top 0.4s ease-in-out, background 0.4s ease; }
-        nav.nav-hidden { top: -120px !important; } /* Sembunyi ke atas saat scroll down */
+        nav.nav-hidden { top: -120px !important; } 
         
         .nav-logos { display: flex; align-items: center; gap: 15px; }
         .nav-logos img { height: 35px; width: auto; object-fit: contain; }
@@ -119,35 +103,74 @@
         .dropdown-content a { display: block; padding: 12px 20px; color: rgba(255, 255, 255, 0.9); text-align: center; font-size: 0.95rem; transition: background 0.3s ease, color 0.3s ease; }
         .dropdown-content a:hover { color: white; background: rgba(255, 255, 255, 0.1); }
         .dropdown:hover .dropdown-content { display: block; }
+        
+        .nav-cta { background: #f5cf21; color: #0a3622 !important; padding: 8px 20px; border-radius: 20px; font-weight: 700 !important; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .nav-cta:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(245, 207, 33, 0.4); background: #f5cf21 !important; color: #0a3622 !important; }
 
-        @media screen and (min-width: 1024px) { nav { width: 85%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; } .nav-logos img { height: 45px; } .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; } .dropdown-content { left: 50%; transform: translateX(-50%); } .dropdown-content a { text-align: center; } .menu-icon { display: none; } }
+        @media screen and (min-width: 1024px) { nav { width: 90%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; } .nav-logos img { height: 45px; } .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; } .dropdown-content { left: 50%; transform: translateX(-50%); } .dropdown-content a { text-align: center; } .menu-icon { display: none; } }
 
         /* Screenshot Watermark Protection */
         body::after { content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; height: 100vh; background-image: url('LOGO_PUSERVE.png'); background-repeat: no-repeat; background-position: center; background-size: contain; opacity: 0.03; z-index: 9999; pointer-events: none; }
 
-        /* Hero Section */
-        .hero { position: relative; height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
+        /* Hero Section (Left Aligned & Professional) */
+        .hero { position: relative; height: 100vh; width: 100%; display: flex; align-items: center; justify-content: flex-start; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
         .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); z-index: -2; object-fit: cover; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(10,54,34,0.5) 0%, rgba(10,54,34,0.9) 100%); z-index: -1; }
-        .hero-content { z-index: 1; color: white; max-width: 900px; padding: 30px; margin-top: 80px; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(10,54,34,0.95) 0%, rgba(10,54,34,0.7) 50%, rgba(10,54,34,0.4) 100%); z-index: -1; }
+        .hero-content { z-index: 1; color: white; max-width: 800px; padding: 0 5%; margin-top: 60px; }
         
-        /* Dynamic Greeting & Typewriter Text Style */
-        #dynamic-greeting { font-size: 1.2rem; font-weight: 800; color: white; margin-bottom: 5px; opacity: 0.9; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .hero-small-text { font-size: 0.95rem; font-weight: 700; letter-spacing: 2px; color: #f5cf21; margin-bottom: 15px; min-height: 20px; display: inline-block; border-right: 2px solid transparent; }
+        #dynamic-greeting { font-size: 1.1rem; font-weight: 700; color: rgba(255,255,255,0.8); margin-bottom: 5px; }
+        .hero-small-text { font-size: 1rem; font-weight: 700; letter-spacing: 2px; color: #f5cf21; margin-bottom: 20px; min-height: 20px; display: inline-block; border-right: 2px solid transparent; }
         .hero-small-text.typing { border-right: 2px solid #f5cf21; animation: blinkCaret 0.75s step-end infinite; }
         @keyframes blinkCaret { from, to { border-color: transparent } 50% { border-color: #f5cf21; } }
 
-        .hero-content h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.2; letter-spacing: -1px; margin-bottom: 25px; }
-        .hero-content p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; }
+        .hero-title { font-size: 4.5rem; font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 25px; color: white; }
+        .highlight-gold { color: #f5cf21; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 35px; opacity: 0.9; max-width: 600px; line-height: 1.6; }
         
-        .play-btn, .contact-btn { display: inline-block; background: rgba(245, 207, 33, 0.2); border: 2px solid #f5cf21; color: #f5cf21; padding: 12px 30px; border-radius: 30px; font-size: 1.1rem; font-weight: 700; cursor: pointer; backdrop-filter: blur(5px); }
+        .hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; }
+        .primary-btn { background: #f5cf21; color: #0a3622; border: none; padding: 16px 40px; border-radius: 40px; font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: 0.3s; text-decoration: none; display: inline-block; }
+        .primary-btn:hover { background: white; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .secondary-btn { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 16px 40px; border-radius: 40px; font-size: 1.1rem; font-weight: 700; cursor: pointer; backdrop-filter: blur(10px); transition: 0.3s; display: inline-block; text-decoration: none;}
+        .secondary-btn:hover { background: rgba(255,255,255,0.25); border-color: white; transform: translateY(-3px); }
+
+        @media screen and (max-width: 768px) {
+            .hero-title { font-size: 3rem; }
+            .hero-overlay { background: linear-gradient(180deg, rgba(10,54,34,0.7) 0%, rgba(10,54,34,0.95) 100%); }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .primary-btn, .secondary-btn { width: 100%; text-align: center; }
+        }
 
         /* Containers */
         .section-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
-        .section-title { text-align: center; font-size: 2.5rem; color: #0a3622; margin-bottom: 40px; font-weight: 800; }
+        .section-title { text-align: center; font-size: 2.5rem; color: #0a3622; margin-bottom: 20px; font-weight: 800; }
+        .section-subtitle { text-align: center; font-size: 1.1rem; color: #555; margin-bottom: 50px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+        
         .about-text { text-align: center; font-size: 1.2rem; line-height: 1.8; color: #4a4a4a; max-width: 800px; margin: 0 auto; }
 
-        /* WHAT WE SERVE */
+        /* Grid System for Activities (Professional Layout) */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; perspective: 1000px; }
+        @media screen and (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+        
+        .event-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.06); display: flex; flex-direction: column; transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease; text-decoration: none;}
+        .card-img-wrapper { position: relative; height: 280px; overflow: hidden; }
+        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(20px) scale(1.05); transition: transform 0.5s ease; }
+        .event-card:hover .card-img-wrapper img { transform: translateZ(30px) scale(1.1); }
+        
+        .badge-date { position: absolute; bottom: 20px; left: 20px; background: white; color: #1a1a1a; padding: 6px 15px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateZ(30px); }
+        .badge-attendees { position: absolute; top: 20px; right: 20px; background: rgba(10, 54, 34, 0.85); color: white; padding: 6px 15px; border-radius: 10px; font-size: 0.9rem; font-weight: 700; backdrop-filter: blur(5px); display: flex; align-items: center; gap: 5px; transform: translateZ(30px); }
+        
+        .card-body { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; transform: translateZ(20px); }
+        .card-body h3 { color: #0a3622; font-size: 1.4rem; margin-bottom: 12px; font-weight: 800; line-height: 1.4; }
+        .card-body p { color: #555; font-size: 1rem; line-height: 1.6; }
+        
+        .card-result { background: #e9f2eb; padding: 18px; border-radius: 12px; margin-top: 20px; margin-bottom: 25px; border-left: 4px solid #0a3622; }
+        .result-label { font-size: 0.75rem; color: #0a3622; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px; text-transform: uppercase; }
+        .card-result p { color: #0a3622; font-weight: 600; font-size: 0.95rem; margin: 0; }
+        
+        .card-action-btn { background: #0a3622; color: white; text-align: center; padding: 15px; text-decoration: none; font-weight: 700; font-size: 1.05rem; border-radius: 12px; transition: all 0.3s; margin-top: auto; display: block; }
+        .card-action-btn:hover { background: #f5cf21; color: #0a3622; }
+
+        /* Impact Stories / What We Serve (Carousel) */
         .serve-marquee { background-color: #0a3622; color: #f5cf21; padding: 12px 0; overflow: hidden; white-space: nowrap; position: relative; display: flex; }
         .marquee-content { display: inline-block; white-space: nowrap; animation: marquee 25s linear infinite; font-weight: 800; font-size: 1rem; letter-spacing: 2px; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -158,33 +181,14 @@
         .ticker-set { display: flex; gap: 30px; padding-right: 30px; }
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        .serve-carousel-section { background-color: #e9f2eb; padding: 50px 0 60px; overflow: hidden; }
-        .serve-carousel-section .section-title { margin-bottom: 30px; font-size: 2.5rem; }
-        
-        .serve-card { width: 320px; flex-shrink: 0; background: white; padding: 25px; border-radius: 15px; border-left: 5px solid #f5cf21; box-shadow: 0 15px 35px rgba(0,0,0,0.05); transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease; }
-        .serve-card h4 { color: #0a3622; font-size: 1.2rem; margin-bottom: 12px; font-weight: 800; transform: translateZ(30px); }
-        .serve-card p { color: #555; font-size: 0.95rem; line-height: 1.6; transform: translateZ(20px); }
-
         .quote-card { width: 380px; flex-shrink: 0; background: white; padding: 30px; border-radius: 20px; border-left: 5px solid #f5cf21; box-shadow: 0 15px 35px rgba(0,0,0,0.05); transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease; }
         .quote-text { font-style: italic; color: #4a4a4a; margin-bottom: 20px; line-height: 1.6; font-size: 1.05rem; transform: translateZ(30px); }
         .quote-author { font-weight: 800; color: #0a3622; font-size: 1.1rem; transform: translateZ(25px); }
         .quote-position { font-weight: 500; color: #888; font-size: 0.9rem; margin-top: 3px; transform: translateZ(20px); }
 
-        /* Grid System for Events */
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; perspective: 1000px; }
-        .card { border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.05); background: white; display: block; text-decoration: none; transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease; }
-        .card img { width: 100%; height: 250px; object-fit: cover; transform: translateZ(20px); scale: 1.05; }
-        .card-content { padding: 25px; transform: translateZ(30px); }
-        .card-content h3 { color: #0a3622; margin-bottom: 10px; }
-        .card-content p { color: #666; font-size: 0.95rem; line-height: 1.5; }
-
-        /* News Section */
-        .news-section { background-color: #0a3622; color: white; padding: 80px 20px; }
-        .news-section .section-title { color: white; }
-
         /* Contact / Join Us */
         .join-section { text-align: center; background: #e9f2eb; padding: 80px 20px; border-radius: 40px; margin: 40px auto; max-width: 1200px; }
-        .contact-btn { background-color: #0a3622; margin-top: 20px; }
+        .contact-btn { display: inline-block; background-color: #0a3622; color: white; padding: 15px 40px; border-radius: 30px; font-weight: 700; font-size: 1.2rem; text-decoration: none; margin-top: 20px; transition: transform 0.2s; }
 
         /* Social Media Icons */
         .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 35px; }
@@ -196,7 +200,7 @@
         .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-        footer { background: #0a3622; color: white; text-align: center; padding: 30px; }
+        footer { background: #0a3622; color: white; text-align: center; padding: 30px; font-size: 0.95rem; font-weight: 500;}
     </style>
 </head>
 <body>
@@ -251,12 +255,13 @@
             <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">Explore ▾</a>
                 <div class="dropdown-content">
-                    <a href="events.html">Events</a>
+                    <a href="#activities">Activities</a>
                     <a href="news.html">News</a>
                     <a href="team.html">Our Team</a>
                 </div>
             </li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact" class="nav-cta magnetic-btn">Join Us</a></li>
         </ul>
     </nav>
 
@@ -272,9 +277,14 @@
             <!-- Typewriter Text -->
             <div class="hero-small-text" id="typewriter-text"></div>
             
-            <h1>We build solutions for environmental action and education.</h1>
-            <p>From humanity for the environment, and from the environment back to humanity.</p>
-            <button class="play-btn" onclick="openLightbox()">▶ Watch Our Journey</button>
+            <!-- Professional Left-Aligned Typography -->
+            <h1 class="hero-title">Real Environmental Action.<br><span class="highlight-gold">Empowering Changemakers.</span></h1>
+            <p>We reflect the spirit of generating ideas, strengthening them through togetherness, and transforming them into meaningful impact for our planet.</p>
+            
+            <div class="hero-buttons">
+                <a href="#activities" class="primary-btn magnetic-btn">Get Involved</a>
+                <button class="secondary-btn magnetic-btn" onclick="openLightbox()">Explore Archive ➔</button>
+            </div>
         </div>
     </section>
 
@@ -282,126 +292,84 @@
     <section id="about" class="section-container fade-up">
         <h2 class="section-title">What is PUSERVE?</h2>
         <p class="about-text">
-            PUSERVE (President University Serve Environment) is a student organization dedicated to real environmental and social action. We believe that small steps can create a massive impact for our planet and future generations.
+            PUSERVE (President University Serve Environment) is a student organization dedicated to real environmental and social action. We believe that individuals don't grow alone, but through collaboration that leads to a greater impact.
         </p>
     </section>
 
-    <!-- WHAT WE SERVE (Marquee & Auto-Scroll Carousel) -->
+    <!-- WHAT WE SERVE (Marquee) -->
     <div class="serve-marquee fade-up">
         <div class="marquee-content">
             REAL ENVIRONMENTAL ACTION &nbsp;&bull;&nbsp; ECOLOGICAL EDUCATION &nbsp;&bull;&nbsp; RESEARCH & INNOVATION &nbsp;&bull;&nbsp; COMMUNITY COLLABORATION &nbsp;&bull;&nbsp; CREATIVE ADVOCACY &nbsp;&bull;&nbsp; EMPOWERING CHANGEMAKERS &nbsp;&bull;&nbsp; REAL ENVIRONMENTAL ACTION &nbsp;&bull;&nbsp; ECOLOGICAL EDUCATION &nbsp;&bull;&nbsp; RESEARCH & INNOVATION &nbsp;&bull;&nbsp; COMMUNITY COLLABORATION &nbsp;&bull;&nbsp; CREATIVE ADVOCACY &nbsp;&bull;&nbsp; EMPOWERING CHANGEMAKERS &nbsp;&bull;&nbsp; 
         </div>
     </div>
 
-    <section class="serve-carousel-section fade-up">
-        <h2 class="section-title">What We Serve</h2>
-        <div class="ticker-wrapper">
-            <div class="ticker-track">
-                <!-- SET 1 -->
-                <div class="ticker-set">
-                    <div class="serve-card tilt-card">
-                        <h4>Real Action</h4>
-                        <p>Executing tree planting, waste clean-ups, and ecosystem restoration for a sustainable future.</p>
-                    </div>
-                    <div class="serve-card tilt-card">
-                        <h4>Ecological Education</h4>
-                        <p>Building ecological literacy and training environmentally conscious leaders through intensive programs.</p>
-                    </div>
-                    <div class="serve-card tilt-card">
-                        <h4>Research & Innovation</h4>
-                        <p>Designing applicable solutions and action plans based on strong environmental data and observation.</p>
-                    </div>
-                    <div class="serve-card tilt-card">
-                        <h4>Community Collaboration</h4>
-                        <p>Building cross-sector networks connecting students, local communities, NGOs, and governments.</p>
-                    </div>
-                    <div class="serve-card tilt-card">
-                        <h4>Creative Advocacy</h4>
-                        <p>Spreading sustainability values through inclusive digital campaigns and interactive media.</p>
-                    </div>
-                    <div class="serve-card tilt-card">
-                        <h4>Empowering Changemakers</h4>
-                        <p>Providing a dynamic platform for students to innovate and make a real-world impact.</p>
-                    </div>
+    <!-- NEW PROFESSIONAL ACTIVITIES CARDS -->
+    <section id="activities" class="section-container fade-up">
+        <h2 class="section-title">Our Activities</h2>
+        <p class="section-subtitle">A curated record of our ongoing efforts to restore, preserve, and celebrate our natural heritage.</p>
+        
+        <div class="grid-2">
+            <!-- Card 1 -->
+            <div class="event-card tilt-card">
+                <div class="card-img-wrapper">
+                    <img src="coming_soon.png" alt="Future Eco Leaders 2026">
+                    <span class="badge-date">May 9, 2026</span>
+                    <span class="badge-attendees">👥 130</span>
                 </div>
-                <!-- SET 2 -->
-                <div class="ticker-set">
-                    <div class="serve-card tilt-card">
-                        <h4>Real Action</h4>
-                        <p>Executing tree planting, waste clean-ups, and ecosystem restoration for a sustainable future.</p>
+                <div class="card-body">
+                    <h3>Future Eco Leaders 2026</h3>
+                    <p>An official onboarding and leadership development program for new PUSERVE members, focusing on ecological literacy and action plans.</p>
+                    <div class="card-result">
+                        <span class="result-label">Result</span>
+                        <p>Successfully trained 130 new members with actionable sustainability blueprints for the campus environment.</p>
                     </div>
-                    <div class="serve-card tilt-card">
-                        <h4>Ecological Education</h4>
-                        <p>Building ecological literacy and training environmentally conscious leaders through intensive programs.</p>
+                    <a href="events-fel2026.html" class="card-action-btn magnetic-btn">View Case Study ➔</a>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="event-card tilt-card">
+                <div class="card-img-wrapper">
+                    <img src="coming_soon.png" alt="GRECON 2026">
+                    <span class="badge-date">Apr 26, 2026</span>
+                    <span class="badge-attendees">👥 50</span>
+                </div>
+                <div class="card-body">
+                    <h3>GRECON 2026</h3>
+                    <p>A regional youth convention focused on concrete environmental action, proper waste management, and green innovations.</p>
+                    <div class="card-result">
+                        <span class="result-label">Result</span>
+                        <p>Increased participant awareness on waste management and produced 5 collaborative community projects.</p>
                     </div>
-                    <div class="serve-card tilt-card">
-                        <h4>Research & Innovation</h4>
-                        <p>Designing applicable solutions and action plans based on strong environmental data and observation.</p>
+                    <a href="events-grecon2026.html" class="card-action-btn magnetic-btn">View Case Study ➔</a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="event-card tilt-card">
+                <div class="card-img-wrapper">
+                    <img src="coming_soon.png" alt="PUSERVE Ignite 2026">
+                    <span class="badge-date">Feb 20, 2026</span>
+                    <span class="badge-attendees">👥 20</span>
+                </div>
+                <div class="card-body">
+                    <h3>PUSERVE IGNITE 2026</h3>
+                    <p>An environmental pitching program providing a dynamic platform for students to create and fund innovative solutions.</p>
+                    <div class="card-result">
+                        <span class="result-label">Result</span>
+                        <p>Generated impactful innovations resulting in a cleaner and more comfortable village environment.</p>
                     </div>
-                    <div class="serve-card tilt-card">
-                        <h4>Community Collaboration</h4>
-                        <p>Building cross-sector networks connecting students, local communities, NGOs, and governments.</p>
-                    </div>
-                    <div class="serve-card tilt-card">
-                        <h4>Creative Advocacy</h4>
-                        <p>Spreading sustainability values through inclusive digital campaigns and interactive media.</p>
-                    </div>
-                    <div class="serve-card tilt-card">
-                        <h4>Empowering Changemakers</h4>
-                        <p>Providing a dynamic platform for students to innovate and make a real-world impact.</p>
-                    </div>
+                    <a href="events-ignite2026.html" class="card-action-btn magnetic-btn">View Case Study ➔</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Upcoming Events -->
-    <section class="section-container fade-up">
-        <h2 class="section-title">Upcoming Events</h2>
-        <div class="grid-3">
-            <a href="events-fel2026.html" class="card tilt-card">
-                <img src="coming_soon.png" alt="Future Eco Leaders 2026">
-                <div class="card-content">
-                    <h3>Future Eco Leaders 2026</h3>
-                    <p>An official onboarding and leadership development program for new PUSERVE members.</p>
-                </div>
-            </a>
-            <a href="events-grecon2026.html" class="card tilt-card">
-                <img src="coming_soon.png" alt="GRECON 2026">
-                <div class="card-content">
-                    <h3>GRECON 2026</h3>
-                    <p>A regional youth convention focused on concrete environmental action and waste management.</p>
-                </div>
-            </a>
-            <a href="events-ignite2026.html" class="card tilt-card">
-                <img src="coming_soon.png" alt="PUSERVE Ignite 2026">
-                <div class="card-content">
-                    <h3>PUSERVE IGNITE 2026</h3>
-                    <p>An environmental program providing a platform for students to create innovative solutions.</p>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- News (Empty State Layout) -->
-    <section id="news" class="news-section fade-up">
-        <h2 class="section-title">Latest News</h2>
-        <div style="max-width: 800px; margin: 0 auto; text-align: center; background: rgba(255, 255, 255, 0.05); padding: 60px 20px; border-radius: 20px; border: 2px dashed rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px);">
-            <img src="coming_soon.png" alt="No News Yet" style="max-width: 200px; margin-bottom: 25px; border-radius: 15px; opacity: 0.8;">
-            <h3 style="font-size: 2rem; margin-bottom: 15px;">No News Yet</h3>
-            <p style="font-size: 1.1rem; opacity: 0.8; line-height: 1.6;">
-                We are currently preparing and working on exciting environmental initiatives. <br>
-                Stay tuned and check back later for the latest updates from PUSERVE!
-            </p>
-        </div>
-    </section>
-
-    <!-- Impact Stories -->
-    <section class="section-container fade-up" style="overflow: hidden;">
+    <!-- Impact Stories Carousel -->
+    <section class="section-container fade-up" style="overflow: hidden; padding-top: 20px;">
         <h2 class="section-title">Impact Stories</h2>
         <div class="ticker-wrapper" style="padding-top: 10px;">
             <div class="ticker-track" style="animation-duration: 35s;"> 
-                <!-- SET 1 -->
                 <div class="ticker-set">
                     <div class="quote-card tilt-card">
                         <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
@@ -427,14 +395,8 @@
                         <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
                         <p class="quote-author">Student Volunteer</p>
                         <p class="quote-position">PUSERVE Member</p>
-                    </div>
-                    <div class="quote-card tilt-card">
-                        <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
-                        <p class="quote-author">NGO Partner</p>
-                        <p class="quote-position">External Collaborator</p>
                     </div>
                 </div>
-                <!-- SET 2 -->
                 <div class="ticker-set">
                     <div class="quote-card tilt-card">
                         <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
@@ -460,11 +422,6 @@
                         <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
                         <p class="quote-author">Student Volunteer</p>
                         <p class="quote-position">PUSERVE Member</p>
-                    </div>
-                    <div class="quote-card tilt-card">
-                        <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
-                        <p class="quote-author">NGO Partner</p>
-                        <p class="quote-position">External Collaborator</p>
                     </div>
                 </div>
             </div>
@@ -475,7 +432,7 @@
     <section id="contact" class="join-section fade-up">
         <h2 class="section-title">Let's Collaborate</h2>
         <p class="about-text">Want to partner with us or join our upcoming initiatives? We are always looking for passionate individuals and organizations to work together for a better environment.</p>
-        <a href="mailto:preserve.presuniv@gmail.com" class="contact-btn">Email Us</a>
+        <a href="mailto:preserve.presuniv@gmail.com" class="contact-btn magnetic-btn">Email Us</a>
 
         <!-- Social Media Links -->
         <div class="social-links">
@@ -489,7 +446,7 @@
     </section>
 
     <footer>
-        <p>Made with <span style="display:inline-block; animation: pulseHeart 1.5s infinite;">💚</span> by PUSERVE. All rights reserved.</p>
+        <p>&copy; 2026 PUSERVE. President University. All rights reserved.</p>
     </footer>
 
     <!-- Scripts -->
@@ -497,7 +454,6 @@
         // --- 1. DYNAMIC GREETING SCRIPT ---
         const hour = new Date().getHours();
         let greetingText = "";
-        // Jam 5 pagi - 11 siang (Morning), 12 siang - 5 sore (Afternoon), sisanya (Evening)
         if (hour >= 5 && hour < 12) greetingText = "Good Morning, Eco-Warrior! 🌅";
         else if (hour >= 12 && hour < 18) greetingText = "Good Afternoon! Keep the earth green! ☀️";
         else greetingText = "Good Evening, Night Owl! 🦉";
@@ -552,9 +508,9 @@
         window.addEventListener('scroll', function() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             if (scrollTop > lastScrollTop && scrollTop > 150) {
-                navbar.classList.add('nav-hidden'); // Scroll Down
+                navbar.classList.add('nav-hidden'); 
             } else {
-                navbar.classList.remove('nav-hidden'); // Scroll Up
+                navbar.classList.remove('nav-hidden'); 
             }
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
         });
@@ -586,13 +542,13 @@
         });
 
         // --- 7. MAGNETIC BUTTONS SCRIPT ---
-        const magneticBtns = document.querySelectorAll('.play-btn, .contact-btn');
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
         magneticBtns.forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
-                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.05)`;
+                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
                 btn.style.transition = 'transform 0.1s ease-out';
             });
             btn.addEventListener('mouseleave', () => {
@@ -633,15 +589,15 @@
                 const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -12; 
-                const rotateY = ((x - centerX) / centerX) * 12;
+                const rotateX = ((y - centerY) / centerY) * -8; 
+                const rotateY = ((x - centerX) / centerX) * 8;
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
                 card.style.boxShadow = `${-rotateY}px ${rotateX}px 30px rgba(0,0,0,0.1)`;
                 card.style.transition = 'none'; 
             });
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                card.style.boxShadow = `0 15px 35px rgba(0,0,0,0.05)`;
+                card.style.boxShadow = `0 15px 35px rgba(0,0,0,0.06)`;
                 card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease'; 
             });
             card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
