@@ -123,7 +123,7 @@
         .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 60px; }
         .footer-brand { display: flex; flex-direction: column; gap: 20px; }
         .footer-logos { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
-        .footer-logos img { height: 45px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.9;}
+        .footer-logos img { height: 45px; object-fit: contain; } /* Filter dicabut biar warna asli */
         .brand-name { color: white; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; line-height: 1.2; }
         .brand-sub { color: #f5cf21; font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; }
         .footer-desc { line-height: 1.8; max-width: 400px; }
@@ -195,7 +195,7 @@
                     <a href="team.html">Our Team</a>
                 </div>
             </li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
             <li><a href="mailto:preserve.presuniv@gmail.com" class="nav-cta magnetic-btn">Join Us</a></li>
         </ul>
     </nav>
@@ -211,31 +211,7 @@
         <!-- SECTION: RUNNING EVENTS -->
         <h2 class="category-title fade-up">Running Events</h2>
         <div class="grid-2 fade-up">
-            <!-- Card -->
-            <div class="event-card tilt-card">
-                <div class="card-img-wrapper">
-                    <img src="coming_soon.png" alt="PUSERVE Campaign">
-                    <span class="badge-date">Present - Dec 2026</span>
-                    <span class="badge-attendees">👥 Open</span>
-                </div>
-                <div class="card-body">
-                    <h3>Zero Waste Campus Campaign</h3>
-                    <p>An ongoing, semester-long campaign aimed at reducing single-use plastics across the university area by collaborating with campus vendors and students.</p>
-                    <div class="card-result">
-                        <span class="result-label">Current Progress</span>
-                        <p>Currently onboarding 15 campus food vendors to switch to biodegradable packaging options.</p>
-                    </div>
-                    <a href="#" class="card-action-btn magnetic-btn">See Details ➔</a>
-                </div>
-            </div>
-            
-            <!-- You can add more Running Events cards here by copying the block above -->
-        </div>
-
-        <!-- SECTION: UPCOMING EVENTS -->
-        <h2 class="category-title fade-up" style="margin-top: 40px;">Upcoming Events</h2>
-        <div class="grid-2 fade-up">
-            <!-- Card 1 -->
+            <!-- Feature Eco Leaders (Dipindah ke Running) -->
             <div class="event-card tilt-card">
                 <div class="card-img-wrapper">
                     <img src="coming_soon.png" alt="Future Eco Leaders 2026">
@@ -244,16 +220,20 @@
                 </div>
                 <div class="card-body">
                     <h3>Future Eco Leaders 2026</h3>
-                    <p>An official onboarding and leadership development program designed specifically to integrate and empower the newest members of PUSERVE.</p>
-                    <div class="card-result" style="border-left-color: #f5cf21; background: #fffdf0;">
-                        <span class="result-label" style="color: #b59200;">Target Impact</span>
-                        <p style="color: #665200;">Train 130+ students with actionable sustainability blueprints for the campus environment.</p>
+                    <p>An official onboarding and leadership development program for new PUSERVE members, focusing on ecological literacy and action plans.</p>
+                    <div class="card-result">
+                        <span class="result-label">Current Progress</span>
+                        <p>Currently onboarding participants and preparing actionable sustainability blueprints for the campus environment.</p>
                     </div>
                     <a href="events-fel2026.html" class="card-action-btn magnetic-btn">See Details ➔</a>
                 </div>
             </div>
+        </div>
 
-            <!-- Card 2 -->
+        <!-- SECTION: UPCOMING EVENTS -->
+        <h2 class="category-title fade-up" style="margin-top: 40px;">Upcoming Events</h2>
+        <div class="grid-2 fade-up">
+            <!-- Card GRECON -->
             <div class="event-card tilt-card">
                 <div class="card-img-wrapper">
                     <img src="coming_soon.png" alt="GRECON 2026">
@@ -271,7 +251,7 @@
                 </div>
             </div>
 
-            <!-- Card 3 -->
+            <!-- Card IGNITE -->
             <div class="event-card tilt-card">
                 <div class="card-img-wrapper">
                     <img src="coming_soon.png" alt="PUSERVE Ignite 2026">
@@ -290,26 +270,12 @@
             </div>
         </div>
 
-        <!-- SECTION: PAST EVENTS -->
+        <!-- SECTION: PAST EVENTS (EMPTY STATE) -->
         <h2 class="category-title fade-up" style="margin-top: 40px;">Past Events</h2>
-        <div class="grid-2 fade-up">
-            <!-- Card Past Event Placeholder -->
-            <div class="event-card tilt-card">
-                <div class="card-img-wrapper">
-                    <img src="coming_soon.png" alt="Mangrove Planting 2025">
-                    <span class="badge-date">Nov 15, 2025</span>
-                    <span class="badge-attendees">👥 80</span>
-                </div>
-                <div class="card-body">
-                    <h3>TUMBUH - Coastal Restoration</h3>
-                    <p>A collaborative mangrove planting initiative executed by PUSERVE members in coastal areas to prevent abrasion and restore marine ecosystems.</p>
-                    <div class="card-result">
-                        <span class="result-label">Result</span>
-                        <p>Successfully planted 250 mangrove saplings and increased local community awareness regarding coastal protection.</p>
-                    </div>
-                    <a href="#" class="card-action-btn magnetic-btn">See Details ➔</a>
-                </div>
-            </div>
+        <div class="fade-up" style="max-width: 800px; margin: 0 auto; text-align: center; background: rgba(10, 54, 34, 0.05); padding: 40px 20px; border-radius: 20px; border: 2px dashed rgba(10, 54, 34, 0.2);">
+            <p style="font-size: 1.1rem; color: #555; font-weight: 500; line-height: 1.6;">
+                Our past event records are currently being archived.<br>Check back soon to see the environmental impact we've created!
+            </p>
         </div>
 
     </div>
