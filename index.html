@@ -104,7 +104,7 @@
         .dropdown-content a:hover { color: white; background: rgba(255, 255, 255, 0.1); }
         .dropdown:hover .dropdown-content { display: block; }
         
-        .nav-cta { background: #f5cf21; color: #0a3622 !important; padding: 8px 20px; border-radius: 20px; font-weight: 700 !important; transition: transform 0.3s ease, box-shadow 0.3s ease; white-space: nowrap; } /* white-space nowrap buat ngunci teks biar gak mleot */
+        .nav-cta { background: #f5cf21; color: #0a3622 !important; padding: 8px 20px; border-radius: 20px; font-weight: 700 !important; transition: transform 0.3s ease, box-shadow 0.3s ease; white-space: nowrap; } 
         .nav-cta:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(245, 207, 33, 0.4); background: #f5cf21 !important; color: #0a3622 !important; }
 
         @media screen and (min-width: 1024px) { nav { width: 90%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; } .nav-logos img { height: 45px; } .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; } .dropdown-content { left: 50%; transform: translateX(-50%); } .dropdown-content a { text-align: center; } .menu-icon { display: none; } }
@@ -112,14 +112,14 @@
         /* Screenshot Watermark Protection */
         body::after { content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; height: 100vh; background-image: url('LOGO_PUSERVE.png'); background-repeat: no-repeat; background-position: center; background-size: contain; opacity: 0.03; z-index: 9999; pointer-events: none; }
 
-    /* Hero Section (Left Aligned & Safe Margin) */
-       .hero { position: relative; min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: flex-start; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; padding-top: 130px; padding-bottom: 80px; }
+        /* Hero Section (Left Aligned & Safe Margin) */
+        .hero { position: relative; min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: flex-start; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; padding-top: 130px; padding-bottom: 80px; }
         .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); z-index: -2; object-fit: cover; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(10,54,34,0.95) 0%, rgba(10,54,34,0.7) 50%, rgba(10,54,34,0.4) 100%); z-index: -1; }
-        .hero-content { z-index: 1; color: white; max-width: 800px; padding: 0 5%; /* margin-top paksa dihapus biar otomatis center di area aman */ }
+        .hero-content { z-index: 1; color: white; max-width: 800px; padding: 0 5%; }
         
         #dynamic-greeting { font-size: 1.1rem; font-weight: 700; color: rgba(255,255,255,0.8); margin-bottom: 5px; }
-      
+       
         .hero-title { font-size: 4.5rem; font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 25px; color: white; }
         .highlight-gold { color: #f5cf21; }
         .hero-content p { font-size: 1.2rem; margin-bottom: 35px; opacity: 0.9; max-width: 600px; line-height: 1.6; }
@@ -273,7 +273,7 @@
             <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">Explore ▾</a>
                 <div class="dropdown-content">
-                    <a href="#activities">Events</a>
+                    <a href="events.html">Events</a>
                     <a href="news.html">News</a>
                     <a href="team.html">Our Team</a>
                 </div>
@@ -446,7 +446,7 @@
         </div>
     </section>
 
- <!-- Professional Footer -->
+    <!-- Professional Footer -->
     <footer class="site-footer" id="contact">
         <div class="footer-grid">
             
@@ -641,8 +641,8 @@
                 const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -2; /* Dikurangin dari -12 jadi -2 biar ga terlalu mleyot */
-                const rotateY = ((x - centerX) / centerX) * 2; /* Dikurangin dari 12 jadi 2 */
+                const rotateX = ((y - centerY) / centerY) * -4; 
+                const rotateY = ((x - centerX) / centerX) * 4; 
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
                 card.style.boxShadow = `${-rotateY}px ${rotateX}px 25px rgba(0,0,0,0.08)`;
                 card.style.transition = 'none'; 
