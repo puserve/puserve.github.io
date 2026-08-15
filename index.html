@@ -112,11 +112,11 @@
         /* Screenshot Watermark Protection */
         body::after { content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; height: 100vh; background-image: url('LOGO_PUSERVE.png'); background-repeat: no-repeat; background-position: center; background-size: contain; opacity: 0.03; z-index: 9999; pointer-events: none; }
 
-        /* Hero Section (Left Aligned & Safe Margin) */
-        .hero { position: relative; height: 100vh; width: 100%; display: flex; align-items: center; justify-content: flex-start; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
+    /* Hero Section (Left Aligned & Safe Margin) */
+        .hero { position: relative; height: 100vh; width: 100%; display: flex; align-items: center; justify-content: flex-start; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; padding-top: 130px; /* Bantalan aman biar gak nyundul navbar */ }
         .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; transform: translate(-50%, -50%); z-index: -2; object-fit: cover; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(10,54,34,0.95) 0%, rgba(10,54,34,0.7) 50%, rgba(10,54,34,0.4) 100%); z-index: -1; }
-        .hero-content { z-index: 1; color: white; max-width: 800px; padding: 0 5%; margin-top: 120px; /* Margin ditambah biar gak nyundul navbar */ }
+        .hero-content { z-index: 1; color: white; max-width: 800px; padding: 0 5%; /* margin-top paksa dihapus biar otomatis center di area aman */ }
         
         #dynamic-greeting { font-size: 1.1rem; font-weight: 700; color: rgba(255,255,255,0.8); margin-bottom: 5px; }
         .hero-small-text { font-size: 1rem; font-weight: 700; letter-spacing: 2px; color: #f5cf21; margin-bottom: 20px; min-height: 20px; display: inline-block; border-right: 2px solid transparent; }
