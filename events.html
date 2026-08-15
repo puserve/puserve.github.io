@@ -91,7 +91,7 @@
         .category-title::after { content: ''; width: 60px; height: 4px; background: #f5cf21; border-radius: 2px; margin-top: 15px; }
 
         /* -------------------------------------
-           NEW: PROFESSIONAL EVENT CARDS GRID
+           PROFESSIONAL EVENT CARDS GRID
         ---------------------------------------- */
         .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; perspective: 1000px; margin-bottom: 60px;}
         @media screen and (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
@@ -190,12 +190,12 @@
             <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn" style="color: white; font-weight: 700;">Explore ▾</a>
                 <div class="dropdown-content">
-                    <a href="events.html">Events</a>
+                    <a href="events.html" style="background: rgba(255, 255, 255, 0.1); color: white;">Events</a>
                     <a href="news.html">News</a>
                     <a href="team.html">Our Team</a>
                 </div>
             </li>
-            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="#contact">Contact</a></li>
             <li><a href="mailto:preserve.presuniv@gmail.com" class="nav-cta magnetic-btn">Join Us</a></li>
         </ul>
     </nav>
@@ -214,7 +214,6 @@
             <!-- Card -->
             <div class="event-card tilt-card">
                 <div class="card-img-wrapper">
-                    <!-- Ganti src gambar ini dengan poster acara lu -->
                     <img src="coming_soon.png" alt="PUSERVE Campaign">
                     <span class="badge-date">Present - Dec 2026</span>
                     <span class="badge-attendees">👥 Open</span>
@@ -297,7 +296,6 @@
             <!-- Card Past Event Placeholder -->
             <div class="event-card tilt-card">
                 <div class="card-img-wrapper">
-                    <!-- Ganti src gambar ini dengan dokumentasi asli lu nanti -->
                     <img src="coming_soon.png" alt="Mangrove Planting 2025">
                     <span class="badge-date">Nov 15, 2025</span>
                     <span class="badge-attendees">👥 80</span>
@@ -317,8 +315,9 @@
     </div>
 
     <!-- Professional Footer -->
-    <footer class="site-footer">
+    <footer class="site-footer" id="contact">
         <div class="footer-grid">
+            
             <div class="footer-brand fade-up">
                 <div class="footer-logos">
                     <img src="LOGO_PU.png" alt="President University">
@@ -372,7 +371,7 @@
             setTimeout(function() {
                 const preloader = document.getElementById('preloader');
                 preloader.classList.add('hide-preloader');
-            }, 2500); // Agak dicepetin khusus halaman ini
+            }, 2500); 
         });
 
         // --- 2. EASTER EGG (PRANK) SCRIPT ---
