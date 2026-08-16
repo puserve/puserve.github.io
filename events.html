@@ -4,454 +4,224 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programs & Events | PUSERVE</title>
-    <meta name="description" content="Discover PUSERVE's ongoing initiatives, future plans, and past environmental impacts.">
     
-    <!-- Favicon Links -->
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="manifest" href="favicon/site.webmanifest">
-    <link rel="shortcut icon" href="favicon/favicon.ico">
-    
+    <!-- 
+    ======================================================================
+    [SOP ADMIN PUSERVE] - CARA MENAMBAH EVENT BARU (BACA INI!)
+    ======================================================================
+    Halo Divisi PUSERVE! Untuk menambah event ke halaman ini, JANGAN edit 
+    file events.html ini secara manual. Ikuti langkah mudah berikut:
+
+    1. UPLOAD FOTO: 
+       Buka folder `uploads` di GitHub, lalu klik "Add file" -> "Upload files".
+       Masukkan poster/foto event kalian (ingat nama file-nya, misal: poster.jpg).
+
+    2. BIKIN ARTIKELNYA:
+       - Buka folder `_events` di GitHub.
+       - Klik "Add file" -> "Create new file".
+       - Kasih nama file dengan format: TAHUN-BULAN-TANGGAL-namaevent.md 
+         (Contoh: 2026-08-17-grecon.md)
+
+    3. COPY-PASTE TEMPLATE INI KE DALAM FILE BARU TERSEBUT:
+       ---
+       title: "Judul Event Kalian"
+       date: 2026-08-17
+       status: "Upcoming"
+       attendees: "50 Orang"
+       result_text: "Tujuan event..."
+       thumbnail: "poster.jpg"
+       ---
+       Tulis deskripsi / cerita lengkap event di sini...
+
+    4. Klik "Commit changes" (atau "Propose changes").
+    Selesai! Event kalian akan otomatis muncul di halaman ini!
+    ======================================================================
+    -->
+
+    <!-- Import Library Parsing (Untuk membaca file Markdown anak divisi) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
     <style>
-        /* Base Settings & Micro-interactions */
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap');
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        
-        html { scroll-behavior: smooth; }
-        body { background-color: #f4f9f5; color: #1a1a1a; overflow-x: hidden; }
-        section[id] { scroll-margin-top: 120px; }
+        /* === WARNA & TEMA KHUSUS PUSERVE === */
+        :root {
+            --dark-green: #082619;
+            --puserve-green: #11422b;
+            --puserve-yellow: #fcd34d;
+            --white: #ffffff;
+        }
 
-        ::selection { background-color: #0a3622; color: #f5cf21; }
-        ::-moz-selection { background-color: #0a3622; color: #f5cf21; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-green);
+            color: var(--white);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
 
-        /* 1. SPLASH SCREEN (LIQUID GOLD REVEAL) */
-        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #0a3622; z-index: 999999; display: flex; justify-content: center; align-items: center; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease; }
-        #preloader.hide-preloader { transform: translateY(-100%); opacity: 0; pointer-events: none; }
-        .logo-loader-container { position: relative; width: 180px; height: 180px; display: flex; justify-content: center; align-items: center; }
-        .logo-dimmed { position: absolute; width: 100%; height: 100%; object-fit: contain; opacity: 0.1; filter: grayscale(100%); }
-        .logo-filled { position: absolute; width: 100%; height: 100%; object-fit: contain; clip-path: inset(100% 0 0 0); animation: fillUp 2s cubic-bezier(0.77, 0, 0.175, 1) 0.5s forwards; filter: drop-shadow(0 0 20px rgba(245, 207, 33, 0.6)); }
-        @keyframes fillUp { 0% { clip-path: inset(100% 0 0 0); } 100% { clip-path: inset(0 0 0 0); } }
+        /* Container Utama */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
 
-        /* 2. SCROLL PROGRESS TREE & BACK TO TOP */
-        #scroll-tree-container { position: fixed; top: 0; right: 0; width: 8px; height: 100vh; background: rgba(10, 54, 34, 0.1); z-index: 9998; pointer-events: none; }
-        #scroll-tree-trunk { width: 100%; background: #f5cf21; height: 0%; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; transition: height 0.1s ease-out; box-shadow: 0 0 10px rgba(245, 207, 33, 0.5); }
-        #back-to-top { position: fixed; bottom: -80px; right: 30px; width: 55px; height: 55px; background-color: #0a3622; color: #f5cf21; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 2px solid #f5cf21; transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), transform 0.3s, background-color 0.3s, color 0.3s; z-index: 998; }
-        #back-to-top.show { bottom: 30px; }
-        #back-to-top:hover { transform: translateY(-8px) scale(1.1); background-color: #f5cf21; color: #0a3622; border-color: #0a3622; }
+        .header-title {
+            color: var(--puserve-yellow);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
 
-        /* 3. DYNAMIC LEAVES CURSOR */
-        .cursor-leaf { position: fixed; width: 12px; height: 12px; background-color: #f5cf21; border-radius: 0 12px 0 12px; pointer-events: none; z-index: 99999; animation: leafFall 1s linear forwards; opacity: 0.8; }
-        @keyframes leafFall { 0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; } 100% { transform: translateY(60px) rotate(120deg) scale(0.3); opacity: 0; } }
+        .header-subtitle {
+            color: #a3b8af;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
 
-        /* 4. SECRET EASTER EGG MODAL */
-        #easter-egg-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(10, 54, 34, 0.95); z-index: 99999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s ease; backdrop-filter: blur(15px); }
-        #easter-egg-modal.show { opacity: 1; pointer-events: auto; }
-        .easter-egg-content { background: #1a1a1a; border: 3px solid #ff3333; padding: 30px; border-radius: 20px; text-align: center; color: white; max-width: 450px; transform: scale(0.8); transition: 0.3s; position: relative; box-shadow: 0 0 50px rgba(255, 51, 51, 0.3); }
-        #easter-egg-modal.show .easter-egg-content { transform: scale(1); animation: glitch 0.3s ease-in-out; }
-        .warning-header { color: #ff3333; font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; letter-spacing: 2px; animation: blinkWarning 1s infinite; }
-        .easter-egg-content img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px dashed #f5cf21; }
-        .prank-text { color: #f5cf21; font-weight: 700; font-size: 1.1rem; line-height: 1.6; }
-        .close-egg { position: absolute; top: -20px; right: -20px; font-size: 2rem; font-family: sans-serif; line-height: 1; background: #ff3333; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 3px solid #f4f9f5; transition: 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 10; }
-        .close-egg:hover { transform: scale(1.15); background: white; color: #ff3333; border-color: #ff3333; }
-        @keyframes blinkWarning { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        @keyframes glitch { 0%, 100% { transform: scale(1) translate(0); } 25% { transform: scale(1.02) translate(5px, 5px); } 50% { transform: scale(0.98) translate(-5px, -5px); } 75% { transform: scale(1.05) translate(5px, -5px); } }
+        /* Grid untuk Kartu Event */
+        #events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
 
-        /* Navigation (Smart Auto Hide) */
-        nav { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; background: rgba(10, 54, 34, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); transition: top 0.4s ease-in-out, background 0.4s ease; box-shadow: 0 4px 30px rgba(0,0,0,0.1);}
-        nav.nav-hidden { top: -120px !important; } 
-        .nav-logos { display: flex; align-items: center; gap: 15px; }
-        .nav-logos img { height: 35px; width: auto; object-fit: contain; }
-        #secret-trigger-logo { cursor: pointer; transition: transform 0.2s; }
-        #secret-trigger-logo:active { transform: scale(0.9); }
-        .menu-icon { display: flex; flex-direction: column; cursor: pointer; width: 25px; z-index: 101; }
-        .menu-icon span { background: white; height: 2px; width: 100%; margin-bottom: 5px; border-radius: 2px; transition: all 0.3s ease; }
-        .menu-icon span:last-child { margin-bottom: 0; }
+        /* Desain Kartu Event */
+        .event-card {
+            background-color: var(--puserve-green);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+            border: 1px solid #1a5c3d;
+        }
 
-        .nav-links { display: none; list-style: none; gap: 25px; align-items: center; }
-        .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 75px; right: 25px; background: rgba(10, 54, 34, 0.95); padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); align-items: flex-start; }
-        .nav-links li a { text-decoration: none; color: rgba(255, 255, 255, 0.9); font-size: 1rem; font-weight: 500; transition: color 0.3s ease; }
-        .nav-links li a:hover { color: white; }
+        .event-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--puserve-yellow);
+        }
 
-        .dropdown { position: relative; padding: 10px 0; width: 100%; }
-        .dropdown-content { display: none; position: absolute; background: rgba(10, 54, 34, 0.85); min-width: 160px; border-radius: 15px; top: 100%; left: 0; padding: 10px 0; margin-top: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(255, 255, 255, 0.1); z-index: 102; }
-        @media screen and (max-width: 1023px) { .dropdown-content { position: static; background: transparent; box-shadow: none; border: none; padding-left: 15px; margin-top: 10px; } .dropdown-content a { text-align: left; padding: 8px 10px; } }
-        .dropdown-content a { display: block; padding: 12px 20px; color: rgba(255, 255, 255, 0.9); text-align: center; font-size: 0.95rem; transition: background 0.3s ease, color 0.3s ease; }
-        .dropdown-content a:hover { color: white; background: rgba(255, 255, 255, 0.1); }
-        .dropdown:hover .dropdown-content { display: block; }
-        .nav-cta { background: #f5cf21; color: #0a3622 !important; padding: 8px 20px; border-radius: 20px; font-weight: 700 !important; transition: transform 0.3s ease, box-shadow 0.3s ease; white-space: nowrap; } 
-        .nav-cta:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(245, 207, 33, 0.4); background: #f5cf21 !important; color: #0a3622 !important; }
+        .event-status {
+            display: inline-block;
+            background-color: var(--puserve-yellow);
+            color: var(--dark-green);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
 
-        @media screen and (min-width: 1024px) { nav { width: 90%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; } .nav-logos img { height: 45px; } .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; } .dropdown-content { left: 50%; transform: translateX(-50%); } .dropdown-content a { text-align: center; } .menu-icon { display: none; } }
+        .event-title {
+            font-size: 1.5rem;
+            margin: 0 0 10px 0;
+            color: var(--white);
+        }
 
-        /* Page Hero (Internal Page Header) */
-        .page-hero { padding: 180px 20px 80px; text-align: center; background: linear-gradient(180deg, #0a3622 0%, #0d4a2f 100%); color: white; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; margin-bottom: 60px; position: relative; overflow: hidden;}
-        /* Subtle background pattern */
-        .page-hero::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('logos/LOGO_PUSERVE.png'); background-repeat: no-repeat; background-position: center; background-size: cover; opacity: 0.05; pointer-events: none; }
-        .page-hero h1 { font-size: 3.5rem; font-weight: 800; color: #f5cf21; margin-bottom: 15px; position: relative; z-index: 1;}
-        .page-hero p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto; position: relative; z-index: 1;}
+        .event-meta {
+            font-size: 0.9rem;
+            color: #a3b8af;
+            margin-bottom: 15px;
+        }
 
-        /* Containers & Category Titles */
-        .section-container { max-width: 1200px; margin: 0 auto; padding: 40px 20px 80px; }
-        .category-title { font-size: 2.2rem; color: #0a3622; margin-bottom: 40px; font-weight: 800; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center;}
-        .category-title::after { content: ''; width: 60px; height: 4px; background: #f5cf21; border-radius: 2px; margin-top: 15px; }
+        .event-body {
+            font-size: 0.95rem;
+            color: #d1e0d9;
+            border-top: 1px solid #1a5c3d;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
 
-        /* -------------------------------------
-           PROFESSIONAL EVENT CARDS GRID
-        ---------------------------------------- */
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; perspective: 1000px; margin-bottom: 60px;}
-        @media screen and (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
-        
-        .event-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.06); display: flex; flex-direction: column; transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease; text-decoration: none; border: 1px solid rgba(0,0,0,0.03);}
-        .card-img-wrapper { position: relative; height: 300px; overflow: hidden; background: #e9f2eb;}
-        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(20px) scale(1.05); transition: transform 0.5s ease; }
-        .event-card:hover .card-img-wrapper img { transform: translateZ(30px) scale(1.1); }
-        
-        /* Floating Badges */
-        .badge-date { position: absolute; bottom: 20px; left: 20px; background: white; color: #1a1a1a; padding: 8px 16px; border-radius: 12px; font-size: 0.95rem; font-weight: 800; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateZ(30px); }
-        .badge-attendees { position: absolute; top: 20px; right: 20px; background: rgba(10, 54, 34, 0.85); color: white; padding: 8px 16px; border-radius: 12px; font-size: 0.95rem; font-weight: 700; backdrop-filter: blur(5px); display: flex; align-items: center; gap: 6px; transform: translateZ(30px); border: 1px solid rgba(255,255,255,0.2);}
-        
-        .card-body { padding: 35px; display: flex; flex-direction: column; flex-grow: 1; transform: translateZ(20px); }
-        .card-body h3 { color: #0a3622; font-size: 1.5rem; margin-bottom: 15px; font-weight: 800; line-height: 1.4; }
-        .card-body p { color: #555; font-size: 1.05rem; line-height: 1.6; margin-bottom: 10px; }
-        
-        /* The Result Box */
-        .card-result { background: #e9f2eb; padding: 20px; border-radius: 12px; margin-top: 20px; margin-bottom: 25px; border-left: 4px solid #0a3622; }
-        .result-label { font-size: 0.75rem; color: #0a3622; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px; text-transform: uppercase; }
-        .card-result p { color: #0a3622; font-weight: 600; font-size: 1rem; margin: 0; line-height: 1.5;}
-        
-        /* Full Width Action Button */
-        .card-action-btn { background: #0a3622; color: white; text-align: center; padding: 16px; text-decoration: none; font-weight: 700; font-size: 1.1rem; border-radius: 12px; transition: all 0.3s; margin-top: auto; display: block; width: 100%; border: 2px solid transparent;}
-        .card-action-btn:hover { background: #f5cf21; color: #0a3622; border-color: #f5cf21; }
-
-        /* Elegant Footer */
-        .site-footer { background: #0a3622; color: rgba(255,255,255,0.8); padding: 80px 20px 30px; font-size: 0.95rem; margin-top: 60px;}
-        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 60px; }
-        .footer-brand { display: flex; flex-direction: column; gap: 20px; }
-        .footer-logos { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
-        .footer-logos img { height: 45px; object-fit: contain; } /* Filter dicabut biar warna asli */
-        .brand-name { color: white; font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; line-height: 1.2; }
-        .brand-sub { color: #f5cf21; font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; }
-        .footer-desc { line-height: 1.8; max-width: 400px; }
-        .footer-heading { color: #f5cf21; font-weight: 800; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; }
-        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 15px; }
-        .footer-links a { color: rgba(255,255,255,0.8); text-decoration: none; transition: 0.3s; }
-        .footer-links a:hover { color: white; padding-left: 5px; }
-        .footer-contact { list-style: none; display: flex; flex-direction: column; gap: 15px; }
-        .footer-contact li { display: flex; align-items: center; gap: 10px; }
-        .social-icons-mini { display: flex; gap: 15px; margin-top: 10px; }
-        .social-mini { width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white; text-decoration: none; transition: 0.3s; }
-        .social-mini svg { width: 18px; height: 18px; fill: currentColor; }
-        .social-mini:hover { border-color: #f5cf21; color: #f5cf21; transform: translateY(-3px); }
-        .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-        .footer-heart { color: #f5cf21; display: inline-block; animation: pulseHeart 1.5s infinite; margin: 0 5px; }
-        @keyframes pulseHeart { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-
-        @media screen and (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 40px; } .footer-bottom { flex-direction: column; text-align: center; justify-content: center; } }
-
-        /* Animations */
-        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            color: var(--puserve-yellow);
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 1. SPLASH SCREEN (LIQUID GOLD REVEAL) -->
-    <div id="preloader">
-        <div class="logo-loader-container">
-            <img src="logos/LOGO_PUSERVE.png" alt="Loading" class="logo-dimmed">
-            <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE" class="logo-filled">
+    <div class="container">
+        <h1 class="header-title">Programs & Events</h1>
+        <p class="header-subtitle">Real Environmental Action. Empowering Changemakers.</p>
+
+        <!-- Tempat Kartu Event Akan Muncul Otomatis -->
+        <div id="events-grid">
+            <p class="loading">Memuat data events dari server...</p>
         </div>
     </div>
 
-    <!-- 2. SCROLL PROGRESS TREE -->
-    <div id="scroll-tree-container">
-        <div id="scroll-tree-trunk"></div>
-    </div>
-    
-    <!-- 3. FLOATING BACK TO TOP SEEDLING -->
-    <div id="back-to-top" title="Back to top">🌱</div>
-
-    <!-- 4. SECRET EASTER EGG MODAL -->
-    <div id="easter-egg-modal">
-        <div class="easter-egg-content">
-            <span class="close-egg" onclick="closeEgg()">&times;</span>
-            <div class="warning-header">⚠️ CLASSIFIED PUSERVE ARCHIVE ⚠️</div>
-            <img src="easter_egg.jpeg" alt="Top Secret Easter Egg">
-            <p class="prank-text">"You found the secret! Don't forget to throw your trash in the right bin! ♻️"</p>
-        </div>
-    </div>
-
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-logos">
-            <a href="index.html"><img src="logos/LOGO_PU.png" alt="President University"></a>
-            <a href="index.html"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"></a>
-            <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE" id="secret-trigger-logo" title="PUSERVE">
-        </div>
-        <div class="menu-icon"><span></span><span></span><span></span></div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#about">About</a></li>
-            <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn" style="color: white; font-weight: 700;">Explore ▾</a>
-                <div class="dropdown-content">
-                    <a href="events.html" style="background: rgba(255, 255, 255, 0.1); color: white;">Events</a>
-                    <a href="news.html">News</a>
-                    <a href="team.html">Our Team</a>
-                </div>
-            </li>
-            <li><a href="index.html#contact">Contact</a></li>
-            <li><a href="mailto:preserve.presuniv@gmail.com" class="nav-cta magnetic-btn">Join Us</a></li>
-        </ul>
-    </nav>
-
-<!-- Page Header Hero -->
-    <section class="page-hero fade-up">
-        <h1>Programs & Events</h1>
-        <p>Discover our ongoing initiatives, future plans, and the real environmental impact we've created.</p>
-    </section>
-
-    <div class="section-container">
-        
-        <!-- SECTION: RUNNING EVENTS -->
-        <h2 class="category-title fade-up">Running Events</h2>
-        <div class="grid-2 fade-up">
-            <!-- Feature Eco Leaders (Dipindah ke Running) -->
-            <div class="event-card tilt-card">
-                <div class="card-img-wrapper">
-                    <img src="coming_soon.png" alt="Future Eco Leaders 2026">
-                    <span class="badge-date">Coming Soon</span>
-                    <span class="badge-attendees">👥 50</span>
-                </div>
-                <div class="card-body">
-                    <h3>Future Eco Leaders 2026</h3>
-                    <p>An official onboarding and leadership development program for new PUSERVE members, focusing on ecological literacy and action plans.</p>
-                    <div class="card-result">
-                        <span class="result-label">Current Progress</span>
-                        <p>Currently onboarding participants and preparing actionable sustainability blueprints for the campus environment.</p>
-                    </div>
-                    <a href="events-fel2026.html" class="card-action-btn magnetic-btn">See Details ➔</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECTION: UPCOMING EVENTS -->
-        <h2 class="category-title fade-up" style="margin-top: 40px;">Upcoming Events</h2>
-        <div class="grid-2 fade-up">
-            <!-- Card GRECON -->
-            <div class="event-card tilt-card">
-                <div class="card-img-wrapper">
-                    <img src="coming_soon.png" alt="GRECON 2026">
-                    <span class="badge-date">Coming Soon</span>
-                    <span class="badge-attendees">👥 Coming Soon</span>
-                </div>
-                <div class="card-body">
-                    <h3>GRECON 2026</h3>
-                    <p>A regional youth convention focused on concrete environmental action, proper waste management, and green innovations.</p>
-                    <div class="card-result" style="border-left-color: #f5cf21; background: #fffdf0;">
-                        <span class="result-label" style="color: #b59200;">Expected Result</span>
-                        <p style="color: #665200;">Produce 5 collaborative community projects focusing on regional waste management.</p>
-                    </div>
-                    <a href="events-grecon2026.html" class="card-action-btn magnetic-btn">See Details ➔</a>
-                </div>
-            </div>
-
-            <!-- Card IGNITE -->
-            <div class="event-card tilt-card">
-                <div class="card-img-wrapper">
-                    <img src="coming_soon.png" alt="PUSERVE Ignite 2026">
-                    <span class="badge-date">Coming Soon</span>
-                    <span class="badge-attendees">👥 Coming Soon</span>
-                </div>
-                <div class="card-body">
-                    <h3>PUSERVE IGNITE 2026</h3>
-                    <p>An environmental pitching program providing a dynamic platform for students to create and fund innovative solutions.</p>
-                    <div class="card-result" style="border-left-color: #f5cf21; background: #fffdf0;">
-                        <span class="result-label" style="color: #b59200;">Expected Result</span>
-                        <p style="color: #665200;">Fund top 3 student innovations to be implemented directly in local villages.</p>
-                    </div>
-                    <a href="events-ignite2026.html" class="card-action-btn magnetic-btn">See Details ➔</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECTION: PAST EVENTS (EMPTY STATE) -->
-        <h2 class="category-title fade-up" style="margin-top: 40px;">Past Events</h2>
-        <div class="fade-up" style="max-width: 800px; margin: 0 auto; text-align: center; background: rgba(10, 54, 34, 0.05); padding: 40px 20px; border-radius: 20px; border: 2px dashed rgba(10, 54, 34, 0.2);">
-            <p style="font-size: 1.1rem; color: #555; font-weight: 500; line-height: 1.6;">
-                Our past event records are currently being archived.<br>Check back soon to see the environmental impact we've created!
-            </p>
-        </div>
-
-    </div>
-
-    <!-- Professional Footer -->
-    <footer class="site-footer" id="contact">
-        <div class="footer-grid">
-            
-            <div class="footer-brand fade-up">
-                <div class="footer-logos">
-                    <img src="logos/LOGO_PU.png" alt="President University">
-                    <img src="logos/LOGO_CEDRS.png" alt="CEDRS">
-                    <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE">
-                </div>
-                <div>
-                    <div class="brand-name">PUSERVE</div>
-                    <div class="brand-sub">PRESIDENT UNIVERSITY SERVE ENVIRONMENT</div>
-                </div>
-                <p class="footer-desc">PUSERVE — a movement focused on environmental protection, sustainability, and social service for a better future.</p>
-                <div class="social-icons-mini">
-                    <a href="https://www.instagram.com/puserve.presuniv?igsh=MW85MXo1Y3IxbjZyZg==" target="_blank" class="social-mini" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </a>
-                    <a href="https://www.tiktok.com/@puserve.presuniv?_r=1&_t=ZS-98jMbW6NvY0" target="_blank" class="social-mini" aria-label="TikTok">
-                        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="fade-up">
-                <div class="footer-heading">NAVIGATION</div>
-                <ul class="footer-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#about">About</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="team.html">Our Team</a></li>
-                </ul>
-            </div>
-
-            <div class="fade-up">
-                <div class="footer-heading">GET INVOLVED</div>
-                <ul class="footer-contact">
-                    <li>‎ ✉︎‎ <a href="mailto:preserve.presuniv@gmail.com" style="color: inherit; text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#f5cf21'" onmouseout="this.style.color='inherit'">preserve.presuniv@gmail.com</a></li>
-                    <li style="align-items: flex-start;">‎ ‎ 𖡡‎ ‎ <a href="https://maps.app.goo.gl/chRf67w8mQhZfHst5?g_st=ac" target="_blank" style="color: inherit; text-decoration: none; transition: 0.2s;" onmouseover="this.style.color='#f5cf21'" onmouseout="this.style.color='inherit'">President University, Jl. Ki Hajar Dewantara, Kota Jababeka, Cikarang Baru, Bekasi 17550 – Indonesia</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <div>&copy; 2026 PUSERVE. President University. All rights reserved.</div>
-            <div>Built with <span class="footer-heart">💚</span> for Indonesia</div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
+    <!-- SCRIPT MESIN PUSERVE (Jangan Dihapus) -->
     <script>
-        // --- 1. SPLASH SCREEN SCRIPT ---
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                const preloader = document.getElementById('preloader');
-                preloader.classList.add('hide-preloader');
-            }, 2500); 
-        });
+        // Ganti 'puserve/puserve.github.io' dengan nama repo lu kalau beda
+        const repoName = 'puserve/puserve.github.io'; 
+        const folderName = '_events';
+        const apiUrl = `https://api.github.com/repos/${repoName}/contents/${folderName}`;
 
-        // --- 2. EASTER EGG (PRANK) SCRIPT ---
-        let logoClicks = 0;
-        let logoTimer;
-        const secretLogo = document.getElementById('secret-trigger-logo');
-        secretLogo.addEventListener('click', () => {
-            logoClicks++;
-            clearTimeout(logoTimer);
-            logoTimer = setTimeout(() => { logoClicks = 0; }, 1500); 
-            if (logoClicks >= 5) {
-                document.getElementById('easter-egg-modal').classList.add('show');
-                logoClicks = 0; 
+        async function loadEvents() {
+            const grid = document.getElementById('events-grid');
+
+            try {
+                // 1. Cek folder _events di GitHub
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw new Error("Folder event belum ditemukan / kosong.");
+                const files = await response.json();
+
+                grid.innerHTML = ''; // Hapus tulisan loading
+
+                // 2. Looping membaca semua file di dalam folder _events
+                let hasEvents = false;
+                for (const file of files) {
+                    // Abaikan file template atau yang bukan .md
+                    if (file.name === 'TEMPLATE-EVENT.md' || !file.name.endsWith('.md')) continue;
+
+                    hasEvents = true;
+                    // Ambil isi teks dari file .md
+                    const mdResponse = await fetch(file.download_url);
+                    const mdText = await mdResponse.text();
+
+                    // 3. Potong bagian YAML (Frontmatter) dan Deskripsi (Body)
+                    const parts = mdText.split('---');
+                    if (parts.length >= 3) {
+                        // Baca data YAML (Judul, Tanggal, dll)
+                        const frontmatter = jsyaml.load(parts[1]);
+                        // Baca data Markdown (Isi artikel)
+                        const bodyHTML = marked.parse(parts.slice(2).join('---'));
+
+                        // 4. Bikin Kartu HTML
+                        const card = document.createElement('div');
+                        card.className = 'event-card';
+                        card.innerHTML = `
+                            <span class="event-status">${frontmatter.status || 'TBA'}</span>
+                            <h2 class="event-title">${frontmatter.title || 'Untitled Event'}</h2>
+                            <div class="event-meta">
+                                📅 ${frontmatter.date || '-'} <br>
+                                👥 Peserta: ${frontmatter.attendees || '-'} <br>
+                                🎯 Target: ${frontmatter.result_text || '-'}
+                            </div>
+                            <div class="event-body">
+                                ${bodyHTML}
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    }
+                }
+
+                if (!hasEvents) {
+                    grid.innerHTML = '<p class="loading">Belum ada event yang di-publish.</p>';
+                }
+
+            } catch (error) {
+                console.error("Error:", error);
+                grid.innerHTML = '<p class="loading">Belum ada event saat ini. Divisi sedang menyiapkan sesuatu!</p>';
             }
-        });
-        function closeEgg() { document.getElementById('easter-egg-modal').classList.remove('show'); }
+        }
 
-        // --- 3. SMART NAVBAR SCRIPT ---
-        let lastScrollTop = 0;
-        const navbar = document.querySelector('nav');
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && scrollTop > 150) {
-                navbar.classList.add('nav-hidden'); 
-            } else {
-                navbar.classList.remove('nav-hidden'); 
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
-        });
-
-        // --- 4. SCROLL PROGRESS TREE & BACK TO TOP SCRIPT ---
-        const backToTopBtn = document.getElementById('back-to-top');
-        window.addEventListener('scroll', function() {
-            const scrollTrunk = document.getElementById('scroll-tree-trunk');
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollPercent = (scrollTop / scrollHeight) * 100;
-            scrollTrunk.style.height = scrollPercent + '%';
-            
-            if (scrollTop > 500) { backToTopBtn.classList.add('show'); } 
-            else { backToTopBtn.classList.remove('show'); }
-        });
-        backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-
-        // --- 5. DYNAMIC LEAVES CURSOR SCRIPT ---
-        document.addEventListener('mousemove', function(e) {
-            if(Math.random() > 0.90) {
-                const leaf = document.createElement('div');
-                leaf.className = 'cursor-leaf';
-                leaf.style.left = (e.clientX + 10) + 'px';
-                leaf.style.top = (e.clientY + 10) + 'px';
-                document.body.appendChild(leaf);
-                setTimeout(() => { leaf.remove(); }, 1000);
-            }
-        });
-
-        // --- 6. MAGNETIC BUTTONS SCRIPT ---
-        const magneticBtns = document.querySelectorAll('.magnetic-btn');
-        magneticBtns.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
-                btn.style.transition = 'transform 0.1s ease-out';
-            });
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = `translate(0px, 0px) scale(1)`;
-                btn.style.transition = 'transform 0.5s ease-out';
-            });
-        });
-
-        // --- 7. MOBILE MENU SCRIPT ---
-        const menuIcon = document.querySelector('.menu-icon');
-        const navLinks = document.querySelector('.nav-links');
-        menuIcon.addEventListener('click', () => { navLinks.classList.toggle('active'); });
-
-        // --- 8. SCROLL ANIMATION SCRIPT ---
-        document.addEventListener("DOMContentLoaded", function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-        });
-        
-        // --- 9. 3D TILT EFFECT SCRIPT (Subtle Version) ---
-        const tiltCards = document.querySelectorAll('.tilt-card');
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -4; 
-                const rotateY = ((x - centerX) / centerX) * 4; 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`;
-                card.style.boxShadow = `${-rotateY}px ${rotateX}px 25px rgba(0,0,0,0.08)`;
-                card.style.transition = 'none'; 
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                card.style.boxShadow = `0 15px 35px rgba(0,0,0,0.06)`;
-                card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease'; 
-            });
-            card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
-        });
+        // Jalankan mesinnya
+        loadEvents();
     </script>
+
 </body>
 </html>
