@@ -5,40 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programs & Events | PUSERVE</title>
     
-    <!-- 
-    ======================================================================
-    [SOP ADMIN PUSERVE] - CARA MENAMBAH EVENT BARU (BACA INI!)
-    ======================================================================
-    Halo Divisi PUSERVE! Untuk menambah event ke halaman ini, JANGAN edit 
-    file events.html ini secara manual. Ikuti langkah mudah berikut:
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
 
-    1. UPLOAD FOTO: 
-       Buka folder `uploads` di GitHub, lalu klik "Add file" -> "Upload files".
-       Masukkan poster/foto event kalian (ingat nama file-nya, misal: poster.jpg).
-
-    2. BIKIN ARTIKELNYA:
-       - Buka folder `_events` di GitHub.
-       - Klik "Add file" -> "Create new file".
-       - Kasih nama file dengan format: TAHUN-BULAN-TANGGAL-namaevent.md 
-         (Contoh: 2026-08-17-grecon.md)
-
-    3. COPY-PASTE TEMPLATE INI KE DALAM FILE BARU TERSEBUT:
-       ---
-       title: "Judul Event Kalian"
-       date: 2026-08-17
-       status: "Upcoming"
-       attendees: "50 Orang"
-       result_text: "Tujuan event..."
-       thumbnail: "poster.jpg"
-       ---
-       Tulis deskripsi / cerita lengkap event di sini...
-
-    4. Klik "Commit changes" (atau "Propose changes").
-    Selesai! Event kalian akan otomatis muncul di halaman ini!
-    ======================================================================
-    -->
-
-    <!-- Import Library Parsing (Untuk membaca file Markdown anak divisi) -->
+    <!-- Import Library Parsing Markdown -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
@@ -49,63 +19,150 @@
             --puserve-green: #11422b;
             --puserve-yellow: #fcd34d;
             --white: #ffffff;
+            --gray-text: #a3b8af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--dark-green);
             color: var(--white);
-            margin: 0;
-            padding: 0;
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* Container Utama */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        /* === NAVBAR === */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: var(--dark-green);
+            border-bottom: 1px solid #1a5c3d;
         }
 
-        .header-title {
+        .nav-logos {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-logos img {
+            height: 40px; /* Atur ukuran logo di sini */
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
             color: var(--puserve-yellow);
-            font-size: 2.5rem;
+        }
+
+        .btn-join {
+            background-color: var(--puserve-yellow);
+            color: var(--dark-green);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn-join:hover {
+            background-color: #e5be3c;
+            transform: scale(1.05);
+        }
+
+        /* === HERO SECTION === */
+        header.hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, var(--dark-green) 0%, var(--puserve-green) 100%);
+        }
+
+        .hero-title {
+            color: var(--puserve-yellow);
+            font-size: 3rem;
             margin-bottom: 10px;
         }
 
-        .header-subtitle {
-            color: #a3b8af;
-            font-size: 1.1rem;
-            margin-bottom: 40px;
+        .hero-subtitle {
+            color: var(--gray-text);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* Grid untuk Kartu Event */
+        /* === MAIN CONTENT / EVENTS GRID === */
+        main.container {
+            flex: 1; /* Biar footer selalu di bawah */
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            width: 100%;
+        }
+
         #events-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
         }
 
         /* Desain Kartu Event */
         .event-card {
             background-color: var(--puserve-green);
             border-radius: 12px;
-            padding: 25px;
+            overflow: hidden;
             box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 1px solid #1a5c3d;
+            display: flex;
+            flex-direction: column;
         }
 
         .event-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.5);
             border-color: var(--puserve-yellow);
+        }
+
+        /* Gambar Thumbnail Event */
+        .event-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--puserve-yellow);
+        }
+
+        .event-content {
+            padding: 25px;
+            flex: 1;
         }
 
         .event-status {
             display: inline-block;
             background-color: var(--puserve-yellow);
             color: var(--dark-green);
-            padding: 4px 12px;
+            padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: bold;
@@ -115,14 +172,16 @@
 
         .event-title {
             font-size: 1.5rem;
-            margin: 0 0 10px 0;
+            margin: 0 0 12px 0;
             color: var(--white);
+            line-height: 1.3;
         }
 
         .event-meta {
             font-size: 0.9rem;
-            color: #a3b8af;
+            color: var(--gray-text);
             margin-bottom: 15px;
+            line-height: 1.6;
         }
 
         .event-body {
@@ -133,29 +192,72 @@
             margin-top: 15px;
         }
 
-        /* Loading Animation */
         .loading {
             text-align: center;
             color: var(--puserve-yellow);
             font-style: italic;
+            grid-column: 1 / -1; /* Biar loading ada di tengah */
+        }
+
+        /* === FOOTER === */
+        footer {
+            background-color: #051a11;
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--gray-text);
+            border-top: 1px solid #1a5c3d;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+        
+        /* Responsif untuk HP */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Sembunyikan menu di HP sementara */
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1 class="header-title">Programs & Events</h1>
-        <p class="header-subtitle">Real Environmental Action. Empowering Changemakers.</p>
-
-        <!-- Tempat Kartu Event Akan Muncul Otomatis -->
-        <div id="events-grid">
-            <p class="loading">Memuat data events dari server...</p>
+    <!-- NAVBAR SECTION -->
+    <nav>
+        <div class="nav-logos">
+            <!-- Path menuju folder logos lu -->
+            <img src="logos/LOGO_PU.png" alt="President University">
+            <img src="logos/LOGO_CEDRS.png" alt="CEDRS">
+            <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE">
         </div>
-    </div>
+        <div class="nav-links">
+            <a href="index.html">About</a>
+            <a href="events.html" style="color: var(--puserve-yellow);">Explore</a>
+            <a href="#">Contact</a>
+            <a href="#" class="btn-join">Join Us</a>
+        </div>
+    </nav>
 
-    <!-- SCRIPT MESIN PUSERVE (Jangan Dihapus) -->
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <h1 class="hero-title">Programs & Events</h1>
+        <p class="hero-subtitle">Real Environmental Action. Empowering Changemakers.</p>
+    </header>
+
+    <!-- MAIN EVENTS SECTION -->
+    <main class="container">
+        <div id="events-grid">
+            <p class="loading">📡 Menyinkronkan data events dari server PUSERVE...</p>
+        </div>
+    </main>
+
+    <!-- FOOTER SECTION -->
+    <footer>
+        <p>&copy; 2026 PUSERVE - President University. All Rights Reserved.</p>
+    </footer>
+
+    <!-- SCRIPT MESIN PUSERVE -->
     <script>
-        // Ganti 'puserve/puserve.github.io' dengan nama repo lu kalau beda
         const repoName = 'puserve/puserve.github.io'; 
         const folderName = '_events';
         const apiUrl = `https://api.github.com/repos/${repoName}/contents/${folderName}`;
@@ -164,45 +266,53 @@
             const grid = document.getElementById('events-grid');
 
             try {
-                // 1. Cek folder _events di GitHub
                 const response = await fetch(apiUrl);
-                if (!response.ok) throw new Error("Folder event belum ditemukan / kosong.");
+                if (!response.ok) throw new Error("Folder event kosong.");
                 const files = await response.json();
 
-                grid.innerHTML = ''; // Hapus tulisan loading
+                grid.innerHTML = ''; 
 
-                // 2. Looping membaca semua file di dalam folder _events
                 let hasEvents = false;
                 for (const file of files) {
-                    // Abaikan file template atau yang bukan .md
                     if (file.name === 'TEMPLATE-EVENT.md' || !file.name.endsWith('.md')) continue;
 
                     hasEvents = true;
-                    // Ambil isi teks dari file .md
                     const mdResponse = await fetch(file.download_url);
                     const mdText = await mdResponse.text();
 
-                    // 3. Potong bagian YAML (Frontmatter) dan Deskripsi (Body)
                     const parts = mdText.split('---');
                     if (parts.length >= 3) {
-                        // Baca data YAML (Judul, Tanggal, dll)
                         const frontmatter = jsyaml.load(parts[1]);
-                        // Baca data Markdown (Isi artikel)
                         const bodyHTML = marked.parse(parts.slice(2).join('---'));
 
-                        // 4. Bikin Kartu HTML
+                        // Cek apakah anak divisi masukin foto/thumbnail
+                        let imageHtml = '';
+                        if (frontmatter.thumbnail) {
+                            // Kalau dia ngasih link foto dari luar
+                            if (frontmatter.thumbnail.startsWith('http')) {
+                                imageHtml = `<img src="${frontmatter.thumbnail}" class="event-img" alt="Poster Event">`;
+                            } 
+                            // Kalau dia upload foto ke folder 'uploads' di GitHub
+                            else {
+                                imageHtml = `<img src="uploads/${frontmatter.thumbnail}" class="event-img" alt="Poster Event" onerror="this.style.display='none'">`;
+                            }
+                        }
+
                         const card = document.createElement('div');
                         card.className = 'event-card';
                         card.innerHTML = `
-                            <span class="event-status">${frontmatter.status || 'TBA'}</span>
-                            <h2 class="event-title">${frontmatter.title || 'Untitled Event'}</h2>
-                            <div class="event-meta">
-                                📅 ${frontmatter.date || '-'} <br>
-                                👥 Peserta: ${frontmatter.attendees || '-'} <br>
-                                🎯 Target: ${frontmatter.result_text || '-'}
-                            </div>
-                            <div class="event-body">
-                                ${bodyHTML}
+                            ${imageHtml}
+                            <div class="event-content">
+                                <span class="event-status">${frontmatter.status || 'TBA'}</span>
+                                <h2 class="event-title">${frontmatter.title || 'Untitled Event'}</h2>
+                                <div class="event-meta">
+                                    📅 <strong>Tanggal:</strong> ${frontmatter.date || '-'} <br>
+                                    👥 <strong>Peserta:</strong> ${frontmatter.attendees || '-'} <br>
+                                    🎯 <strong>Target:</strong> ${frontmatter.result_text || '-'}
+                                </div>
+                                <div class="event-body">
+                                    ${bodyHTML}
+                                </div>
                             </div>
                         `;
                         grid.appendChild(card);
@@ -210,16 +320,15 @@
                 }
 
                 if (!hasEvents) {
-                    grid.innerHTML = '<p class="loading">Belum ada event yang di-publish.</p>';
+                    grid.innerHTML = '<p class="loading">Belum ada event yang di-publish. Stay tuned!</p>';
                 }
 
             } catch (error) {
                 console.error("Error:", error);
-                grid.innerHTML = '<p class="loading">Belum ada event saat ini. Divisi sedang menyiapkan sesuatu!</p>';
+                grid.innerHTML = '<p class="loading">Belum ada event saat ini. Divisi sedang menyiapkan sesuatu yang besar!</p>';
             }
         }
 
-        // Jalankan mesinnya
         loadEvents();
     </script>
 
