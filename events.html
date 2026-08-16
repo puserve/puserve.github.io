@@ -1,1 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs & Events | PUSERVE</title>
+    
+    <!-- 
+    ======================================================================
+    [SOP ADMIN PUSERVE] - CARA MENAMBAH EVENT BARU (BACA INI!)
+    ======================================================================
+    Halo Divisi PUSERVE! Untuk menambah event ke halaman ini, JANGAN edit 
+    file events.html ini secara manual. Ikuti langkah mudah berikut:
 
+    1. UPLOAD FOTO: 
+       Buka folder `uploads` di GitHub, lalu klik "Add file" -> "Upload files".
+       Masukkan poster/foto event kalian (ingat nama file-nya, misal: poster.jpg).
+
+    2. BIKIN ARTIKELNYA:
+       - Buka folder `_events` di GitHub.
+       - Klik "Add file" -> "Create new file".
+       - Kasih nama file dengan format: TAHUN-BULAN-TANGGAL-namaevent.md 
+         (Contoh: 2026-08-17-grecon.md)
+
+    3. COPY-PASTE TEMPLATE INI KE DALAM FILE BARU TERSEBUT:
+       ---
+       title: "Judul Event Kalian"
+       date: 2026-08-17
+       status: "Upcoming"
+       attendees: "50 Orang"
+       result_text: "Tujuan event..."
+       thumbnail: "poster.jpg"
+       ---
+       Tulis deskripsi / cerita lengkap event di sini...
+
+    4. Klik "Commit changes" (atau "Propose changes").
+    Selesai! Event kalian akan otomatis muncul di halaman ini!
+    ======================================================================
+    -->
+
+    <!-- Import Library Parsing (Untuk membaca file Markdown anak divisi) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
+    <style>
+        /* === WARNA & TEMA KHUSUS PUSERVE === */
+        :root {
+            --dark-green: #082619;
+            --puserve-green: #11422b;
+            --puserve-yellow: #fcd34d;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-green);
+            color: var(--white);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Container Utama */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header-title {
+            color: var(--puserve-yellow);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header-subtitle {
+            color: #a3b8af;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        /* Grid untuk Kartu Event */
+        #events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Desain Kartu Event */
+        .event-card {
+            background-color: var(--puserve-green);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+            border: 1px solid #1a5c3d;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--puserve-yellow);
+        }
+
+        .event-status {
+            display: inline-block;
+            background-color: var(--puserve-yellow);
+            color: var(--dark-green);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .event-title {
+            font-size: 1.5rem;
+            margin: 0 0 10px 0;
+            color: var(--white);
+        }
+
+        .event-meta {
+            font-size: 0.9rem;
+            color: #a3b8af;
+            margin-bottom: 15px;
+        }
+
+        .event-body {
+            font-size: 0.95rem;
+            color: #d1e0d9;
+            border-top: 1px solid #1a5c3d;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        /* Loading Animation */
+        .loading {
+            text-align: center;
+            color: var(--puserve-yellow);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="header-title">Programs & Events</h1>
+        <p class="header-subtitle">Real Environmental Action. Empowering Changemakers.</p>
+
+        <!-- Tempat Kartu Event Akan Muncul Otomatis -->
+        <div id="events-grid">
+            <p class="loading">Memuat data events dari server...</p>
+        </div>
+    </div>
+
+    <!-- SCRIPT MESIN PUSERVE (Jangan Dihapus) -->
+    <script>
+        // Ganti 'puserve/puserve.github.io' dengan nama repo lu kalau beda
+        const repoName = 'puserve/puserve.github.io'; 
+        const folderName = '_events';
+        const apiUrl = `https://api.github.com/repos/${repoName}/contents/${folderName}`;
+
+        async function loadEvents() {
+            const grid = document.getElementById('events-grid');
+
+            try {
+                // 1. Cek folder _events di GitHub
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw new Error("Folder event belum ditemukan / kosong.");
+                const files = await response.json();
+
+                grid.innerHTML = ''; // Hapus tulisan loading
+
+                // 2. Looping membaca semua file di dalam folder _events
+                let hasEvents = false;
+                for (const file of files) {
+                    // Abaikan file template atau yang bukan .md
+                    if (file.name === 'TEMPLATE-EVENT.md' || !file.name.endsWith('.md')) continue;
+
+                    hasEvents = true;
+                    // Ambil isi teks dari file .md
+                    const mdResponse = await fetch(file.download_url);
+                    const mdText = await mdResponse.text();
+
+                    // 3. Potong bagian YAML (Frontmatter) dan Deskripsi (Body)
+                    const parts = mdText.split('---');
+                    if (parts.length >= 3) {
+                        // Baca data YAML (Judul, Tanggal, dll)
+                        const frontmatter = jsyaml.load(parts[1]);
+                        // Baca data Markdown (Isi artikel)
+                        const bodyHTML = marked.parse(parts.slice(2).join('---'));
+
+                        // 4. Bikin Kartu HTML
+                        const card = document.createElement('div');
+                        card.className = 'event-card';
+                        card.innerHTML = `
+                            <span class="event-status">${frontmatter.status || 'TBA'}</span>
+                            <h2 class="event-title">${frontmatter.title || 'Untitled Event'}</h2>
+                            <div class="event-meta">
+                                📅 ${frontmatter.date || '-'} <br>
+                                👥 Peserta: ${frontmatter.attendees || '-'} <br>
+                                🎯 Target: ${frontmatter.result_text || '-'}
+                            </div>
+                            <div class="event-body">
+                                ${bodyHTML}
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    }
+                }
+
+                if (!hasEvents) {
+                    grid.innerHTML = '<p class="loading">Belum ada event yang di-publish.</p>';
+                }
+
+            } catch (error) {
+                console.error("Error:", error);
+                grid.innerHTML = '<p class="loading">Belum ada event saat ini. Divisi sedang menyiapkan sesuatu!</p>';
+            }
+        }
+
+        // Jalankan mesinnya
+        loadEvents();
+    </script>
+
+</body>
+</html>
