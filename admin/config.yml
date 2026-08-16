@@ -1,1 +1,27 @@
+backend:
+  name: github
+  repo: puserve/puserve.github.io
+  branch: main
 
+# Lemari penyimpanan foto otomatis pas anak divisi upload gambar
+media_folder: "uploads"
+public_folder: "/uploads"
+
+# Mode Workflow (Biar masuk draft dulu, BOD yang nge-ACC)
+publish_mode: editorial_workflow
+
+# Cetakan Formulir Isian
+collections:
+  - name: "events"
+    label: "Events"
+    folder: "_events"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    fields:
+      - {label: "Judul Event", name: "title", widget: "string"}
+      - {label: "Status Event", name: "status", widget: "select", options: ["Upcoming", "Running", "Past"]}
+      - {label: "Tanggal Event", name: "date", widget: "datetime"}
+      - {label: "Jumlah Peserta (Contoh: 50 Orang)", name: "attendees", widget: "string", required: false}
+      - {label: "Target/Hasil Progress (Teks Singkat)", name: "result_text", widget: "string"}
+      - {label: "Poster / Cover Image", name: "thumbnail", widget: "image"}
+      - {label: "Deskripsi Lengkap Event", name: "body", widget: "markdown"}
