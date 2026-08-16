@@ -2,8 +2,7 @@ backend:
   name: github
   repo: puserve/puserve.github.io
   branch: main
-  auth_type: pkce
-  app_id: "Ov23li1puh2q6WY4DSnY"
+  base_url: "https://visionary-froyo-569f28.netlify.app"
 
 # Lemari penyimpanan foto otomatis pas anak divisi upload gambar
 media_folder: "uploads"
