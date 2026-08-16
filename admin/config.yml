@@ -2,16 +2,13 @@ backend:
   name: github
   repo: puserve/puserve.github.io
   branch: main
-  base_url: "https://visionary-froyo-569f28.netlify.app"
+  auth_type: pkce
+  app_id: "Ov23li1puh2q6WY4DSnY"
 
-# Lemari penyimpanan foto otomatis pas anak divisi upload gambar
 media_folder: "uploads"
 public_folder: "/uploads"
-
-# Mode Workflow (Biar masuk draft dulu, BOD yang nge-ACC)
 publish_mode: editorial_workflow
 
-# Cetakan Formulir Isian
 collections:
   - name: "events"
     label: "Events"
@@ -22,7 +19,7 @@ collections:
       - {label: "Judul Event", name: "title", widget: "string"}
       - {label: "Status Event", name: "status", widget: "select", options: ["Upcoming", "Running", "Past"]}
       - {label: "Tanggal Event", name: "date", widget: "datetime"}
-      - {label: "Jumlah Peserta (Contoh: 50 Orang)", name: "attendees", widget: "string", required: false}
-      - {label: "Target/Hasil Progress (Teks Singkat)", name: "result_text", widget: "string"}
-      - {label: "Poster / Cover Image", name: "thumbnail", widget: "image"}
-      - {label: "Deskripsi Lengkap Event", name: "body", widget: "markdown"}
+      - {label: "Jumlah Peserta", name: "attendees", widget: "string", required: false}
+      - {label: "Target/Hasil Progress", name: "result_text", widget: "string"}
+      - {label: "Poster", name: "thumbnail", widget: "image"}
+      - {label: "Deskripsi", name: "body", widget: "markdown"}
