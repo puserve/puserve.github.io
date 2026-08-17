@@ -15,46 +15,6 @@
     <meta name="description" content="PUSERVE (President University Serve Environment) is a student organization dedicated to real environmental action, education, and sustainability at President University.">
     <meta name="keywords" content="PUSERVE, President University, Environment, Student Organization, Cikarang, Sustainability, Mahasiswa Peduli Lingkungan">
 
-    /* === TAMBAHAN CSS BUAT HOME === */
-        #home-events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        /* Desain Carousel Buat News */
-        .news-carousel {
-            display: flex;
-            overflow-x: auto;
-            gap: 25px;
-            padding: 10px 0 30px 0;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-        }
-        
-        /* Bikin Scrollbar-nya Elegan */
-        .news-carousel::-webkit-scrollbar { height: 8px; }
-        .news-carousel::-webkit-scrollbar-track { background: var(--dark-green); border-radius: 10px; }
-        .news-carousel::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
-        .news-carousel::-webkit-scrollbar-thumb:hover { background: var(--puserve-yellow); }
-
-        /* Biar kartu berita nggak gepeng pas di-scroll */
-        .news-carousel .event-card {
-            min-width: 350px;
-            max-width: 350px;
-            flex: 0 0 auto;
-            scroll-snap-align: start;
-        }
-        
-        /* Desain Card Basic (Samain kaya di halaman events) */
-        .event-card { background-color: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: 0.3s; }
-        .event-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: var(--puserve-yellow); }
-        .event-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
-        .event-content { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .event-status { display: inline-block; color: var(--puserve-yellow); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
-        .event-title { font-size: 1.3rem; margin: 0 0 15px 0; color: var(--white); line-height: 1.4; font-weight: 600; }
-    
     <style>
         /* Base Settings & Micro-interactions */
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap');
@@ -70,21 +30,55 @@
         ::selection { background-color: #0a3622; color: #f5cf21; }
         ::-moz-selection { background-color: #0a3622; color: #f5cf21; }
 
-        /* -------------------------------------
-           1. SPLASH SCREEN (LIQUID GOLD REVEAL)
-        ---------------------------------------- */
+        /* =========================================================
+           TAMBAHAN CSS BUAT MESIN EVENTS & NEWS (YANG TADI NYASAR)
+           ========================================================= */
+        #home-events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .news-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 25px;
+            padding: 10px 0 30px 0;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+        
+        .news-carousel::-webkit-scrollbar { height: 8px; }
+        .news-carousel::-webkit-scrollbar-track { background: #0a3622; border-radius: 10px; }
+        .news-carousel::-webkit-scrollbar-thumb { background: #1a4d33; border-radius: 10px; }
+        .news-carousel::-webkit-scrollbar-thumb:hover { background: #fcd34d; }
+
+        .news-carousel .event-card {
+            min-width: 350px;
+            max-width: 350px;
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+        }
+        
+        /* Desain Card Basic ala VVIP */
+        .event-card { background-color: #0f3522; border-radius: 12px; overflow: hidden; border: 1px solid #1a4d33; display: flex; flex-direction: column; text-decoration: none; color: white; transition: 0.3s; }
+        .event-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: #fcd34d; }
+        .event-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #1a4d33; }
+        .event-content { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .event-status { display: inline-block; color: #fcd34d; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+        .event-title { font-size: 1.3rem; margin: 0 0 15px 0; color: white; line-height: 1.4; font-weight: 600; }
+        /* ========================================================= */
+
+        /* 1. SPLASH SCREEN (LIQUID GOLD REVEAL) */
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #0a3622; z-index: 999999; display: flex; justify-content: center; align-items: center; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease; }
         #preloader.hide-preloader { transform: translateY(-100%); opacity: 0; pointer-events: none; }
-        
         .logo-loader-container { position: relative; width: 180px; height: 180px; display: flex; justify-content: center; align-items: center; }
         .logo-dimmed { position: absolute; width: 100%; height: 100%; object-fit: contain; opacity: 0.1; filter: grayscale(100%); }
         .logo-filled { position: absolute; width: 100%; height: 100%; object-fit: contain; clip-path: inset(100% 0 0 0); animation: fillUp 2s cubic-bezier(0.77, 0, 0.175, 1) 0.5s forwards; filter: drop-shadow(0 0 20px rgba(245, 207, 33, 0.6)); }
-
         @keyframes fillUp { 0% { clip-path: inset(100% 0 0 0); } 100% { clip-path: inset(0 0 0 0); } }
 
-        /* -------------------------------------
-           2. SCROLL PROGRESS TREE & BACK TO TOP
-        ---------------------------------------- */
+        /* 2. SCROLL PROGRESS TREE & BACK TO TOP */
         #scroll-tree-container { position: fixed; top: 0; right: 0; width: 8px; height: 100vh; background: rgba(10, 54, 34, 0.1); z-index: 9998; pointer-events: none; }
         #scroll-tree-trunk { width: 100%; background: #f5cf21; height: 0%; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; transition: height 0.1s ease-out; box-shadow: 0 0 10px rgba(245, 207, 33, 0.5); }
         
@@ -92,15 +86,11 @@
         #back-to-top.show { bottom: 30px; }
         #back-to-top:hover { transform: translateY(-8px) scale(1.1); background-color: #f5cf21; color: #0a3622; border-color: #0a3622; }
 
-        /* -------------------------------------
-           3. DYNAMIC LEAVES CURSOR
-        ---------------------------------------- */
+        /* 3. DYNAMIC LEAVES CURSOR */
         .cursor-leaf { position: fixed; width: 12px; height: 12px; background-color: #f5cf21; border-radius: 0 12px 0 12px; pointer-events: none; z-index: 99999; animation: leafFall 1s linear forwards; opacity: 0.8; }
         @keyframes leafFall { 0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; } 100% { transform: translateY(60px) rotate(120deg) scale(0.3); opacity: 0; } }
 
-        /* -------------------------------------
-           4. CINEMATIC VIDEO LIGHTBOX
-        ---------------------------------------- */
+        /* 4. CINEMATIC VIDEO LIGHTBOX */
         #video-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0, 0, 0, 0.9); z-index: 9999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; backdrop-filter: blur(10px); }
         #video-lightbox.show { opacity: 1; pointer-events: auto; }
         .lightbox-content { position: relative; width: 80%; max-width: 900px; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: scale(0.95); transition: transform 0.4s ease; }
@@ -109,21 +99,16 @@
         .close-lightbox { position: absolute; top: 20px; right: 30px; color: white; font-size: 3rem; cursor: pointer; z-index: 2; transition: color 0.3s; }
         .close-lightbox:hover { color: #f5cf21; }
 
-        /* -------------------------------------
-           5. SECRET EASTER EGG MODAL
-        ---------------------------------------- */
+        /* 5. SECRET EASTER EGG MODAL */
         #easter-egg-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(10, 54, 34, 0.95); z-index: 99999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s ease; backdrop-filter: blur(15px); }
         #easter-egg-modal.show { opacity: 1; pointer-events: auto; }
         .easter-egg-content { background: #1a1a1a; border: 3px solid #ff3333; padding: 30px; border-radius: 20px; text-align: center; color: white; max-width: 450px; transform: scale(0.8); transition: 0.3s; position: relative; box-shadow: 0 0 50px rgba(255, 51, 51, 0.3); }
         #easter-egg-modal.show .easter-egg-content { transform: scale(1); animation: glitch 0.3s ease-in-out; }
-        
         .warning-header { color: #ff3333; font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; letter-spacing: 2px; animation: blinkWarning 1s infinite; }
         .easter-egg-content img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px dashed #f5cf21; }
         .prank-text { color: #f5cf21; font-weight: 700; font-size: 1.1rem; line-height: 1.6; }
-        
         .close-egg { position: absolute; top: -20px; right: -20px; font-size: 2rem; font-family: sans-serif; line-height: 1; background: #ff3333; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 3px solid #f4f9f5; transition: 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 10; }
         .close-egg:hover { transform: scale(1.15); background: white; color: #ff3333; border-color: #ff3333; }
-        
         @keyframes blinkWarning { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         @keyframes glitch { 0%, 100% { transform: scale(1) translate(0); } 25% { transform: scale(1.02) translate(5px, 5px); } 50% { transform: scale(0.98) translate(-5px, -5px); } 75% { transform: scale(1.05) translate(5px, -5px); } }
 
@@ -140,22 +125,16 @@
         .menu-icon span { background: white; height: 2px; width: 100%; margin-bottom: 5px; border-radius: 2px; transition: all 0.3s ease; }
         .menu-icon span:last-child { margin-bottom: 0; }
 
+        /* Menu Navbar Udah Disesuaikan biar rata & nggak pake dropdown lagi */
         .nav-links { display: none; list-style: none; gap: 25px; align-items: center; }
         .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 75px; right: 25px; background: rgba(10, 54, 34, 0.95); padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); align-items: flex-start; }
         .nav-links li a { text-decoration: none; color: rgba(255, 255, 255, 0.9); font-size: 1rem; font-weight: 500; transition: color 0.3s ease; }
         .nav-links li a:hover { color: white; }
-
-        .dropdown { position: relative; padding: 10px 0; width: 100%; }
-        .dropdown-content { display: none; position: absolute; background: rgba(10, 54, 34, 0.85); min-width: 160px; border-radius: 15px; top: 100%; left: 0; padding: 10px 0; margin-top: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(255, 255, 255, 0.1); z-index: 102; }
-        @media screen and (max-width: 1023px) { .dropdown-content { position: static; background: transparent; box-shadow: none; border: none; padding-left: 15px; margin-top: 10px; } .dropdown-content a { text-align: left; padding: 8px 10px; } }
-        .dropdown-content a { display: block; padding: 12px 20px; color: rgba(255, 255, 255, 0.9); text-align: center; font-size: 0.95rem; transition: background 0.3s ease, color 0.3s ease; }
-        .dropdown-content a:hover { color: white; background: rgba(255, 255, 255, 0.1); }
-        .dropdown:hover .dropdown-content { display: block; }
         
         .nav-cta { background: #f5cf21; color: #0a3622 !important; padding: 8px 20px; border-radius: 20px; font-weight: 700 !important; transition: transform 0.3s ease, box-shadow 0.3s ease; white-space: nowrap; } 
         .nav-cta:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(245, 207, 33, 0.4); background: #f5cf21 !important; color: #0a3622 !important; }
 
-        @media screen and (min-width: 1024px) { nav { width: 90%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; } .nav-logos img { height: 45px; } .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; } .dropdown-content { left: 50%; transform: translateX(-50%); } .dropdown-content a { text-align: center; } .menu-icon { display: none; } }
+        @media screen and (min-width: 1024px) { nav { width: 90%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; } .nav-logos img { height: 45px; } .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; } .menu-icon { display: none; } }
 
         /* Screenshot Watermark Protection */
         body::after { content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; height: 100vh; background-image: url('logos/LOGO_PUSERVE.png'); background-repeat: no-repeat; background-position: center; background-size: contain; opacity: 0.03; z-index: 9999; pointer-events: none; }
@@ -189,31 +168,7 @@
         .section-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
         .section-title { text-align: center; font-size: 2.5rem; color: #0a3622; margin-bottom: 20px; font-weight: 800; }
         .section-subtitle { text-align: center; font-size: 1.1rem; color: #555; margin-bottom: 50px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; }
-        
         .about-text { text-align: center; font-size: 1.2rem; line-height: 1.8; color: #4a4a4a; max-width: 800px; margin: 0 auto; }
-
-        /* Grid System for Activities (Professional Layout) */
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; perspective: 1000px; }
-        @media screen and (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
-        
-        .event-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.06); display: flex; flex-direction: column; transform-style: preserve-3d; transition: transform 0.4s ease, box-shadow 0.4s ease; text-decoration: none;}
-        .card-img-wrapper { position: relative; height: 280px; overflow: hidden; }
-        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transform: translateZ(20px) scale(1.05); transition: transform 0.5s ease; }
-        .event-card:hover .card-img-wrapper img { transform: translateZ(30px) scale(1.1); }
-        
-        .badge-date { position: absolute; bottom: 20px; left: 20px; background: white; color: #1a1a1a; padding: 6px 15px; border-radius: 10px; font-size: 0.9rem; font-weight: 800; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateZ(30px); }
-        .badge-attendees { position: absolute; top: 20px; right: 20px; background: rgba(10, 54, 34, 0.85); color: white; padding: 6px 15px; border-radius: 10px; font-size: 0.9rem; font-weight: 700; backdrop-filter: blur(5px); display: flex; align-items: center; gap: 5px; transform: translateZ(30px); }
-        
-        .card-body { padding: 30px; display: flex; flex-direction: column; flex-grow: 1; transform: translateZ(20px); }
-        .card-body h3 { color: #0a3622; font-size: 1.4rem; margin-bottom: 12px; font-weight: 800; line-height: 1.4; }
-        .card-body p { color: #555; font-size: 1rem; line-height: 1.6; }
-        
-        .card-result { background: #e9f2eb; padding: 18px; border-radius: 12px; margin-top: 20px; margin-bottom: 25px; border-left: 4px solid #0a3622; }
-        .result-label { font-size: 0.75rem; color: #0a3622; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px; text-transform: uppercase; }
-        .card-result p { color: #0a3622; font-weight: 600; font-size: 0.95rem; margin: 0; }
-        
-        .card-action-btn { background: #0a3622; color: white; text-align: center; padding: 15px; text-decoration: none; font-weight: 700; font-size: 1.05rem; border-radius: 12px; transition: all 0.3s; margin-top: auto; display: block; }
-        .card-action-btn:hover { background: #f5cf21; color: #0a3622; }
 
         /* Impact Stories / What We Serve (Carousel) */
         .serve-marquee { background-color: #0a3622; color: #f5cf21; padding: 12px 0; overflow: hidden; white-space: nowrap; position: relative; display: flex; }
@@ -268,10 +223,13 @@
         .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
     </style>
+    
+    <!-- Script Library buat Baca Markdown (Wajib di Head) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
 
-    <!-- 1. SPLASH SCREEN (LIQUID GOLD REVEAL) -->
+    <!-- 1. SPLASH SCREEN -->
     <div id="preloader">
         <div class="logo-loader-container">
             <img src="logos/LOGO_PUSERVE.png" alt="Loading" class="logo-dimmed">
@@ -308,7 +266,7 @@
         </div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Navigation (Udah direvisi biar konsisten Events & Outlook) -->
     <nav>
         <div class="nav-logos">
             <a href="#about"><img src="logos/LOGO_PU.png" alt="President University"></a>
@@ -318,14 +276,9 @@
         <div class="menu-icon"><span></span><span></span><span></span></div>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
-            <li class="dropdown">
-                <a href="javascript:void(0)" class="dropbtn">Explore ▾</a>
-                <div class="dropdown-content">
-                    <a href="events.html">Events</a>
-                    <a href="news.html">News</a>
-                    <a href="team.html">Our Team</a>
-                </div>
-            </li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="news.html">Outlook</a></li>
+            <li><a href="team.html">Our Team</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="mailto:preserve.presuniv@gmail.com" class="nav-cta magnetic-btn">Join Us</a></li>
         </ul>
@@ -338,12 +291,9 @@
             <source src="forestbg.webm" type="video/webm">
         </video>
         <div class="hero-content fade-up">
-            <!-- Dynamic Greeting Element -->
             <div id="dynamic-greeting"></div>
-            <!-- Typewriter Text -->
             <div class="hero-small-text" id="typewriter-text"></div>
             
-            <!-- Professional Left-Aligned Typography -->
             <h1 class="hero-title">Real Environmental Action.<br><span class="highlight-gold">Empowering Changemakers.</span></h1>
             <p>We reflect the spirit of generating ideas, strengthening them through togetherness, and transforming them into meaningful impact for our planet.</p>
             
@@ -369,65 +319,33 @@
         </div>
     </div>
 
-    <!-- NEW PROFESSIONAL ACTIVITIES CARDS -->
-    <section id="activities" class="section-container fade-up">
-        <h2 class="section-title">Our Activities</h2>
-        <p class="section-subtitle">A curated record of our ongoing efforts to restore, preserve, and celebrate our natural heritage.</p>
+    <!-- SECTION 1: EVENTS (Prioritas 3 Kartu) -->
+    <section id="activities" class="section-container fade-up" style="padding-top: 60px;">
+        <h2 style="color: #0a3622; text-align: center; font-size: 2.5rem; margin-bottom: 10px; font-weight: 800;">Our Activities</h2>
+        <p style="color: #555; text-align: center; margin-bottom: 20px;">A curated record of our ongoing efforts.</p>
         
-        <div class="grid-2">
-            <!-- Card 1 -->
-            <div class="event-card tilt-card">
-                <div class="card-img-wrapper">
-                    <img src="coming_soon.png" alt="Future Eco Leaders 2026">
-                    <span class="badge-date">Coming Soon</span>
-                    <span class="badge-attendees">👥 50</span>
-                </div>
-                <div class="card-body">
-                    <h3>Future Eco Leaders 2026</h3>
-                    <p>An official onboarding and leadership development program for new PUSERVE members, focusing on ecological literacy and action plans.</p>
-                    <div class="card-result">
-                        <span class="result-label">Result</span>
-                        <p>Coming Soon</p>
-                    </div>
-                    <a href="events-fel2026.html" class="card-action-btn magnetic-btn">See Details ➔</a>
-                </div>
-            </div>
+        <!-- Wadah Kosong Events -->
+        <div id="home-events-grid">
+            <p style="text-align: center; color: #0a3622; width: 100%; font-weight: bold;">📡 Menarik data agenda dari server...</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="events.html" style="color: #0a3622; text-decoration: none; font-weight: 800; border-bottom: 2px solid #f5cf21; padding-bottom: 2px;">Lihat Semua Agenda ➔</a>
+        </div>
+    </section>
 
-            <!-- Card 2 -->
-            <div class="event-card tilt-card">
-                <div class="card-img-wrapper">
-                    <img src="coming_soon.png" alt="GRECON 2026">
-                    <span class="badge-date">Coming Soon</span>
-                    <span class="badge-attendees">👥 Coming Soon</span>
-                </div>
-                <div class="card-body">
-                    <h3>GRECON 2026</h3>
-                    <p>A regional youth convention focused on concrete environmental action, proper waste management, and green innovations.</p>
-                    <div class="card-result">
-                        <span class="result-label">Result</span>
-                        <p>Coming Soon</p>
-                    </div>
-                    <a href="events-grecon2026.html" class="card-action-btn magnetic-btn">See Details ➔</a>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="event-card tilt-card">
-                <div class="card-img-wrapper">
-                    <img src="coming_soon.png" alt="PUSERVE Ignite 2026">
-                    <span class="badge-date">Coming Soon</span>
-                    <span class="badge-attendees">👥 Coming Soon</span>
-                </div>
-                <div class="card-body">
-                    <h3>PUSERVE IGNITE 2026</h3>
-                    <p>An environmental pitching program providing a dynamic platform for students to create and fund innovative solutions.</p>
-                    <div class="card-result">
-                        <span class="result-label">Result</span>
-                        <p>Coming Soon</p>
-                    </div>
-                    <a href="events-ignite2026.html" class="card-action-btn magnetic-btn">See Details ➔</a>
-                </div>
-            </div>
+    <!-- SECTION 2: NEWS / OUTLOOK (Carousel Horizontal) -->
+    <section class="section-container fade-up" style="padding-top: 20px; padding-bottom: 60px;">
+        <h2 style="color: #0a3622; font-size: 2.5rem; margin-bottom: 10px; font-weight: 800;">PUSERVE Outlook</h2>
+        <p style="color: #555; margin-bottom: 30px;">Berita, Opini, dan Analisis Lingkungan Terkini.</p>
+        
+        <!-- Wadah Carousel Kosong -->
+        <div id="home-news-carousel" class="news-carousel">
+            <p style="color: #0a3622; font-weight: bold;">📡 Menarik data berita dari server...</p>
+        </div>
+        
+        <div style="text-align: right; margin-top: 15px;">
+            <a href="news.html" style="color: #0a3622; text-decoration: none; font-weight: 800; border-bottom: 2px solid #f5cf21; padding-bottom: 2px;">Baca Outlook Lainnya ➔</a>
         </div>
     </section>
 
@@ -452,16 +370,6 @@
                         <p class="quote-author">NGO Partner</p>
                         <p class="quote-position">External Collaborator</p>
                     </div>
-                    <div class="quote-card tilt-card">
-                        <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
-                        <p class="quote-author">Edeline Stefanie Baskoro</p>
-                        <p class="quote-position">Chairperson of PUSERVE 2026/2027</p>
-                    </div>
-                    <div class="quote-card tilt-card">
-                        <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
-                        <p class="quote-author">Student Volunteer</p>
-                        <p class="quote-position">PUSERVE Member</p>
-                    </div>
                 </div>
                 <div class="ticker-set">
                     <div class="quote-card tilt-card">
@@ -478,16 +386,6 @@
                         <p class="quote-text">"Collaborating with PUSERVE allowed our organization to reach more young people and educate them about sustainability."</p>
                         <p class="quote-author">NGO Partner</p>
                         <p class="quote-position">External Collaborator</p>
-                    </div>
-                    <div class="quote-card tilt-card">
-                        <p class="quote-text">"Kalau hidupmu sulit, yaudah sih namanya juga hidup."</p>
-                        <p class="quote-author">Edeline Stefanie Baskoro</p>
-                        <p class="quote-position">Chairperson of PUSERVE 2026/2027</p>
-                    </div>
-                    <div class="quote-card tilt-card">
-                        <p class="quote-text">"PUSERVE gave me the platform to actually do something about the plastic waste problem on campus. It is amazing to see real changes."</p>
-                        <p class="quote-author">Student Volunteer</p>
-                        <p class="quote-position">PUSERVE Member</p>
                     </div>
                 </div>
             </div>
@@ -527,6 +425,7 @@
                     <li><a href="#about">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="events.html">Events</a></li>
+                    <li><a href="news.html">Outlook</a></li>
                     <li><a href="team.html">Our Team</a></li>
                 </ul>
             </div>
@@ -702,6 +601,133 @@
             });
             card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
         });
+
+        // =========================================================
+        // 13. MESIN PENARIK DATA EVENTS & NEWS (YANG BARU!)
+        // =========================================================
+        const repoName = 'puserve/puserve.github.io'; 
+
+        const getImgUrl = (img) => {
+            if (!img) return 'https://via.placeholder.com/400x250/0f3522/fcd34d?text=PUSERVE';
+            if (img.startsWith('http')) return img;
+            if (img.includes('/')) return img;
+            return `uploads/${img}`;
+        };
+
+        const formatDate = (dateStr) => {
+            try {
+                const d = new Date(dateStr);
+                if (!isNaN(d)) return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            } catch(e){}
+            return dateStr;
+        };
+
+        // MESIN EVENTS (LOGIKA SAPU JAGAT 3 KARTU)
+        async function loadHomeEvents() {
+            const grid = document.getElementById('home-events-grid');
+            try {
+                const res = await fetch(`https://api.github.com/repos/${repoName}/contents/_events`);
+                const files = await res.json();
+
+                let running = [], upcoming = [], past = [];
+
+                for (const file of files) {
+                    if (file.name === 'TEMPLATE-EVENT.md' || !file.name.endsWith('.md')) continue;
+                    const mdRes = await fetch(file.download_url);
+                    const mdText = await mdRes.text();
+                    const parts = mdText.split('---');
+                    
+                    if (parts.length >= 3) {
+                        const fm = jsyaml.load(parts[1]);
+                        fm.fileName = file.name; 
+                        
+                        const status = (fm.status || '').toLowerCase();
+                        if (status === 'running') running.push(fm);
+                        else if (status === 'upcoming' || status === 'future') upcoming.push(fm);
+                        else past.push(fm);
+                    }
+                }
+
+                const sortByDate = (a, b) => new Date(b.date) - new Date(a.date);
+                running.sort(sortByDate);
+                upcoming.sort(sortByDate);
+                past.sort(sortByDate);
+
+                const finalEvents = [...running, ...upcoming, ...past].slice(0, 3);
+
+                grid.innerHTML = '';
+                if(finalEvents.length === 0) {
+                    grid.innerHTML = '<p style="color:#555; text-align:center; width:100%;">Belum ada data agenda.</p>';
+                    return;
+                }
+
+                finalEvents.forEach(fm => {
+                    grid.innerHTML += `
+                        <a href="read.html?file=${fm.fileName}" class="event-card">
+                            <img src="${getImgUrl(fm.thumbnail)}" class="event-img" onerror="this.src='https://via.placeholder.com/400x250/0f3522/fcd34d?text=Error'">
+                            <div class="event-content">
+                                <div>
+                                    <span class="event-status">${fm.status || 'TBA'}</span>
+                                    <h2 class="event-title">${fm.title}</h2>
+                                    <p style="color:#8bada0; font-size:0.85rem; margin-bottom:10px;">📅 ${formatDate(fm.date)}</p>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+
+            } catch (error) { console.error("Event Error:", error); grid.innerHTML = 'Gagal memuat event.'; }
+        }
+
+        // MESIN NEWS / OUTLOOK (CAROUSEL UNLIMITED)
+        async function loadHomeNews() {
+            const carousel = document.getElementById('home-news-carousel');
+            try {
+                const res = await fetch(`https://api.github.com/repos/${repoName}/contents/_news`);
+                const files = await res.json();
+
+                let allNews = [];
+                for (const file of files) {
+                    if (file.name === 'TEMPLATE-NEWS.md' || !file.name.endsWith('.md')) continue;
+                    const mdRes = await fetch(file.download_url);
+                    const mdText = await mdRes.text();
+                    const parts = mdText.split('---');
+                    
+                    if (parts.length >= 3) {
+                        const fm = jsyaml.load(parts[1]);
+                        fm.fileName = file.name;
+                        allNews.push(fm);
+                    }
+                }
+
+                allNews.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                carousel.innerHTML = '';
+                if(allNews.length === 0) {
+                    carousel.innerHTML = '<p style="color:#555; text-align:center; width:100%;">Belum ada berita yang dipublikasikan.</p>';
+                    return;
+                }
+
+                allNews.forEach(fm => {
+                    carousel.innerHTML += `
+                        <a href="read-news.html?file=${fm.fileName}" class="event-card">
+                            <img src="${getImgUrl(fm.thumbnail)}" class="event-img" onerror="this.src='https://via.placeholder.com/400x250/0f3522/fcd34d?text=Error'">
+                            <div class="event-content">
+                                <div>
+                                    <span class="event-status">${fm.category || 'News'}</span>
+                                    <h2 class="event-title">${fm.title}</h2>
+                                    <p style="color:#8bada0; font-size:0.85rem;">✍️ ${fm.author || 'Redaksi'} | 📅 ${formatDate(fm.date)}</p>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+
+            } catch (error) { console.error("News Error:", error); carousel.innerHTML = 'Gagal memuat berita.'; }
+        }
+
+        loadHomeEvents();
+        loadHomeNews();
     </script>
 </body>
 </html>
