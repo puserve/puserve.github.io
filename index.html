@@ -21,17 +21,15 @@
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        /* Smooth Scroll & Pelindung Judul Navbar */
         html { scroll-behavior: smooth; }
         body { background-color: #f4f9f5; color: #1a1a1a; overflow-x: hidden; }
         section[id] { scroll-margin-top: 120px; }
 
-        /* Custom Text Highlight */
         ::selection { background-color: #0a3622; color: #f5cf21; }
         ::-moz-selection { background-color: #0a3622; color: #f5cf21; }
 
         /* =========================================================
-           TAMBAHAN CSS BUAT MESIN EVENTS & NEWS (YANG TADI NYASAR)
+           TAMBAHAN CSS BUAT MESIN EVENTS & NEWS (VVIP)
            ========================================================= */
         #home-events-grid {
             display: grid;
@@ -61,14 +59,27 @@
             scroll-snap-align: start;
         }
         
-        /* Desain Card Basic ala VVIP */
         .event-card { position: relative; z-index: 10; cursor: pointer; background-color: #0f3522; border-radius: 12px; overflow: hidden; border: 1px solid #1a4d33; display: flex; flex-direction: column; text-decoration: none; color: white; transition: 0.3s; }
-        .event-card:hover { transfoxrm: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: #fcd34d; }
+        .event-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: #fcd34d; }
         .event-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #1a4d33; }
         .event-content { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .event-status { display: inline-block; color: #fcd34d; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
         .event-title { font-size: 1.3rem; margin: 0 0 15px 0; color: white; line-height: 1.4; font-weight: 600; }
-        /* ========================================================= */
+
+        /* =========================================================
+           TAMBAHAN CSS BUAT POP-UP JOIN US (YANG KETINGGALAN)
+           ========================================================= */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.8); z-index: 999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(5px); }
+        .modal-overlay.show { opacity: 1; pointer-events: auto; }
+        .modal-content-box { background: #0a3622; border: 1px solid #1a4d33; padding: 30px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; position: relative; transform: translateY(20px); transition: 0.3s; }
+        .modal-overlay.show .modal-content-box { transform: translateY(0); }
+        .close-modal-btn { position: absolute; top: 15px; right: 20px; color: #8bada0; font-size: 1.8rem; cursor: pointer; line-height: 1; }
+        .close-modal-btn:hover { color: #fcd34d; }
+        .modal-btn { display: block; width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.95rem; transition: 0.3s; cursor: pointer; }
+        .btn-partner { background: rgba(252, 211, 77, 0.1); color: #fcd34d; border: 1px solid #fcd34d; }
+        .btn-partner:hover { background: #fcd34d; color: #0a3622; }
+        .btn-vol { background: rgba(255,255,255,0.05); color: white; border: 1px solid #8bada0; }
+        .btn-vol:hover { background: white; color: #0a3622; }
 
         /* 1. SPLASH SCREEN (LIQUID GOLD REVEAL) */
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: #0a3622; z-index: 999999; display: flex; justify-content: center; align-items: center; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease; }
@@ -112,7 +123,7 @@
         @keyframes blinkWarning { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         @keyframes glitch { 0%, 100% { transform: scale(1) translate(0); } 25% { transform: scale(1.02) translate(5px, 5px); } 50% { transform: scale(0.98) translate(-5px, -5px); } 75% { transform: scale(1.05) translate(5px, -5px); } }
 
-        /* Navigation - Includes Smart Auto Hide */
+        /* Navigation */
         nav { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; background: rgba(10, 54, 34, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); transition: top 0.4s ease-in-out, background 0.4s ease; }
         nav.nav-hidden { top: -120px !important; } 
         
@@ -125,7 +136,6 @@
         .menu-icon span { background: white; height: 2px; width: 100%; margin-bottom: 5px; border-radius: 2px; transition: all 0.3s ease; }
         .menu-icon span:last-child { margin-bottom: 0; }
 
-        /* Menu Navbar Udah Disesuaikan biar rata & nggak pake dropdown lagi */
         .nav-links { display: none; list-style: none; gap: 25px; align-items: center; }
         .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 75px; right: 25px; background: rgba(10, 54, 34, 0.95); padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); align-items: flex-start; }
         .nav-links li a { text-decoration: none; color: rgba(255, 255, 255, 0.9); font-size: 1rem; font-weight: 500; transition: color 0.3s ease; }
@@ -136,7 +146,7 @@
 
         @media screen and (min-width: 1024px) { nav { width: 90%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; } .nav-logos img { height: 45px; } .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; } .menu-icon { display: none; } }
 
-        /* Screenshot Watermark Protection */
+        /* Screenshot Watermark Protection (DIUBAH z-index: -1 BIAR GAK MENGHALANGI KLIK) */
         body::after { content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; height: 100vh; background-image: url('logos/LOGO_PUSERVE.png'); background-repeat: no-repeat; background-position: center; background-size: contain; opacity: 0.03; z-index: -1; pointer-events: none; }
 
         /* Hero Section */
@@ -266,20 +276,23 @@
         </div>
     </div>
 
-    <!-- Navigation (Udah direvisi biar konsisten Events & Outlook) -->
+    <!-- Navigation -->
     <nav>
         <div class="nav-logos">
             <a href="#about"><img src="logos/LOGO_PU.png" alt="President University"></a>
             <a href="#about"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"></a>
             <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE" id="secret-trigger-logo" title="PUSERVE">
         </div>
-        <div class="menu-icon"><span></span><span></span><span></span></div>
-        <ul class="nav-links">
+        <div class="menu-icon" onclick="document.getElementById('mobile-menu').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="mobile-menu">
             <li><a href="#about">About</a></li>
             <li><a href="events.html">Events</a></li>
             <li><a href="news.html">Outlook</a></li>
             <li><a href="team.html">Our Team</a></li>
             <li><a href="#contact">Contact</a></li>
+            <!-- TOMBOL JOIN US DENGAN FUNGSI POPUP -->
             <li><a href="javascript:void(0)" onclick="openJoinModal()" class="nav-cta magnetic-btn">Join Us</a></li>
         </ul>
     </nav>
@@ -319,33 +332,31 @@
         </div>
     </div>
 
-    <!-- SECTION 1: EVENTS (Prioritas 3 Kartu) -->
+    <!-- SECTION 1: EVENTS (Prioritas 3 Kartu) - FULL ENGLISH -->
     <section id="activities" class="section-container fade-up" style="padding-top: 60px;">
         <h2 style="color: #0a3622; text-align: center; font-size: 2.5rem; margin-bottom: 10px; font-weight: 800;">Our Activities</h2>
         <p style="color: #555; text-align: center; margin-bottom: 20px;">A curated record of our ongoing efforts.</p>
         
-        <!-- Wadah Kosong Events -->
         <div id="home-events-grid">
-            <p style="text-align: center; color: #0a3622; width: 100%; font-weight: bold;">📡 Menarik data agenda dari server...</p>
+            <p style="text-align: center; color: #0a3622; width: 100%; font-weight: bold;">📡 Fetching events data...</p>
         </div>
         
         <div style="text-align: center; margin-top: 30px;">
-            <a href="events.html" style="color: #0a3622; text-decoration: none; font-weight: 800; border-bottom: 2px solid #f5cf21; padding-bottom: 2px;">Lihat Semua Agenda ➔</a>
+            <a href="events.html" style="color: #0a3622; text-decoration: none; font-weight: 800; border-bottom: 2px solid #f5cf21; padding-bottom: 2px;">View All Events ➔</a>
         </div>
     </section>
 
-    <!-- SECTION 2: NEWS / OUTLOOK (Carousel Horizontal) -->
+    <!-- SECTION 2: NEWS / OUTLOOK (Carousel Horizontal) - FULL ENGLISH -->
     <section class="section-container fade-up" style="padding-top: 20px; padding-bottom: 60px;">
         <h2 style="color: #0a3622; font-size: 2.5rem; margin-bottom: 10px; font-weight: 800;">PUSERVE Outlook</h2>
-        <p style="color: #555; margin-bottom: 30px;">Berita, Opini, dan Analisis Lingkungan Terkini.</p>
+        <p style="color: #555; margin-bottom: 30px;">Latest Environmental News, Opinions, and Analysis.</p>
         
-        <!-- Wadah Carousel Kosong -->
         <div id="home-news-carousel" class="news-carousel">
-            <p style="color: #0a3622; font-weight: bold;">📡 Menarik data berita dari server...</p>
+            <p style="color: #0a3622; font-weight: bold;">📡 Fetching news data...</p>
         </div>
         
         <div style="text-align: right; margin-top: 15px;">
-            <a href="news.html" style="color: #0a3622; text-decoration: none; font-weight: 800; border-bottom: 2px solid #f5cf21; padding-bottom: 2px;">Baca Outlook Lainnya ➔</a>
+            <a href="news.html" style="color: #0a3622; text-decoration: none; font-weight: 800; border-bottom: 2px solid #f5cf21; padding-bottom: 2px;">Read More Outlook ➔</a>
         </div>
     </section>
 
@@ -465,6 +476,10 @@
 
     <!-- Scripts -->
     <script>
+        // --- 0. POP-UP MODAL FUNCTIONS (YANG KETINGGALAN) ---
+        function openJoinModal() { document.getElementById('join-modal').classList.add('show'); }
+        function closeJoinModal() { document.getElementById('join-modal').classList.remove('show'); }
+
         // --- 1. DYNAMIC GREETING SCRIPT ---
         const hour = new Date().getHours();
         let greetingText = "";
@@ -618,7 +633,7 @@
         });
 
         // =========================================================
-        // 13. MESIN PENARIK DATA EVENTS & NEWS (YANG BARU!)
+        // 13. MESIN PENARIK DATA EVENTS & NEWS (FULL ENGLISH)
         // =========================================================
         const repoName = 'puserve/puserve.github.io'; 
 
@@ -632,7 +647,7 @@
         const formatDate = (dateStr) => {
             try {
                 const d = new Date(dateStr);
-                if (!isNaN(d)) return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                if (!isNaN(d)) return d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
             } catch(e){}
             return dateStr;
         };
@@ -672,7 +687,7 @@
 
                 grid.innerHTML = '';
                 if(finalEvents.length === 0) {
-                    grid.innerHTML = '<p style="color:#555; text-align:center; width:100%;">Belum ada data agenda.</p>';
+                    grid.innerHTML = '<p style="color:#555; text-align:center; width:100%;">No events have been scheduled yet.</p>';
                     return;
                 }
 
@@ -691,7 +706,7 @@
                     `;
                 });
 
-            } catch (error) { console.error("Event Error:", error); grid.innerHTML = 'Gagal memuat event.'; }
+            } catch (error) { console.error("Event Error:", error); grid.innerHTML = 'Failed to load events.'; }
         }
 
         // MESIN NEWS / OUTLOOK (CAROUSEL UNLIMITED)
@@ -719,7 +734,7 @@
 
                 carousel.innerHTML = '';
                 if(allNews.length === 0) {
-                    carousel.innerHTML = '<p style="color:#555; text-align:center; width:100%;">Belum ada berita yang dipublikasikan.</p>';
+                    carousel.innerHTML = '<p style="color:#555; text-align:center; width:100%;">No news published yet.</p>';
                     return;
                 }
 
@@ -731,14 +746,14 @@
                                 <div>
                                     <span class="event-status">${fm.category || 'News'}</span>
                                     <h2 class="event-title">${fm.title}</h2>
-                                    <p style="color:#8bada0; font-size:0.85rem;">✍️ ${fm.author || 'Redaksi'} | 📅 ${formatDate(fm.date)}</p>
+                                    <p style="color:#8bada0; font-size:0.85rem;">✍️ ${fm.author || 'Editorial'} | 📅 ${formatDate(fm.date)}</p>
                                 </div>
                             </div>
                         </a>
                     `;
                 });
 
-            } catch (error) { console.error("News Error:", error); carousel.innerHTML = 'Gagal memuat berita.'; }
+            } catch (error) { console.error("News Error:", error); carousel.innerHTML = 'Failed to load news.'; }
         }
 
         loadHomeEvents();
