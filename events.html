@@ -129,6 +129,32 @@
         .event-card:hover .read-more svg { transform: translateX(5px); stroke: var(--puserve-yellow); }
 
         footer { background-color: var(--dark-green); text-align: center; padding: 30px 20px; color: var(--gray-text); border-top: 1px solid var(--border-color); font-size: 0.85rem; }
+ 
+    /* === PERBAIKAN NAVBAR HP === */
+        .menu-icon { display: none; flex-direction: column; cursor: pointer; width: 25px; z-index: 101; gap: 5px; }
+        .menu-icon span { background: #ffffff; height: 2px; width: 100%; border-radius: 2px; transition: 0.3s; }
+        
+        @media (max-width: 768px) {
+            .menu-icon { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 80px; right: 20px; background: #051810; padding: 20px 25px; border-radius: 12px; border: 1px solid #1a4d33; gap: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); z-index: 100; }
+            .nav-links.active { display: flex; }
+        }
+
+        /* === DESAIN POP-UP JOIN US === */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.8); z-index: 999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(5px); }
+        .modal-overlay.show { opacity: 1; pointer-events: auto; }
+        .modal-content-box { background: #0a3622; border: 1px solid #1a4d33; padding: 30px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; position: relative; transform: translateY(20px); transition: 0.3s; }
+        .modal-overlay.show .modal-content-box { transform: translateY(0); }
+        
+        .close-modal-btn { position: absolute; top: 15px; right: 20px; color: #8bada0; font-size: 1.8rem; cursor: pointer; line-height: 1; }
+        .close-modal-btn:hover { color: #f5cf21; }
+        
+        .modal-btn { display: block; width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.95rem; transition: 0.3s; cursor: pointer; }
+        .btn-partner { background: rgba(245, 207, 33, 0.1); color: #f5cf21; border: 1px solid #f5cf21; }
+        .btn-partner:hover { background: #f5cf21; color: #0a3622; }
+        .btn-vol { background: rgba(255,255,255,0.05); color: white; border: 1px solid #8bada0; }
+        .btn-vol:hover { background: white; color: #0a3622; }
+    
     </style>
 </head>
 <body>
