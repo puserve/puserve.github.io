@@ -118,7 +118,7 @@
                     if (parts.length >= 3) {
                         const fm = jsyaml.load(parts[1]);
                         
-                        let img = fm.thumbnail ? (fm.thumbnail.startsWith('http') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'https://via.placeholder.com/400x200?text=No+Image';
+                     let img = fm.thumbnail ? (fm.thumbnail.startsWith('http') ? fm.thumbnail : (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`)) : 'https://via.placeholder.com/400x200?text=No+Image';
 
                         // Arahkan klik ke halaman pembaca (read.html)
                         const cardHTML = `
