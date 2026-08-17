@@ -4,16 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Programs & Events | PUSERVE</title>
-    
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
-
-    <!-- Import Library Parsing Markdown -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
     <style>
-        /* === WARNA & TEMA KHUSUS PUSERVE === */
         :root {
             --dark-green: #082619;
             --puserve-green: #11422b;
@@ -22,210 +17,51 @@
             --gray-text: #a3b8af;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: var(--dark-green); color: var(--white); display: flex; flex-direction: column; min-height: 100vh; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark-green);
-            color: var(--white);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+        /* NAVBAR */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: var(--dark-green); border-bottom: 1px solid #1a5c3d; }
+        .nav-logos { display: flex; align-items: center; gap: 15px; }
+        .nav-logos img { height: 40px; width: auto; }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--puserve-yellow); }
+        .btn-join { background-color: var(--puserve-yellow); color: var(--dark-green); padding: 8px 20px; border-radius: 25px; font-weight: bold; }
+        .btn-join:hover { background-color: #e5be3c; }
 
-        /* === NAVBAR === */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background-color: var(--dark-green);
-            border-bottom: 1px solid #1a5c3d;
-        }
+        /* HERO */
+        header.hero { text-align: center; padding: 60px 20px; background: linear-gradient(180deg, var(--dark-green) 0%, var(--puserve-green) 100%); }
+        .hero-title { color: var(--puserve-yellow); font-size: 3rem; margin-bottom: 10px; }
+        .hero-subtitle { color: var(--gray-text); font-size: 1.2rem; }
 
-        .nav-logos {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .nav-logos img {
-            height: 40px; /* Atur ukuran logo di sini */
-            width: auto;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--puserve-yellow);
-        }
-
-        .btn-join {
-            background-color: var(--puserve-yellow);
-            color: var(--dark-green);
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: background 0.3s, transform 0.2s;
-        }
-
-        .btn-join:hover {
-            background-color: #e5be3c;
-            transform: scale(1.05);
-        }
-
-        /* === HERO SECTION === */
-        header.hero {
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(180deg, var(--dark-green) 0%, var(--puserve-green) 100%);
-        }
-
-        .hero-title {
-            color: var(--puserve-yellow);
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        .hero-subtitle {
-            color: var(--gray-text);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* === MAIN CONTENT / EVENTS GRID === */
-        main.container {
-            flex: 1; /* Biar footer selalu di bawah */
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 50px 20px;
-            width: 100%;
-        }
-
-        #events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        /* Desain Kartu Event */
-        .event-card {
-            background-color: var(--puserve-green);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid #1a5c3d;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .event-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.5);
-            border-color: var(--puserve-yellow);
-        }
-
-        /* Gambar Thumbnail Event */
-        .event-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 2px solid var(--puserve-yellow);
-        }
-
-        .event-content {
-            padding: 25px;
-            flex: 1;
-        }
-
-        .event-status {
-            display: inline-block;
-            background-color: var(--puserve-yellow);
-            color: var(--dark-green);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
-
-        .event-title {
-            font-size: 1.5rem;
-            margin: 0 0 12px 0;
-            color: var(--white);
-            line-height: 1.3;
-        }
-
-        .event-meta {
-            font-size: 0.9rem;
-            color: var(--gray-text);
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-
-        .event-body {
-            font-size: 0.95rem;
-            color: #d1e0d9;
-            border-top: 1px solid #1a5c3d;
-            padding-top: 15px;
-            margin-top: 15px;
-        }
-
-        .loading {
-            text-align: center;
-            color: var(--puserve-yellow);
-            font-style: italic;
-            grid-column: 1 / -1; /* Biar loading ada di tengah */
-        }
-
-        /* === FOOTER === */
-        footer {
-            background-color: #051a11;
-            text-align: center;
-            padding: 30px 20px;
-            color: var(--gray-text);
-            border-top: 1px solid #1a5c3d;
-        }
-
-        footer p {
-            font-size: 0.9rem;
-        }
+        /* SECTION STYLING */
+        main.container { flex: 1; max-width: 1200px; margin: 0 auto; padding: 40px 20px; width: 100%; }
+        .section-title { color: var(--puserve-yellow); font-size: 2rem; border-bottom: 2px solid #1a5c3d; padding-bottom: 10px; margin-top: 50px; margin-bottom: 30px; }
         
-        /* Responsif untuk HP */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none; /* Sembunyikan menu di HP sementara */
-            }
+        .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+
+        /* KARTU EVENT CLICKABLE */
+        .event-card { 
+            background-color: var(--puserve-green); border-radius: 12px; overflow: hidden; 
+            border: 1px solid #1a5c3d; display: flex; flex-direction: column; 
+            text-decoration: none; color: inherit; transition: 0.3s ease; cursor: pointer;
         }
+        .event-card:hover { transform: translateY(-8px); box-shadow: 0 8px 15px rgba(0,0,0,0.5); border-color: var(--puserve-yellow); }
+        .event-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 2px solid var(--puserve-yellow); }
+        .event-content { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .event-status { display: inline-block; background-color: var(--puserve-yellow); color: var(--dark-green); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; align-self: flex-start;}
+        .event-title { font-size: 1.4rem; margin: 0 0 10px 0; color: var(--white); line-height: 1.3; }
+        .event-meta { font-size: 0.9rem; color: var(--gray-text); }
+        .read-more { margin-top: 20px; color: var(--puserve-yellow); font-weight: bold; font-size: 0.9rem; }
+
+        footer { background-color: #051a11; text-align: center; padding: 30px 20px; color: var(--gray-text); border-top: 1px solid #1a5c3d; }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR SECTION -->
     <nav>
         <div class="nav-logos">
-            <!-- Path menuju folder logos lu -->
             <img src="logos/LOGO_PU.png" alt="President University">
             <img src="logos/LOGO_CEDRS.png" alt="CEDRS">
             <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE">
@@ -233,104 +69,88 @@
         <div class="nav-links">
             <a href="index.html">About</a>
             <a href="events.html" style="color: var(--puserve-yellow);">Explore</a>
-            <a href="#">Contact</a>
+            <!-- Easter Egg Link Tersembunyi di pojok logo -->
+            <a href="easter_egg.jpeg" target="_blank" style="color: transparent; position: absolute; top: 0; right: 0; width: 20px; height: 20px;">.</a>
             <a href="#" class="btn-join">Join Us</a>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
     <header class="hero">
         <h1 class="hero-title">Programs & Events</h1>
-        <p class="hero-subtitle">Real Environmental Action. Empowering Changemakers.</p>
+        <p class="hero-subtitle">Official Press Releases & Action Updates</p>
     </header>
 
-    <!-- MAIN EVENTS SECTION -->
     <main class="container">
-        <div id="events-grid">
-            <p class="loading">📡 Menyinkronkan data events dari server PUSERVE...</p>
-        </div>
+        <h2 class="section-title">▶ Running Events</h2>
+        <div id="grid-running" class="events-grid"><p class="gray-text">Tidak ada data.</p></div>
+
+        <h2 class="section-title">🗓 Future Events</h2>
+        <div id="grid-upcoming" class="events-grid"><p class="gray-text">Tidak ada data.</p></div>
+
+        <h2 class="section-title">✅ Past Events</h2>
+        <div id="grid-past" class="events-grid"><p class="gray-text">Tidak ada data.</p></div>
     </main>
 
-    <!-- FOOTER SECTION -->
-    <footer>
-        <p>&copy; 2026 PUSERVE - President University. All Rights Reserved.</p>
-    </footer>
+    <footer><p>&copy; 2026 PUSERVE - President University. All Rights Reserved.</p></footer>
 
-    <!-- SCRIPT MESIN PUSERVE -->
     <script>
         const repoName = 'puserve/puserve.github.io'; 
         const folderName = '_events';
-        const apiUrl = `https://api.github.com/repos/${repoName}/contents/${folderName}`;
 
-        async function loadEvents() {
-            const grid = document.getElementById('events-grid');
+        async function loadCatalog() {
+            const gridRunning = document.getElementById('grid-running');
+            const gridUpcoming = document.getElementById('grid-upcoming');
+            const gridPast = document.getElementById('grid-past');
 
             try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) throw new Error("Folder event kosong.");
+                const response = await fetch(`https://api.github.com/repos/${repoName}/contents/${folderName}`);
                 const files = await response.json();
 
-                grid.innerHTML = ''; 
+                let htmlRunning = '', htmlUpcoming = '', htmlPast = '';
 
-                let hasEvents = false;
                 for (const file of files) {
                     if (file.name === 'TEMPLATE-EVENT.md' || !file.name.endsWith('.md')) continue;
 
-                    hasEvents = true;
                     const mdResponse = await fetch(file.download_url);
                     const mdText = await mdResponse.text();
-
                     const parts = mdText.split('---');
+                    
                     if (parts.length >= 3) {
-                        const frontmatter = jsyaml.load(parts[1]);
-                        const bodyHTML = marked.parse(parts.slice(2).join('---'));
+                        const fm = jsyaml.load(parts[1]);
+                        
+                        let img = fm.thumbnail ? (fm.thumbnail.startsWith('http') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'https://via.placeholder.com/400x200?text=No+Image';
 
-                        // Cek apakah anak divisi masukin foto/thumbnail
-                        let imageHtml = '';
-                        if (frontmatter.thumbnail) {
-                            // Kalau dia ngasih link foto dari luar
-                            if (frontmatter.thumbnail.startsWith('http')) {
-                                imageHtml = `<img src="${frontmatter.thumbnail}" class="event-img" alt="Poster Event">`;
-                            } 
-                            // Kalau dia upload foto ke folder 'uploads' di GitHub
-                            else {
-                                imageHtml = `<img src="uploads/${frontmatter.thumbnail}" class="event-img" alt="Poster Event" onerror="this.style.display='none'">`;
-                            }
-                        }
-
-                        const card = document.createElement('div');
-                        card.className = 'event-card';
-                        card.innerHTML = `
-                            ${imageHtml}
-                            <div class="event-content">
-                                <span class="event-status">${frontmatter.status || 'TBA'}</span>
-                                <h2 class="event-title">${frontmatter.title || 'Untitled Event'}</h2>
-                                <div class="event-meta">
-                                    📅 <strong>Tanggal:</strong> ${frontmatter.date || '-'} <br>
-                                    👥 <strong>Peserta:</strong> ${frontmatter.attendees || '-'} <br>
-                                    🎯 <strong>Target:</strong> ${frontmatter.result_text || '-'}
+                        // Arahkan klik ke halaman pembaca (read.html)
+                        const cardHTML = `
+                            <a href="read.html?file=${file.name}" class="event-card">
+                                <img src="${img}" class="event-img" alt="Thumbnail" onerror="this.src='https://via.placeholder.com/400x200?text=PUSERVE'">
+                                <div class="event-content">
+                                    <div>
+                                        <span class="event-status">${fm.status || 'TBA'}</span>
+                                        <h2 class="event-title">${fm.title}</h2>
+                                        <div class="event-meta">📅 ${fm.date} <br> 👥 ${fm.attendees}</div>
+                                    </div>
+                                    <div class="read-more">Read Press Release →</div>
                                 </div>
-                                <div class="event-body">
-                                    ${bodyHTML}
-                                </div>
-                            </div>
+                            </a>
                         `;
-                        grid.appendChild(card);
+
+                        const status = (fm.status || '').toLowerCase();
+                        if (status === 'running') htmlRunning += cardHTML;
+                        else if (status === 'upcoming' || status === 'future') htmlUpcoming += cardHTML;
+                        else htmlPast += cardHTML;
                     }
                 }
 
-                if (!hasEvents) {
-                    grid.innerHTML = '<p class="loading">Belum ada event yang di-publish. Stay tuned!</p>';
-                }
+                if (htmlRunning) gridRunning.innerHTML = htmlRunning;
+                if (htmlUpcoming) gridUpcoming.innerHTML = htmlUpcoming;
+                if (htmlPast) gridPast.innerHTML = htmlPast;
 
             } catch (error) {
                 console.error("Error:", error);
-                grid.innerHTML = '<p class="loading">Belum ada event saat ini. Divisi sedang menyiapkan sesuatu yang besar!</p>';
             }
         }
-
-        loadEvents();
+        loadCatalog();
     </script>
-
 </body>
 </html>
