@@ -5,9 +5,9 @@ status: "Upcoming" # Tulis statusnya (Pilih: Upcoming / Running / Past)
 attendees: "1 Mahasiswa & 1 Dosen"
 
 # BAGIAN FOTO (Isi dengan nama foto yang diupload tadi)
-thumbnail: "_events/simulasi/boee.jpeg" 
-image_2: "_events/simulasi/edell.jpeg" 
-image_3: "_events/simulasi/yunitaa.jpeg" 
+thumbnail: "uploads/events/tes/boee.jpeg" 
+image_2: "uploads/events/tes/edell.jpeg" 
+image_3: "uploads/events/tes/yunitaa.jpeg.jpeg" 
 
 # BAGIAN KESIMPULAN
 outcome: "DRAMA PERSELINGKIUHAN HEBATTTTTTTTTTTTTTTTTTTTT"
