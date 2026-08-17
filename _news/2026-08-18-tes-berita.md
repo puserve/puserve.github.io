@@ -3,17 +3,17 @@ title: "PERSELINGKUHAN HEBAT STEI X RAZAN. SETELAH KICA DAN EDEL, SEKARANG STEI?
 date: 2026-08-18
 category: "Highlight" # Pilih salah satu: Latest / Highlight / Archive
 author: "Redaksi PUSERVE"
-thumbnail: "foto-berita.jpg"
+thumbnail: "team/stei.jpeg"
 image_2: ""
 image_3: ""
-quote: "Masukkan satu kutipan (quote) atau kesimpulan penting dari berita ini."
+quote: "Perselingkuhan adalah awal dari segalanya"
 ---
 
-**(TULIS ISI BERITA DI SINI)**
+**PERSELINGKUHAN LAGI??!?**
 
-Jakarta — PUSERVE kembali menyoroti isu krusial mengenai...
+Jakarta — PUSERVE kembali menyoroti isu krusial mengenai perselingkuhan yang dialami oleh stei dan razan
 
-- Poin fakta 1
-- Poin fakta 2
+- bla bla bla
+- bla bla bla
 
-Tulis artikel selengkap dan se-profesional mungkin.
+akankah ada preselingkuhan lagi?
