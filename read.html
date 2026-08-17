@@ -10,44 +10,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
     <style>
-        :root { --dark-green: #082619; --puserve-green: #11422b; --puserve-yellow: #fcd34d; --gray-text: #a3b8af; }
+        /* TEMA WARNA SAMA DENGAN MAIN PAGE */
+        :root { --dark-green: #082619; --puserve-green: #11422b; --puserve-yellow: #fcd34d; --gray-text: #a3b8af; --white: #ffffff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--dark-green); display: flex; flex-direction: column; min-height: 100vh; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--dark-green); color: var(--white); display: flex; flex-direction: column; min-height: 100vh; }
 
         /* NAVBAR SAMA DENGAN EVENTS */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: var(--dark-green); border-bottom: 1px solid #1a5c3d; }
         .nav-logos { display: flex; align-items: center; gap: 15px; }
         .nav-logos img { height: 40px; width: auto; }
         .nav-links { display: flex; align-items: center; gap: 30px; }
-        .nav-links a { color: #ffffff; text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--puserve-yellow); }
         .btn-join { background-color: var(--puserve-yellow); color: var(--dark-green); padding: 8px 20px; border-radius: 25px; font-weight: bold; }
 
-        /* PRESS RELEASE PAPER STYLING */
+        /* MAIN LAYOUT (CLEAN & DARK PAPER) */
         main { flex: 1; padding: 50px 20px; display: flex; justify-content: center; }
-        .paper { background-color: #ffffff; color: #333333; max-width: 800px; width: 100%; border-radius: 8px; padding: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .paper { 
+            background-color: var(--puserve-green); 
+            border: 1px solid #1a5c3d; 
+            max-width: 850px; 
+            width: 100%; 
+            border-radius: 16px; 
+            padding: 40px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+        }
         
         /* HEADER RILIS */
-        .pr-header { text-align: center; border-bottom: 2px solid var(--puserve-green); padding-bottom: 20px; margin-bottom: 30px; }
-        .pr-tag { color: var(--puserve-green); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
-        .pr-title { font-size: 2.5rem; color: #111; margin: 15px 0; font-family: 'Georgia', serif; line-height: 1.2; }
-        .pr-meta { color: #666; font-size: 0.95rem; }
+        .pr-header { text-align: center; border-bottom: 1px solid #1a5c3d; padding-bottom: 25px; margin-bottom: 30px; }
+        .pr-tag { color: var(--puserve-yellow); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+        .pr-title { font-size: 2.5rem; color: var(--white); margin: 15px 0; font-family: 'Segoe UI', sans-serif; line-height: 1.3; }
+        .pr-meta { color: var(--gray-text); font-size: 0.95rem; }
 
         /* IMAGES STYLING */
-        .hero-img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 6px; margin-bottom: 30px; }
+        .hero-img { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; margin-bottom: 30px; border: 2px solid var(--dark-green); }
         .body-images { display: flex; gap: 20px; margin: 30px 0; }
-        .body-images img { flex: 1; width: 50%; max-height: 300px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; }
+        .body-images img { flex: 1; width: 50%; max-height: 300px; object-fit: cover; border-radius: 12px; border: 2px solid var(--dark-green); }
 
         /* ARTIKEL */
-        .pr-body { font-size: 1.1rem; line-height: 1.8; color: #222; font-family: 'Georgia', serif; }
-        .pr-body h1, .pr-body h2, .pr-body h3 { font-family: 'Segoe UI', sans-serif; color: var(--puserve-green); margin-top: 30px; }
+        .pr-body { font-size: 1.1rem; line-height: 1.8; color: #d1e0d9; }
+        .pr-body h1, .pr-body h2, .pr-body h3 { color: var(--puserve-yellow); margin-top: 30px; margin-bottom: 15px; }
+        .pr-body a { color: var(--puserve-yellow); }
+        .pr-body ul, .pr-body ol { margin-left: 20px; margin-bottom: 20px; }
         
-        /* OUTCOME BOX */
-        .outcome-box { background-color: #f4f8f6; border-left: 5px solid var(--puserve-green); padding: 25px; margin-top: 40px; border-radius: 0 6px 6px 0; }
-        .outcome-title { color: var(--puserve-green); font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; font-family: 'Segoe UI', sans-serif; }
-        .outcome-text { font-size: 1.05rem; font-style: italic; color: #444; }
+        /* OUTCOME BOX (Desain ala 'Result' di halaman utama) */
+        .outcome-box { 
+            background-color: #051a11; 
+            border-left: 5px solid var(--puserve-yellow); 
+            padding: 25px; 
+            margin-top: 40px; 
+            border-radius: 0 12px 12px 0; 
+        }
+        .outcome-title { color: var(--puserve-yellow); font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .outcome-text { font-size: 1.1rem; font-style: italic; color: #d1e0d9; }
 
-        .back-link { display: inline-block; margin-bottom: 20px; color: var(--puserve-yellow); text-decoration: none; font-weight: bold; }
-        .back-link:hover { text-decoration: underline; }
+        .back-link { display: inline-flex; align-items: center; margin-bottom: 25px; color: var(--gray-text); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
+        .back-link:hover { color: var(--puserve-yellow); transform: translateX(-5px); }
 
         footer { background-color: #051a11; text-align: center; padding: 30px 20px; color: var(--gray-text); border-top: 1px solid #1a5c3d; }
     </style>
@@ -70,10 +88,10 @@
 
     <main>
         <div class="paper">
-            <a href="events.html" class="back-link">← Kembali ke Events</a>
+            <a href="events.html" class="back-link">← Back to Events</a>
             
             <div id="pr-content">
-                <h2 style="text-align:center; color:#888;">Memuat Dokumen...</h2>
+                <h2 style="text-align:center; color:#a3b8af;">Memuat Dokumen...</h2>
             </div>
         </div>
     </main>
@@ -83,7 +101,6 @@
     <script>
         const repoName = 'puserve/puserve.github.io'; 
         
-        // Mengambil nama file dari URL (contoh: read.html?file=2026-event.md)
         const params = new URLSearchParams(window.location.search);
         const fileName = params.get('file');
 
@@ -91,7 +108,7 @@
             const contentDiv = document.getElementById('pr-content');
 
             if (!fileName) {
-                contentDiv.innerHTML = "<h2 style='color:red;'>Error: Dokumen tidak ditemukan.</h2>";
+                contentDiv.innerHTML = "<h2 style='color:var(--puserve-yellow); text-align:center;'>Error: Dokumen tidak ditemukan.</h2>";
                 return;
             }
 
@@ -106,18 +123,23 @@
                     const fm = jsyaml.load(parts[1]);
                     const bodyHTML = marked.parse(parts.slice(2).join('---'));
 
-                    // Siapkan gambar
-                    const getImgUrl = (img) => img ? (img.startsWith('http') ? img : `uploads/${img}`) : '';
+                    // Logic Pintar Buat Deteksi Path Foto
+                    const getImgUrl = (img) => {
+                        if (!img) return '';
+                        if (img.startsWith('http')) return img;
+                        if (img.includes('/')) return img; // Kalau nulis _events/simulasi/foto.jpg
+                        return `uploads/${img}`; // Kalau nulis foto.jpg doang
+                    };
+
                     const img1 = getImgUrl(fm.thumbnail);
                     const img2 = getImgUrl(fm.image_2);
                     const img3 = getImgUrl(fm.image_3);
 
-                    // Susun Layout Kertas
                     let html = `
                         <div class="pr-header">
                             <div class="pr-tag">OFFICIAL PRESS RELEASE</div>
                             <h1 class="pr-title">${fm.title}</h1>
-                            <div class="pr-meta"><b>Jakarta, ID</b> | Tanggal: ${fm.date} | Kehadiran: ${fm.attendees || '-'}</div>
+                            <div class="pr-meta"><b>Jakarta, ID</b> | Date: ${fm.date} | Attendees: ${fm.attendees || '-'}</div>
                         </div>
                     `;
 
@@ -125,7 +147,6 @@
                     
                     html += `<div class="pr-body">${bodyHTML}</div>`;
 
-                    // Jika ada gambar 2 dan 3, tampilkan bersampingan
                     if (img2 || img3) {
                         html += `<div class="body-images">`;
                         if (img2) html += `<img src="${img2}" alt="Dokumentasi 1" onerror="this.style.display='none'">`;
@@ -133,11 +154,10 @@
                         html += `</div>`;
                     }
 
-                    // Tambahkan Kotak Outcome di akhir
                     if (fm.outcome) {
                         html += `
                             <div class="outcome-box">
-                                <div class="outcome-title">✅ Hasil Akhir (Outcome)</div>
+                                <div class="outcome-title">🎯 OUTCOME</div>
                                 <div class="outcome-text">"${fm.outcome}"</div>
                             </div>
                         `;
@@ -146,7 +166,7 @@
                     contentDiv.innerHTML = html;
                 }
             } catch (error) {
-                contentDiv.innerHTML = `<h2 style='color:red;'>Gagal memuat rilis pers. Periksa koneksi atau file.</h2>`;
+                contentDiv.innerHTML = `<h2 style='color:var(--puserve-yellow); text-align:center;'>Gagal memuat rilis pers. Periksa koneksi atau file.</h2>`;
             }
         }
         
