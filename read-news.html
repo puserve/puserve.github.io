@@ -97,14 +97,14 @@
             const contentDiv = document.getElementById('pr-content');
 
             if (!fileName) {
-                contentDiv.innerHTML = "<h2 style='color:var(--puserve-yellow); text-align:center;'>Error: Artikel tidak ditemukan.</h2>";
+                contentDiv.innerHTML = "<h2 style='color:var(--puserve-yellow); text-align:center;'>Error: Article not found.</h2>";
                 return;
             }
 
             try {
                 // NYEDOT DATA DARI FOLDER _news 
                 const response = await fetch(`https://raw.githubusercontent.com/${repoName}/main/_news/${fileName}`);
-                if (!response.ok) throw new Error("Gagal mengambil data");
+                if (!response.ok) throw new Error("Failed to retrieve data");
 
                 const mdText = await response.text();
                 const parts = mdText.split('---');
@@ -133,7 +133,7 @@
                         <div class="pr-header">
                             <div class="pr-tag">PUSERVE OUTLOOK REPORT</div>
                             <h1 class="pr-title">${fm.title}</h1>
-                            <div class="pr-meta"><b>Jakarta, ID</b> | ${cleanDate} | Penulis: ${fm.author || 'PUSERVE Redaction Team'}</div>
+                            <div class="pr-meta"><b>Jakarta, ID</b> | ${cleanDate} | Author: ${fm.author || 'PUSERVE Redaction Team'}</div>
                         </div>
                     `;
 
