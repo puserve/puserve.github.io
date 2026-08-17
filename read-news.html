@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUSERVE OUTLOOK | Article</title>
+    <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
+    <style>
+        :root { --dark-green: #082619; --puserve-green: #11422b; --puserve-yellow: #fcd34d; --gray-text: #a3b8af; --white: #ffffff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--dark-green); color: var(--white); display: flex; flex-direction: column; min-height: 100vh; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: var(--dark-green); border-bottom: 1px solid #1a5c3d; }
+        .nav-logos { display: flex; align-items: center; gap: 10px; }
+        .nav-logos img { height: 40px; width: auto; }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--puserve-yellow); }
+        .btn-join { background-color: var(--puserve-yellow); color: var(--dark-green); padding: 8px 20px; border-radius: 25px; font-weight: bold; }
+
+        main { flex: 1; padding: 40px 20px; display: flex; justify-content: center; }
+        .paper { background-color: var(--puserve-green); border: 1px solid #1a5c3d; max-width: 850px; width: 100%; border-radius: 16px; padding: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow-wrap: break-word; word-wrap: break-word; }
+
+        .pr-header { text-align: center; border-bottom: 1px solid #1a5c3d; padding-bottom: 25px; margin-bottom: 30px; }
+        .pr-tag { color: var(--puserve-yellow); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+        .pr-title { font-size: 2.5rem; color: var(--white); margin: 15px 0; line-height: 1.3; }
+        .pr-meta { color: var(--gray-text); font-size: 0.95rem; }
+
+        .hero-img { width: 100%; max-height: 450px; object-fit: cover; border-radius: 12px; margin-bottom: 30px; border: 2px solid var(--dark-green); }
+        .body-images { display: flex; gap: 20px; margin: 30px 0; }
+        .body-images img { flex: 1; width: 50%; max-height: 300px; object-fit: cover; border-radius: 12px; border: 2px solid var(--dark-green); }
+
+        .pr-body { font-size: 1.1rem; line-height: 1.8; color: #d1e0d9; }
+        .pr-body h1, .pr-body h2, .pr-body h3 { color: var(--puserve-yellow); margin-top: 30px; margin-bottom: 15px; }
+        .pr-body a { color: var(--puserve-yellow); }
+        .pr-body ul, .pr-body ol { margin-left: 20px; margin-bottom: 20px; }
+
+        /* QUOTE BOX (Gantiin Outcome box) */
+        .outcome-box { background-color: #051a11; border-left: 5px solid var(--puserve-yellow); padding: 25px; margin-top: 40px; border-radius: 0 12px 12px 0; }
+        .outcome-title { color: var(--puserve-yellow); font-weight: bold; font-size: 1rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .outcome-text { font-size: 1.3rem; font-style: italic; color: var(--white); font-family: 'Georgia', serif; }
+
+        .back-link { display: inline-flex; align-items: center; margin-bottom: 25px; color: var(--gray-text); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
+        .back-link:hover { color: var(--puserve-yellow); transform: translateX(-5px); }
+
+        footer { background-color: #051a11; text-align: center; padding: 30px 20px; color: var(--gray-text); border-top: 1px solid #1a5c3d; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            main { padding: 20px 10px; }
+            .paper { padding: 25px 20px; }
+            .pr-title { font-size: 1.8rem; }
+            .body-images { flex-direction: column; gap: 15px; }
+            .body-images img { width: 100%; max-height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logos">
+            <img src="logos/LOGO_PU.png" alt="President University">
+            <img src="logos/LOGO_CEDRS.png" alt="CEDRS">
+            <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE">
+        </div>
+        <div class="nav-links">
+            <a href="index.html">About</a>
+            <a href="events.html">Explore</a>
+            <a href="news.html" style="color: var(--puserve-yellow);">Outlook</a>
+            <a href="easter_egg.jpeg" target="_blank" style="color: transparent; position: absolute; top: 0; right: 0; width: 20px; height: 20px;">.</a>
+            <a href="#" class="btn-join">Join Us</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="paper">
+            <a href="news.html" class="back-link">← Back to Outlook</a>
+
+            <div id="pr-content">
+                <h2 style="text-align:center; color:#a3b8af;">Memuat Artikel...</h2>
+            </div>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 PUSERVE - President University. All Rights Reserved.</p></footer>
+
+    <script>
+        const repoName = 'puserve/puserve.github.io'; 
+        const params = new URLSearchParams(window.location.search);
+        const fileName = params.get('file');
+
+        async function loadPressRelease() {
+            const contentDiv = document.getElementById('pr-content');
+
+            if (!fileName) {
+                contentDiv.innerHTML = "<h2 style='color:var(--puserve-yellow); text-align:center;'>Error: Artikel tidak ditemukan.</h2>";
+                return;
+            }
+
+            try {
+                // NYEDOT DATA DARI FOLDER _news 
+                const response = await fetch(`https://raw.githubusercontent.com/${repoName}/main/_news/${fileName}`);
+                if (!response.ok) throw new Error("Gagal mengambil data");
+
+                const mdText = await response.text();
+                const parts = mdText.split('---');
+
+                if (parts.length >= 3) {
+                    const fm = jsyaml.load(parts[1]);
+                    const bodyHTML = marked.parse(parts.slice(2).join('---'));
+
+                    const getImgUrl = (img) => {
+                        if (!img) return '';
+                        if (img.startsWith('http')) return img;
+                        if (img.includes('/')) return img;
+                        return `uploads/${img}`;
+                    };
+
+                    const img1 = getImgUrl(fm.thumbnail);
+                    const img2 = getImgUrl(fm.image_2);
+                    const img3 = getImgUrl(fm.image_3);
+
+                    let cleanDate = fm.date;
+                    if (fm.date instanceof Date) {
+                        cleanDate = fm.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                    }
+
+                    let html = `
+                        <div class="pr-header">
+                            <div class="pr-tag">PUSERVE OUTLOOK REPORT</div>
+                            <h1 class="pr-title">${fm.title}</h1>
+                            <div class="pr-meta"><b>Jakarta, ID</b> | ${cleanDate} | Penulis: ${fm.author || 'Redaksi PUSERVE'}</div>
+                        </div>
+                    `;
+
+                    if (img1) html += `<img src="${img1}" class="hero-img" alt="Thumbnail Utama" onerror="this.style.display='none'">`;
+
+                    html += `<div class="pr-body">${bodyHTML}</div>`;
+
+                    if (img2 || img3) {
+                        html += `<div class="body-images">`;
+                        if (img2) html += `<img src="${img2}" alt="Dokumentasi 1" onerror="this.style.display='none'">`;
+                        if (img3) html += `<img src="${img3}" alt="Dokumentasi 2" onerror="this.style.display='none'">`;
+                        html += `</div>`;
+                    }
+
+                    // TAMPILIN QUOTE PENTING DI BAWAH ARTIKEL
+                    if (fm.quote) {
+                        html += `
+                            <div class="outcome-box">
+                                <div class="outcome-title">❞ KUTIPAN PENTING</div>
+                                <div class="outcome-text">"${fm.quote}"</div>
+                            </div>
+                        `;
+                    }
+
+                    contentDiv.innerHTML = html;
+                }
+            } catch (error) {
+                contentDiv.innerHTML = `<h2 style='color:var(--puserve-yellow); text-align:center;'>Gagal memuat artikel. Periksa koneksi atau file.</h2>`;
+            }
+        }
+
+        loadPressRelease();
+    </script>
+</body>
+</html>
