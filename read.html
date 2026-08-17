@@ -10,36 +10,39 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
     <style>
-        /* TEMA WARNA SAMA DENGAN MAIN PAGE */
         :root { --dark-green: #082619; --puserve-green: #11422b; --puserve-yellow: #fcd34d; --gray-text: #a3b8af; --white: #ffffff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--dark-green); color: var(--white); display: flex; flex-direction: column; min-height: 100vh; }
 
-        /* NAVBAR SAMA DENGAN EVENTS */
+        /* NAVBAR */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: var(--dark-green); border-bottom: 1px solid #1a5c3d; }
-        .nav-logos { display: flex; align-items: center; gap: 15px; }
+        .nav-logos { display: flex; align-items: center; gap: 10px; }
         .nav-logos img { height: 40px; width: auto; }
         .nav-links { display: flex; align-items: center; gap: 30px; }
         .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; transition: 0.3s; }
         .nav-links a:hover { color: var(--puserve-yellow); }
         .btn-join { background-color: var(--puserve-yellow); color: var(--dark-green); padding: 8px 20px; border-radius: 25px; font-weight: bold; }
 
-        /* MAIN LAYOUT (CLEAN & DARK PAPER) */
-        main { flex: 1; padding: 50px 20px; display: flex; justify-content: center; }
+        /* MAIN LAYOUT */
+        main { flex: 1; padding: 40px 20px; display: flex; justify-content: center; }
         .paper { 
             background-color: var(--puserve-green); 
             border: 1px solid #1a5c3d; 
             max-width: 850px; 
             width: 100%; 
             border-radius: 16px; 
-            padding: 40px; 
+            padding: 50px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            
+            /* FITUR ANTI BOCOR TEKS PANJANG */
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
         
         /* HEADER RILIS */
         .pr-header { text-align: center; border-bottom: 1px solid #1a5c3d; padding-bottom: 25px; margin-bottom: 30px; }
         .pr-tag { color: var(--puserve-yellow); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
-        .pr-title { font-size: 2.5rem; color: var(--white); margin: 15px 0; font-family: 'Segoe UI', sans-serif; line-height: 1.3; }
+        .pr-title { font-size: 2.5rem; color: var(--white); margin: 15px 0; line-height: 1.3; }
         .pr-meta { color: var(--gray-text); font-size: 0.95rem; }
 
         /* IMAGES STYLING */
@@ -53,14 +56,8 @@
         .pr-body a { color: var(--puserve-yellow); }
         .pr-body ul, .pr-body ol { margin-left: 20px; margin-bottom: 20px; }
         
-        /* OUTCOME BOX (Desain ala 'Result' di halaman utama) */
-        .outcome-box { 
-            background-color: #051a11; 
-            border-left: 5px solid var(--puserve-yellow); 
-            padding: 25px; 
-            margin-top: 40px; 
-            border-radius: 0 12px 12px 0; 
-        }
+        /* OUTCOME BOX */
+        .outcome-box { background-color: #051a11; border-left: 5px solid var(--puserve-yellow); padding: 25px; margin-top: 40px; border-radius: 0 12px 12px 0; }
         .outcome-title { color: var(--puserve-yellow); font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
         .outcome-text { font-size: 1.1rem; font-style: italic; color: #d1e0d9; }
 
@@ -68,6 +65,20 @@
         .back-link:hover { color: var(--puserve-yellow); transform: translateX(-5px); }
 
         footer { background-color: #051a11; text-align: center; padding: 30px 20px; color: var(--gray-text); border-top: 1px solid #1a5c3d; }
+
+        /* =========================================
+           FITUR MOBILE FRIENDLY (ANTI BOCOR DI HP)
+           ========================================= */
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Sembunyikan menu desktop di HP */
+            main { padding: 20px 10px; } /* Kurangin jarak luar */
+            .paper { padding: 25px 20px; } /* Kurangin jarak dalam biar muat */
+            .pr-title { font-size: 1.8rem; }
+            
+            /* Gambar bawah dibikin nyusun ke bawah, bukan nyamping */
+            .body-images { flex-direction: column; gap: 15px; }
+            .body-images img { width: 100%; max-height: 250px; }
+        }
     </style>
 </head>
 <body>
@@ -100,7 +111,6 @@
 
     <script>
         const repoName = 'puserve/puserve.github.io'; 
-        
         const params = new URLSearchParams(window.location.search);
         const fileName = params.get('file');
 
@@ -123,23 +133,29 @@
                     const fm = jsyaml.load(parts[1]);
                     const bodyHTML = marked.parse(parts.slice(2).join('---'));
 
-                    // Logic Pintar Buat Deteksi Path Foto
+                    // Logic Pintar Path Foto
                     const getImgUrl = (img) => {
                         if (!img) return '';
                         if (img.startsWith('http')) return img;
-                        if (img.includes('/')) return img; // Kalau nulis _events/simulasi/foto.jpg
-                        return `uploads/${img}`; // Kalau nulis foto.jpg doang
+                        if (img.includes('/')) return img;
+                        return `uploads/${img}`;
                     };
 
                     const img1 = getImgUrl(fm.thumbnail);
                     const img2 = getImgUrl(fm.image_2);
                     const img3 = getImgUrl(fm.image_3);
 
+                    // SULAP TANGGAL JADI FORMAT INDONESIA YANG RAPI
+                    let cleanDate = fm.date;
+                    if (fm.date instanceof Date) {
+                        cleanDate = fm.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                    }
+
                     let html = `
                         <div class="pr-header">
                             <div class="pr-tag">OFFICIAL PRESS RELEASE</div>
                             <h1 class="pr-title">${fm.title}</h1>
-                            <div class="pr-meta"><b>Jakarta, ID</b> | Date: ${fm.date} | Attendees: ${fm.attendees || '-'}</div>
+                            <div class="pr-meta"><b>Jakarta, ID</b> | ${cleanDate} | Attendees: ${fm.attendees || '-'}</div>
                         </div>
                     `;
 
