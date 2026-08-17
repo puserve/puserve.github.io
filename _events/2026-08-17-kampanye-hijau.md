@@ -7,7 +7,7 @@ attendees: "1 Mahasiswa & 1 Dosen"
 # BAGIAN FOTO (Isi dengan nama foto yang diupload tadi)
 thumbnail: "uploads/events/tes/boee.jpeg" 
 image_2: "uploads/events/tes/edell.jpeg" 
-image_3: "uploads/events/tes/yunitaa.jpeg.jpeg" 
+image_3: "uploads/events/tes/yunitaa.jpeg" 
 
 # BAGIAN KESIMPULAN
 outcome: "DRAMA PERSELINGKIUHAN HEBATTTTTTTTTTTTTTTTTTTTT"
