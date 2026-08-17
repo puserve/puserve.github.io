@@ -10,16 +10,7 @@
 
     <style>
         /* === TEMA KEDUTAAN / PROFESIONAL === */
-        :root {
-            --dark-green: #051810; /* Lebih gelap & elegan */
-            --puserve-green: #0a2618;
-            --card-bg: #0f3522;
-            --puserve-yellow: #fcd34d;
-            --white: #ffffff;
-            --gray-text: #8bada0;
-            --border-color: #1a4d33;
-        }
-
+        :root { --dark-green: #051810; --puserve-green: #0a2618; --card-bg: #0f3522; --puserve-yellow: #fcd34d; --white: #ffffff; --gray-text: #8bada0; --border-color: #1a4d33; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--dark-green); color: var(--white); display: flex; flex-direction: column; min-height: 100vh; }
 
@@ -27,110 +18,13 @@
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: var(--dark-green); border-bottom: 1px solid var(--border-color); }
         .nav-logos { display: flex; align-items: center; gap: 15px; }
         .nav-logos img { height: 40px; width: auto; }
-        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
         .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--puserve-yellow); }
-        .btn-join { background-color: var(--puserve-yellow); color: var(--dark-green); padding: 8px 22px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; }
+        .btn-join { background-color: var(--puserve-yellow); color: var(--dark-green) !important; padding: 8px 22px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; text-decoration: none;}
         .btn-join:hover { background-color: #e5be3c; }
 
-        /* HERO SECTION */
-        header.hero { text-align: center; padding: 70px 20px 50px; background: radial-gradient(circle at top, var(--puserve-green) 0%, var(--dark-green) 100%); border-bottom: 1px solid var(--border-color); }
-        .hero-title { color: var(--white); font-size: 2.8rem; margin-bottom: 15px; font-weight: 300; letter-spacing: 1px; }
-        .hero-title strong { color: var(--puserve-yellow); font-weight: 700; }
-        .hero-subtitle { color: var(--gray-text); font-size: 1.1rem; letter-spacing: 0.5px; }
-
-        /* MAIN CONTENT */
-        main.container { flex: 1; max-width: 1100px; margin: 0 auto; padding: 50px 20px; width: 100%; }
-        
-        .section-header { 
-            display: flex; 
-            align-items: center; 
-            margin-top: 50px; 
-            margin-bottom: 25px; 
-        }
-        .section-title { 
-            color: var(--white); 
-            font-size: 1.6rem; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            margin-right: 20px;
-        }
-        .section-line { 
-            flex: 1; 
-            height: 1px; 
-            background-color: var(--border-color); 
-        }
-
-        .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-
-        /* EMPTY STATE (Biar nggak kelihatan kopong) */
-        .empty-state {
-            grid-column: 1 / -1;
-            padding: 40px;
-            text-align: center;
-            background: rgba(255,255,255,0.02);
-            border: 1px dashed var(--border-color);
-            border-radius: 12px;
-            color: var(--gray-text);
-            font-size: 0.95rem;
-        }
-
-        /* CARD DESIGN VVIP */
-        .event-card { 
-            background-color: var(--card-bg); 
-            border-radius: 12px; 
-            overflow: hidden; 
-            border: 1px solid var(--border-color); 
-            display: flex; 
-            flex-direction: column; 
-            text-decoration: none; 
-            color: inherit; 
-            transition: all 0.3s ease; 
-        }
-        .event-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4); 
-            border-color: var(--puserve-yellow); 
-        }
-        .event-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
-        
-        .event-content { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        
-        .event-status { 
-            display: inline-block; 
-            color: var(--puserve-yellow); 
-            font-size: 0.75rem; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            letter-spacing: 1.5px; 
-            margin-bottom: 12px; 
-        }
-        
-        .event-title { font-size: 1.3rem; margin: 0 0 15px 0; color: var(--white); line-height: 1.4; font-weight: 600; }
-        
-        /* ICONS & META */
-        .event-meta { display: flex; flex-direction: column; gap: 8px; margin-bottom: 25px; }
-        .meta-item { display: flex; align-items: center; color: var(--gray-text); font-size: 0.85rem; }
-        .meta-item svg { width: 14px; height: 14px; margin-right: 10px; stroke: var(--puserve-yellow); }
-
-        .read-more { 
-            display: flex; 
-            align-items: center; 
-            color: var(--white); 
-            font-size: 0.9rem; 
-            font-weight: 600; 
-            transition: 0.3s;
-            border-top: 1px solid var(--border-color);
-            padding-top: 15px;
-        }
-        .read-more svg { width: 16px; height: 16px; margin-left: 8px; transition: 0.3s; }
-        .event-card:hover .read-more { color: var(--puserve-yellow); }
-        .event-card:hover .read-more svg { transform: translateX(5px); stroke: var(--puserve-yellow); }
-
-        footer { background-color: var(--dark-green); text-align: center; padding: 30px 20px; color: var(--gray-text); border-top: 1px solid var(--border-color); font-size: 0.85rem; }
- 
-    /* === PERBAIKAN NAVBAR HP === */
+        /* === PERBAIKAN NAVBAR HP === */
         .menu-icon { display: none; flex-direction: column; cursor: pointer; width: 25px; z-index: 101; gap: 5px; }
         .menu-icon span { background: #ffffff; height: 2px; width: 100%; border-radius: 2px; transition: 0.3s; }
         
@@ -145,35 +39,63 @@
         .modal-overlay.show { opacity: 1; pointer-events: auto; }
         .modal-content-box { background: #0a3622; border: 1px solid #1a4d33; padding: 30px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; position: relative; transform: translateY(20px); transition: 0.3s; }
         .modal-overlay.show .modal-content-box { transform: translateY(0); }
-        
         .close-modal-btn { position: absolute; top: 15px; right: 20px; color: #8bada0; font-size: 1.8rem; cursor: pointer; line-height: 1; }
         .close-modal-btn:hover { color: #f5cf21; }
-        
         .modal-btn { display: block; width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.95rem; transition: 0.3s; cursor: pointer; }
         .btn-partner { background: rgba(245, 207, 33, 0.1); color: #f5cf21; border: 1px solid #f5cf21; }
         .btn-partner:hover { background: #f5cf21; color: #0a3622; }
         .btn-vol { background: rgba(255,255,255,0.05); color: white; border: 1px solid #8bada0; }
         .btn-vol:hover { background: white; color: #0a3622; }
-    
+
+        /* HERO SECTION */
+        header.hero { text-align: center; padding: 70px 20px 50px; background: radial-gradient(circle at top, var(--puserve-green) 0%, var(--dark-green) 100%); border-bottom: 1px solid var(--border-color); }
+        .hero-title { color: var(--white); font-size: 2.8rem; margin-bottom: 15px; font-weight: 300; letter-spacing: 1px; }
+        .hero-title strong { color: var(--puserve-yellow); font-weight: 700; }
+        .hero-subtitle { color: var(--gray-text); font-size: 1.1rem; letter-spacing: 0.5px; }
+
+        /* MAIN CONTENT */
+        main.container { flex: 1; max-width: 1100px; margin: 0 auto; padding: 50px 20px; width: 100%; }
+        .section-header { display: flex; align-items: center; margin-top: 50px; margin-bottom: 25px; }
+        .section-title { color: var(--white); font-size: 1.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-right: 20px; }
+        .section-line { flex: 1; height: 1px; background-color: var(--border-color); }
+        .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+
+        .empty-state { grid-column: 1 / -1; padding: 40px; text-align: center; background: rgba(255,255,255,0.02); border: 1px dashed var(--border-color); border-radius: 12px; color: var(--gray-text); font-size: 0.95rem; }
+
+        .event-card { background-color: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        .event-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: var(--puserve-yellow); }
+        .event-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+        .event-content { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .event-status { display: inline-block; color: var(--puserve-yellow); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+        .event-title { font-size: 1.3rem; margin: 0 0 15px 0; color: var(--white); line-height: 1.4; font-weight: 600; }
+        
+        .event-meta { display: flex; flex-direction: column; gap: 8px; margin-bottom: 25px; }
+        .meta-item { display: flex; align-items: center; color: var(--gray-text); font-size: 0.85rem; }
+        .meta-item svg { width: 14px; height: 14px; margin-right: 10px; stroke: var(--puserve-yellow); }
+
+        .read-more { display: flex; align-items: center; color: var(--white); font-size: 0.9rem; font-weight: 600; transition: 0.3s; border-top: 1px solid var(--border-color); padding-top: 15px; }
+        .read-more svg { width: 16px; height: 16px; margin-left: 8px; transition: 0.3s; }
+        .event-card:hover .read-more { color: var(--puserve-yellow); }
+        .event-card:hover .read-more svg { transform: translateX(5px); stroke: var(--puserve-yellow); }
+
+        footer { background-color: var(--dark-green); text-align: center; padding: 30px 20px; color: var(--gray-text); border-top: 1px solid var(--border-color); font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
-   <nav>
+    <nav>
         <div class="nav-logos">
             <a href="index.html"><img src="logos/LOGO_PU.png" alt="President University"></a>
             <a href="index.html"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"></a>
             <a href="index.html"><img src="logos/LOGO_PUSERVE.png" alt="PUSERVE"></a>
         </div>
-        <!-- Ikon Garis Tiga Buat HP -->
         <div class="menu-icon" onclick="document.getElementById('mobile-menu').classList.toggle('active')">
             <span></span><span></span><span></span>
         </div>
         <ul class="nav-links" id="mobile-menu">
             <li><a href="index.html">Home</a></li>
-            <li><a href="events.html">Events</a></li>
+            <li><a href="events.html" style="color: var(--puserve-yellow);">Events</a></li>
             <li><a href="news.html">Outlook</a></li>
-            <!-- Tombol ini sekarang bakal manggil Pop-Up -->
             <li><a href="javascript:void(0)" onclick="openJoinModal()" class="btn-join">Join Us</a></li>
         </ul>
     </nav>
@@ -185,36 +107,36 @@
 
     <main class="container">
         <!-- RUNNING EVENTS -->
-        <div class="section-header">
-            <h2 class="section-title">Running</h2>
-            <div class="section-line"></div>
-        </div>
-        <div id="grid-running" class="events-grid">
-            <div class="empty-state">No ongoing events at this time.</div>
-        </div>
+        <div class="section-header"><h2 class="section-title">Running</h2><div class="section-line"></div></div>
+        <div id="grid-running" class="events-grid"><div class="empty-state">No ongoing events at this time.</div></div>
 
         <!-- UPCOMING EVENTS -->
-        <div class="section-header">
-            <h2 class="section-title">Upcoming</h2>
-            <div class="section-line"></div>
-        </div>
-        <div id="grid-upcoming" class="events-grid">
-            <div class="empty-state">No events have been scheduled yet.</div>
-        </div>
+        <div class="section-header"><h2 class="section-title">Upcoming</h2><div class="section-line"></div></div>
+        <div id="grid-upcoming" class="events-grid"><div class="empty-state">No events have been scheduled yet.</div></div>
 
         <!-- PAST EVENTS -->
-        <div class="section-header">
-            <h2 class="section-title">Archived</h2>
-            <div class="section-line"></div>
-        </div>
-        <div id="grid-past" class="events-grid">
-            <div class="empty-state">No event archives yet.</div>
-        </div>
+        <div class="section-header"><h2 class="section-title">Archived</h2><div class="section-line"></div></div>
+        <div id="grid-past" class="events-grid"><div class="empty-state">No event archives yet.</div></div>
     </main>
 
     <footer><p>&copy; 2026 PUSERVE - President University. All Rights Reserved.</p></footer>
 
+    <!-- KOTAK POP-UP JOIN US -->
+    <div id="join-modal" class="modal-overlay">
+        <div class="modal-content-box">
+            <span class="close-modal-btn" onclick="closeJoinModal()">&times;</span>
+            <h3 style="color: #fcd34d; margin-bottom: 10px;">Connect with PUSERVE</h3>
+            <p style="color: #8bada0; margin-bottom: 25px; font-size: 0.9rem;">Pilih tujuan pesanmu, sistem akan otomatis menyiapkan draf email resmi untukmu.</p>
+            <a href="mailto:preserve.presuniv@gmail.com?subject=Partnership%20Inquiry%20-%20PUSERVE&body=Halo%20Tim%20PUSERVE,%0A%0AKami%20ingin%20mengajak%20kolaborasi%20mengenai...%0A%0ATerima%20kasih." class="modal-btn btn-partner">🤝 Partnership / Collab</a>
+            <a href="mailto:preserve.presuniv@gmail.com?subject=Volunteer%20Registration%20-%20PUSERVE&body=Halo%20Tim%20PUSERVE,%0A%0APerkenalkan%20nama%20saya%20[Nama],%20angkatan%20[Tahun].%20Saya%20tertarik%20untuk%20bergabung%20menjadi%20volunteer%20karena...%0A%0ATerima%20kasih." class="modal-btn btn-vol">🌱 Join as Volunteer</a>
+            <a href="mailto:preserve.presuniv@gmail.com?subject=General%20Inquiry%20-%20PUSERVE&body=Halo%20Tim%20PUSERVE,%0A%0ASaya%20ingin%20bertanya%20terkait...%0A%0ATerima%20kasih." class="modal-btn btn-vol">✉️ Other Inquiries</a>
+        </div>
+    </div>
+
     <script>
+        function openJoinModal() { document.getElementById('join-modal').classList.add('show'); }
+        function closeJoinModal() { document.getElementById('join-modal').classList.remove('show'); }
+
         const repoName = 'puserve/puserve.github.io'; 
         const folderName = '_events';
 
@@ -239,7 +161,6 @@
                     if (parts.length >= 3) {
                         const fm = jsyaml.load(parts[1]);
                         
-                        // Deteksi Gambar Cerdas
                         const getImgUrl = (img) => {
                             if (!img) return 'https://via.placeholder.com/400x250/0f3522/fcd34d?text=PUSERVE';
                             if (img.startsWith('http')) return img;
@@ -248,13 +169,10 @@
                         };
                         let img = getImgUrl(fm.thumbnail);
 
-                        // FORMAT TANGGAL RESMI INDONESIA (Bye-bye GMT+0700)
                         let cleanDate = fm.date;
                         try {
                             const d = new Date(fm.date);
-                            if (!isNaN(d)) {
-                                cleanDate = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-                            }
+                            if (!isNaN(d)) { cleanDate = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); }
                         } catch(e){}
 
                         const cardHTML = `
@@ -290,14 +208,11 @@
                     }
                 }
 
-                // Jangan timpa empty state kalau datanya beneran kosong
                 if (htmlRunning) gridRunning.innerHTML = htmlRunning;
                 if (htmlUpcoming) gridUpcoming.innerHTML = htmlUpcoming;
                 if (htmlPast) gridPast.innerHTML = htmlPast;
 
-            } catch (error) {
-                console.error("Error:", error);
-            }
+            } catch (error) { console.error("Error:", error); }
         }
         loadCatalog();
     </script>
