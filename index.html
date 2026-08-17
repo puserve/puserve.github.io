@@ -123,7 +123,9 @@
         @keyframes blinkWarning { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         @keyframes glitch { 0%, 100% { transform: scale(1) translate(0); } 25% { transform: scale(1.02) translate(5px, 5px); } 50% { transform: scale(0.98) translate(-5px, -5px); } 75% { transform: scale(1.05) translate(5px, -5px); } }
 
-        /* Navigation */
+        /* =========================================================
+           NAVBAR (YANG BENERAN UDAH DI-FIX ANTI KESETRUM)
+           ========================================================= */
         nav { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; left: 0; z-index: 100; background: rgba(10, 54, 34, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.1); transition: top 0.4s ease-in-out, background 0.4s ease; }
         nav.nav-hidden { top: -120px !important; } 
         
@@ -132,22 +134,34 @@
         #secret-trigger-logo { cursor: pointer; transition: transform 0.2s; }
         #secret-trigger-logo:active { transform: scale(0.9); }
         
-        /* FIX Z-INDEX MENU ICON BIAR SELALU DI DEPAN */
-        .menu-icon { display: none; flex-direction: column; cursor: pointer; width: 25px; z-index: 105; gap: 5px; position: relative; }
+        /* Hamburger muncul di HP by default */
+        .menu-icon { display: flex; flex-direction: column; cursor: pointer; width: 25px; z-index: 105; gap: 5px; position: relative; }
         .menu-icon span { background: white; height: 2px; width: 100%; margin-bottom: 5px; border-radius: 2px; transition: all 0.3s ease; }
         .menu-icon span:last-child { margin-bottom: 0; }
 
+        /* Link ngumpet di HP by default */
         .nav-links { display: none; list-style: none; gap: 25px; align-items: center; }
-        .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 75px; right: 25px; background: rgba(10, 54, 34, 0.95); padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); align-items: flex-start; z-index: 100; }
+        
+        /* Link nongol pas hamburger diklik */
+        @media (max-width: 1023px) {
+            .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 75px; right: 25px; background: rgba(10, 54, 34, 0.95); padding: 20px 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); align-items: flex-start; z-index: 100; }
+        }
+
         .nav-links li a { text-decoration: none; color: rgba(255, 255, 255, 0.9); font-size: 1rem; font-weight: 500; transition: color 0.3s ease; }
         .nav-links li a:hover { color: white; }
         
         .nav-cta { background: #f5cf21; color: #0a3622 !important; padding: 8px 20px; border-radius: 20px; font-weight: 700 !important; transition: transform 0.3s ease, box-shadow 0.3s ease; white-space: nowrap; } 
         .nav-cta:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(245, 207, 33, 0.4); background: #f5cf21 !important; color: #0a3622 !important; }
 
-        @media screen and (min-width: 1024px) { nav { width: 90%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; } .nav-logos img { height: 45px; } .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; } .menu-icon { display: none; } }
+        /* Settingan Navbar khusus buat Laptop */
+        @media screen and (min-width: 1024px) { 
+            nav { width: 90%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; } 
+            .nav-logos img { height: 45px; } 
+            .menu-icon { display: none; } /* Hamburger diumpetin di laptop */
+            .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; } 
+        }
 
-        /* Screenshot Watermark Protection (DIUBAH z-index: -1 BIAR GAK MENGHALANGI KLIK) */
+        /* Screenshot Watermark Protection */
         body::after { content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; height: 100vh; background-image: url('logos/LOGO_PUSERVE.png'); background-repeat: no-repeat; background-position: center; background-size: contain; opacity: 0.03; z-index: -1; pointer-events: none; }
 
         /* Hero Section */
@@ -277,7 +291,7 @@
         </div>
     </div>
 
-    <!-- Navigation (Udah direvisi biar konsisten Events & Outlook) -->
+    <!-- Navigation -->
     <nav>
         <div class="nav-logos">
             <a href="#about"><img src="logos/LOGO_PU.png" alt="President University"></a>
@@ -285,7 +299,6 @@
             <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE" id="secret-trigger-logo" title="PUSERVE">
         </div>
         
-        <!-- HAPUS ONCLICK DARI SINI BIAR GAK KESETRUM -->
         <div class="menu-icon" id="hamburger-icon">
             <span></span><span></span><span></span>
         </div>
@@ -296,7 +309,6 @@
             <li><a href="news.html">Outlook</a></li>
             <li><a href="team.html">Our Team</a></li>
             <li><a href="#contact">Contact</a></li>
-            <!-- TOMBOL JOIN US DENGAN FUNGSI POPUP -->
             <li><a href="javascript:void(0)" onclick="openJoinModal()" class="nav-cta magnetic-btn">Join Us</a></li>
         </ul>
     </nav>
@@ -336,7 +348,7 @@
         </div>
     </div>
 
-    <!-- SECTION 1: EVENTS (Prioritas 3 Kartu) - FULL ENGLISH -->
+    <!-- SECTION 1: EVENTS (Prioritas 3 Kartu) -->
     <section id="activities" class="section-container fade-up" style="padding-top: 60px;">
         <h2 style="color: #0a3622; text-align: center; font-size: 2.5rem; margin-bottom: 10px; font-weight: 800;">Our Activities</h2>
         <p style="color: #555; text-align: center; margin-bottom: 20px;">A curated record of our ongoing efforts.</p>
@@ -350,7 +362,7 @@
         </div>
     </section>
 
-    <!-- SECTION 2: NEWS / OUTLOOK (Carousel Horizontal) - FULL ENGLISH -->
+    <!-- SECTION 2: NEWS / OUTLOOK (Carousel Horizontal) -->
     <section class="section-container fade-up" style="padding-top: 20px; padding-bottom: 60px;">
         <h2 style="color: #0a3622; font-size: 2.5rem; margin-bottom: 10px; font-weight: 800;">PUSERVE Outlook</h2>
         <p style="color: #555; margin-bottom: 30px;">Latest Environmental News, Opinions, and Analysis.</p>
