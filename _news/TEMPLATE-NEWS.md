@@ -3,17 +3,17 @@ title: "Tulis Judul Berita PUSERVE OUTLOOK Di Sini"
 date: 2026-08-18
 category: "Latest" # Pilih salah satu: Latest / Highlight / Archive
 author: "Redaksi PUSERVE"
-thumbnail: "foto-berita.jpg"
-image_2: ""
-image_3: ""
-quote: "Masukkan satu kutipan (quote) atau kesimpulan penting dari berita ini."
+thumbnail: "team/boe.jpeg"
+image_2: "team/stei.jpeg"
+image_3: "team/stei.jpeg"
+quote: "PErselingkuhan adalah awal dari segalanya"
 ---
 
-**(TULIS ISI BERITA DI SINI)**
+**WOILAH CIKKK, SI MBANYA JADI SELINGKUHAN LOH YAA**
 
-Jakarta — PUSERVE kembali menyoroti isu krusial mengenai...
+Jakarta — PUSERVE kembali menyoroti isu krusial mengenai perselingkuhan hebat antara stei dan razan
 
 - Poin fakta 1
 - Poin fakta 2
 
-Tulis artikel selengkap dan se-profesional mungkin.
+selengkanya hanya di Mr. D.I.Y
