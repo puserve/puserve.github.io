@@ -13,11 +13,13 @@ image_3: "uploads/events/tes/yunitaa.jpeg"
 outcome: "DRAMA PERSELINGKIUHAN HEBATTTTTTTTTTTTTTTTTTTTT"
 ---
 
-**(TULIS TEKS BERITA / PRESS RELEASE DI SINI)**
+**PERSELINGKUHAN?????**
+
 
 Jakarta, 17 Agustus 2026 — EDELINE STEFANIE BASKORO BERSELINGKUH DENGAN YUNITA ISMAIL???!?!?!!?!??!
+
 
 - **Poin 1:** AWKOKWOAKOW
 - **Poin 2:** AOAKWOAKOWKA.
 
-Acara ini berlangsung meriah dan ditutup dengan deklarasi bersama seluruh ketua organisasi mahasiswa.
+acara ini menjadi pertanda bahwa rate erselingkuhan di indonesia masih tinggi dan wajib menjadi prioritas investigasi.
