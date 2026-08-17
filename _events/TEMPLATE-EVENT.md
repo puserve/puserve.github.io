@@ -1,5 +1,5 @@
 ---
-title: "Press Release: PUSERVE Targetkan Zero Emission"
+title: "judul goes here"
 date: 2026-08-17
 status: "Running" # PILIH: Running / Upcoming / Past
 attendees: "150 Delegasi"
