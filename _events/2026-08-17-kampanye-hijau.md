@@ -1,13 +1,13 @@
 ---
-title: "Press Release: Kampanye Hijau PUSERVE 2026"
+title: "Press Release: Perselingkuhan? Mitos atau Fakta"
 date: 2026-08-17
 status: "Upcoming" # Tulis statusnya (Pilih: Upcoming / Running / Past)
 attendees: "1 Mahasiswa & 1 Dosen"
 
 # BAGIAN FOTO (Isi dengan nama foto yang diupload tadi)
-thumbnail: "_events/simulasi/boe.jpeg" 
-image_2: "_events/simulasi/edel.jpeg" 
-image_3: "_events/simulasi/yunita.jpeg" 
+thumbnail: "_events/simulasi/boee.jpeg" 
+image_2: "_events/simulasi/edell.jpeg" 
+image_3: "_events/simulasi/yunitaa.jpeg" 
 
 # BAGIAN KESIMPULAN
 outcome: "DRAMA PERSELINGKIUHAN HEBATTTTTTTTTTTTTTTTTTTTT"
