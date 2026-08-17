@@ -62,8 +62,8 @@
         }
         
         /* Desain Card Basic ala VVIP */
-        .event-card { background-color: #0f3522; border-radius: 12px; overflow: hidden; border: 1px solid #1a4d33; display: flex; flex-direction: column; text-decoration: none; color: white; transition: 0.3s; }
-        .event-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: #fcd34d; }
+        .event-card { position: relative; z-index: 10; cursor: pointer; background-color: #0f3522; border-radius: 12px; overflow: hidden; border: 1px solid #1a4d33; display: flex; flex-direction: column; text-decoration: none; color: white; transition: 0.3s; }
+        .event-card:hover { transfoxrm: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: #fcd34d; }
         .event-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #1a4d33; }
         .event-content { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .event-status { display: inline-block; color: #fcd34d; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
@@ -137,7 +137,7 @@
         @media screen and (min-width: 1024px) { nav { width: 90%; top: 30px; left: 50%; transform: translateX(-50%); padding: 15px 40px; border-radius: 50px; } .nav-logos img { height: 45px; } .nav-links { display: flex; flex-direction: row; position: static; background: transparent; box-shadow: none; border: none; padding: 0; align-items: center; } .menu-icon { display: none; } }
 
         /* Screenshot Watermark Protection */
-        body::after { content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; height: 100vh; background-image: url('logos/LOGO_PUSERVE.png'); background-repeat: no-repeat; background-position: center; background-size: contain; opacity: 0.03; z-index: 9999; pointer-events: none; }
+        body::after { content: ''; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; height: 100vh; background-image: url('logos/LOGO_PUSERVE.png'); background-repeat: no-repeat; background-position: center; background-size: contain; opacity: 0.03; z-index: -1; pointer-events: none; }
 
         /* Hero Section */
         .hero { position: relative; min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: flex-start; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; padding-top: 130px; padding-bottom: 80px; }
@@ -447,6 +447,21 @@
             <div>Built with <span class="footer-heart">💚</span> for Indonesia</div>
         </div>
     </footer>
+
+    <!-- POP-UP BILINGUAL JOIN US -->
+    <div id="join-modal" class="modal-overlay">
+        <div class="modal-content-box">
+            <span class="close-modal-btn" onclick="closeJoinModal()">&times;</span>
+            <h3 style="color: #fcd34d; margin-bottom: 10px;">Connect with PUSERVE</h3>
+            <p style="color: #8bada0; margin-bottom: 25px; font-size: 0.9rem;">Choose your inquiry type. The system will generate an official email draft for you.</p>
+            
+            <a href="mailto:preserve.presuniv@gmail.com?subject=Partnership%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AWe%20would%20like%20to%20propose%20a%20collaboration%20regarding...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0AKami%20ingin%20mengajak%20kolaborasi%20mengenai...%0A%0ATerima%20kasih." class="modal-btn btn-partner">🤝 Partnership / Collab</a>
+            
+            <a href="mailto:preserve.presuniv@gmail.com?subject=Volunteer%20Registration%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AMy%20name%20is%20[Name],%20batch%20[Year].%20I%20am%20interested%20in%20joining%20as%20a%20volunteer%20because...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0APerkenalkan%20nama%20saya%20[Nama],%20angkatan%20[Tahun].%20Saya%20tertarik%20untuk%20bergabung%20menjadi%20volunteer%20karena...%0A%0ATerima%20kasih." class="modal-btn btn-vol">🌱 Join as Volunteer</a>
+            
+            <a href="mailto:preserve.presuniv@gmail.com?subject=General%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AI%20would%20like%20to%20ask%20about...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0ASaya%20ingin%20bertanya%20terkait...%0A%0ATerima%20kasih." class="modal-btn btn-vol">✉️ Other Inquiries</a>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script>
