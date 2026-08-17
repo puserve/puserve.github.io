@@ -22,4 +22,4 @@ Jakarta, 17 Agustus 2026 — EDELINE STEFANIE BASKORO BERSELINGKUH DENGAN YUNITA
 - **Poin 1:** AWKOKWOAKOW
 - **Poin 2:** AOAKWOAKOWKA.
 
-acara ini menjadi pertanda bahwa rate erselingkuhan di indonesia masih tinggi dan wajib menjadi prioritas investigasi.
+acara ini menjadi pertanda bahwa rate perselingkuhan di indonesia masih tinggi dan wajib menjadi prioritas investigasi.
