@@ -2,7 +2,7 @@
 title: "Press Release: Kampanye Hijau PUSERVE 2026"
 date: 2026-08-17
 status: "Upcoming" # Tulis statusnya (Pilih: Upcoming / Running / Past)
-attendees: "200 Mahasiswa"
+attendees: "1 Mahasiswa & 1 Dosen"
 
 # BAGIAN FOTO (Isi dengan nama foto yang diupload tadi)
 thumbnail: "_events/simulasi/boe.jpeg" 
