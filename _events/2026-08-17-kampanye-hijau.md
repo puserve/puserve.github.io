@@ -10,7 +10,7 @@ image_2: "_events/simulasi/edel.jpeg"
 image_3: "_events/simulasi/yunita.jpeg" 
 
 # BAGIAN KESIMPULAN
-outcome: "Berhasil mengumpulkan 1 Ton sampah plastik dan membentuk satgas lingkungan kampus."
+outcome: "DRAMA PERSELINGKIUHAN HEBATTTTTTTTTTTTTTTTTTTTT"
 ---
 
 **(TULIS TEKS BERITA / PRESS RELEASE DI SINI)**
