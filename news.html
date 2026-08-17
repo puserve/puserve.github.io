@@ -9,7 +9,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
     <style>
-        /* TEMA VVIP SAMA PERSIS KAYA EVENTS */
         :root { --dark-green: #051810; --puserve-green: #0a2618; --card-bg: #0f3522; --puserve-yellow: #fcd34d; --white: #ffffff; --gray-text: #8bada0; --border-color: #1a4d33; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--dark-green); color: var(--white); display: flex; flex-direction: column; min-height: 100vh; }
@@ -17,10 +16,31 @@
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: var(--dark-green); border-bottom: 1px solid var(--border-color); }
         .nav-logos { display: flex; align-items: center; gap: 15px; }
         .nav-logos img { height: 40px; width: auto; }
-        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
         .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--puserve-yellow); }
-        .btn-join { background-color: var(--puserve-yellow); color: var(--dark-green); padding: 8px 22px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; }
+        .btn-join { background-color: var(--puserve-yellow); color: var(--dark-green) !important; padding: 8px 22px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; text-decoration: none;}
+        .btn-join:hover { background-color: #e5be3c; }
+
+        .menu-icon { display: none; flex-direction: column; cursor: pointer; width: 25px; z-index: 101; gap: 5px; }
+        .menu-icon span { background: #ffffff; height: 2px; width: 100%; border-radius: 2px; transition: 0.3s; }
+        @media (max-width: 768px) {
+            .menu-icon { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 80px; right: 20px; background: #051810; padding: 20px 25px; border-radius: 12px; border: 1px solid #1a4d33; gap: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); z-index: 100; }
+            .nav-links.active { display: flex; }
+        }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.8); z-index: 999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(5px); }
+        .modal-overlay.show { opacity: 1; pointer-events: auto; }
+        .modal-content-box { background: #0a3622; border: 1px solid #1a4d33; padding: 30px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; position: relative; transform: translateY(20px); transition: 0.3s; }
+        .modal-overlay.show .modal-content-box { transform: translateY(0); }
+        .close-modal-btn { position: absolute; top: 15px; right: 20px; color: #8bada0; font-size: 1.8rem; cursor: pointer; line-height: 1; }
+        .close-modal-btn:hover { color: #fcd34d; }
+        .modal-btn { display: block; width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.95rem; transition: 0.3s; cursor: pointer; }
+        .btn-partner { background: rgba(252, 211, 77, 0.1); color: #fcd34d; border: 1px solid #fcd34d; }
+        .btn-partner:hover { background: #fcd34d; color: #0a3622; }
+        .btn-vol { background: rgba(255,255,255,0.05); color: white; border: 1px solid #8bada0; }
+        .btn-vol:hover { background: white; color: #0a3622; }
 
         header.hero { text-align: center; padding: 70px 20px 50px; background: radial-gradient(circle at top, var(--puserve-green) 0%, var(--dark-green) 100%); border-bottom: 1px solid var(--border-color); }
         .hero-title { color: var(--white); font-size: 2.8rem; margin-bottom: 15px; font-weight: 300; letter-spacing: 1px; }
@@ -38,7 +58,6 @@
         .event-card { background-color: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: all 0.3s ease; }
         .event-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: var(--puserve-yellow); }
         .event-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
-        
         .event-content { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .event-status { display: inline-block; color: var(--puserve-yellow); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
         .event-title { font-size: 1.3rem; margin: 0 0 15px 0; color: var(--white); line-height: 1.4; font-weight: 600; }
@@ -59,17 +78,19 @@
 
     <nav>
         <div class="nav-logos">
-            <img src="logos/LOGO_PU.png" alt="President University">
-            <img src="logos/LOGO_CEDRS.png" alt="CEDRS">
-            <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE">
+            <a href="index.html"><img src="logos/LOGO_PU.png" alt="President University"></a>
+            <a href="index.html"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"></a>
+            <a href="index.html"><img src="logos/LOGO_PUSERVE.png" alt="PUSERVE"></a>
         </div>
- <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="events.html">Events</a>
-            <a href="news.html" style="color: var(--puserve-yellow);">Outlook</a>
-            <a href="easter_egg.jpeg" target="_blank" style="color: transparent; position: absolute; top: 0; right: 0; width: 20px; height: 20px;">.</a>
-            <a href="#" class="btn-join">Join Us</a>
+        <div class="menu-icon" onclick="document.getElementById('mobile-menu').classList.toggle('active')">
+            <span></span><span></span><span></span>
         </div>
+        <ul class="nav-links" id="mobile-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="news.html" style="color: var(--puserve-yellow);">Outlook</a></li>
+            <li><a href="javascript:void(0)" onclick="openJoinModal()" class="btn-join">Join Us</a></li>
+        </ul>
     </nav>
 
     <header class="hero">
@@ -78,39 +99,39 @@
     </header>
 
     <main class="container">
-        <!-- HIGHLIGHT NEWS -->
-        <div class="section-header">
-            <h2 class="section-title">Highlight</h2>
-            <div class="section-line"></div>
-        </div>
-        <div id="grid-highlight" class="events-grid">
-            <div class="empty-state">No highlight news yet.</div>
-        </div>
+        <div class="section-header"><h2 class="section-title">Highlight</h2><div class="section-line"></div></div>
+        <div id="grid-highlight" class="events-grid"><div class="empty-state">No highlighted news yet.</div></div>
 
-        <!-- LATEST NEWS -->
-        <div class="section-header">
-            <h2 class="section-title">Latest News</h2>
-            <div class="section-line"></div>
-        </div>
-        <div id="grid-latest" class="events-grid">
-            <div class="empty-state">No latest news yet.</div>
-        </div>
+        <div class="section-header"><h2 class="section-title">Latest News</h2><div class="section-line"></div></div>
+        <div id="grid-latest" class="events-grid"><div class="empty-state">No news published yet.</div></div>
 
-        <!-- ARCHIVE -->
-        <div class="section-header">
-            <h2 class="section-title">Archive</h2>
-            <div class="section-line"></div>
-        </div>
-        <div id="grid-archive" class="events-grid">
-            <div class="empty-state">Archive is still empty.</div>
-        </div>
+        <div class="section-header"><h2 class="section-title">Archive</h2><div class="section-line"></div></div>
+        <div id="grid-archive" class="events-grid"><div class="empty-state">Archive is still empty.</div></div>
     </main>
 
     <footer><p>&copy; 2026 PUSERVE - President University. All Rights Reserved.</p></footer>
 
+    <!-- POP-UP BILINGUAL -->
+    <div id="join-modal" class="modal-overlay">
+        <div class="modal-content-box">
+            <span class="close-modal-btn" onclick="closeJoinModal()">&times;</span>
+            <h3 style="color: #fcd34d; margin-bottom: 10px;">Connect with PUSERVE</h3>
+            <p style="color: #8bada0; margin-bottom: 25px; font-size: 0.9rem;">Choose your inquiry type. The system will generate an official email draft for you.</p>
+            
+            <a href="mailto:preserve.presuniv@gmail.com?subject=Partnership%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AWe%20would%20like%20to%20propose%20a%20collaboration%20regarding...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0AKami%20ingin%20mengajak%20kolaborasi%20mengenai...%0A%0ATerima%20kasih." class="modal-btn btn-partner">🤝 Partnership / Collab</a>
+            
+            <a href="mailto:preserve.presuniv@gmail.com?subject=Volunteer%20Registration%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AMy%20name%20is%20[Name],%20batch%20[Year].%20I%20am%20interested%20in%20joining%20as%20a%20volunteer%20because...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0APerkenalkan%20nama%20saya%20[Nama],%20angkatan%20[Tahun].%20Saya%20tertarik%20untuk%20bergabung%20menjadi%20volunteer%20karena...%0A%0ATerima%20kasih." class="modal-btn btn-vol">🌱 Join as Volunteer</a>
+            
+            <a href="mailto:preserve.presuniv@gmail.com?subject=General%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AI%20would%20like%20to%20ask%20about...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0ASaya%20ingin%20bertanya%20terkait...%0A%0ATerima%20kasih." class="modal-btn btn-vol">✉️ Other Inquiries</a>
+        </div>
+    </div>
+
     <script>
+        function openJoinModal() { document.getElementById('join-modal').classList.add('show'); }
+        function closeJoinModal() { document.getElementById('join-modal').classList.remove('show'); }
+
         const repoName = 'puserve/puserve.github.io'; 
-        const folderName = '_news'; // SEKARANG NYEDOT DARI FOLDER _news
+        const folderName = '_news'; 
 
         async function loadCatalog() {
             const gridHighlight = document.getElementById('grid-highlight');
@@ -141,13 +162,13 @@
                         };
                         let img = getImgUrl(fm.thumbnail);
 
+                        // ENGLISH DATE FORMAT
                         let cleanDate = fm.date;
                         try {
                             const d = new Date(fm.date);
-                            if (!isNaN(d)) cleanDate = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                            if (!isNaN(d)) cleanDate = d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
                         } catch(e){}
 
-                        // PERHATIKAN LINKNYA SEKARANG MENUJU read-news.html
                         const cardHTML = `
                             <a href="read-news.html?file=${file.name}" class="event-card">
                                 <img src="${img}" class="event-img" alt="Thumbnail" onerror="this.src='https://via.placeholder.com/400x250/0f3522/fcd34d?text=Image+Not+Found'">
@@ -161,9 +182,8 @@
                                                 ${cleanDate}
                                             </div>
                                             <div class="meta-item">
-                                                <!-- Icon Pena / Author -->
                                                 <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                                                ${fm.author || 'PUSERVE Redaction Team'}
+                                                ${fm.author || 'PUSERVE Editorial'}
                                             </div>
                                         </div>
                                     </div>
@@ -178,7 +198,7 @@
                         const category = (fm.category || '').toLowerCase();
                         if (category === 'highlight') htmlHighlight += cardHTML;
                         else if (category === 'archive') htmlArchive += cardHTML;
-                        else htmlLatest += cardHTML; // Default masuk ke latest
+                        else htmlLatest += cardHTML; 
                     }
                 }
 
@@ -186,9 +206,7 @@
                 if (htmlLatest) gridLatest.innerHTML = htmlLatest;
                 if (htmlArchive) gridArchive.innerHTML = htmlArchive;
 
-            } catch (error) {
-                console.error("Error:", error);
-            }
+            } catch (error) { console.error("Error:", error); }
         }
         loadCatalog();
     </script>
