@@ -14,6 +14,46 @@
     
     <meta name="description" content="PUSERVE (President University Serve Environment) is a student organization dedicated to real environmental action, education, and sustainability at President University.">
     <meta name="keywords" content="PUSERVE, President University, Environment, Student Organization, Cikarang, Sustainability, Mahasiswa Peduli Lingkungan">
+
+    /* === TAMBAHAN CSS BUAT HOME === */
+        #home-events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        /* Desain Carousel Buat News */
+        .news-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 25px;
+            padding: 10px 0 30px 0;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+        
+        /* Bikin Scrollbar-nya Elegan */
+        .news-carousel::-webkit-scrollbar { height: 8px; }
+        .news-carousel::-webkit-scrollbar-track { background: var(--dark-green); border-radius: 10px; }
+        .news-carousel::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+        .news-carousel::-webkit-scrollbar-thumb:hover { background: var(--puserve-yellow); }
+
+        /* Biar kartu berita nggak gepeng pas di-scroll */
+        .news-carousel .event-card {
+            min-width: 350px;
+            max-width: 350px;
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+        }
+        
+        /* Desain Card Basic (Samain kaya di halaman events) */
+        .event-card { background-color: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: 0.3s; }
+        .event-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: var(--puserve-yellow); }
+        .event-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+        .event-content { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .event-status { display: inline-block; color: var(--puserve-yellow); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+        .event-title { font-size: 1.3rem; margin: 0 0 15px 0; color: var(--white); line-height: 1.4; font-weight: 600; }
     
     <style>
         /* Base Settings & Micro-interactions */
