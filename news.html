@@ -6,6 +6,12 @@
     <title>PUSERVE OUTLOOK | News & Insights</title>
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="PUSERVE OUTLOOK | News & Insights" />
+    <meta property="og:description" content="Latest Environmental News, Opinions, and Analysis by PUSERVE." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/puserve/puserve.github.io/main/logos/LOGO_PUSERVE.png" />
+    <meta property="og:type" content="website" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
     <style>
@@ -47,8 +53,14 @@
         .hero-title strong { color: var(--puserve-yellow); font-weight: 700; }
         .hero-subtitle { color: var(--gray-text); font-size: 1.1rem; letter-spacing: 0.5px; }
 
-        main.container { flex: 1; max-width: 1100px; margin: 0 auto; padding: 50px 20px; width: 100%; }
-        .section-header { display: flex; align-items: center; margin-top: 50px; margin-bottom: 25px; }
+        /* SEARCH BAR CSS */
+        .search-bar-container { max-width: 1100px; margin: 30px auto 0; padding: 0 20px; display: flex; gap: 15px; }
+        .search-input { flex: 1; padding: 15px 25px; border-radius: 30px; border: 1px solid var(--border-color); background: #082115; color: white; outline: none; font-size: 1.05rem; transition: 0.3s; }
+        .search-input:focus { border-color: var(--puserve-yellow); box-shadow: 0 0 15px rgba(252, 211, 77, 0.1); }
+        .search-input::placeholder { color: var(--gray-text); }
+
+        main.container { flex: 1; max-width: 1100px; margin: 0 auto; padding: 20px 20px 50px; width: 100%; }
+        .section-header { display: flex; align-items: center; margin-top: 30px; margin-bottom: 25px; }
         .section-title { color: var(--white); font-size: 1.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-right: 20px; }
         .section-line { flex: 1; height: 1px; background-color: var(--border-color); }
         .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
@@ -61,7 +73,6 @@
         .event-content { padding: 25px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .event-status { display: inline-block; color: var(--puserve-yellow); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
         .event-title { font-size: 1.3rem; margin: 0 0 15px 0; color: var(--white); line-height: 1.4; font-weight: 600; }
-        
         .event-meta { display: flex; flex-direction: column; gap: 8px; margin-bottom: 25px; }
         .meta-item { display: flex; align-items: center; color: var(--gray-text); font-size: 0.85rem; }
         .meta-item svg { width: 14px; height: 14px; margin-right: 10px; stroke: var(--puserve-yellow); }
@@ -98,6 +109,11 @@
         <p class="hero-subtitle">Latest Environmental News, Opinions, and Analysis</p>
     </header>
 
+    <!-- SEARCH BAR -->
+    <div class="search-bar-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search news, keywords, or categories...">
+    </div>
+
     <main class="container">
         <div class="section-header"><h2 class="section-title">Highlight</h2><div class="section-line"></div></div>
         <div id="grid-highlight" class="events-grid"><div class="empty-state">No highlighted news yet.</div></div>
@@ -117,11 +133,8 @@
             <span class="close-modal-btn" onclick="closeJoinModal()">&times;</span>
             <h3 style="color: #fcd34d; margin-bottom: 10px;">Connect with PUSERVE</h3>
             <p style="color: #8bada0; margin-bottom: 25px; font-size: 0.9rem;">Choose your inquiry type. The system will generate an official email draft for you.</p>
-            
             <a href="mailto:preserve.presuniv@gmail.com?subject=Partnership%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AWe%20would%20like%20to%20propose%20a%20collaboration%20regarding...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0AKami%20ingin%20mengajak%20kolaborasi%20mengenai...%0A%0ATerima%20kasih." class="modal-btn btn-partner">🤝 Partnership / Collab</a>
-            
             <a href="mailto:preserve.presuniv@gmail.com?subject=Volunteer%20Registration%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AMy%20name%20is%20[Name],%20batch%20[Year].%20I%20am%20interested%20in%20joining%20as%20a%20volunteer%20because...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0APerkenalkan%20nama%20saya%20[Nama],%20angkatan%20[Tahun].%20Saya%20tertarik%20untuk%20bergabung%20menjadi%20volunteer%20karena...%0A%0ATerima%20kasih." class="modal-btn btn-vol">🌱 Join as Volunteer</a>
-            
             <a href="mailto:preserve.presuniv@gmail.com?subject=General%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AI%20would%20like%20to%20ask%20about...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0ASaya%20ingin%20bertanya%20terkait...%0A%0ATerima%20kasih." class="modal-btn btn-vol">✉️ Other Inquiries</a>
         </div>
     </div>
@@ -162,7 +175,6 @@
                         };
                         let img = getImgUrl(fm.thumbnail);
 
-                        // ENGLISH DATE FORMAT
                         let cleanDate = fm.date;
                         try {
                             const d = new Date(fm.date);
@@ -209,6 +221,20 @@
             } catch (error) { console.error("Error:", error); }
         }
         loadCatalog();
+
+        // MESIN LIVE SEARCH
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('.event-card').forEach(card => {
+                const title = card.querySelector('.event-title').innerText.toLowerCase();
+                const status = card.querySelector('.event-status').innerText.toLowerCase();
+                if(title.includes(term) || status.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
     </script>
 </body>
 </html>
