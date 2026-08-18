@@ -42,6 +42,7 @@
         .btn-join:hover { background: #e5be3c; transform: translateY(-2px); }
         @media (max-width: 1023px) { .menu-icon { display: flex; } .nav-links { display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: #051810; padding: 100px 30px 30px; border-left: 1px solid var(--border-color); align-items: flex-start; transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1); } .nav-links.active { right: 0; } }
 
+        /* SMART FAB DOCKED BOTTOM LEFT */
         .fab-container { position: fixed; bottom: 20px; left: 20px; z-index: 998; display: flex; flex-direction: column-reverse; align-items: center; gap: 10px; }
         .fab-options { display: flex; flex-direction: column-reverse; gap: 10px; opacity: 0; transform: scale(0.5) translateY(20px); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
         .fab-container.open .fab-options { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
@@ -54,7 +55,11 @@
         #back-to-top.show { bottom: 20px; }
         #back-to-top:hover { background: var(--puserve-yellow); color: var(--dark-green); }
 
-        /* MODALS */
+        /* DYNAMIC LEAVES */
+        .cursor-leaf { position: fixed; width: 12px; height: 12px; background-color: var(--puserve-yellow); border-radius: 0 12px 0 12px; pointer-events: none; z-index: 99999; animation: leafFall 1s linear forwards; opacity: 0.8; }
+        @keyframes leafFall { 0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; } 100% { transform: translateY(60px) rotate(120deg) scale(0.3); opacity: 0; } }
+
+        /* MODALS & EASTER EGG (FIXED) */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.85); z-index: 999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s; backdrop-filter: blur(8px); }
         .modal-overlay.show { opacity: 1; pointer-events: auto; }
         .modal-content-box { background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px; border-radius: 20px; width: 90%; max-width: 450px; text-align: left; position: relative; transform: translateY(30px) scale(0.95); transition: 0.4s; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
@@ -64,9 +69,18 @@
         .modal-btn { display: flex; align-items: center; gap: 15px; width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: 0.3s; cursor: pointer; border: 1px solid var(--card-border); background: var(--bg-color); color: var(--text-color); }
         .modal-btn:hover { background: var(--primary-green); color: #ffffff; border-color: var(--primary-green); transform: translateX(5px); }
         .modal-btn svg { stroke: var(--puserve-yellow); }
-        #easter-egg-modal .easter-egg-content { background: #1a1a1a; border: 3px solid #ff3333; padding: 30px; border-radius: 20px; text-align: center; color: white; max-width: 450px; transform: scale(0.8); transition: 0.3s; position: relative; }
-        #easter-egg-modal.show .easter-egg-content { transform: scale(1); }
-        .close-egg { position: absolute; top: -20px; right: -20px; font-size: 2rem; background: #ff3333; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 3px solid #f4f9f5; }
+
+        #easter-egg-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(10, 54, 34, 0.95); z-index: 99999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s ease; backdrop-filter: blur(15px); }
+        #easter-egg-modal.show { opacity: 1; pointer-events: auto; }
+        .easter-egg-content { background: #1a1a1a; border: 3px solid #ff3333; padding: 30px; border-radius: 20px; text-align: center; color: white; max-width: 450px; transform: scale(0.8); transition: 0.3s; position: relative; box-shadow: 0 0 50px rgba(255, 51, 51, 0.3); }
+        #easter-egg-modal.show .easter-egg-content { transform: scale(1); animation: glitch 0.3s ease-in-out; }
+        .warning-header { color: #ff3333; font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; letter-spacing: 2px; animation: blinkWarning 1s infinite; }
+        .easter-egg-content img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px dashed #f5cf21; }
+        .prank-text { color: #f5cf21; font-weight: 700; font-size: 1.1rem; line-height: 1.6; }
+        .close-egg { position: absolute; top: -20px; right: -20px; font-size: 2rem; font-family: sans-serif; line-height: 1; background: #ff3333; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 3px solid #f4f9f5; transition: 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 10; }
+        .close-egg:hover { transform: scale(1.15); background: white; color: #ff3333; border-color: #ff3333; }
+        @keyframes blinkWarning { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes glitch { 0%, 100% { transform: scale(1) translate(0); } 25% { transform: scale(1.02) translate(5px, 5px); } 50% { transform: scale(0.98) translate(-5px, -5px); } 75% { transform: scale(1.05) translate(5px, -5px); } }
 
         /* TEAM HEADER */
         .page-hero { padding: 150px 20px 60px; text-align: center; background: var(--primary-green); color: white; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; margin-bottom: 60px; }
@@ -74,18 +88,18 @@
 
         /* TEAM GRID SYSTEM */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 5% 80px; width: 100%; }
-        .div-title { text-align: center; font-size: 2rem; color: var(--primary-green); margin: 60px 0 30px; font-weight: 800; transition: color 0.5s;}
+        .div-title { text-align: center; font-size: 2rem; color: var(--primary-green); margin: 60px 0 30px; font-weight: 800; transition: color 0.5s; letter-spacing: -0.5px;}
         body.eco-mode .div-title { color: var(--white); }
         .div-title::after { content: ''; display: block; width: 50px; height: 4px; background: var(--puserve-yellow); margin: 15px auto 0; border-radius: 2px; }
         
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; justify-items: center; }
-        .team-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.03); transition: 0.4s ease; width: 100%; max-width: 320px; border-top: 4px solid var(--primary-green);}
-        .team-card:hover { transform: translateY(-8px); border-top-color: var(--puserve-yellow); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; justify-items: center; }
+        .team-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 40px 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.03); transition: 0.4s ease; width: 100%; max-width: 350px; border-top: 4px solid var(--primary-green); display: flex; flex-direction: column; align-items: center; justify-content: flex-start;}
+        .team-card:hover { transform: translateY(-8px); border-top-color: var(--puserve-yellow); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
         
-        .team-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; margin-bottom: 20px; border: 4px solid var(--bg-color); transition: 0.4s; filter: grayscale(100%); }
-        .team-card:hover .team-img { filter: grayscale(0%); border-color: var(--puserve-yellow); }
+        .team-img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin-bottom: 25px; border: 4px solid var(--bg-color); transition: 0.5s; filter: grayscale(100%); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .team-card:hover .team-img { filter: grayscale(0%); border-color: var(--puserve-yellow); transform: scale(1.05);}
         
-        .team-name { font-size: 1.2rem; color: var(--text-color); font-weight: 800; margin-bottom: 8px; line-height: 1.3; transition: color 0.5s;}
+        .team-name { font-size: 1.25rem; color: var(--text-color); font-weight: 800; margin-bottom: 8px; line-height: 1.3; transition: color 0.5s;}
         .team-role { font-size: 0.85rem; font-weight: 800; color: var(--puserve-yellow); letter-spacing: 1px; text-transform: uppercase; }
 
         /* FOOTER */
@@ -115,10 +129,26 @@
 </head>
 <body>
 
+    <!-- LEAVES JAVASCRIPT -->
+    <script>
+        document.addEventListener('mousemove', function(e) {
+            let isEco = localStorage.getItem('puserve_eco') === 'true';
+            if(isEco) return; 
+            if(Math.random() > 0.90) {
+                const leaf = document.createElement('div');
+                leaf.className = 'cursor-leaf';
+                leaf.style.left = (e.clientX + 10) + 'px';
+                leaf.style.top = (e.clientY + 10) + 'px';
+                document.body.appendChild(leaf);
+                setTimeout(() => { leaf.remove(); }, 1000);
+            }
+        });
+    </script>
+
     <div id="toast"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span id="toast-msg"></span></div>
     <div id="back-to-top" title="Scroll to top"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg></div>
 
-    <!-- SMART FAB DOCKED BOTTOM LEFT -->
+    <!-- SMART FAB -->
     <div class="fab-container" id="fabContainer">
         <div class="fab-options">
             <button class="fab-btn" id="langToggle" title="Translate EN/ID"><span class="lang-text" id="langText">EN</span></button>
@@ -127,7 +157,7 @@
         <button class="fab-btn fab-main" id="fabMain" title="Settings"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></button>
     </div>
 
-    <!-- SECRET EASTER EGG MODAL -->
+    <!-- EASTER EGG MODAL FIXED -->
     <div id="easter-egg-modal"><div class="easter-egg-content"><span class="close-egg" onclick="closeEgg()">&times;</span><div class="warning-header">⚠️ CLASSIFIED ARCHIVE ⚠️</div><img src="easter_egg.jpeg" alt="Secret"><p class="prank-text">"You found the secret! Don't forget to throw your trash in the right bin! ♻️"</p></div></div>
     
     <div id="join-modal" class="modal-overlay">
@@ -164,122 +194,121 @@
         <p style="font-size: 1.1rem; opacity: 0.9;" data-en="The passionate minds and hands behind PUSERVE's environmental initiatives." data-id="Pemikir dan penggerak di balik inisiatif lingkungan PUSERVE.">The passionate minds and hands behind PUSERVE's environmental initiatives.</p>
     </header>
 
-    <!-- MAIN CONTENT (HIERARCHY GRID) -->
+    <!-- MAIN CONTENT (HIERARCHY GRID - 100% ACCURATE TO DATABASE) -->
     <main class="container">
         
         <!-- ADVISOR -->
         <h2 class="div-title" data-en="Advisor" data-id="Penasihat">Advisor</h2>
         <div class="team-grid" style="grid-template-columns: 1fr;">
             <div class="team-card" style="margin: 0 auto;">
-                <img src="team/yunita.jpeg" alt="Dr. Ir. Yunita Ismail" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Dr+Yunita'">
+                <img src="team/yunita.jpeg" alt="Dr. Ir. Yunita Ismail" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Advisor'">
                 <h3 class="team-name">Dr. Ir. Yunita Ismail, M.Si.</h3>
-                <span class="team-role">Advisor</span>
+                <span class="team-role" data-en="Advisor" data-id="Penasihat">Advisor</span>
             </div>
         </div>
 
         <!-- BOARD OF DIRECTORS -->
-        <h2 class="div-title" data-en="Board of Directors" data-id="Dewan Direksi">Board of Directors</h2>
+        <h2 class="div-title" data-en="Board Of Directors" data-id="Dewan Direksi">Board Of Directors</h2>
         <div class="team-grid">
             <div class="team-card">
-                <img src="team/edel.jpeg" alt="Edeline" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Edeline'">
+                <img src="team/edel.jpeg" alt="Edeline" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Edeline'">
                 <h3 class="team-name">Edeline Stefanie Baskoro</h3>
-                <span class="team-role">Chairperson</span>
+                <span class="team-role" data-en="Chairperson" data-id="Ketua">Chairperson</span>
             </div>
             <div class="team-card">
-                <img src="team/stei.jpeg" alt="Steiryn" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Steiryn'">
+                <img src="team/stei.jpeg" alt="Steiryn" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Steiryn'">
                 <h3 class="team-name">Steiryn Cersey Kately Sumajow</h3>
-                <span class="team-role">Vice Chairperson I</span>
+                <span class="team-role" data-en="Vice Chairperson I" data-id="Wakil Ketua I">Vice Chairperson I</span>
             </div>
             <div class="team-card">
-                <img src="team/noel.jpeg" alt="Noel" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Noel'">
+                <img src="team/noel.jpeg" alt="Noel" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Noel'">
                 <h3 class="team-name">Noel Jacob Ottley, C.MC.</h3>
-                <span class="team-role">Vice Chairperson II</span>
+                <span class="team-role" data-en="Vice Chairperson II" data-id="Wakil Ketua II">Vice Chairperson II</span>
             </div>
         </div>
 
-        <!-- DIVISIONS: SECRETARY & TREASURER -->
-        <h2 class="div-title" data-en="Secretary & Treasurer" data-id="Sekretaris & Bendahara">Secretary & Treasurer</h2>
+        <!-- SECRETARY & TREASURE -->
+        <h2 class="div-title" data-en="Secretary & Treasure" data-id="Sekretaris & Bendahara">Secretary & Treasure</h2>
         <div class="team-grid">
             <div class="team-card">
-                <!-- GANTI src fotonya nanti kalau udah di upload -->
-                <img src="team/nada.jpeg" alt="Nada" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Nada'">
+                <img src="team/nada.jpeg" alt="Nada" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Nada'">
                 <h3 class="team-name">Nada Citra Indah</h3>
-                <span class="team-role">Head of Secretary</span>
+                <span class="team-role" data-en="Head of Secretary" data-id="Kepala Sekretaris">Head of Secretary</span>
             </div>
             <div class="team-card">
-                <img src="team/sinta.jpeg" alt="Sinta" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Sinta'">
+                <img src="team/sinta.jpeg" alt="Sinta" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Sinta'">
                 <h3 class="team-name">Sinta Khoridatul Bahiyah</h3>
-                <span class="team-role">Head of Treasurer</span>
+                <span class="team-role" data-en="Head of Treasure" data-id="Kepala Bendahara">Head of Treasure</span>
             </div>
             <div class="team-card">
-                <img src="team/kanzha.jpeg" alt="Kanzha" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Kanzha'">
+                <img src="team/kanzha.jpeg" alt="Kanzha" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Kanzha'">
                 <h3 class="team-name">Kanzha</h3>
-                <span class="team-role">Vice Head of Treasurer</span>
+                <span class="team-role" data-en="Vice Head of Treasure" data-id="Wakil Kepala Bendahara">Vice Head of Treasure</span>
             </div>
         </div>
 
-        <!-- DIVISION: HUMAN & GENERAL RESOURCES -->
-        <h2 class="div-title" data-en="Resources Management" data-id="Manajemen Sumber Daya">Resources Management</h2>
+        <!-- HUMAN & GENERAL RESOURCES -->
+        <h2 class="div-title" data-en="Human & General Resources" data-id="Sumber Daya Manusia & Umum">Human & General Resources</h2>
         <div class="team-grid">
             <div class="team-card">
-                <img src="team/jensen.jpeg" alt="Jensen" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Jensen'">
+                <img src="team/jensen.jpeg" alt="Jensen" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Jensen'">
                 <h3 class="team-name">Jensen Joseph Wenur</h3>
-                <span class="team-role">Head of Human Resources</span>
+                <span class="team-role" data-en="Head of Human Resources" data-id="Kepala SDM">Head of Human Resources</span>
             </div>
             <div class="team-card">
-                <img src="team/hafiz.jpeg" alt="Hafiz" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Hafiz'">
+                <img src="team/hafiz.jpeg" alt="Hafiz" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Hafiz'">
                 <h3 class="team-name">Hafiz Izzandi Pratama</h3>
-                <span class="team-role">Head of General Resources</span>
+                <span class="team-role" data-en="Head of General Resources" data-id="Kepala Sumber Daya Umum">Head of General Resources</span>
             </div>
             <div class="team-card">
-                <img src="team/gusti.jpeg" alt="Gusti" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Gusti'">
-                <h3 class="team-name">I Gusti Gede Wastu W.</h3>
-                <span class="team-role">Vice Head of General Resources</span>
+                <img src="team/gusti.jpeg" alt="Gusti" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Gusti'">
+                <h3 class="team-name">I Gusti Gede Wastu Widyatama</h3>
+                <span class="team-role" data-en="Vice Head of General Resources" data-id="Wakil Kepala SDU">Vice Head of General Resources</span>
             </div>
         </div>
 
-        <!-- DIVISION: ROI & PR -->
+        <!-- R.O.I & PUBLIC RELATIONS -->
         <h2 class="div-title" data-en="Research & Public Relations" data-id="Riset & Hubungan Masyarakat">Research & Public Relations</h2>
         <div class="team-grid">
             <div class="team-card">
-                <img src="team/ahsan.jpeg" alt="Ahsan" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Ahsan'">
-                <h3 class="team-name">Muh. Ahsan Ilham S. Z.</h3>
-                <span class="team-role">Head of R.O.I.</span>
+                <img src="team/ahsan.jpeg" alt="Ahsan" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Ahsan'">
+                <h3 class="team-name">Muh. Ahsan Ilham Safatullah Zulni</h3>
+                <span class="team-role" data-en="Head of Research, Observation, and Innovation" data-id="Kepala R.O.I.">Head of Research, Observation, and Innovation</span>
             </div>
             <div class="team-card">
-                <img src="team/whitney.jpeg" alt="Whitney" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Whitney'">
+                <img src="team/whitney.jpeg" alt="Whitney" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Whitney'">
                 <h3 class="team-name">Whitney Mutiara Matindas</h3>
-                <span class="team-role">Head of Internal PR</span>
+                <span class="team-role" data-en="Head of Internal Public Relations" data-id="Kepala Humas Internal">Head of Internal Public Relations</span>
             </div>
             <div class="team-card">
-                <img src="team/nayla.jpeg" alt="Nayla" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Nayla'">
+                <img src="team/nayla.jpeg" alt="Nayla" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Nayla'">
                 <h3 class="team-name">Nayla Aida Harin Savitri</h3>
-                <span class="team-role">Vice Head of Internal PR</span>
+                <span class="team-role" data-en="Vice Head of Internal Public Relations" data-id="Wakil Kepala Humas Internal">Vice Head of Internal Public Relations</span>
             </div>
             <div class="team-card">
-                <img src="team/lingga.jpeg" alt="Lingga" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Lingga'">
+                <img src="team/lingga.jpeg" alt="Lingga" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Lingga'">
                 <h3 class="team-name">Lingga Putra Pratama</h3>
-                <span class="team-role">Head of External PR</span>
+                <span class="team-role" data-en="Head of External Public Relations" data-id="Kepala Humas Eksternal">Head of External Public Relations</span>
             </div>
         </div>
 
-        <!-- DIVISION: CREATIVE (MULTIMEDIA & DOC) -->
-        <h2 class="div-title" data-en="Creative & Documentation" data-id="Kreatif & Dokumentasi">Creative & Documentation</h2>
+        <!-- CREATIVE: MULTIMEDIA & DOCUMENTATION -->
+        <h2 class="div-title" data-en="Multimedia & Documentation" data-id="Multimedia & Dokumentasi">Multimedia & Documentation</h2>
         <div class="team-grid">
             <div class="team-card">
-                <img src="team/donna.jpeg" alt="Donna" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Donna'">
+                <img src="team/donna.jpeg" alt="Donna" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Donna'">
                 <h3 class="team-name">Donna Amelia Michael</h3>
-                <span class="team-role">Head of Multimedia</span>
+                <span class="team-role" data-en="Head of Multimedia" data-id="Kepala Multimedia">Head of Multimedia</span>
             </div>
             <div class="team-card">
-                <img src="team/nabila.jpeg" alt="Nabila" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Nabila'">
+                <img src="team/nabila.jpeg" alt="Nabila" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Nabila'">
                 <h3 class="team-name">Nabila Puty Naeka</h3>
-                <span class="team-role">Vice Head of Multimedia</span>
+                <span class="team-role" data-en="Vice Head of Multimedia" data-id="Wakil Kepala Multimedia">Vice Head of Multimedia</span>
             </div>
             <div class="team-card">
-                <img src="team/jeremia.jpeg" alt="Jeremia" class="team-img" onerror="this.src='https://via.placeholder.com/150/0f3522/fcd34d?text=Jeremia'">
+                <img src="team/jeremia.jpeg" alt="Jeremia" class="team-img" onerror="this.src='https://via.placeholder.com/160/0f3522/fcd34d?text=Jeremia'">
                 <h3 class="team-name">Jeremia Sinarta Girsang</h3>
-                <span class="team-role">Vice Head of Documentation</span>
+                <span class="team-role" data-en="Vice Head of Documentation" data-id="Wakil Kepala Dokumentasi">Vice Head of Documentation</span>
             </div>
         </div>
 
