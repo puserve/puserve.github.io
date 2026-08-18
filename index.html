@@ -78,9 +78,13 @@
             .hero-title { font-size: 3rem; }
         }
 
-        /* SMART FAB DOCKED AT VERY BOTTOM */
-        .fab-container { position: fixed; bottom: 20px; left: 20px; z-index: 998; display: flex; flex-direction: column-reverse; align-items: center; gap: 10px; }
-        .fab-options { display: flex; flex-direction: column-reverse; gap: 10px; opacity: 0; transform: scale(0.5) translateY(20px); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
+        /* DYNAMIC LEAVES CURSOR */
+        .cursor-leaf { position: fixed; width: 12px; height: 12px; background-color: var(--puserve-yellow); border-radius: 0 12px 0 12px; pointer-events: none; z-index: 99999; animation: leafFall 1s linear forwards; opacity: 0.8; }
+        @keyframes leafFall { 0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; } 100% { transform: translateY(60px) rotate(120deg) scale(0.3); opacity: 0; } }
+
+        /* SMART FAB DOCKED AT VERY BOTTOM (FIXED ORDER) */
+        .fab-container { position: fixed; bottom: 20px; left: 20px; z-index: 998; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .fab-options { display: flex; flex-direction: column; gap: 10px; opacity: 0; transform: scale(0.5) translateY(20px); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
         .fab-container.open .fab-options { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
         .fab-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--primary-green); border: 2px solid rgba(255,255,255,0.1); color: #ffffff; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .fab-btn:hover { border-color: var(--puserve-yellow); color: var(--puserve-yellow); }
@@ -198,8 +202,26 @@
         body.eco-mode * { animation-play-state: paused !important; }
         body.eco-mode .section-title { color: var(--white); }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
+
+    <!-- DYNAMIC LEAVES (RESCUED FROM THE VOID) -->
+    <script>
+        document.addEventListener('mousemove', function(e) {
+            let isEco = localStorage.getItem('puserve_eco') === 'true';
+            if(isEco) return; // Daun mati kalo Eco-Mode on biar hemat baterai
+            
+            if(Math.random() > 0.90) {
+                const leaf = document.createElement('div');
+                leaf.className = 'cursor-leaf';
+                leaf.style.left = (e.clientX + 10) + 'px';
+                leaf.style.top = (e.clientY + 10) + 'px';
+                document.body.appendChild(leaf);
+                setTimeout(() => { leaf.remove(); }, 1000);
+            }
+        });
+    </script>
 
     <!-- TOAST NOTIFICATION -->
     <div id="toast">
@@ -213,16 +235,19 @@
     </div>
 
     <!-- SMART FAB (ECO & LANG TOGGLE) DOCKED BOTTOM LEFT -->
+    <!-- ORDER: LANG (TOP), ECO (MIDDLE), GEAR (BOTTOM) -->
     <div class="fab-container" id="fabContainer">
         <div class="fab-options">
+            <!-- LANG AT THE TOP -->
             <button class="fab-btn" id="langToggle" aria-label="Toggle Language" title="Translate EN/ID">
                 <span class="lang-text" id="langText">EN</span>
             </button>
+            <!-- ECO IN THE MIDDLE -->
             <button class="fab-btn" id="ecoToggle" aria-label="Toggle Eco Mode" title="Eco Mode">
                 <svg id="ecoIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
             </button>
         </div>
-        <!-- TOMBOL GEAR UTAMA -->
+        <!-- GEAR AT THE BOTTOM -->
         <button class="fab-btn fab-main" id="fabMain" title="Settings">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         </button>
@@ -248,17 +273,17 @@
             <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 0.95rem; line-height: 1.5;" data-en="Select your inquiry type below. The system will prepare an official email draft for you." data-id="Pilih jenis keperluan Anda. Sistem akan menyiapkan draf email resmi untuk Anda.">Select your inquiry type below. The system will prepare an official email draft for you.</p>
             
             <a href="mailto:preserve.presuniv@gmail.com?subject=Partnership%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AWe%20would%20like%20to%20propose%20a%20collaboration%20regarding...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0AKami%20ingin%20mengajak%20kolaborasi%20mengenai...%0A%0ATerima%20kasih." class="modal-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 <span data-en="Partnership / Collaboration" data-id="Kemitraan / Kolaborasi">Partnership / Collaboration</span>
             </a>
             
             <a href="mailto:preserve.presuniv@gmail.com?subject=Volunteer%20Registration%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AMy%20name%20is%20[Name],%20batch%20[Year].%20I%20am%20interested%20in%20joining%20as%20a%20volunteer%20because...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0APerkenalkan%20nama%20saya%20[Nama],%20angkatan%20[Tahun].%20Saya%20tertarik%20untuk%20bergabung%20menjadi%20volunteer%20karena...%0A%0ATerima%20kasih." class="modal-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                 <span data-en="Volunteer Registration" data-id="Pendaftaran Volunteer">Volunteer Registration</span>
             </a>
             
             <a href="mailto:preserve.presuniv@gmail.com?subject=General%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AI%20would%20like%20to%20ask%20about...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0ASaya%20ingin%20bertanya%20terkait...%0A%0ATerima%20kasih." class="modal-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 <span data-en="General Inquiries" data-id="Pertanyaan Umum">General Inquiries</span>
             </a>
         </div>
@@ -329,6 +354,7 @@
         <div id="home-events-grid" class="events-grid">
             <div class="loader-container">
                 <div class="spinner"></div>
+                <!-- TEXT JANGAN PAKE EMOJI BIAR TETAP ELEGAN -->
                 <span data-en="Fetching initiatives..." data-id="Menarik data inisiatif...">Fetching initiatives...</span>
             </div>
         </div>
@@ -457,7 +483,7 @@
         const fabContainer = document.getElementById('fabContainer');
         fabMain.addEventListener('click', () => { fabContainer.classList.toggle('open'); });
 
-        // --- LANGUAGE SYSTEM ---
+        // --- LANGUAGE SYSTEM (PERSISTENT & ACCURATE) ---
         let currentLang = localStorage.getItem('puserve_lang') || 'EN';
         function applyLanguage() {
             document.getElementById('langText').innerText = currentLang;
@@ -465,7 +491,8 @@
                 el.innerHTML = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
                 if (el.placeholder) el.placeholder = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
             });
-            // Re-fetch to apply language date format
+            
+            // Re-fetch content to apply localized date
             if (document.getElementById('home-events-grid').innerHTML.indexOf('href') > -1) {
                 fetchContent('_events', 'home-events-grid', 'read.html');
                 fetchContent('_news', 'home-news-carousel', 'read-news.html');
