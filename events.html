@@ -6,6 +6,12 @@
     <title>Events & Programs | PUSERVE</title>
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="Events & Programs | PUSERVE" />
+    <meta property="og:description" content="Official events, programs, and public documentation of PUSERVE." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/puserve/puserve.github.io/main/logos/LOGO_PUSERVE.png" />
+    <meta property="og:type" content="website" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
     <style>
@@ -13,7 +19,6 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--dark-green); color: var(--white); display: flex; flex-direction: column; min-height: 100vh; }
 
-        /* NAVBAR */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: var(--dark-green); border-bottom: 1px solid var(--border-color); }
         .nav-logos { display: flex; align-items: center; gap: 15px; }
         .nav-logos img { height: 40px; width: auto; }
@@ -23,7 +28,6 @@
         .btn-join { background-color: var(--puserve-yellow); color: var(--dark-green) !important; padding: 8px 22px; border-radius: 25px; font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; text-decoration: none;}
         .btn-join:hover { background-color: #e5be3c; }
 
-        /* NAVBAR MOBILE */
         .menu-icon { display: none; flex-direction: column; cursor: pointer; width: 25px; z-index: 101; gap: 5px; }
         .menu-icon span { background: #ffffff; height: 2px; width: 100%; border-radius: 2px; transition: 0.3s; }
         @media (max-width: 768px) {
@@ -32,7 +36,6 @@
             .nav-links.active { display: flex; }
         }
 
-        /* MODAL POP-UP JOIN US */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.8); z-index: 999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; backdrop-filter: blur(5px); }
         .modal-overlay.show { opacity: 1; pointer-events: auto; }
         .modal-content-box { background: #0a3622; border: 1px solid #1a4d33; padding: 30px; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; position: relative; transform: translateY(20px); transition: 0.3s; }
@@ -45,21 +48,25 @@
         .btn-vol { background: rgba(255,255,255,0.05); color: white; border: 1px solid #8bada0; }
         .btn-vol:hover { background: white; color: #0a3622; }
 
-        /* HERO & CONTENT */
         header.hero { text-align: center; padding: 70px 20px 50px; background: radial-gradient(circle at top, var(--puserve-green) 0%, var(--dark-green) 100%); border-bottom: 1px solid var(--border-color); }
         .hero-title { color: var(--white); font-size: 2.8rem; margin-bottom: 15px; font-weight: 300; letter-spacing: 1px; }
         .hero-title strong { color: var(--puserve-yellow); font-weight: 700; }
         .hero-subtitle { color: var(--gray-text); font-size: 1.1rem; letter-spacing: 0.5px; }
 
-        main.container { flex: 1; max-width: 1100px; margin: 0 auto; padding: 50px 20px; width: 100%; }
-        .section-header { display: flex; align-items: center; margin-top: 50px; margin-bottom: 25px; }
+        /* SEARCH BAR CSS */
+        .search-bar-container { max-width: 1100px; margin: 30px auto 0; padding: 0 20px; display: flex; gap: 15px; }
+        .search-input { flex: 1; padding: 15px 25px; border-radius: 30px; border: 1px solid var(--border-color); background: #082115; color: white; outline: none; font-size: 1.05rem; transition: 0.3s; }
+        .search-input:focus { border-color: var(--puserve-yellow); box-shadow: 0 0 15px rgba(252, 211, 77, 0.1); }
+        .search-input::placeholder { color: var(--gray-text); }
+
+        main.container { flex: 1; max-width: 1100px; margin: 0 auto; padding: 20px 20px 50px; width: 100%; }
+        .section-header { display: flex; align-items: center; margin-top: 30px; margin-bottom: 25px; }
         .section-title { color: var(--white); font-size: 1.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-right: 20px; }
         .section-line { flex: 1; height: 1px; background-color: var(--border-color); }
         .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
 
         .empty-state { grid-column: 1 / -1; padding: 40px; text-align: center; background: rgba(255,255,255,0.02); border: 1px dashed var(--border-color); border-radius: 12px; color: var(--gray-text); font-size: 0.95rem; }
 
-        /* EVENT CARD */
         .event-card { background-color: var(--card-bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: all 0.3s ease; }
         .event-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.4); border-color: var(--puserve-yellow); }
         .event-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
@@ -102,6 +109,11 @@
         <p class="hero-subtitle">Organizational Transparency and Public Documentation</p>
     </header>
 
+    <!-- SEARCH BAR -->
+    <div class="search-bar-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search events, programs, or status...">
+    </div>
+
     <main class="container">
         <div class="section-header"><h2 class="section-title">Running</h2><div class="section-line"></div></div>
         <div id="grid-running" class="events-grid"><div class="empty-state">No ongoing events at this time.</div></div>
@@ -121,11 +133,8 @@
             <span class="close-modal-btn" onclick="closeJoinModal()">&times;</span>
             <h3 style="color: #fcd34d; margin-bottom: 10px;">Connect with PUSERVE</h3>
             <p style="color: #8bada0; margin-bottom: 25px; font-size: 0.9rem;">Choose your inquiry type. The system will generate an official email draft for you.</p>
-            
             <a href="mailto:preserve.presuniv@gmail.com?subject=Partnership%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AWe%20would%20like%20to%20propose%20a%20collaboration%20regarding...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0AKami%20ingin%20mengajak%20kolaborasi%20mengenai...%0A%0ATerima%20kasih." class="modal-btn btn-partner">🤝 Partnership / Collab</a>
-            
             <a href="mailto:preserve.presuniv@gmail.com?subject=Volunteer%20Registration%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AMy%20name%20is%20[Name],%20batch%20[Year].%20I%20am%20interested%20in%20joining%20as%20a%20volunteer%20because...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0APerkenalkan%20nama%20saya%20[Nama],%20angkatan%20[Tahun].%20Saya%20tertarik%20untuk%20bergabung%20menjadi%20volunteer%20karena...%0A%0ATerima%20kasih." class="modal-btn btn-vol">🌱 Join as Volunteer</a>
-            
             <a href="mailto:preserve.presuniv@gmail.com?subject=General%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AI%20would%20like%20to%20ask%20about...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0ASaya%20ingin%20bertanya%20terkait...%0A%0ATerima%20kasih." class="modal-btn btn-vol">✉️ Other Inquiries</a>
         </div>
     </div>
@@ -166,7 +175,6 @@
                         };
                         let img = getImgUrl(fm.thumbnail);
 
-                        // ENGLISH DATE FORMAT
                         let cleanDate = fm.date;
                         try {
                             const d = new Date(fm.date);
@@ -192,8 +200,7 @@
                                         </div>
                                     </div>
                                     <div class="read-more">
-                                        Read Document 
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                        Read Document <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                                     </div>
                                 </div>
                             </a>
@@ -213,6 +220,20 @@
             } catch (error) { console.error("Error:", error); }
         }
         loadCatalog();
+
+        // MESIN LIVE SEARCH
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('.event-card').forEach(card => {
+                const title = card.querySelector('.event-title').innerText.toLowerCase();
+                const status = card.querySelector('.event-status').innerText.toLowerCase();
+                if(title.includes(term) || status.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
     </script>
 </body>
 </html>
