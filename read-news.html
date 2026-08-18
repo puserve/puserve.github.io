@@ -6,26 +6,31 @@
     <title>PUSERVE OUTLOOK | Article</title>
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="PUSERVE OUTLOOK | Article" />
+    <meta property="og:description" content="Read the full article regarding environmental issues and insights." />
+    <meta property="og:image" content="https://raw.githubusercontent.com/puserve/puserve.github.io/main/logos/LOGO_PUSERVE.png" />
+    <meta property="og:type" content="article" />
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
     <style>
-        :root { --dark-green: #082619; --puserve-green: #11422b; --puserve-yellow: #fcd34d; --gray-text: #a3b8af; --white: #ffffff; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--dark-green); color: var(--white); display: flex; flex-direction: column; min-height: 100vh; }
+        :root { --dark-green: #082619; --puserve-green: #11422b; --puserve-yellow: #fcd34d; --gray-text: #a3b8af; --white: #ffffff; --border-color: #1a5c3d;}
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif;}
+        body { background-color: var(--dark-green); color: var(--white); display: flex; flex-direction: column; min-height: 100vh; }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: var(--dark-green); border-bottom: 1px solid #1a5c3d; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background-color: var(--dark-green); border-bottom: 1px solid var(--border-color); }
         .nav-logos { display: flex; align-items: center; gap: 10px; }
         .nav-logos img { height: 40px; width: auto; }
-        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
         .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; transition: 0.3s; }
         .nav-links a:hover { color: var(--puserve-yellow); }
-        .btn-join { background-color: var(--puserve-yellow); color: var(--dark-green); padding: 8px 20px; border-radius: 25px; font-weight: bold; }
 
         main { flex: 1; padding: 40px 20px; display: flex; justify-content: center; }
-        .paper { background-color: var(--puserve-green); border: 1px solid #1a5c3d; max-width: 850px; width: 100%; border-radius: 16px; padding: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow-wrap: break-word; word-wrap: break-word; }
+        .paper { background-color: var(--puserve-green); border: 1px solid var(--border-color); max-width: 850px; width: 100%; border-radius: 16px; padding: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow-wrap: break-word; word-wrap: break-word; }
 
-        .pr-header { text-align: center; border-bottom: 1px solid #1a5c3d; padding-bottom: 25px; margin-bottom: 30px; }
+        .pr-header { text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 25px; margin-bottom: 30px; }
         .pr-tag { color: var(--puserve-yellow); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
         .pr-title { font-size: 2.5rem; color: var(--white); margin: 15px 0; line-height: 1.3; }
         .pr-meta { color: var(--gray-text); font-size: 0.95rem; }
@@ -39,15 +44,21 @@
         .pr-body a { color: var(--puserve-yellow); }
         .pr-body ul, .pr-body ol { margin-left: 20px; margin-bottom: 20px; }
 
-        /* QUOTE BOX (Gantiin Outcome box) */
+        /* QUOTE BOX */
         .outcome-box { background-color: #051a11; border-left: 5px solid var(--puserve-yellow); padding: 25px; margin-top: 40px; border-radius: 0 12px 12px 0; }
         .outcome-title { color: var(--puserve-yellow); font-weight: bold; font-size: 1rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
         .outcome-text { font-size: 1.3rem; font-style: italic; color: var(--white); font-family: 'Georgia', serif; }
 
+        /* SHARE BUTTON CSS */
+        .share-box { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); display: flex; gap: 15px; flex-wrap: wrap; }
+        .share-btn { padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; border: none; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: 0.3s; font-family: 'Segoe UI', sans-serif;}
+        .btn-wa { background: #25D366; color: white; } .btn-wa:hover { background: #128C7E; transform: translateY(-3px); }
+        .btn-copy { background: #051a11; color: white; border: 1px solid var(--border-color); } .btn-copy:hover { border-color: var(--puserve-yellow); color: var(--puserve-yellow); transform: translateY(-3px); }
+
         .back-link { display: inline-flex; align-items: center; margin-bottom: 25px; color: var(--gray-text); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
         .back-link:hover { color: var(--puserve-yellow); transform: translateX(-5px); }
 
-        footer { background-color: #051a11; text-align: center; padding: 30px 20px; color: var(--gray-text); border-top: 1px solid #1a5c3d; }
+        footer { background-color: #051a11; text-align: center; padding: 30px 20px; color: var(--gray-text); border-top: 1px solid var(--border-color); }
 
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -56,6 +67,7 @@
             .pr-title { font-size: 1.8rem; }
             .body-images { flex-direction: column; gap: 15px; }
             .body-images img { width: 100%; max-height: 250px; }
+            .share-btn { flex: 1; justify-content: center; }
         }
     </style>
 </head>
@@ -63,16 +75,14 @@
 
     <nav>
         <div class="nav-logos">
-            <img src="logos/LOGO_PU.png" alt="President University">
-            <img src="logos/LOGO_CEDRS.png" alt="CEDRS">
-            <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE">
+            <a href="index.html"><img src="logos/LOGO_PU.png" alt="President University"></a>
+            <a href="index.html"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"></a>
+            <a href="index.html"><img src="logos/LOGO_PUSERVE.png" alt="PUSERVE"></a>
         </div>
- <div class="nav-links">
-            <a href="index.html">About</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
             <a href="events.html">Events</a>
             <a href="news.html" style="color: var(--puserve-yellow);">Outlook</a>
-            <a href="easter_egg.jpeg" target="_blank" style="color: transparent; position: absolute; top: 0; right: 0; width: 20px; height: 20px;">.</a>
-            <a href="#" class="btn-join">Join Us</a>
         </div>
     </nav>
 
@@ -81,7 +91,7 @@
             <a href="news.html" class="back-link">← Back to Outlook</a>
 
             <div id="pr-content">
-                <h2 style="text-align:center; color:#a3b8af;">Hang Tight!...</h2>
+                <h2 style="text-align:center; color:#a3b8af;">Fetching Article...</h2>
             </div>
         </div>
     </main>
@@ -93,6 +103,18 @@
         const params = new URLSearchParams(window.location.search);
         const fileName = params.get('file');
 
+        // Fungsi Share Sosial Media
+        window.currentArticleTitle = "PUSERVE Outlook";
+        function shareWA() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`Check out this update from PUSERVE: ${window.currentArticleTitle}\n\n`);
+            window.open(`https://api.whatsapp.com/send?text=${text}${url}`, '_blank');
+        }
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert("Link copied to clipboard!");
+        }
+
         async function loadPressRelease() {
             const contentDiv = document.getElementById('pr-content');
 
@@ -102,9 +124,9 @@
             }
 
             try {
-                // NYEDOT DATA DARI FOLDER _news 
+                // FOLDER _news 
                 const response = await fetch(`https://raw.githubusercontent.com/${repoName}/main/_news/${fileName}`);
-                if (!response.ok) throw new Error("Failed to retrieve data");
+                if (!response.ok) throw new Error("Gagal mengambil data");
 
                 const mdText = await response.text();
                 const parts = mdText.split('---');
@@ -112,6 +134,7 @@
                 if (parts.length >= 3) {
                     const fm = jsyaml.load(parts[1]);
                     const bodyHTML = marked.parse(parts.slice(2).join('---'));
+                    window.currentArticleTitle = fm.title;
 
                     const getImgUrl = (img) => {
                         if (!img) return '';
@@ -125,15 +148,13 @@
                     const img3 = getImgUrl(fm.image_3);
 
                     let cleanDate = fm.date;
-                    if (fm.date instanceof Date) {
-                        cleanDate = fm.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-                    }
+                    if (fm.date instanceof Date) { cleanDate = fm.date.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }); }
 
                     let html = `
                         <div class="pr-header">
                             <div class="pr-tag">PUSERVE OUTLOOK REPORT</div>
                             <h1 class="pr-title">${fm.title}</h1>
-                            <div class="pr-meta"><b>Jakarta, ID</b> | ${cleanDate} | Author: ${fm.author || 'PUSERVE Redaction Team'}</div>
+                            <div class="pr-meta"><b>Jakarta, ID</b> | ${cleanDate} | Author: ${fm.author || 'PUSERVE Editorial'}</div>
                         </div>
                     `;
 
@@ -148,20 +169,32 @@
                         html += `</div>`;
                     }
 
-                    // TAMPILIN QUOTE PENTING DI BAWAH ARTIKEL
                     if (fm.quote) {
                         html += `
                             <div class="outcome-box">
-                                <div class="outcome-title">❞ QUOTES</div>
+                                <div class="outcome-title">❞ KEY TAKEAWAY</div>
                                 <div class="outcome-text">"${fm.quote}"</div>
                             </div>
                         `;
                     }
 
+                    // KOTAK SHARE WHATSAPP
+                    html += `
+                        <div class="share-box">
+                            <button onclick="shareWA()" class="share-btn btn-wa">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                                Share to WhatsApp
+                            </button>
+                            <button onclick="copyLink()" class="share-btn btn-copy">
+                                🔗 Copy Link
+                            </button>
+                        </div>
+                    `;
+
                     contentDiv.innerHTML = html;
                 }
             } catch (error) {
-                contentDiv.innerHTML = `<h2 style='color:var(--puserve-yellow); text-align:center;'>Failed to load the article. Check your connection or the file.</h2>`;
+                contentDiv.innerHTML = `<h2 style='color:var(--puserve-yellow); text-align:center;'>Failed to load article. Check connection.</h2>`;
             }
         }
 
