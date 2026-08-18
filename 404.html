@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Lost in the Forest | PUSERVE</title>
+    <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
+        
+        body, html { margin: 0; padding: 0; width: 100%; height: 100vh; background-color: #051810; color: white; font-family: 'Plus Jakarta Sans', sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: hidden; }
+        
+        .bg-pattern { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(#1a4d33 1px, transparent 1px); background-size: 40px 40px; opacity: 0.1; z-index: -1; }
+        
+        .error-code { font-size: 8rem; font-weight: 800; color: #fcd34d; margin-bottom: 0; line-height: 1; letter-spacing: -5px; text-shadow: 0 10px 30px rgba(252, 211, 77, 0.2); }
+        .error-title { font-size: 2rem; font-weight: 700; margin-bottom: 15px; }
+        .error-desc { font-size: 1.1rem; color: #8bada0; max-width: 500px; margin-bottom: 40px; line-height: 1.6; }
+        
+        .back-btn { background-color: #fcd34d; color: #051810; padding: 15px 35px; border-radius: 30px; font-weight: 800; font-size: 1.1rem; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .back-btn:hover { background-color: white; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+        
+        .leaf-1, .leaf-2 { position: absolute; opacity: 0.3; filter: blur(2px); z-index: -1; }
+        .leaf-1 { top: 10%; left: 10%; font-size: 5rem; animation: float 6s ease-in-out infinite; }
+        .leaf-2 { bottom: 10%; right: 10%; font-size: 8rem; animation: float 8s ease-in-out infinite reverse; }
+        
+        @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(10deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="leaf-1">🍃</div>
+    <div class="leaf-2">🌲</div>
+
+    <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE" style="width: 80px; margin-bottom: 20px;">
+    
+    <div class="error-code">404</div>
+    <div class="error-title">Oops! You wandered too deep.</div>
+    <div class="error-desc">The page you are looking for has either been moved, deleted, or swallowed by the forest. Let's get you back to the main camp.</div>
+    
+    <a href="index.html" class="back-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Return to Basecamp
+    </a>
+</body>
+</html>
+
