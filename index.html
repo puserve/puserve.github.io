@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- NATIVE MORPHING TRANSITION MAGIC -->
+    <meta name="view-transition" content="same-origin">
+    
     <title>PUSERVE | President University Serve Environment</title>
     
-    <!-- OPEN GRAPH CONSISTENCY -->
     <meta property="og:title" content="PUSERVE | Official Portal">
     <meta property="og:description" content="Real Environmental Action, Education, and Sustainability at President University.">
     <meta property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
@@ -15,120 +17,227 @@
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         
         :root { --dark-green: #051810; --puserve-green: #0a2618; --card-bg: #0f3522; --puserve-yellow: #fcd34d; --white: #ffffff; --gray-text: #8bada0; --border-color: #1a4d33; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         html { scroll-behavior: smooth; }
-        body { background-color: var(--dark-green); color: var(--white); overflow-x: hidden; transition: background-color 0.5s; opacity: 0; animation: fadeInPage 0.8s forwards; }
+        body { background-color: var(--dark-green); color: var(--white); overflow-x: hidden; transition: background-color 0.5s ease; }
         
-        @keyframes fadeInPage { to { opacity: 1; } }
+        /* MAGIC VIEW TRANSITION (MORPHING) */
+        @view-transition { navigation: auto; }
 
-        /* PAGE TRANSITION OVERLAY */
-        .page-transition { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--dark-green); z-index: 9999999; transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1); }
-        .page-transition.active { transform: translateY(0); }
-
-        /* TYPOGRAPHY & ELEGANCE */
-        h1, h2, h3 { font-weight: 700; letter-spacing: -0.5px; }
-        .hero-title { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
+        ::selection { background-color: var(--dark-green); color: var(--puserve-yellow); }
+        
+        /* TYPOGRAPHY */
+        h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; }
+        .hero-title { font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; }
         .highlight-gold { color: var(--puserve-yellow); }
         
+        /* ICONS */
+        svg { display: inline-block; vertical-align: middle; }
+
         /* NAVBAR */
-        nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 100; background: rgba(5, 24, 16, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: 0.4s; }
+        nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 100; background: rgba(5, 24, 16, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: 0.4s ease; }
         nav.nav-hidden { transform: translateY(-100%); }
-        .nav-logos img { height: 32px; margin-right: 15px; }
+        .nav-logos { display: flex; align-items: center; gap: 15px; }
+        .nav-logos img { height: 35px; object-fit: contain; }
+        
+        .menu-icon { display: none; flex-direction: column; cursor: pointer; width: 25px; gap: 5px; z-index: 105; position: relative; }
+        .menu-icon span { background: var(--white); height: 2px; width: 100%; border-radius: 2px; transition: 0.3s ease; }
+        
         .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
         .nav-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
         .nav-links a:hover { color: var(--puserve-yellow); }
-        .btn-join { background: var(--puserve-yellow); color: var(--dark-green) !important; padding: 10px 24px; border-radius: 30px; font-weight: 600 !important; }
+        .btn-join { background: var(--puserve-yellow); color: var(--dark-green) !important; padding: 10px 24px; border-radius: 30px; font-weight: 700 !important; border: none; cursor: pointer; }
         .btn-join:hover { background: #e5be3c; transform: translateY(-2px); }
 
-        /* GLOBAL FAB (ECO & LANG) */
-        .global-fab { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 10px; z-index: 998; }
-        .fab-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--white); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .fab-btn:hover { border-color: var(--puserve-yellow); color: var(--puserve-yellow); }
-        .lang-text { font-weight: 700; font-size: 0.85rem; }
+        @media (max-width: 1023px) {
+            .menu-icon { display: flex; }
+            .nav-links { display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: #030d09; padding: 100px 30px 30px; border-left: 1px solid var(--border-color); align-items: flex-start; transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
+            .nav-links.active { right: 0; }
+            .hero-title { font-size: 3rem; }
+        }
+
+        /* SMART FAB (GLOBAL TOGGLES) */
+        .fab-container { position: fixed; bottom: 30px; left: 30px; z-index: 998; display: flex; flex-direction: column-reverse; align-items: center; gap: 15px; }
+        .fab-options { display: flex; flex-direction: column; gap: 10px; opacity: 0; transform: scale(0) translateY(20px); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
+        .fab-container.open .fab-options { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
+        .fab-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--dark-green); border: 1px solid var(--border-color); color: var(--white); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .fab-btn:hover { border-color: var(--puserve-yellow); color: var(--puserve-yellow); transform: scale(1.05); }
+        .fab-main { background: var(--card-bg); }
+        .fab-container.open .fab-main svg { transform: rotate(90deg); transition: 0.4s; }
+        .lang-text { font-weight: 800; font-size: 0.9rem; }
+
+        /* BACK TO TOP */
+        #back-to-top { position: fixed; bottom: -80px; right: 30px; width: 50px; height: 50px; background: var(--dark-green); color: var(--puserve-yellow); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border: 1px solid var(--puserve-yellow); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 998; }
+        #back-to-top.show { bottom: 30px; }
+        #back-to-top:hover { transform: translateY(-5px); background: var(--puserve-yellow); color: var(--dark-green); }
 
         /* HERO VIDEO */
-        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 0 5%; overflow: hidden; }
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 0 5%; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;}
         .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); z-index: -2; object-fit: cover; transition: opacity 0.5s; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(5,24,16,0.95) 0%, rgba(5,24,16,0.7) 50%, rgba(5,24,16,0.4) 100%); z-index: -1; }
-        .hero-content { z-index: 1; max-width: 700px; }
-        
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(5,24,16,0.95) 0%, rgba(5,24,16,0.7) 50%, rgba(5,24,16,0.4) 100%); z-index: -1; transition: background 0.5s; }
+        .hero-content { z-index: 1; max-width: 800px; }
+        .hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 35px; }
+        .primary-btn { background: var(--puserve-yellow); color: var(--dark-green); padding: 16px 40px; border-radius: 40px; font-size: 1.05rem; font-weight: 800; text-decoration: none; transition: 0.3s; }
+        .primary-btn:hover { background: var(--white); transform: translateY(-3px); }
+        .secondary-btn { background: rgba(255,255,255,0.1); color: var(--white); border: 1px solid rgba(255,255,255,0.2); padding: 16px 40px; border-radius: 40px; font-size: 1.05rem; font-weight: 700; text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); }
+        .secondary-btn:hover { background: rgba(255,255,255,0.2); border-color: var(--white); transform: translateY(-3px); }
+
         /* DATA GRID & CAROUSEL */
         .section-container { max-width: 1200px; margin: 0 auto; padding: 80px 5%; }
         .section-header { display: flex; align-items: center; margin-bottom: 30px; }
-        .section-title { font-size: 1.8rem; text-transform: uppercase; letter-spacing: 1px; margin-right: 20px; }
+        .section-title { font-size: 2rem; color: var(--white); text-transform: uppercase; letter-spacing: 1px; margin-right: 20px; }
         .section-line { flex: 1; height: 1px; background: var(--border-color); }
         
-        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .news-carousel { display: flex; overflow-x: auto; gap: 25px; padding-bottom: 20px; scroll-snap-type: x mandatory; }
+        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .news-carousel { display: flex; overflow-x: auto; gap: 30px; padding-bottom: 20px; scroll-snap-type: x mandatory; }
         .news-carousel::-webkit-scrollbar { height: 6px; }
         .news-carousel::-webkit-scrollbar-track { background: var(--dark-green); }
         .news-carousel::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
         
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: 0.3s; text-decoration: none; color: var(--white); min-width: 320px; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-5px); border-color: var(--puserve-yellow); }
-        .card-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
-        .card-body { padding: 25px; flex: 1; display: flex; flex-direction: column; }
-        .card-tag { color: var(--puserve-yellow); font-size: 0.75rem; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; }
-        .card-title { font-size: 1.2rem; margin-bottom: 15px; line-height: 1.4; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: 0.3s; text-decoration: none; color: var(--white); min-width: 350px; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-8px); border-color: var(--puserve-yellow); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+        .card-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+        .card-body { padding: 30px; flex: 1; display: flex; flex-direction: column; }
+        .card-tag { color: var(--puserve-yellow); font-size: 0.8rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 12px; }
+        .card-title { font-size: 1.3rem; margin-bottom: 15px; line-height: 1.4; font-weight: 700; }
+        .card-meta { display: flex; align-items: center; gap: 8px; color: var(--gray-text); font-size: 0.85rem; margin-top: auto; }
         
         /* Proper Empty & Loading States */
-        .loader-container { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 40px 0; color: var(--gray-text); grid-column: 1 / -1; }
-        .spinner { width: 30px; height: 30px; border: 3px solid rgba(252, 211, 77, 0.2); border-top-color: var(--puserve-yellow); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        .loader-container { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 0; color: var(--gray-text); grid-column: 1 / -1; }
+        .spinner { width: 40px; height: 40px; border: 3px solid rgba(252, 211, 77, 0.1); border-top-color: var(--puserve-yellow); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        .empty-state { grid-column: 1 / -1; padding: 40px; text-align: center; border: 1px dashed var(--border-color); border-radius: 12px; color: var(--gray-text); }
+        .empty-state { grid-column: 1 / -1; padding: 60px; text-align: center; border: 1px dashed var(--border-color); border-radius: 16px; color: var(--gray-text); font-size: 1.1rem;}
 
-        /* FOOTER (FIXED) */
-        footer { background: #030d09; padding: 60px 5% 30px; margin-top: 60px; border-top: 1px solid var(--border-color); }
-        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px; margin-bottom: 40px; }
-        .footer-brand p { color: var(--gray-text); margin-top: 15px; font-size: 0.9rem; line-height: 1.6; max-width: 350px; }
-        .social-links { display: flex; gap: 15px; margin-top: 20px; }
-        .social-links a { color: var(--white); opacity: 0.6; transition: 0.3s; }
-        .social-links a:hover { opacity: 1; color: var(--puserve-yellow); }
+        /* IMPACT COUNTER */
+        .impact-box { display: flex; flex-wrap: wrap; justify-content: space-around; background: var(--puserve-green); border: 1px solid var(--border-color); border-radius: 20px; padding: 50px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); margin-bottom: 80px; }
+        .impact-item { text-align: center; margin: 15px; flex: 1; min-width: 200px; }
+        .impact-num { font-size: 4rem; color: var(--puserve-yellow); font-weight: 800; margin-bottom: 5px; line-height: 1; }
+        .impact-label { color: var(--gray-text); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-size: 0.95rem; }
+
+        /* PROFESSIONAL CONTACT MODAL */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.85); z-index: 999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s; backdrop-filter: blur(8px); }
+        .modal-overlay.show { opacity: 1; pointer-events: auto; }
+        .modal-content-box { background: var(--puserve-green); border: 1px solid var(--border-color); padding: 40px; border-radius: 20px; width: 90%; max-width: 450px; text-align: left; position: relative; transform: translateY(30px) scale(0.95); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
+        .modal-overlay.show .modal-content-box { transform: translateY(0) scale(1); }
+        .close-modal-btn { position: absolute; top: 20px; right: 25px; color: var(--gray-text); cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;}
+        .close-modal-btn:hover { color: var(--puserve-yellow); transform: rotate(90deg); }
+        .modal-btn { display: flex; align-items: center; gap: 15px; width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: 0.3s; cursor: pointer; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); color: var(--white); }
+        .modal-btn:hover { background: var(--puserve-yellow); color: var(--dark-green); border-color: var(--puserve-yellow); transform: translateX(5px); }
+
+        /* FOOTER (FIXED & PROFESSIONAL) */
+        footer { background: #030d09; padding: 80px 5% 40px; margin-top: 60px; border-top: 1px solid var(--border-color); }
+        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 60px; margin-bottom: 50px; }
+        .footer-brand { display: flex; flex-direction: column; gap: 15px; }
+        .footer-logos { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+        .footer-logos img { height: 45px; }
+        .brand-name { color: var(--white); font-weight: 800; font-size: 1.5rem; line-height: 1.2; }
+        .brand-sub { color: var(--puserve-yellow); font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; }
+        .footer-desc { color: var(--gray-text); font-size: 0.95rem; line-height: 1.7; max-width: 380px; }
+        
+        .footer-heading { color: var(--puserve-yellow); font-weight: 800; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+        .footer-links a, .contact-item { color: var(--gray-text); text-decoration: none; transition: 0.3s; font-size: 0.95rem; display: flex; align-items: flex-start; gap: 12px;}
+        .footer-links a:hover, .contact-item:hover { color: var(--white); padding-left: 5px; }
         
         /* Newsletter Real Form */
-        .newsletter-form { display: flex; gap: 10px; margin-top: 15px; }
-        .newsletter-input { flex: 1; padding: 12px 15px; border-radius: 8px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); color: white; outline: none; }
-        .newsletter-btn { padding: 0 20px; background: var(--puserve-yellow); border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .newsletter-btn:hover { background: white; }
+        .newsletter-form { display: flex; gap: 10px; margin-top: 20px; }
+        .newsletter-input { flex: 1; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); color: white; outline: none; font-size: 0.95rem; }
+        .newsletter-input:focus { border-color: var(--puserve-yellow); }
+        .newsletter-btn { padding: 0 25px; background: var(--puserve-yellow); color: var(--dark-green); border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .newsletter-btn:hover { background: var(--white); }
 
-        .hidden { display: none !important; }
-        body.eco-mode { background-color: #020806; }
-        body.eco-mode .hero-overlay { background: #020806; }
+        .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-size: 0.9rem; color: var(--gray-text); }
+        .social-links { display: flex; gap: 20px; }
+        .social-links a { color: var(--gray-text); transition: 0.3s; }
+        .social-links a:hover { color: var(--puserve-yellow); transform: translateY(-3px); }
+
+        @media screen and (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 50px; } .footer-bottom { flex-direction: column; text-align: center; } .impact-item { min-width: 100%; margin: 20px 0;} }
+
+        /* TOAST NOTIF */
+        #toast { visibility: hidden; min-width: 250px; background-color: var(--card-bg); color: var(--white); text-align: center; border-radius: 8px; padding: 18px 25px; position: fixed; z-index: 999999; left: 50%; bottom: 20px; transform: translateX(-50%); border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-weight: 600; opacity: 0; transition: opacity 0.4s, bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: flex; align-items: center; justify-content: center; gap: 10px;}
+        #toast.show { visibility: visible; opacity: 1; bottom: 40px; border-color: var(--puserve-yellow);}
+
+        /* ECO MODE TOGGLE CLASS */
+        body.eco-mode { background-color: #020806 !important; }
+        body.eco-mode .hero-overlay { background: #020806 !important; }
         body.eco-mode video { display: none; }
+        body.eco-mode * { animation-play-state: paused !important; }
+        body.eco-mode .card, body.eco-mode .modal-content-box { border-color: #051810; box-shadow: none !important; }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
 
-    <!-- PAGE TRANSITION -->
-    <div class="page-transition" id="pageTransition"></div>
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <span id="toast-msg"></span>
+    </div>
 
-    <!-- GLOBAL Toggles (Lang & Eco) -->
-    <div class="global-fab">
-        <button class="fab-btn" id="langToggle" aria-label="Toggle Language">
-            <span class="lang-text" id="langText">EN</span>
+    <!-- BACK TO TOP -->
+    <div id="back-to-top" title="Scroll to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </div>
+
+    <!-- SMART FAB (ECO & LANG TOGGLE) -->
+    <div class="fab-container" id="fabContainer">
+        <div class="fab-options">
+            <button class="fab-btn" id="langToggle" aria-label="Toggle Language" title="Translate EN/ID">
+                <span class="lang-text" id="langText">EN</span>
+            </button>
+            <button class="fab-btn" id="ecoToggle" aria-label="Toggle Eco Mode" title="Eco Mode">
+                <svg id="ecoIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+            </button>
+        </div>
+        <button class="fab-btn fab-main" id="fabMain" title="Settings">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         </button>
-        <button class="fab-btn" id="ecoToggle" aria-label="Toggle Eco Mode">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
-        </button>
+    </div>
+
+    <!-- PROFESSIONAL MODAL JOIN US -->
+    <div id="join-modal" class="modal-overlay">
+        <div class="modal-content-box">
+            <span class="close-modal-btn" onclick="closeJoinModal()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </span>
+            <h3 style="color: var(--puserve-yellow); margin-bottom: 10px; font-size: 1.5rem;" data-en="Connect with Us" data-id="Hubungi Kami">Connect with Us</h3>
+            <p style="color: var(--gray-text); margin-bottom: 30px; font-size: 0.95rem; line-height: 1.5;" data-en="Select your inquiry type below. The system will prepare an official email draft for you." data-id="Pilih jenis keperluan Anda. Sistem akan menyiapkan draf email resmi untuk Anda.">Select your inquiry type below. The system will prepare an official email draft for you.</p>
+            
+            <a href="mailto:preserve.presuniv@gmail.com?subject=Partnership%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AWe%20would%20like%20to%20propose%20a%20collaboration%20regarding...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0AKami%20ingin%20mengajak%20kolaborasi%20mengenai...%0A%0ATerima%20kasih." class="modal-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span data-en="Partnership / Collaboration" data-id="Kemitraan / Kolaborasi">Partnership / Collaboration</span>
+            </a>
+            
+            <a href="mailto:preserve.presuniv@gmail.com?subject=Volunteer%20Registration%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AMy%20name%20is%20[Name],%20batch%20[Year].%20I%20am%20interested%20in%20joining%20as%20a%20volunteer%20because...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0APerkenalkan%20nama%20saya%20[Nama],%20angkatan%20[Tahun].%20Saya%20tertarik%20untuk%20bergabung%20menjadi%20volunteer%20karena...%0A%0ATerima%20kasih." class="modal-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                <span data-en="Volunteer Registration" data-id="Pendaftaran Volunteer">Volunteer Registration</span>
+            </a>
+            
+            <a href="mailto:preserve.presuniv@gmail.com?subject=General%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AI%20would%20like%20to%20ask%20about...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0ASaya%20ingin%20bertanya%20terkait...%0A%0ATerima%20kasih." class="modal-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span data-en="General Inquiries" data-id="Pertanyaan Umum">General Inquiries</span>
+            </a>
+        </div>
     </div>
 
     <!-- NAVBAR -->
     <nav id="navbar">
         <div class="nav-logos">
-            <img src="logos/LOGO_PU.png" alt="PU">
-            <img src="logos/LOGO_CEDRS.png" alt="CEDRS">
-            <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE">
+            <a href="index.html"><img src="logos/LOGO_PU.png" alt="President University"></a>
+            <a href="index.html"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"></a>
+            <a href="index.html"><img src="logos/LOGO_PUSERVE.png" alt="PUSERVE"></a>
         </div>
-        <ul class="nav-links">
-            <li><a href="index.html" class="trans-link" data-en="Home" data-id="Beranda">Home</a></li>
-            <li><a href="events.html" class="trans-link" data-en="Events" data-id="Acara">Events</a></li>
-            <li><a href="news.html" class="trans-link" data-en="Outlook" data-id="Berita">Outlook</a></li>
-            <li><a href="team.html" class="trans-link" data-en="Team" data-id="Tim">Team</a></li>
-            <li><a href="#contact" class="btn-join trans-link" data-en="Connect" data-id="Hubungi">Connect</a></li>
+        <div class="menu-icon" id="hamburger-icon">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links" id="mobile-menu">
+            <li><a href="index.html" data-en="Home" data-id="Beranda">Home</a></li>
+            <li><a href="events.html" data-en="Events" data-id="Acara">Events</a></li>
+            <li><a href="news.html" data-en="Outlook" data-id="Berita">Outlook</a></li>
+            <li><a href="team.html" data-en="Team" data-id="Tim">Team</a></li>
+            <li><button onclick="openJoinModal()" class="btn-join" data-en="Connect" data-id="Hubungi">Connect</button></li>
         </ul>
     </nav>
 
@@ -139,9 +248,32 @@
             <source src="forestbg.webm" type="video/webm">
         </video>
         <div class="hero-content">
-            <p style="color: var(--gray-text); font-weight: 600; margin-bottom: 10px; letter-spacing: 1px;" id="hero-greeting" data-en="OFFICIAL PORTAL" data-id="PORTAL RESMI">OFFICIAL PORTAL</p>
+            <p style="color: var(--gray-text); font-weight: 700; margin-bottom: 15px; letter-spacing: 2px;" data-en="OFFICIAL PORTAL" data-id="PORTAL RESMI">OFFICIAL PORTAL</p>
             <h1 class="hero-title" data-en="Real Environmental Action.<br><span class='highlight-gold'>Empowering Changemakers.</span>" data-id="Aksi Lingkungan Nyata.<br><span class='highlight-gold'>Memberdayakan Perubahan.</span>">Real Environmental Action.<br><span class="highlight-gold">Empowering Changemakers.</span></h1>
-            <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; color: #d1e0d9;" data-en="Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet." data-id="Menciptakan ide, memperkuat kolaborasi, dan mengubahnya menjadi dampak nyata bagi planet kita.">Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet.</p>
+            <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 35px; color: #d1e0d9;" data-en="Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet." data-id="Menciptakan ide, memperkuat kolaborasi, dan mengubahnya menjadi dampak nyata bagi planet kita.">Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet.</p>
+            
+            <div class="hero-buttons">
+                <a href="#activities" class="primary-btn" data-en="Get Involved" data-id="Mulai Aksi">Get Involved</a>
+                <a href="https://drive.google.com/file/d/1WjKjPCBvSe0yt6PcfBsAFXr1NAu1X4sR/view?usp=drivesdk" target="_blank" class="secondary-btn" data-en="Explore Archive ➔" data-id="Eksplorasi Arsip ➔">Explore Archive ➔</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMPACT COUNTER (Restored & Upgraded) -->
+    <section class="section-container" style="padding-top: 80px; padding-bottom: 0;">
+        <div class="impact-box">
+            <div class="impact-item">
+                <div class="impact-num counter" data-target="50">0</div>
+                <div class="impact-label" data-en="Active Eco-Warriors" data-id="Pahlawan Lingkungan">Active Eco-Warriors</div>
+            </div>
+            <div class="impact-item">
+                <div class="impact-num counter" data-target="30">0</div>
+                <div class="impact-label" data-en="Campaigns Launched" data-id="Kampanye Terlaksana">Campaigns Launched</div>
+            </div>
+            <div class="impact-item">
+                <div class="impact-num counter" data-target="10">0</div>
+                <div class="impact-label" data-en="Community Partners" data-id="Mitra Komunitas">Community Partners</div>
+            </div>
         </div>
     </section>
 
@@ -157,56 +289,88 @@
                 <span data-en="Loading initiatives..." data-id="Memuat inisiatif...">Loading initiatives...</span>
             </div>
         </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="events.html" style="color: var(--white); text-decoration: none; font-weight: 700; font-size: 1.05rem; border-bottom: 2px solid var(--puserve-yellow); padding-bottom: 5px; transition: 0.3s;" onmouseover="this.style.color='var(--puserve-yellow)'" onmouseout="this.style.color='var(--white)'" data-en="View All Events ➔" data-id="Lihat Semua Acara ➔">View All Events ➔</a>
+        </div>
     </section>
 
     <!-- NEWS SECTION -->
-    <section class="section-container" style="padding-top: 0;">
+    <section class="section-container" style="padding-top: 0; padding-bottom: 40px;">
         <div class="section-header">
-            <h2 class="section-title" data-en="Latest Outlook" data-id="Kabar Terbaru">Latest Outlook</h2>
+            <h2 class="section-title" data-en="PUSERVE Outlook" data-id="PUSERVE Outlook">PUSERVE Outlook</h2>
             <div class="section-line"></div>
         </div>
+        <p style="color: var(--gray-text); margin-bottom: 30px; font-size: 1.1rem;" data-en="Latest Environmental News, Opinions, and Analysis." data-id="Berita, Opini, dan Analisis Lingkungan Terkini.">Latest Environmental News, Opinions, and Analysis.</p>
+        
         <div id="home-news-carousel" class="news-carousel">
             <div class="loader-container">
                 <div class="spinner"></div>
                 <span data-en="Loading outlook..." data-id="Memuat kabar...">Loading outlook...</span>
             </div>
         </div>
+        <div style="text-align: right; margin-top: 20px;">
+            <a href="news.html" style="color: var(--white); text-decoration: none; font-weight: 700; font-size: 1.05rem; border-bottom: 2px solid var(--puserve-yellow); padding-bottom: 5px; transition: 0.3s;" onmouseover="this.style.color='var(--puserve-yellow)'" onmouseout="this.style.color='var(--white)'" data-en="Read More Outlook ➔" data-id="Baca Kabar Lainnya ➔">Read More Outlook ➔</a>
+        </div>
     </section>
 
-    <!-- UNIFIED FOOTER -->
-    <footer id="contact">
+    <!-- PROFESSIONAL FOOTER (Restored Address & Real Form) -->
+    <footer>
         <div class="footer-grid">
             <div class="footer-brand">
-                <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE" style="width: 120px;">
-                <p data-en="A movement focused on environmental protection, sustainability, and social service for a better future." data-id="Gerakan yang berfokus pada perlindungan lingkungan, keberlanjutan, dan pengabdian sosial untuk masa depan yang lebih baik.">A movement focused on environmental protection, sustainability, and social service for a better future.</p>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/puserve.presuniv" target="_blank">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <div class="footer-logos">
+                    <img src="logos/LOGO_PU.png" alt="PU">
+                    <img src="logos/LOGO_CEDRS.png" alt="CEDRS">
+                    <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE">
+                </div>
+                <div>
+                    <div class="brand-name">PUSERVE</div>
+                    <div class="brand-sub">PRESIDENT UNIVERSITY</div>
+                </div>
+                <p class="footer-desc" data-en="A movement focused on environmental protection, sustainability, and social service for a better future." data-id="Gerakan yang berfokus pada perlindungan lingkungan, keberlanjutan, dan pengabdian sosial untuk masa depan yang lebih baik.">A movement focused on environmental protection, sustainability, and social service for a better future.</p>
+            </div>
+            
+            <div>
+                <div class="footer-heading" data-en="Navigation" data-id="Navigasi">Navigation</div>
+                <ul class="footer-links">
+                    <li><a href="index.html" data-en="Home & About" data-id="Beranda & Tentang">Home & About</a></li>
+                    <li><a href="events.html" data-en="Events & Programs" data-id="Acara & Program">Events & Programs</a></li>
+                    <li><a href="news.html" data-en="PUSERVE Outlook" data-id="PUSERVE Outlook">PUSERVE Outlook</a></li>
+                    <li><a href="team.html" data-en="Our Team" data-id="Tim Kami">Our Team</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <div class="footer-heading" data-en="Get Involved" data-id="Terlibat">Get Involved</div>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <a href="mailto:preserve.presuniv@gmail.com" class="contact-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        <span>preserve.presuniv@gmail.com</span>
                     </a>
-                    <a href="https://www.tiktok.com/@puserve.presuniv" target="_blank">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                    <a href="https://maps.app.goo.gl/chRf67w8mQhZfHst5?g_st=ac" target="_blank" class="contact-item">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span data-en="President University, Jl. Ki Hajar Dewantara, Cikarang Baru, Bekasi 17550 – Indonesia" data-id="President University, Jl. Ki Hajar Dewantara, Cikarang Baru, Bekasi 17550 – Indonesia">President University, Jl. Ki Hajar Dewantara, Cikarang Baru, Bekasi 17550 – Indonesia</span>
                     </a>
                 </div>
-            </div>
-            <div>
-                <h3 style="color: var(--white); margin-bottom: 20px; font-size: 1rem;" data-en="Navigation" data-id="Navigasi">Navigation</h3>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <a href="events.html" class="trans-link" style="color: var(--gray-text); text-decoration: none;">Events</a>
-                    <a href="news.html" class="trans-link" style="color: var(--gray-text); text-decoration: none;">Outlook</a>
-                    <a href="team.html" class="trans-link" style="color: var(--gray-text); text-decoration: none;">Our Team</a>
-                </div>
-            </div>
-            <div>
-                <h3 style="color: var(--white); margin-bottom: 20px; font-size: 1rem;" data-en="Stay Updated" data-id="Tetap Terhubung">Stay Updated</h3>
-                <p style="color: var(--gray-text); font-size: 0.9rem;" data-en="Subscribe to our official mailing list." data-id="Berlangganan milis resmi kami.">Subscribe to our official mailing list.</p>
-                
-                <!-- REAL NEWSLETTER FORM (Google Forms Hack) -->
-                <!-- Note: Replace action URL and entry.ID with your actual Google Form data -->
-                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){alert('Subscription successful!');}"></iframe>
-                <form action="#" method="POST" target="hidden_iframe" onsubmit="submitted=true;" class="newsletter-form">
-                    <input type="email" name="entry.123456789" placeholder="Email Address" required class="newsletter-input">
-                    <button type="submit" class="newsletter-btn">Join</button>
+
+                <div class="footer-heading" style="margin-top: 30px;" data-en="Newsletter" data-id="Buletin">Newsletter</div>
+                <!-- REAL FORM HACK -->
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){showToast(currentLang === 'EN' ? 'Subscription Successful!' : 'Berlangganan Berhasil!');}"></iframe>
+                <form action="#" method="POST" target="hidden_iframe" onsubmit="submitted=true; this.reset();" class="newsletter-form">
+                    <input type="email" name="entry.123456" placeholder="Email Address" required class="newsletter-input">
+                    <button type="submit" class="newsletter-btn" data-en="Join" data-id="Ikut">Join</button>
                 </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div>&copy; 2026 PUSERVE. President University. All rights reserved.</div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/puserve.presuniv" target="_blank" aria-label="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                </a>
+                <a href="https://www.tiktok.com/@puserve.presuniv" target="_blank" aria-label="TikTok">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+                </a>
             </div>
         </div>
     </footer>
@@ -214,64 +378,110 @@
     <script>
         var submitted = false;
 
-        // --- LANGUAGE TOGGLE LOGIC ---
-        const langToggle = document.getElementById('langToggle');
-        const langText = document.getElementById('langText');
-        let currentLang = localStorage.getItem('puserve_lang') || 'EN';
+        // --- GLOBAL TOAST ---
+        function showToast(msg) {
+            document.getElementById('toast-msg').innerText = msg;
+            let toast = document.getElementById("toast");
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 3000);
+        }
 
+        // --- MODAL LOGIC ---
+        function openJoinModal() { 
+            document.getElementById('mobile-menu').classList.remove('active'); // auto-close mobile menu
+            document.getElementById('join-modal').classList.add('show'); 
+        }
+        function closeJoinModal() { document.getElementById('join-modal').classList.remove('show'); }
+
+        // --- FAB TOGGLE LOGIC ---
+        const fabMain = document.getElementById('fabMain');
+        const fabContainer = document.getElementById('fabContainer');
+        fabMain.addEventListener('click', () => { fabContainer.classList.toggle('open'); });
+
+        // --- LANGUAGE SYSTEM ---
+        let currentLang = localStorage.getItem('puserve_lang') || 'EN';
         function applyLanguage() {
-            langText.innerText = currentLang;
+            document.getElementById('langText').innerText = currentLang;
             document.querySelectorAll('[data-en]').forEach(el => {
                 el.innerHTML = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
+                if (el.placeholder) el.placeholder = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
             });
         }
-        
-        langToggle.addEventListener('click', () => {
+        document.getElementById('langToggle').addEventListener('click', () => {
             currentLang = currentLang === 'EN' ? 'ID' : 'EN';
             localStorage.setItem('puserve_lang', currentLang);
             applyLanguage();
+            fabContainer.classList.remove('open');
         });
         applyLanguage();
 
-        // --- ECO MODE LOGIC ---
-        const ecoToggle = document.getElementById('ecoToggle');
+        // --- ECO MODE SYSTEM ---
         let isEco = localStorage.getItem('puserve_eco') === 'true';
-
         function applyEcoMode() {
+            const ecoIcon = document.getElementById('ecoIcon');
             if (isEco) {
                 document.body.classList.add('eco-mode');
                 document.getElementById('bg-video').pause();
-                ecoToggle.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fcd34d" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>'; // Lightning icon
+                ecoIcon.innerHTML = '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>'; // Lightning
             } else {
                 document.body.classList.remove('eco-mode');
                 document.getElementById('bg-video').play();
-                ecoToggle.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>'; // Leaf icon
+                ecoIcon.innerHTML = '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>'; // Leaf
             }
         }
-        
-        ecoToggle.addEventListener('click', () => {
+        document.getElementById('ecoToggle').addEventListener('click', () => {
             isEco = !isEco;
             localStorage.setItem('puserve_eco', isEco);
             applyEcoMode();
+            fabContainer.classList.remove('open');
+            showToast(currentLang === 'EN' ? (isEco ? "Eco-Mode Activated" : "Eco-Mode Disabled") : (isEco ? "Mode Hemat Daya Aktif" : "Mode Hemat Daya Nonaktif"));
         });
         applyEcoMode();
 
-        // --- PAGE TRANSITION LOGIC ---
-        const transitionEl = document.getElementById('pageTransition');
-        document.querySelectorAll('.trans-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetUrl = e.currentTarget.href;
-                transitionEl.classList.add('active');
-                setTimeout(() => { window.location.href = targetUrl; }, 500);
-            });
+        // --- UI BEHAVIORS ---
+        const navbar = document.getElementById('navbar');
+        const backToTopBtn = document.getElementById('back-to-top');
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            let st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st > lastScrollTop && st > 150) navbar.classList.add('nav-hidden'); 
+            else navbar.classList.remove('nav-hidden'); 
+            lastScrollTop = st <= 0 ? 0 : st; 
+            
+            if (st > 500) backToTopBtn.classList.add('show'); 
+            else backToTopBtn.classList.remove('show');
         });
+        backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-        // --- FETCH ENGINE (WITH PROPER LOADING & EMPTY STATES) ---
+        const menuIcon = document.getElementById('hamburger-icon');
+        const navLinks = document.getElementById('mobile-menu');
+        menuIcon.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+
+        // --- IMPACT COUNTER ---
+        const counters = document.querySelectorAll('.counter');
+        const observerCounter = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute('data-target');
+                    const updateCount = () => {
+                        const count = +counter.innerText.replace('+','');
+                        const inc = target / 30; 
+                        if(count < target) { counter.innerText = Math.ceil(count + inc); setTimeout(updateCount, 40); } 
+                        else { counter.innerText = target + '+'; }
+                    };
+                    updateCount();
+                    obs.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(c => observerCounter.observe(c));
+
+        // --- FETCH ENGINE ---
         const repoName = 'puserve/puserve.github.io'; 
         const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(currentLang === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
 
-        async function fetchContent(folder, containerId, isCarousel = false) {
+        async function fetchContent(folder, containerId, targetFile) {
             const container = document.getElementById(containerId);
             const emptyMsg = currentLang === 'EN' ? 'No records published yet.' : 'Belum ada catatan yang dipublikasikan.';
             const errorMsg = currentLang === 'EN' ? 'Failed to fetch data from server.' : 'Gagal menarik data dari server.';
@@ -287,39 +497,33 @@
                     const mdText = await (await fetch(file.download_url)).text();
                     const parts = mdText.split('---');
                     if (parts.length >= 3) {
-                        const fm = jsyaml.load(parts[1]); 
-                        fm.fileName = file.name; 
-                        dataList.push(fm); 
+                        const fm = jsyaml.load(parts[1]); fm.fileName = file.name; dataList.push(fm); 
                     }
                 }
 
-                if (dataList.length === 0) {
-                    container.innerHTML = `<div class="empty-state">${emptyMsg}</div>`;
-                    return;
-                }
+                if (dataList.length === 0) { container.innerHTML = `<div class="empty-state">${emptyMsg}</div>`; return; }
 
                 dataList.sort((a, b) => new Date(b.date) - new Date(a.date));
-                const targetFile = folder === '_events' ? 'read.html' : 'read-news.html';
 
                 container.innerHTML = dataList.slice(0, 4).map(fm => `
-                    <a href="${targetFile}?file=${fm.fileName}" class="card trans-link">
+                    <a href="${targetFile}?file=${fm.fileName}" class="card">
                         <img src="${fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png'}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
                         <div class="card-body">
                             <span class="card-tag">${fm.status || fm.category || 'Update'}</span>
                             <h3 class="card-title">${fm.title}</h3>
-                            <span style="color: var(--gray-text); font-size: 0.85rem; margin-top: auto;">${formatDate(fm.date)}</span>
+                            <div class="card-meta">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                ${formatDate(fm.date)}
+                            </div>
                         </div>
                     </a>
                 `).join('');
 
-            } catch (error) {
-                container.innerHTML = `<div class="empty-state">${errorMsg}</div>`;
-            }
+            } catch (error) { container.innerHTML = `<div class="empty-state">${errorMsg}</div>`; }
         }
 
-        fetchContent('_events', 'home-events-grid');
-        fetchContent('_news', 'home-news-carousel', true);
-
+        fetchContent('_events', 'home-events-grid', 'read.html');
+        fetchContent('_news', 'home-news-carousel', 'read-news.html');
     </script>
 </body>
 </html>
