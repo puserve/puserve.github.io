@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- NATIVE MORPHING TRANSITION MAGIC -->
     <meta name="view-transition" content="same-origin">
     
     <title>PUSERVE | President University Serve Environment</title>
@@ -37,7 +36,6 @@
             --card-border: rgba(10, 54, 34, 0.1);
         }
 
-        /* ECO-MODE VARIABLES (DARK) */
         body.eco-mode {
             --bg-color: #030d09;
             --text-color: #d1e0d9;
@@ -73,7 +71,7 @@
         #secret-trigger-logo:active { transform: scale(0.9); }
         
         .menu-icon { display: none; flex-direction: column; cursor: pointer; width: 25px; gap: 5px; z-index: 1001; position: relative; }
-        .menu-icon span { background: #ffffff; height: 2px; width: 100%; border-radius: 2px; transition: 0.3s ease; }
+        .menu-icon span { background: #ffffff; height: 2px; width: 100%; border-radius: 2px; transition: 0.3s ease; display: block; }
         
         .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
         .nav-links a { color: #ffffff; text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
@@ -82,8 +80,8 @@
         .btn-join:hover { background: #ffffff; transform: translateY(-2px); }
 
         @media (max-width: 1023px) {
-            .menu-icon { display: flex; }
-            .nav-links { display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: rgba(5, 24, 16, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 100px 30px 30px; border-left: 1px solid rgba(255,255,255,0.1); align-items: flex-start; transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
+            .menu-icon { display: flex !important; }
+            .nav-links { display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: rgba(5, 24, 16, 0.98); padding: 100px 30px 30px; border-left: 1px solid rgba(255,255,255,0.1); align-items: flex-start; transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5); z-index: 999; }
             .nav-links.active { right: 0; }
         }
 
@@ -130,15 +128,15 @@
         .close-egg:hover { transform: scale(1.15); background: white; color: #ff3333; border-color: #ff3333; }
         @keyframes glitch { 0%, 100% { transform: scale(1) translate(0); } 25% { transform: scale(1.02) translate(5px, 5px); } 50% { transform: scale(0.98) translate(-5px, -5px); } 75% { transform: scale(1.05) translate(5px, -5px); } }
 
-        /* HERO & AQI GLASSMORPHISM */
-        .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 5% 60px; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        /* HERO & AQI (LEFT ALIGNED) */
+        .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; text-align: left; padding: 120px 5% 60px; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
         .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); z-index: -2; object-fit: cover; transition: opacity 0.5s; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(5,24,16,0.85) 0%, rgba(5,24,16,0.6) 50%, rgba(5,24,16,0.95) 100%); z-index: -1; transition: background 0.5s; }
-        .hero-content { z-index: 1; max-width: 800px; display: flex; flex-direction: column; align-items: center; }
+        .hero-content { z-index: 1; max-width: 800px; display: flex; flex-direction: column; align-items: flex-start; }
         
         .hero-title { font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; color: #ffffff;}
         .highlight-gold { color: var(--puserve-yellow); }
-        .hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 35px; justify-content: center;}
+        .hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 35px; justify-content: flex-start;}
         .primary-btn { background: var(--puserve-yellow); color: var(--dark-green); padding: 16px 40px; border-radius: 40px; font-size: 1.05rem; font-weight: 800; text-decoration: none; transition: 0.3s; }
         .primary-btn:hover { background: #ffffff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .secondary-btn { background: rgba(255,255,255,0.1); color: #ffffff; border: 1px solid rgba(255,255,255,0.2); padding: 16px 40px; border-radius: 40px; font-size: 1.05rem; font-weight: 700; text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); }
@@ -149,8 +147,8 @@
 
         /* CENTERED DATA GRID & SECTIONS */
         .section-container { max-width: 1200px; margin: 0 auto; padding: 80px 5% 20px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .section-header { display: flex; align-items: center; justify-content: center; margin-bottom: 30px; width: 100%; }
-        .section-title { font-size: 2.2rem; color: var(--primary-green); text-transform: uppercase; letter-spacing: 1px; transition: color 0.5s; margin: 0 20px;}
+        .section-header { display: flex; align-items: center; justify-content: center; margin-bottom: 30px; width: 100%; text-align: center;}
+        .section-title { font-size: 2.2rem; color: var(--primary-green); text-transform: uppercase; letter-spacing: 1px; transition: color 0.5s; margin: 0 20px; text-align: center;}
         .section-line { flex: 1; height: 1px; background: var(--card-border); transition: 0.5s; max-width: 150px;}
 
         .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; width: 100%; max-width: 1000px; justify-content: center; margin-bottom: 20px;}
@@ -199,13 +197,53 @@
         .track-spark { position: absolute; width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 8px var(--puserve-yellow); opacity: 0; animation: floatSpark 1.2s ease-out forwards; }
         @keyframes floatSpark { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-15px, -30px) scale(0.2); opacity: 0; } }
 
-        /* PLEDGE CARD */
-        .pledge-card { background: var(--dark-green); color: white; padding: 50px 30px; border-radius: 24px; border: 2px solid var(--puserve-yellow); text-align: center; margin: 20px auto 60px; max-width: 800px; width: 90%; box-shadow: 0 15px 40px rgba(0,0,0,0.2); position: relative; overflow: hidden;}
-        .pledge-card::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(252, 211, 77, 0.05) 0%, transparent 60%); pointer-events: none; z-index: 0; }
-        .pledge-content { position: relative; z-index: 1; }
+        /* PLEDGE CARD (LANDSCAPE & RESPONSIVE PRO) */
+        .pledge-container { width: 100%; max-width: 1000px; margin: 0 auto 80px; padding: 0 5%; }
+        .pledge-card-landscape {
+            background: #051810;
+            border: 2px solid var(--puserve-yellow);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 400px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .pledge-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 90%;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .pledge-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; }
+        .pledge-logos { background: rgba(255,255,255,0.05); padding: 12px 20px; border-radius: 30px; display: flex; gap: 15px; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
+        .pledge-logos img { height: 30px; object-fit: contain; }
+        .pledge-badge { text-align: right; color: var(--puserve-yellow); font-weight: 800; font-size: 1.1rem; letter-spacing: 2px; line-height: 1.4; }
+        
+        .pledge-mid { position: relative; z-index: 1; text-align: left; margin-top: 40px; }
+        .pledge-mid h2 { font-size: clamp(2rem, 5vw, 3.5rem); color: white; margin-bottom: 10px; line-height: 1.1; }
+        .pledge-mid p { font-size: clamp(1.1rem, 3vw, 1.8rem); color: #8bada0; font-style: italic; font-weight: 500; }
+        
+        .pledge-bottom { display: flex; justify-content: space-between; align-items: flex-end; position: relative; z-index: 1; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+        .pledge-date { color: var(--puserve-yellow); font-weight: 800; font-size: 1.2rem; }
+        .pledge-id { color: #557a68; font-weight: 800; font-size: 1.5rem; letter-spacing: 1px; }
 
-        /* WATERMARK */
-        .watermark { position: fixed; bottom: 20px; right: 20px; width: 60px; opacity: 0.15; pointer-events: none; z-index: 0; }
+        @media (max-width: 768px) {
+            .pledge-card-landscape { padding: 25px; min-height: 350px; }
+            .pledge-top { flex-direction: column; gap: 20px; align-items: flex-start; }
+            .pledge-badge { text-align: left; font-size: 1rem;}
+            .pledge-logos { padding: 10px 15px; gap: 10px;}
+            .pledge-logos img { height: 24px; }
+            .pledge-id { font-size: 1.1rem; }
+            .pledge-date { font-size: 1rem; }
+        }
 
         /* FOOTER */
         footer { background: var(--dark-green); padding: 80px 5% 40px; margin-top: 20px; border-top: 5px solid var(--puserve-yellow); color: #ffffff; text-align: left; }
@@ -285,7 +323,7 @@
             </button>
         </div>
         <button class="fab-btn fab-main" id="fabMain" title="Settings">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         </button>
     </div>
 
@@ -293,7 +331,7 @@
     <div id="easter-egg-modal">
         <div class="easter-egg-content">
             <span class="close-egg" onclick="closeEgg()">&times;</span>
-            <div class="warning-header">⚠︎ CLASSIFIED PUSERVE ARCHIVE ⚠︎</div>
+            <div class="warning-header">⚠️ CLASSIFIED PUSERVE ARCHIVE ⚠️</div>
             <img src="easter_egg.jpeg" alt="Top Secret Easter Egg">
             <p class="prank-text">"You found the secret! Don't forget to throw your trash in the right bin!"</p>
         </div>
@@ -467,21 +505,31 @@
         </div>
     </section>
 
-    <!-- PLEDGE SECTION -->
-    <section class="pledge-card">
-        <div class="pledge-content">
-            <h3 style="color: var(--puserve-yellow); font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 20px;" data-en="OFFICIAL ECO-PLEDGE" data-id="IKRAR LINGKUNGAN RESMI">OFFICIAL ECO-PLEDGE</h3>
-            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">NOEL JACOB OTTLEY</h2>
-            <p style="font-size: 1.5rem; font-style: italic; font-weight: 500;" data-en="&quot;I pledge to protect and sustain our earth.&quot;" data-id="&quot;Saya berikrar untuk melindungi dan melestarikan bumi kita.&quot;">"I pledge to protect and sustain our earth."</p>
-            <div style="display: flex; justify-content: space-between; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; font-weight: 700; color: var(--puserve-yellow);">
-                <span>20/08/2026</span>
-                <span>#PSR-3388</span>
+    <!-- PLEDGE SECTION (LANDSCAPE, 3 LOGOS, BIG WATERMARK) -->
+    <section class="pledge-container">
+        <div class="pledge-card-landscape">
+            <img src="logos/LOGO_PUSERVE.png" class="pledge-watermark" alt="Puserve BG">
+            
+            <div class="pledge-top">
+                <div class="pledge-logos">
+                    <img src="logos/LOGO_PU.png" alt="PU">
+                    <img src="logos/LOGO_CEDRS.png" alt="CEDRS">
+                    <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE">
+                </div>
+                <div class="pledge-badge" data-en="OFFICIAL<br>ECO-PLEDGE" data-id="IKRAR RESMI<br>LINGKUNGAN">OFFICIAL<br>ECO-PLEDGE</div>
+            </div>
+            
+            <div class="pledge-mid">
+                <h2>NOEL JACOB OTTLEY</h2>
+                <p data-en='"I pledge to protect and sustain our earth."' data-id='"Saya berikrar untuk melindungi dan melestarikan bumi kita."'>"I pledge to protect and sustain our earth."</p>
+            </div>
+            
+            <div class="pledge-bottom">
+                <span class="pledge-date">20/08/2026</span>
+                <span class="pledge-id">#PSR-3388</span>
             </div>
         </div>
     </section>
-
-    <!-- WATERMARK PUSERVE -->
-    <img src="logos/LOGO_PUSERVE.png" class="watermark" alt="PUSERVE Watermark">
 
     <!-- PROFESSIONAL FOOTER -->
     <footer>
