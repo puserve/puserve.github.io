@@ -5,622 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="view-transition" content="same-origin">
     <title>PUSERVE | President University Serve Environment</title>
-    
-    <meta property="og:title" content="PUSERVE | Official Portal">
-    <meta property="og:description" content="Real Environmental Action, Education, and Sustainability at President University.">
-    <meta property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
-    <meta property="og:url" content="https://puserve.github.io">
-    <meta property="og:type" content="website">
-
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
-
-    <!-- PWA & MOBILE HOME SCREEN ICONS -->
-    <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="logos/LOGO_PUSERVE.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="logos/LOGO_PUSERVE.png">
-    <link rel="apple-touch-icon" href="logos/LOGO_PUSERVE.png">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="PUSERVE">
-    <meta name="application-name" content="PUSERVE">
     <link rel="manifest" href="manifest.json">
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        
-        :root { 
-            --primary-green: #0a3622; 
-            --dark-green: #051810; 
-            --puserve-yellow: #fcd34d; 
-            --bg-color: #f4f9f5; 
-            --text-color: #1a1a1a; 
-            --text-muted: #555555;
-            --card-bg: #ffffff;
-            --card-border: rgba(10, 54, 34, 0.1);
-        }
-
-        body.eco-mode {
-            --bg-color: #030d09;
-            --text-color: #d1e0d9;
-            --text-muted: #8bada0;
-            --card-bg: #06170f;
-            --card-border: #113624;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        html { scroll-behavior: smooth; }
-        body { background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; transition: background-color 0.5s ease, color 0.5s ease; opacity: 0; animation: fadeInPage 0.8s forwards; }
-        
-        @keyframes fadeInPage { to { opacity: 1; } }
-        @view-transition { navigation: auto; }
-        ::selection { background-color: var(--primary-green); color: var(--puserve-yellow); }
-
-        /* CUSTOM SCROLLBAR */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-color); border-left: 1px solid var(--card-border); }
-        ::-webkit-scrollbar-thumb { background: var(--primary-green); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--puserve-yellow); }
-        body.eco-mode ::-webkit-scrollbar-track { background: var(--dark-green); }
-
-        h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; }
-        .hero-title { font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; color: #ffffff;}
-        .highlight-gold { color: var(--puserve-yellow); }
-        svg { display: inline-block; vertical-align: middle; }
-
-        /* NAVBAR */
-        nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 100; background: rgba(5, 24, 16, 0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: 0.4s ease; }
-        nav.nav-hidden { transform: translateY(-100%); }
-        .nav-logos { display: flex; align-items: center; gap: 15px; }
-        .nav-logos img { height: 35px; object-fit: contain; }
-        #secret-trigger-logo { cursor: pointer; transition: transform 0.2s; }
-        #secret-trigger-logo:active { transform: scale(0.9); }
-
-        .menu-icon { display: none; flex-direction: column; cursor: pointer; width: 25px; gap: 5px; z-index: 105; position: relative; }
-        .menu-icon span { background: #ffffff; height: 2px; width: 100%; border-radius: 2px; transition: 0.3s ease; }
-
-        .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
-        .nav-links a { color: #ffffff; text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
-        .nav-links a:hover { color: var(--puserve-yellow); }
-        .btn-join { background: var(--puserve-yellow); color: var(--dark-green) !important; padding: 10px 24px; border-radius: 30px; font-weight: 700 !important; border: none; cursor: pointer; }
-        .btn-join:hover { background: #e5be3c; transform: translateY(-2px); }
-
-        /* DYNAMIC LEAVES CURSOR */
-        .cursor-leaf { position: fixed; width: 12px; height: 12px; background-color: var(--puserve-yellow); border-radius: 0 12px 0 12px; pointer-events: none; z-index: 99999; animation: leafFall 1s linear forwards; opacity: 0.8; }
-        @keyframes leafFall { 0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; } 100% { transform: translateY(60px) rotate(120deg) scale(0.3); opacity: 0; } }
-
-        /* SMART FAB (KIRI BAWAH DI HP, KANAN BAWAH DI LAPTOP) */
-        .fab-container { position: fixed; bottom: 25px; left: 25px; z-index: 998; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        @media (min-width: 1024px) { .fab-container { left: auto; right: 25px; } }
-        
-        .fab-options { display: flex; flex-direction: column; gap: 15px; opacity: 0; transform: translateY(20px); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
-        .fab-container.open .fab-options { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        .fab-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--primary-green); border: 2px solid rgba(255,255,255,0.1); color: #ffffff; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .fab-btn:hover { border-color: var(--puserve-yellow); color: var(--puserve-yellow); transform: scale(1.1); }
-        .fab-main { width: 55px; height: 55px; background: var(--primary-green); box-shadow: 0 5px 20px rgba(10,54,34,0.3); border: 2px solid rgba(255,255,255,0.1); z-index: 2;}
-        .fab-container.open .fab-main svg { transform: rotate(90deg); transition: 0.4s; }
-        .lang-text { font-weight: 800; font-size: 0.9rem; }
-
-        #back-to-top { position: fixed; bottom: -80px; left: 25px; width: 50px; height: 50px; background: var(--primary-green); color: var(--puserve-yellow); border-radius: 16px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.4s; z-index: 997; border: 2px solid rgba(255,255,255,0.1);}
-        @media (min-width: 1024px) { #back-to-top { left: auto; right: 100px; } }
-        #back-to-top.show { bottom: 25px; }
-        #back-to-top:hover { background: var(--puserve-yellow); color: var(--dark-green); }
-
-        /* HERO VIDEO & AQI */
-        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 100px 5% 40px; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);}
-        .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); z-index: -2; object-fit: cover; transition: opacity 0.5s; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(5,24,16,0.95) 0%, rgba(5,24,16,0.7) 50%, rgba(5,24,16,0.4) 100%); z-index: -1; transition: background 0.5s; }
-        .hero-content { z-index: 1; max-width: 800px; width: 100%;}
-        
-        .aqi-banner { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;}
-        .aqi-link { text-decoration: none; color: inherit; background: rgba(0,0,0,0.5); padding: 12px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); display: inline-block; transition: 0.3s; backdrop-filter: blur(5px);}
-        .aqi-link:hover { border-color: var(--puserve-yellow); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(252, 211, 77, 0.1);}
-
-        .hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 35px; }
-        .primary-btn { background: var(--puserve-yellow); color: var(--dark-green); padding: 16px 40px; border-radius: 40px; font-size: 1.05rem; font-weight: 800; text-decoration: none; transition: 0.3s; }
-        .primary-btn:hover { background: #ffffff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .secondary-btn { background: rgba(255,255,255,0.1); color: #ffffff; border: 1px solid rgba(255,255,255,0.2); padding: 16px 40px; border-radius: 40px; font-size: 1.05rem; font-weight: 700; text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); }
-        .secondary-btn:hover { background: rgba(255,255,255,0.2); border-color: #ffffff; transform: translateY(-3px); }
-
-        /* IMPACT COUNTER */
-        .section-container { max-width: 1200px; margin: 0 auto; padding: 80px 5%; }
-        .impact-box { display: flex; flex-wrap: wrap; justify-content: space-around; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 50px 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.04); transition: 0.5s; }
-        .impact-item { text-align: center; margin: 15px; flex: 1; min-width: 200px; }
-        .impact-num { font-size: 4rem; color: var(--primary-green); font-weight: 800; margin-bottom: 5px; line-height: 1; transition: color 0.5s;}
-        .impact-label { color: var(--text-muted); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-size: 0.95rem; }
-        body.eco-mode .impact-num { color: var(--puserve-yellow); }
-
-        /* CAMPAIGN TRACKER */
-        .campaign-grid { display: grid; grid-template-columns: 1fr; gap: 20px; width: 100%; max-width: 1000px; margin: 0 auto; }
-        @media (min-width: 768px) { .campaign-grid { grid-template-columns: 1fr 1fr; } }
-        .campaign-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 30px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.04); transition: 0.4s; overflow: hidden; }
-        .campaign-card:hover { border-color: var(--puserve-yellow); transform: translateY(-5px); }
-        .campaign-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; }
-        .campaign-info h3 { font-size: 1.4rem; color: var(--text-color); margin-bottom: 5px; font-weight: 800;}
-        .campaign-info p { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; }
-        .campaign-percentage { font-size: 2.5rem; font-weight: 800; color: var(--puserve-yellow); line-height: 1; }
-        
-        .progress-track { width: 100%; height: 14px; background: rgba(10,54,34,0.1); border-radius: 10px; position: relative; border: 1px solid var(--card-border); }
-        body.eco-mode .progress-track { background: rgba(255,255,255,0.05); }
-        .progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, var(--primary-green) 0%, var(--puserve-yellow) 100%); border-radius: 10px; width: 0; transition: width 2.5s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 0 15px rgba(252, 211, 77, 0.4); }
-        .progress-emitter { position: absolute; right: 0; top: 50%; width: 1px; height: 1px; pointer-events: none; z-index: 10; }
-        .track-leaf { position: absolute; width: 8px; height: 8px; background: var(--puserve-yellow); border-radius: 0 8px 0 8px; opacity: 0; animation: dropLeaf 1.5s linear forwards; }
-        @keyframes dropLeaf { 0% { transform: translate(0, 0) rotate(0deg); opacity: 1; } 100% { transform: translate(-10px, 40px) rotate(180deg) scale(0.5); opacity: 0; } }
-        .track-spark { position: absolute; width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 8px var(--puserve-yellow); opacity: 0; animation: floatSpark 1.2s ease-out forwards; }
-        @keyframes floatSpark { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-15px, -30px) scale(0.2); opacity: 0; } }
-
-        /* DATA GRID & SKELETON */
-        .section-header { display: flex; align-items: center; margin-bottom: 30px; }
-        .section-title { font-size: 2rem; color: var(--primary-green); text-transform: uppercase; letter-spacing: 1px; margin-right: 20px; transition: color 0.5s; }
-        .section-line { flex: 1; height: 1px; background: var(--card-border); transition: 0.5s;}
-        .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .news-carousel { display: flex; overflow-x: auto; gap: 30px; padding-bottom: 20px; scroll-snap-type: x mandatory; }
-        .news-carousel::-webkit-scrollbar { height: 6px; }
-        .news-carousel::-webkit-scrollbar-track { background: var(--card-border); border-radius: 10px;}
-        .news-carousel::-webkit-scrollbar-thumb { background: var(--primary-green); border-radius: 10px; }
-        .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden; transition: 0.3s; text-decoration: none; color: var(--text-color); min-width: 350px; display: flex; flex-direction: column; box-shadow: 0 10px 20px rgba(0,0,0,0.03); }
-        .card:hover { transform: translateY(-8px); border-color: var(--puserve-yellow); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
-        .card-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--card-border); }
-        .card-body { padding: 30px; flex: 1; display: flex; flex-direction: column; }
-        .card-tag { color: var(--puserve-yellow); font-size: 0.8rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 12px; }
-        .card-title { font-size: 1.3rem; margin-bottom: 15px; line-height: 1.4; font-weight: 700; color: var(--text-color); transition: color 0.5s;}
-        .card-meta { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.85rem; margin-top: auto; transition: color 0.5s;}
-        
-        .skeleton { background: linear-gradient(90deg, rgba(10,54,34,0.05) 25%, rgba(10,54,34,0.1) 50%, rgba(10,54,34,0.05) 75%); background-size: 200% 100%; animation: skeletonLoading 1.5s infinite; border-radius: 8px; }
-        body.eco-mode .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 75%); background-size: 200% 100%; }
-        @keyframes skeletonLoading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-        .skeleton-card { height: 350px; display: flex; flex-direction: column; padding: 0; border: 1px solid var(--card-border); border-radius: 16px; background: var(--card-bg); min-width: 350px;}
-        .skeleton-img { height: 220px; width: 100%; border-radius: 16px 16px 0 0; }
-        .skeleton-body { padding: 30px; flex: 1; display: flex; flex-direction: column; gap: 15px; }
-        .skeleton-tag { height: 14px; width: 30%; }
-        .skeleton-title { height: 24px; width: 80%; }
-        .skeleton-meta { height: 14px; width: 50%; margin-top: auto; }
-        .empty-state { grid-column: 1 / -1; padding: 60px; text-align: center; border: 1px dashed var(--card-border); border-radius: 16px; color: var(--text-muted); font-size: 1.1rem;}
-
-        /* PLEDGE VVIP SECTION */
-        .pledge-container { position: relative; background: var(--dark-green); border: 1px solid var(--card-border); border-radius: 30px; padding: 50px 40px; max-width: 1000px; margin: 40px auto 80px; overflow: hidden; display: flex; flex-direction: column; color: #ffffff; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .pledge-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70%; opacity: 0.05; pointer-events: none; z-index: 0; filter: grayscale(100%);}
-        .pledge-header { display: flex; justify-content: space-between; align-items: center; z-index: 1; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; }
-        .pledge-logos { background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 40px; display: flex; gap: 15px; align-items: center; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px);}
-        .pledge-logos img { height: 30px; object-fit: contain; }
-        .pledge-badge { color: var(--puserve-yellow); font-weight: 800; letter-spacing: 2px; text-align: right; line-height: 1.4; font-size: 1.1rem;}
-        .pledge-body { z-index: 1; text-align: left; margin-bottom: 50px; }
-        .pledge-name { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; color: #ffffff; letter-spacing: -1px; text-transform: uppercase;}
-        .pledge-quote { font-size: 1.6rem; font-style: italic; color: #8bada0; font-weight: 500;}
-        .pledge-footer { display: flex; justify-content: space-between; align-items: center; z-index: 1; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 25px; }
-        .pledge-date { color: var(--puserve-yellow); font-weight: 800; font-size: 1.1rem;}
-        .pledge-id { color: #8bada0; font-weight: 700; letter-spacing: 1px; font-size: 1.1rem;}
-
-        /* MODALS */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.85); z-index: 999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s; backdrop-filter: blur(8px); }
-        .modal-overlay.show { opacity: 1; pointer-events: auto; }
-        .modal-content-box { background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px; border-radius: 20px; width: 90%; max-width: 450px; text-align: left; position: relative; transform: translateY(30px) scale(0.95); transition: 0.4s; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
-        .modal-overlay.show .modal-content-box { transform: translateY(0) scale(1); }
-        .close-modal-btn { position: absolute; top: 20px; right: 25px; color: var(--text-muted); cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;}
-        .close-modal-btn:hover { color: var(--puserve-yellow); transform: rotate(90deg); }
-        .modal-btn { display: flex; align-items: center; gap: 15px; width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: 0.3s; cursor: pointer; border: 1px solid var(--card-border); background: var(--bg-color); color: var(--text-color); }
-        .modal-btn:hover { background: var(--primary-green); color: #ffffff; border-color: var(--primary-green); transform: translateX(5px); }
-        .modal-btn svg { stroke: var(--puserve-yellow); }
-
-        #easter-egg-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(10, 54, 34, 0.95); z-index: 99999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s ease; backdrop-filter: blur(15px); }
-        #easter-egg-modal.show { opacity: 1; pointer-events: auto; }
-        .easter-egg-content { background: #1a1a1a; border: 3px solid #ff3333; padding: 30px; border-radius: 20px; text-align: center; color: white; max-width: 450px; transform: scale(0.8); transition: 0.3s; position: relative; box-shadow: 0 0 50px rgba(255, 51, 51, 0.3); }
-        #easter-egg-modal.show .easter-egg-content { transform: scale(1); animation: glitch 0.3s ease-in-out; }
-        .warning-header { color: #ff3333; font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; letter-spacing: 2px; animation: blinkWarning 1s infinite; }
-        .easter-egg-content img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; border: 2px dashed #f5cf21; }
-        .prank-text { color: #f5cf21; font-weight: 700; font-size: 1.1rem; line-height: 1.6; }
-        .close-egg { position: absolute; top: -20px; right: -20px; font-size: 2rem; background: #ff3333; color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 3px solid #f4f9f5; transition: 0.2s; z-index: 10; }
-        .close-egg:hover { transform: scale(1.15); background: white; color: #ff3333; border-color: #ff3333; }
-        @keyframes blinkWarning { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        @keyframes glitch { 0%, 100% { transform: scale(1) translate(0); } 25% { transform: scale(1.02) translate(5px, 5px); } 50% { transform: scale(0.98) translate(-5px, -5px); } 75% { transform: scale(1.05) translate(5px, -5px); } }
-
-        /* FOOTER */
-        footer { background: var(--dark-green); padding: 80px 5% 40px; margin-top: 60px; border-top: 5px solid var(--puserve-yellow); color: #ffffff; }
-        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 60px; margin-bottom: 50px; }
-        .footer-brand { display: flex; flex-direction: column; gap: 15px; }
-        .footer-logos { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
-        .footer-logos img { height: 45px; }
-        .brand-name { color: var(--white); font-weight: 800; font-size: 1.5rem; line-height: 1.2; }
-        .brand-sub { color: var(--puserve-yellow); font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; }
-        .footer-desc { color: #8bada0; font-size: 0.95rem; line-height: 1.7; max-width: 380px; }
-        .footer-heading { color: var(--puserve-yellow); font-weight: 800; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; }
-        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 15px; }
-        .footer-links a, .contact-item { color: #8bada0; text-decoration: none; transition: 0.3s; font-size: 0.95rem; display: flex; align-items: flex-start; gap: 12px;}
-        .footer-links a:hover, .contact-item:hover { color: var(--white); padding-left: 5px; }
-        .newsletter-form { display: flex; gap: 10px; margin-top: 20px; }
-        .newsletter-input { flex: 1; padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; outline: none; font-size: 0.95rem; }
-        .newsletter-input:focus { border-color: var(--puserve-yellow); }
-        .newsletter-btn { padding: 0 25px; background: var(--puserve-yellow); color: var(--dark-green); border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .newsletter-btn:hover { background: var(--white); }
-        .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-size: 0.9rem; color: #8bada0; }
-        .social-links { display: flex; gap: 20px; }
-        .social-links a { color: #8bada0; transition: 0.3s; }
-        .social-links a:hover { color: var(--puserve-yellow); transform: translateY(-3px); }
-
-        @media screen and (max-width: 768px) { 
-            .hero-title { font-size: 2.5rem; word-break: break-word; hyphens: auto; } 
-            .footer-grid { grid-template-columns: 1fr; gap: 50px; } 
-            .footer-bottom { flex-direction: column; text-align: center; } 
-            .impact-item { min-width: 100%; margin: 20px 0;} 
-            .pledge-name { font-size: 2.2rem; }
-            .pledge-quote { font-size: 1.2rem; }
-            .pledge-container { padding: 30px 20px; margin: 40px 5%; border-radius: 20px;}
-        }
-
-        #toast { visibility: hidden; min-width: 250px; background-color: var(--primary-green); color: var(--white); text-align: center; border-radius: 12px; padding: 18px 25px; position: fixed; z-index: 999999; left: 50%; bottom: 20px; transform: translateX(-50%); border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-weight: 600; opacity: 0; transition: 0.4s; display: flex; align-items: center; justify-content: center; gap: 10px;}
-        #toast.show { visibility: visible; opacity: 1; bottom: 40px; border-color: var(--puserve-yellow);}
-        body.eco-mode video { display: none; }
-        body.eco-mode * { animation-play-state: paused !important; }
-        body.eco-mode .section-title { color: var(--white); }
-    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap');
+        :root { --primary-green: #0a3622; --dark-green: #051810; --puserve-yellow: #fcd34d; --bg-color: #f4f9f5; --text-color: #1a1a1a; --card-bg: #ffffff; }
+        body.eco-mode { --bg-color: #030d09; --text-color: #d1e0d9; --card-bg: #06170f; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); transition: 0.5s; }
+        
+        /* NAVBAR */
+        nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; background: var(--dark-green); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .nav-logos { display: flex; align-items: center; gap: 10px; }
+        .nav-logos img { height: 30px; }
+        .menu-icon { cursor: pointer; display: flex; flex-direction: column; gap: 4px; }
+        .menu-icon span { width: 25px; height: 2px; background: white; }
+        .nav-links { position: fixed; top: 60px; right: -100%; width: 100%; background: var(--dark-green); height: calc(100vh - 60px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; transition: 0.4s; }
+        .nav-links.active { right: 0; }
+        .nav-links a { color: white; text-decoration: none; font-size: 1.5rem; font-weight: 700; }
+
+        /* HERO */
+        .hero { min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; background: var(--primary-green); color: white; }
+        
+        /* TRACKER */
+        .campaign-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 20px; max-width: 900px; margin: 0 auto; }
+        @media (min-width: 768px) { .campaign-grid { grid-template-columns: 1fr 1fr; } }
+        .campaign-card { background: var(--card-bg); padding: 30px; border-radius: 20px; border: 1px solid #ddd; }
+
+        /* PLEDGE */
+        .pledge-card { background: var(--dark-green); color: white; padding: 40px; border-radius: 24px; border: 2px solid var(--puserve-yellow); text-align: center; margin: 40px auto; max-width: 800px; }
+        
+        /* WATERMARK */
+        .watermark { position: fixed; bottom: 20px; right: 20px; width: 60px; opacity: 0.1; pointer-events: none; z-index: 999; }
+
+        /* FAB & SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary-green); }
+        .fab-container { position: fixed; bottom: 25px; right: 25px; z-index: 998; }
+        .fab-btn { width: 55px; height: 55px; border-radius: 50%; background: var(--primary-green); color: white; border: none; cursor: pointer; }
+    </style>
 </head>
 <body>
 
-    <!-- DYNAMIC LEAVES -->
-    <script>
-        document.addEventListener('mousemove', function(e) {
-            let isEco = localStorage.getItem('puserve_eco') === 'true';
-            if(isEco) return; 
-            if(Math.random() > 0.90) {
-                const leaf = document.createElement('div');
-                leaf.className = 'cursor-leaf';
-                leaf.style.left = (e.clientX + 10) + 'px';
-                leaf.style.top = (e.clientY + 10) + 'px';
-                document.body.appendChild(leaf);
-                setTimeout(() => { leaf.remove(); }, 1000);
-            }
-        });
-    </script>
-
-    <!-- TOAST & BACK TO TOP -->
-    <div id="toast"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg><span id="toast-msg"></span></div>
-    <div id="back-to-top" title="Scroll to top"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg></div>
-
-    <!-- SMART FAB (KIRI DI HP, KANAN DI LAPTOP) -->
-    <div class="fab-container" id="fabContainer">
-        <div class="fab-options">
-            <button class="fab-btn" id="langToggle" title="Translate EN/ID"><span class="lang-text" id="langText">EN</span></button>
-            <button class="fab-btn" id="ecoToggle" title="Eco Mode"><svg id="ecoIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></button>
-        </div>
-        <button class="fab-btn fab-main" id="fabMain" title="Settings"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></button>
-    </div>
-
-    <!-- MODALS -->
-    <div id="easter-egg-modal"><div class="easter-egg-content"><span class="close-egg" onclick="closeEgg()">&times;</span><div class="warning-header">⚠️ CLASSIFIED PUSERVE ARCHIVE ⚠️</div><img src="easter_egg.jpeg" alt="Top Secret Easter Egg"><p class="prank-text">"You found the secret! Don't forget to throw your trash in the right bin!"</p></div></div>
-    
-    <div id="join-modal" class="modal-overlay">
-        <div class="modal-content-box">
-            <span class="close-modal-btn" onclick="closeJoinModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
-            <h3 style="color: var(--primary-green); margin-bottom: 10px; font-size: 1.5rem;" data-en="Connect with Us" data-id="Hubungi Kami">Connect with Us</h3>
-            <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 0.95rem; line-height: 1.5;" data-en="Select your inquiry type below." data-id="Pilih jenis keperluan Anda.">Select your inquiry type below.</p>
-            <a href="mailto:preserve.presuniv@gmail.com?subject=Partnership%20Inquiry%20-%20PUSERVE" class="modal-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> <span data-en="Partnership / Collaboration" data-id="Kemitraan / Kolaborasi">Partnership / Collaboration</span></a>
-            <a href="mailto:preserve.presuniv@gmail.com?subject=Volunteer%20Registration%20-%20PUSERVE" class="modal-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg> <span data-en="Volunteer Registration" data-id="Pendaftaran Volunteer">Volunteer Registration</span></a>
-            <a href="mailto:preserve.presuniv@gmail.com?subject=General%20Inquiry%20-%20PUSERVE" class="modal-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> <span data-en="General Inquiries" data-id="Pertanyaan Umum">General Inquiries</span></a>
-        </div>
-    </div>
-
-    <!-- NAVBAR -->
-    <nav id="navbar">
+    <nav>
         <div class="nav-logos">
-            <a href="index.html"><img src="logos/LOGO_PU.png" alt="PU"></a>
-            <a href="index.html"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"></a>
-            <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE" id="secret-trigger-logo" title="PUSERVE">
+            <img src="logos/LOGO_PU.png"><img src="logos/LOGO_CEDRS.png"><img src="logos/LOGO_PUSERVE.png" id="secret-trigger-logo">
         </div>
         <div class="menu-icon" id="hamburger-icon"><span></span><span></span><span></span></div>
         <ul class="nav-links" id="mobile-menu">
-            <li><a href="index.html" data-en="Home" data-id="Beranda">Home</a></li>
-            <li><a href="events.html" class="trans-link" data-en="Events" data-id="Acara">Events</a></li>
-            <li><a href="news.html" class="trans-link" data-en="Outlook" data-id="Berita">Outlook</a></li>
-            <li><a href="repository.html" class="trans-link" data-en="Repository" data-id="Repositori">Repository</a></li>
-            <li><a href="team.html" class="trans-link" data-en="Team" data-id="Tim">Team</a></li>
-            <li><button onclick="openJoinModal()" class="btn-join" data-en="Connect" data-id="Hubungi">Connect</button></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="news.html">Outlook</a></li>
+            <li><a href="repository.html">Repository</a></li>
+            <li><a href="team.html">Team</a></li>
         </ul>
     </nav>
 
-<!-- HERO -->
     <section class="hero">
-        <div class="hero-overlay"></div>
-        <video id="bg-video" autoplay loop muted playsinline>
-            <source src="forestbg.webm" type="video/webm">
-        </video>
-        <div class="hero-content">
-            <!-- AQI BANNER (SEJAJAR KANAN KIRI & LINK DIMATIIN) -->
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; width: 100%;">
-                <!-- Teks Kiri -->
-                <div>
-                    <h2 style="color: var(--puserve-yellow); font-size: 1.5rem; margin-bottom: 5px;" data-en="Still Awake?" data-id="Masih Bangun?">Still Awake?</h2>
-                    <p style="color: #d1e0d9; font-size: 0.95rem; font-weight: 500;" data-en="The earth needs resilient drivers, rest for your health." data-id="Bumi butuh penggerak yang kuat, istirahatlah demi kesehatanmu.">The earth needs resilient drivers, rest for your health.</p>
-                </div>
-                <!-- Box AQI Kanan (Bukan Link Lagi) -->
-                <div style="background: rgba(0,0,0,0.5); padding: 12px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px); cursor: default; transition: 0.3s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--puserve-yellow)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.1)';">
-                    <p style="font-size: 0.7rem; font-weight: 800; color: #d1e0d9; letter-spacing: 1px; margin-bottom: 3px; text-transform: uppercase;">CIKARANG AIR QUALITY</p>
-                    <p style="font-size: 1.1rem; font-weight: 800; color: #fff;">118 AQI - Unhealthy <span style="color: #ff3333;">🔴</span></p>
-                    <p style="font-size: 0.65rem; color: #8bada0; margin-top: 5px;">Live Source: Open-Meteo Global API</p>
-                </div>
-            </div>
-
-            <h1 class="hero-title" data-en="Real Environmental Action.<br><span class='highlight-gold'>Empowering Changemakers.</span>" data-id="Aksi Lingkungan Nyata.<br><span class='highlight-gold'>Memberdayakan Perubahan.</span>">Real Environmental Action.<br><span class="highlight-gold">Empowering Changemakers.</span></h1>
-            <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 35px; color: #d1e0d9;" data-en="Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet." data-id="Menciptakan ide, memperkuat kolaborasi, dan mengubahnya menjadi dampak nyata bagi planet kita.">Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet.</p>
-
-            <div class="hero-buttons">
-                <a href="#activities" class="primary-btn" data-en="Get Involved" data-id="Mulai Aksi">Get Involved</a>
-                <a href="https://drive.google.com/file/d/1WjKjPCBvSe0yt6PcfBsAFXr1NAu1X4sR/view?usp=drivesdk" target="_blank" class="secondary-btn" data-en="Explore Archive" data-id="Eksplorasi Arsip">Explore Archive</a>
-            </div>
-        </div>
+        <a href="https://open-meteo.com/" style="color:white; text-decoration:none;">
+            <p style="font-size: 0.7rem; letter-spacing: 2px;">CIKARANG AIR QUALITY</p>
+            <h2 style="margin: 10px 0;">118 AQI - Unhealthy 🔴</h2>
+        </a>
+        <h1 style="font-size: 3rem; margin: 20px 0;">Real Environmental Action</h1>
+        <p>Empowering Changemakers.</p>
     </section>
 
-    <!-- IMPACT COUNTER -->
-    <section class="section-container" style="padding-top: 80px; padding-bottom: 0;">
-        <div class="impact-box">
-            <div class="impact-item"><div class="impact-num counter" data-target="50">0</div><div class="impact-label" data-en="Active Eco-Warriors" data-id="Pahlawan Lingkungan">Active Eco-Warriors</div></div>
-            <div class="impact-item"><div class="impact-num counter" data-target="30">0</div><div class="impact-label" data-en="Campaigns Launched" data-id="Kampanye Terlaksana">Campaigns Launched</div></div>
-            <div class="impact-item"><div class="impact-num counter" data-target="9999">0</div><div class="impact-label" data-en="Community Partners" data-id="Mitra Komunitas">Community Partners</div></div>
+    <div class="campaign-grid">
+        <div class="campaign-card">
+            <h3>Greener Campus</h3>
+            <p>Target: 1,000 Trees</p>
+            <div style="background:#eee; height:10px; border-radius:5px; margin:15px 0;">
+                <div style="width:75%; height:100%; background:var(--puserve-yellow); border-radius:5px;"></div>
+            </div>
         </div>
-    </section>
+        <div class="campaign-card">
+            <h3>Zero Plastic</h3>
+            <p>Target: 5,000 Bottles</p>
+            <div style="background:#eee; height:10px; border-radius:5px; margin:15px 0;">
+                <div style="width:60%; height:100%; background:var(--puserve-yellow); border-radius:5px;"></div>
+            </div>
+        </div>
+    </div>
 
-    <!-- CAMPAIGNS -->
-    <section class="section-container" style="padding-top: 40px; padding-bottom: 40px;">
-        <div class="section-header"><h2 class="section-title" data-en="Live Campaigns" data-id="Kampanye Berjalan">Live Campaigns</h2><div class="section-line"></div></div>
-        <div class="campaign-grid">
-            <div class="campaign-card">
-                <div class="campaign-header">
-                    <div class="campaign-info"><h3 data-en="Greener Campus" data-id="Kampus Lebih Hijau">Greener Campus</h3><p data-en="Target: 1,000 Trees Planted" data-id="Target: 1.000 Pohon Ditanam">Target: 1,000 Trees Planted</p></div>
-                    <div class="campaign-percentage counter-camp" data-target="4">0%</div>
-                </div>
-                <div class="progress-track"><div class="progress-fill" data-width="4%" id="fill-tree"><div class="progress-emitter" id="emitter-tree"></div></div></div>
-            </div>
-            <div class="campaign-card">
-                <div class="campaign-header">
-                    <div class="campaign-info"><h3 data-en="Zero Plastic Initiative" data-id="Inisiatif Bebas Plastik">Zero Plastic Initiative</h3><p data-en="Target: 5,000 Bottles Recycled" data-id="Target: 5.000 Botol Didaur Ulang">Target: 5,000 Bottles Recycled</p></div>
-                    <div class="campaign-percentage counter-camp" data-target="12">0%</div>
-                </div>
-                <div class="progress-track"><div class="progress-fill" data-width="12%" id="fill-plastic"><div class="progress-emitter" id="emitter-plastic"></div></div></div>
-            </div>
-        </div>
-    </section>
+    <div class="pledge-card">
+        <h3 style="color: var(--puserve-yellow);">OFFICIAL ECO-PLEDGE</h3>
+        <h2 style="margin: 20px 0;">NOEL JACOB OTTLEY</h2>
+        <p>"I pledge to protect and sustain our earth."</p>
+        <p style="margin-top:20px; opacity: 0.7;">#PSR-3388</p>
+    </div>
 
-    <!-- EVENTS -->
-    <section class="section-container" id="activities">
-        <div class="section-header"><h2 class="section-title" data-en="Our Initiatives" data-id="Inisiatif Kami">Our Initiatives</h2><div class="section-line"></div></div>
-        <div id="home-events-grid" class="events-grid">
-            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
-            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
-        </div>
-        <div style="text-align: center; margin-top: 40px;"><a href="events.html" class="trans-link" style="color: var(--primary-green); text-decoration: none; font-weight: 700; font-size: 1.05rem; border-bottom: 2px solid var(--puserve-yellow); padding-bottom: 5px;" data-en="View All Events" data-id="Lihat Semua Acara">View All Events</a></div>
-    </section>
-
-    <!-- NEWS -->
-    <section class="section-container" style="padding-top: 0; padding-bottom: 40px;">
-        <div class="section-header"><h2 class="section-title" data-en="PUSERVE Outlook" data-id="PUSERVE Outlook">PUSERVE Outlook</h2><div class="section-line"></div></div>
-        <div id="home-news-carousel" class="news-carousel">
-            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
-            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
-        </div>
-        <div style="text-align: right; margin-top: 20px;"><a href="news.html" class="trans-link" style="color: var(--primary-green); text-decoration: none; font-weight: 700; font-size: 1.05rem; border-bottom: 2px solid var(--puserve-yellow); padding-bottom: 5px;" data-en="Read More Outlook" data-id="Baca Kabar Lainnya">Read More Outlook</a></div>
-    </section>
-
-    <!-- OFFICIAL PLEDGE VVIP (POSISI UDAH PINDAH KE BAWAH) -->
-    <section class="pledge-container">
-        <!-- LOGO WATERMARK TRANSPARAN DI TENGAH -->
-        <img src="logos/LOGO_PUSERVE.png" class="pledge-watermark" alt="PUSERVE Background">
-        
-        <div class="pledge-header">
-            <div class="pledge-logos">
-                <img src="logos/LOGO_PU.png" alt="PU">
-                <img src="logos/LOGO_CEDRS.png" alt="CEDRS">
-                <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE">
-            </div>
-            <div class="pledge-badge" data-en="OFFICIAL<br>ECO-PLEDGE" data-id="IKRAR<br>RESMI">OFFICIAL<br>ECO-PLEDGE</div>
-        </div>
-        <div class="pledge-body">
-            <!-- NAMA SESUAI GAMBAR LU -->
-            <div class="pledge-name">NOEL JACOB OTTLEY</div>
-            <div class="pledge-quote" data-en='"I pledge to protect and sustain our earth."' data-id='"Saya berikrar untuk melindungi dan merawat bumi kita."'>"I pledge to protect and sustain our earth."</div>
-        </div>
-        <div class="pledge-footer">
-            <div class="pledge-date">20/08/2026</div>
-            <div class="pledge-id">#PSR-3388</div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="footer-logos"><img src="logos/LOGO_PU.png" alt="PU"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"><img src="logos/LOGO_PUSERVE.png" alt="PUSERVE"></div>
-                <div><div class="brand-name">PUSERVE</div><div class="brand-sub">PRESIDENT UNIVERSITY</div></div>
-                <p class="footer-desc" data-en="A movement focused on environmental protection, sustainability, and social service." data-id="Gerakan yang berfokus pada perlindungan lingkungan, keberlanjutan, dan pengabdian sosial.">A movement focused on environmental protection, sustainability, and social service.</p>
-            </div>
-            <div>
-                <div class="footer-heading" data-en="Navigation" data-id="Navigasi">Navigation</div>
-                <ul class="footer-links">
-                    <li><a href="index.html" class="trans-link" data-en="Home & About" data-id="Beranda & Tentang">Home & About</a></li>
-                    <li><a href="events.html" class="trans-link" data-en="Events & Programs" data-id="Acara & Program">Events & Programs</a></li>
-                    <li><a href="news.html" class="trans-link" data-en="PUSERVE Outlook" data-id="PUSERVE Outlook">PUSERVE Outlook</a></li>
-                    <li><a href="repository.html" class="trans-link" data-en="Repository" data-id="Repositori">Repository</a></li>
-                    <li><a href="team.html" class="trans-link" data-en="Our Team" data-id="Tim Kami">Our Team</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="footer-heading" data-en="Get Involved" data-id="Terlibat">Get Involved</div>
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <a href="mailto:preserve.presuniv@gmail.com" class="contact-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><span>preserve.presuniv@gmail.com</span></a>
-                    <a href="https://maps.app.goo.gl/chRf67w8mQhZfHst5?g_st=ac" target="_blank" class="contact-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> <span data-en="President University, Cikarang Baru, Bekasi 17550 – Indonesia" data-id="President University, Cikarang Baru, Bekasi 17550 – Indonesia">President University, Cikarang Baru, Bekasi 17550 – Indonesia</span></a>
-                </div>
-                <div class="footer-heading" style="margin-top: 30px;" data-en="Newsletter" data-id="Buletin">Newsletter</div>
-                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){showToast(currentLang === 'EN' ? 'Subscription Successful!' : 'Berlangganan Berhasil!');}"></iframe>
-                <form action="#" method="POST" target="hidden_iframe" onsubmit="submitted=true; this.reset();" class="newsletter-form">
-                    <input type="email" name="entry.123456" placeholder="Email Address" required class="newsletter-input">
-                    <button type="submit" class="newsletter-btn" data-en="Join" data-id="Ikut">Join</button>
-                </form>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div>&copy; 2026 PUSERVE. President University. All rights reserved.</div>
-            <div class="social-links">
-                <a href="https://www.instagram.com/puserve.presuniv" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
-                <a href="https://www.tiktok.com/@puserve.presuniv" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg></a>
-            </div>
-        </div>
-    </footer>
+    <img src="logos/LOGO_PUSERVE.png" class="watermark">
 
     <script>
-        var submitted = false;
-        function showToast(msg) { document.getElementById('toast-msg').innerText = msg; let toast = document.getElementById("toast"); toast.classList.add("show"); setTimeout(() => { toast.classList.remove("show"); }, 3000); }
-        function openJoinModal() { document.getElementById('mobile-menu').classList.remove('active'); document.getElementById('join-modal').classList.add('show'); }
-        function closeJoinModal() { document.getElementById('join-modal').classList.remove('show'); }
-
-        // Easter Egg
-        let logoClicks = 0, logoTimer;
-        const secretLogo = document.getElementById('secret-trigger-logo');
-        if (secretLogo) { secretLogo.addEventListener('click', () => { logoClicks++; clearTimeout(logoTimer); logoTimer = setTimeout(() => { logoClicks = 0; }, 1500); if (logoClicks >= 5) { document.getElementById('easter-egg-modal').classList.add('show'); logoClicks = 0; } }); }
-        function closeEgg() { document.getElementById('easter-egg-modal').classList.remove('show'); }
-
-        // FAB Logic
-        const fabMain = document.getElementById('fabMain'), fabContainer = document.getElementById('fabContainer');
-        fabMain.addEventListener('click', () => { fabContainer.classList.toggle('open'); });
-
-        // Language
-        let currentLang = localStorage.getItem('puserve_lang') || 'EN';
-        function applyLanguage() {
-            document.getElementById('langText').innerText = currentLang;
-            document.querySelectorAll('[data-en]').forEach(el => {
-                el.innerHTML = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
-                if (el.placeholder) el.placeholder = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
-            });
-        }
-        document.getElementById('langToggle').addEventListener('click', () => { currentLang = currentLang === 'EN' ? 'ID' : 'EN'; localStorage.setItem('puserve_lang', currentLang); applyLanguage(); fabContainer.classList.remove('open'); showToast(currentLang === 'EN' ? "Language: English" : "Bahasa: Indonesia"); });
-
-        // Eco Mode
-        let isEco = localStorage.getItem('puserve_eco') === 'true';
-        function applyEcoMode() {
-            const ecoIcon = document.getElementById('ecoIcon');
-            const bgVid = document.getElementById('bg-video');
-            if (isEco) {
-                document.body.classList.add('eco-mode');
-                if(bgVid) bgVid.pause();
-                ecoIcon.innerHTML = '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>'; 
-                document.querySelector('.modal-content-box').style.backgroundColor = 'var(--card-bg)';
-                document.querySelector('.modal-content-box h3').style.color = 'var(--puserve-yellow)';
-            } else {
-                document.body.classList.remove('eco-mode');
-                if(bgVid) bgVid.play();
-                ecoIcon.innerHTML = '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>'; 
-                document.querySelector('.modal-content-box').style.backgroundColor = 'var(--bg-color)';
-                document.querySelector('.modal-content-box h3').style.color = 'var(--primary-green)';
-            }
-        }
-        document.getElementById('ecoToggle').addEventListener('click', () => { isEco = !isEco; localStorage.setItem('puserve_eco', isEco); applyEcoMode(); fabContainer.classList.remove('open'); showToast(currentLang === 'EN' ? (isEco ? "Eco-Mode Activated" : "Eco-Mode Disabled") : (isEco ? "Mode Hemat Daya Aktif" : "Mode Hemat Daya Nonaktif")); });
-        applyEcoMode(); applyLanguage();
-
-        // UI Behaviors
-        const navbar = document.getElementById('navbar'), backToTopBtn = document.getElementById('back-to-top');
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', () => {
-            let st = window.pageYOffset || document.documentElement.scrollTop;
-            if (st > lastScrollTop && st > 150) navbar.classList.add('nav-hidden'); else navbar.classList.remove('nav-hidden'); 
-            lastScrollTop = st <= 0 ? 0 : st; 
-            if (st > 500) backToTopBtn.classList.add('show'); else backToTopBtn.classList.remove('show');
-        });
-        backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-        document.getElementById('hamburger-icon').addEventListener('click', () => { document.getElementById('mobile-menu').classList.toggle('active'); });
-        document.querySelectorAll('.trans-link').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); const targetUrl = e.currentTarget.href; setTimeout(() => { window.location.href = targetUrl; }, 100); }); });
-
-        // ANIMASI CAMPAIGN BAR & PARTICLES
-        const campObserver = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    const counters = entry.target.querySelectorAll('.counter-camp');
-                    counters.forEach(c => {
-                        const target = +c.getAttribute('data-target'); let count = 0;
-                        const updateCount = () => { const inc = target / 40; if(count < target) { count += inc; c.innerText = Math.ceil(count) + '%'; setTimeout(updateCount, 40); } else { c.innerText = target + '%'; } };
-                        updateCount();
-                    });
-                    entry.target.querySelectorAll('.progress-fill').forEach(f => { f.style.width = f.getAttribute('data-width'); });
-                    obs.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-        const campSection = document.querySelector('.campaign-grid'); if(campSection) campObserver.observe(campSection);
-
-        setInterval(() => {
-            if(localStorage.getItem('puserve_eco') === 'true') return; 
-            const treeEmitter = document.getElementById('emitter-tree');
-            if(treeEmitter && document.getElementById('fill-tree').style.width !== "0px" && Math.random() > 0.4) {
-                let leaf = document.createElement('div'); leaf.className = 'track-leaf'; leaf.style.top = (Math.random() * 10 - 5) + 'px';
-                treeEmitter.appendChild(leaf); setTimeout(() => leaf.remove(), 1500);
-            }
-            const plasticEmitter = document.getElementById('emitter-plastic');
-            if(plasticEmitter && document.getElementById('fill-plastic').style.width !== "0px" && Math.random() > 0.4) {
-                let spark = document.createElement('div'); spark.className = 'track-spark'; spark.style.top = (Math.random() * 10 - 5) + 'px';
-                plasticEmitter.appendChild(spark); setTimeout(() => spark.remove(), 1200);
-            }
-        }, 200);
-
-        // IMPACT COUNTER
-        const counters = document.querySelectorAll('.counter');
-        const observerCounter = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = parseInt(counter.getAttribute('data-target').replace(/\D/g, ''), 10) || 0;
-                    const updateCount = () => {
-                        const count = parseInt(counter.innerText.replace(/\D/g, ''), 10) || 0;
-                        const inc = target / 30; 
-                        if(count < target) { counter.innerText = Math.ceil(count + inc); setTimeout(updateCount, 40); } 
-                        else { counter.innerText = target + '+'; }
-                    };
-                    updateCount();
-                    obs.unobserve(counter);
-                }
-            });
-        }, { threshold: 0.5 });
-        counters.forEach(c => observerCounter.observe(c));
-
-        // FETCH ENGINE (ANTI-LIMIT CACHE)
-        const repoName = 'puserve/puserve.github.io'; 
-        const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(currentLang === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
-
-        async function fetchContent(folder, containerId, targetFile) {
-            const container = document.getElementById(containerId);
-            const cacheKey = `puserve_cache_${folder}`;
-            const cachedData = localStorage.getItem(cacheKey);
-            if (cachedData) container.innerHTML = cachedData;
-
-            try {
-                const res = await fetch(`https://api.github.com/repos/${repoName}/contents/${folder}`);
-                if (!res.ok) throw new Error("API Limit");
-                const files = await res.json();
-                
-                let dataList = [];
-                for (const file of files) {
-                    if (!file.name.endsWith('.md') || file.name.startsWith('TEMPLATE')) continue;
-                    const mdText = await (await fetch(file.download_url)).text();
-                    const parts = mdText.split('---');
-                    if (parts.length >= 3) {
-                        const fm = jsyaml.load(parts[1]); fm.fileName = file.name; dataList.push(fm);
-                    }
-                }
-                if (dataList.length === 0) return;
-                dataList.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-                const html = dataList.slice(0, 4).map(fm => `
-                    <a href="${targetFile}?file=${fm.fileName}" class="card trans-link">
-                        <img src="${fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png'}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
-                        <div class="card-body">
-                            <span class="card-tag">${fm.status || fm.category || 'Update'}</span>
-                            <h3 class="card-title">${fm.title}</h3>
-                            <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
-                        </div>
-                    </a>
-                `).join('');
-
-                container.innerHTML = html;
-                localStorage.setItem(cacheKey, html); 
-            } catch (error) {
-                if(!cachedData) container.innerHTML = `<div class="empty-state">Data temporarily unavailable.</div>`;
-            }
-        }
-        document.addEventListener("DOMContentLoaded", () => { fetchContent('_events', 'home-events-grid', 'read.html'); fetchContent('_news', 'home-news-carousel', 'read-news.html'); });
+        document.getElementById('hamburger-icon').onclick = () => document.getElementById('mobile-menu').classList.toggle('active');
     </script>
 </body>
 </html>
