@@ -224,24 +224,26 @@
         body.eco-mode * { animation-play-state: paused !important; }
         body.eco-mode .section-title { color: var(--white); }
 
-        /* LIVE CAMPAIGN TRACKER */
-        .campaign-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-bottom: 20px; }
-        .campaign-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 40px 30px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.04); transition: 0.4s; overflow: hidden; }
+        /* LIVE CAMPAIGN TRACKER (FIXED LAYOUT) */
+        .campaign-grid { display: grid; grid-template-columns: 1fr; gap: 20px; width: 100%; max-width: 1000px; margin: 0 auto; margin-bottom: 20px; }
+        @media (min-width: 768px) { .campaign-grid { grid-template-columns: 1fr 1fr; gap: 30px; } }
+        
+        .campaign-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 30px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.04); transition: 0.4s; overflow: hidden; }
         .campaign-card:hover { border-color: var(--puserve-yellow); transform: translateY(-5px); }
         .campaign-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; }
         .campaign-info h3 { font-size: 1.4rem; color: var(--text-color); margin-bottom: 5px; font-weight: 800;}
         .campaign-info p { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; }
         .campaign-percentage { font-size: 2.5rem; font-weight: 800; color: var(--puserve-yellow); line-height: 1; }
-        
+
         .progress-track { width: 100%; height: 14px; background: rgba(10,54,34,0.1); border-radius: 10px; position: relative; border: 1px solid var(--card-border); }
         body.eco-mode .progress-track { background: rgba(255,255,255,0.05); }
-        
+
         /* Bar yang jalan ke kanan */
         .progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, var(--primary-green) 0%, var(--puserve-yellow) 100%); border-radius: 10px; width: 0; transition: width 2.5s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 0 15px rgba(252, 211, 77, 0.4); }
-        
+
         /* Emitter Partikel di Ujung Bar */
         .progress-emitter { position: absolute; right: 0; top: 50%; width: 1px; height: 1px; pointer-events: none; z-index: 10; }
-        
+
         /* Animasi Daun Jatuh (Buat Pohon) */
         .track-leaf { position: absolute; width: 8px; height: 8px; background: var(--puserve-yellow); border-radius: 0 8px 0 8px; opacity: 0; animation: dropLeaf 1.5s linear forwards; }
         @keyframes dropLeaf { 0% { transform: translate(0, 0) rotate(0deg); opacity: 1; } 100% { transform: translate(-10px, 40px) rotate(180deg) scale(0.5); opacity: 0; } }
@@ -249,7 +251,7 @@
         /* Animasi Percikan Bersih (Buat Plastik) */
         .track-spark { position: absolute; width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 8px var(--puserve-yellow); opacity: 0; animation: floatSpark 1.2s ease-out forwards; }
         @keyframes floatSpark { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-15px, -30px) scale(0.2); opacity: 0; } }
-        
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
@@ -338,22 +340,22 @@
         </div>
     </div>
 
-<!-- NAVBAR (UDAH ADA REPOSITORY) -->
+    <!-- NAVBAR -->
     <nav id="navbar">
         <div class="nav-logos">
-            <a href="index.html"><img src="logos/LOGO_PU.png" alt="PU"></a>
+            <a href="index.html"><img src="logos/LOGO_PU.png" alt="President University"></a>
             <a href="index.html"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"></a>
+            <!-- Easter Egg nempel di logo PUSERVE -->
             <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE" id="secret-trigger-logo" title="PUSERVE">
         </div>
-        <div class="menu-icon" id="hamburger-icon"><span></span><span></span><span></span></div>
+        <div class="menu-icon" id="hamburger-icon">
+            <span></span><span></span><span></span>
+        </div>
         <ul class="nav-links" id="mobile-menu">
             <li><a href="index.html" class="trans-link" data-en="Home" data-id="Beranda">Home</a></li>
             <li><a href="events.html" class="trans-link" data-en="Events" data-id="Acara">Events</a></li>
             <li><a href="news.html" class="trans-link" data-en="Outlook" data-id="Berita">Outlook</a></li>
-            
-            <!-- INI DIA PINTU MASUK REPOSITORY-NYA BOS! -->
             <li><a href="repository.html" class="trans-link" data-en="Repository" data-id="Repositori">Repository</a></li>
-            
             <li><a href="team.html" class="trans-link" data-en="Team" data-id="Tim">Team</a></li>
             <li><button onclick="openJoinModal()" class="btn-join" data-en="Connect" data-id="Hubungi">Connect</button></li>
         </ul>
@@ -377,7 +379,7 @@
         </div>
     </section>
 
-    <!-- IMPACT COUNTER (BEBAS DARI NaN DAN SIAP TAMPUNG 9999+) -->
+    <!-- IMPACT COUNTER -->
     <section class="section-container" style="padding-top: 80px; padding-bottom: 0;">
         <div class="impact-box">
             <div class="impact-item">
@@ -389,18 +391,19 @@
                 <div class="impact-label" data-en="Campaigns Launched" data-id="Kampanye Terlaksana">Campaigns Launched</div>
             </div>
             <div class="impact-item">
-                <!-- LU BISA ISI "9999" DI DATA-TARGET, SISTEM UDAH AMAN -->
                 <div class="impact-num counter" data-target="4637">0</div>
                 <div class="impact-label" data-en="Community Partners" data-id="Mitra Komunitas">Community Partners</div>
             </div>
+        </div>
+    </section>
 
-            <!-- LIVE CAMPAIGN TRACKER -->
+    <!-- LIVE CAMPAIGN TRACKER -->
     <section class="section-container" style="padding-top: 40px; padding-bottom: 40px;">
         <div class="section-header">
             <h2 class="section-title" data-en="Live Campaigns" data-id="Kampanye Berjalan">Live Campaigns</h2>
             <div class="section-line"></div>
         </div>
-        
+
         <div class="campaign-grid">
             <!-- CAMPAIGN 1: TREES (DAUN JATUH) -->
             <div class="campaign-card">
@@ -409,7 +412,6 @@
                         <h3 data-en="Greener Campus" data-id="Kampus Lebih Hijau">Greener Campus</h3>
                         <p data-en="Target: 1,000 Trees Planted" data-id="Target: 1.000 Pohon Ditanam">Target: 1,000 Trees Planted</p>
                     </div>
-                    <!-- Angka 75 ini target presentasenya boss -->
                     <div class="campaign-percentage counter-camp" data-target="75">0%</div>
                 </div>
                 <div class="progress-track">
@@ -426,7 +428,6 @@
                         <h3 data-en="Zero Plastic Initiative" data-id="Inisiatif Bebas Plastik">Zero Plastic Initiative</h3>
                         <p data-en="Target: 5,000 Bottles Recycled" data-id="Target: 5.000 Botol Didaur Ulang">Target: 5,000 Bottles Recycled</p>
                     </div>
-                    <!-- Angka 60 ini target presentasenya boss -->
                     <div class="campaign-percentage counter-camp" data-target="60">0%</div>
                 </div>
                 <div class="progress-track">
@@ -447,7 +448,6 @@
         <div id="home-events-grid" class="events-grid">
             <div class="loader-container">
                 <div class="spinner"></div>
-                <!-- TEXT JANGAN PAKE EMOJI BIAR TETAP ELEGAN -->
                 <span data-en="Fetching initiatives..." data-id="Menarik data inisiatif...">Fetching initiatives...</span>
             </div>
         </div>
@@ -497,6 +497,7 @@
                     <li><a href="index.html" data-en="Home & About" data-id="Beranda & Tentang">Home & About</a></li>
                     <li><a href="events.html" data-en="Events & Programs" data-id="Acara & Program">Events & Programs</a></li>
                     <li><a href="news.html" data-en="PUSERVE Outlook" data-id="PUSERVE Outlook">PUSERVE Outlook</a></li>
+                    <li><a href="repository.html" data-en="Repository" data-id="Repositori">Repository</a></li>
                     <li><a href="team.html" data-en="Our Team" data-id="Tim Kami">Our Team</a></li>
                 </ul>
             </div>
@@ -655,14 +656,13 @@
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
                     const counter = entry.target;
-                    // Ambil angka kasarnya aja (buang simbol + atau koma)
                     const targetStr = counter.getAttribute('data-target');
                     const target = parseInt(targetStr.replace(/\D/g, ''), 10) || 0;
-                    
+
                     const updateCount = () => {
                         const count = parseInt(counter.innerText.replace(/\D/g, ''), 10) || 0;
                         const inc = target / 30; 
-                        
+
                         if(count < target) { 
                             counter.innerText = Math.ceil(count + inc); 
                             setTimeout(updateCount, 40); 
@@ -677,21 +677,21 @@
         }, { threshold: 0.5 });
         counters.forEach(c => observerCounter.observe(c));
 
-        // --- FETCH ENGINE (ROBUST & ERROR HANDLING) ---
+        // --- FETCH ENGINE (WITH CACHING TO BYPASS RATE LIMIT) ---
         const repoName = 'puserve/puserve.github.io'; 
+        const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(currentLang === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
 
         async function fetchContent(folder, containerId, targetFile) {
             const container = document.getElementById(containerId);
-            const emptyMsg = currentLang === 'EN' ? 'No records published yet.' : 'Belum ada catatan yang dipublikasikan.';
-            // Catatan error limit API Github
-            const errorMsg = currentLang === 'EN' ? 'Failed to fetch data. (Please wait if rate limited).' : 'Gagal menarik data dari server. (Tunggu sebentar jika terkena limit).';
+            const cacheKey = `puserve_cache_${folder}`;
+            
+            // Coba ambil dari cache dulu kalau ada
+            const cachedData = localStorage.getItem(cacheKey);
+            if (cachedData) container.innerHTML = cachedData;
 
             try {
                 const res = await fetch(`https://api.github.com/repos/${repoName}/contents/${folder}`);
-                if (!res.ok) {
-                    console.error("Github API Error/Rate Limit Hit");
-                    throw new Error("API Error");
-                }
+                if (!res.ok) throw new Error("API Limit");
                 const files = await res.json();
 
                 let dataList = [];
@@ -704,11 +704,14 @@
                     }
                 }
 
-                if (dataList.length === 0) { container.innerHTML = `<div class="empty-state">${emptyMsg}</div>`; return; }
+                if (dataList.length === 0) { 
+                    container.innerHTML = `<div class="empty-state">${currentLang === 'EN' ? 'No records published yet.' : 'Belum ada catatan yang dipublikasikan.'}</div>`; 
+                    return; 
+                }
 
                 dataList.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-                container.innerHTML = dataList.slice(0, 4).map(fm => `
+                const html = dataList.slice(0, 4).map(fm => `
                     <a href="${targetFile}?file=${fm.fileName}" class="card">
                         <img src="${fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png'}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
                         <div class="card-body">
@@ -722,7 +725,11 @@
                     </a>
                 `).join('');
 
-            } catch (error) { container.innerHTML = `<div class="empty-state">${errorMsg}</div>`; }
+                container.innerHTML = html;
+                localStorage.setItem(cacheKey, html); // Simpan ke cache
+            } catch (error) { 
+                if(!cachedData) container.innerHTML = `<div class="empty-state">${currentLang === 'EN' ? 'Data temporarily unavailable (Rate Limited).' : 'Data sementara tidak tersedia (Limit API).'}</div>`; 
+            }
         }
 
         // --- CAMPAIGN BAR & PARTICLES ANIMATION ---
@@ -750,12 +757,12 @@
                     // Animasi Bar Maju
                     const fills = entry.target.querySelectorAll('.progress-fill');
                     fills.forEach(f => { f.style.width = f.getAttribute('data-width'); });
-                    
+
                     obs.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.3 });
-        
+
         const campSection = document.querySelector('.campaign-grid');
         if(campSection) campObserver.observe(campSection);
 
@@ -788,7 +795,7 @@
                 }
             }
         }, 200);
-        
+
         // Jalankan fetch pas DOM ready
         document.addEventListener("DOMContentLoaded", () => {
             fetchContent('_events', 'home-events-grid', 'read.html');
