@@ -231,16 +231,25 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
+  <!-- MAIN CONTENT -->
     <main class="container">
         <div class="section-header"><h2 class="section-title" data-en="Running" data-id="Sedang Berjalan">Running</h2><div class="section-line"></div></div>
-        <div id="grid-running" class="events-grid"><div class="empty-state" data-en="Fetching data..." data-id="Menarik data...">Fetching data...</div></div>
+        <div id="grid-running" class="events-grid">
+            <!-- SKELETON 1 -->
+            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
+            <!-- SKELETON 2 -->
+            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
+        </div>
 
         <div class="section-header"><h2 class="section-title" data-en="Upcoming" data-id="Akan Datang">Upcoming</h2><div class="section-line"></div></div>
-        <div id="grid-upcoming" class="events-grid"><div class="empty-state" data-en="Fetching data..." data-id="Menarik data...">Fetching data...</div></div>
+        <div id="grid-upcoming" class="events-grid">
+            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
+        </div>
 
         <div class="section-header"><h2 class="section-title" data-en="Archived" data-id="Diarsipkan">Archived</h2><div class="section-line"></div></div>
-        <div id="grid-past" class="events-grid"><div class="empty-state" data-en="Fetching data..." data-id="Menarik data...">Fetching data...</div></div>
+        <div id="grid-past" class="events-grid">
+            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
+        </div>
     </main>
 
     <!-- FOOTER -->
