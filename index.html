@@ -683,6 +683,70 @@
             } catch (error) { container.innerHTML = `<div class="empty-state">${errorMsg}</div>`; }
         }
 
+        // --- CAMPAIGN BAR & PARTICLES ANIMATION ---
+        const campObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    // Animasi Angka Persentase
+                    const counters = entry.target.querySelectorAll('.counter-camp');
+                    counters.forEach(c => {
+                        const target = +c.getAttribute('data-target');
+                        let count = 0;
+                        const updateCount = () => {
+                            const inc = target / 40;
+                            if(count < target) {
+                                count += inc;
+                                c.innerText = Math.ceil(count) + '%';
+                                setTimeout(updateCount, 40);
+                            } else {
+                                c.innerText = target + '%';
+                            }
+                        };
+                        updateCount();
+                    });
+
+                    // Animasi Bar Maju
+                    const fills = entry.target.querySelectorAll('.progress-fill');
+                    fills.forEach(f => { f.style.width = f.getAttribute('data-width'); });
+                    
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        const campSection = document.querySelector('.campaign-grid');
+        if(campSection) campObserver.observe(campSection);
+
+        // Mesin Pembuat Partikel (Daun & Cahaya)
+        setInterval(() => {
+            let isEco = localStorage.getItem('puserve_eco') === 'true';
+            if(isEco) return; // Partikel mati kalo Eco-Mode on biar hemat baterai HP
+
+            // Bikin daun buat progress pohon
+            const treeEmitter = document.getElementById('emitter-tree');
+            if(treeEmitter && document.getElementById('fill-tree').style.width !== "0px") {
+                if(Math.random() > 0.4) {
+                    let leaf = document.createElement('div');
+                    leaf.className = 'track-leaf';
+                    leaf.style.top = (Math.random() * 10 - 5) + 'px';
+                    treeEmitter.appendChild(leaf);
+                    setTimeout(() => leaf.remove(), 1500);
+                }
+            }
+
+            // Bikin percikan cahaya buat progress plastik
+            const plasticEmitter = document.getElementById('emitter-plastic');
+            if(plasticEmitter && document.getElementById('fill-plastic').style.width !== "0px") {
+                if(Math.random() > 0.4) {
+                    let spark = document.createElement('div');
+                    spark.className = 'track-spark';
+                    spark.style.top = (Math.random() * 10 - 5) + 'px';
+                    plasticEmitter.appendChild(spark);
+                    setTimeout(() => spark.remove(), 1200);
+                }
+            }
+        }, 200);
+        
         // Jalankan fetch pas DOM ready
         document.addEventListener("DOMContentLoaded", () => {
             fetchContent('_events', 'home-events-grid', 'read.html');
