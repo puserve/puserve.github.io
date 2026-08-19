@@ -146,6 +146,18 @@
         @media screen and (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 50px; } .footer-bottom { flex-direction: column; text-align: center; } .page-hero h1 { font-size: 2.5rem;} }
         
         #toast { visibility: hidden; min-width: 250px; background-color: var(--primary-green); color: var(--white); text-align: center; border-radius: 12px; padding: 18px 25px; position: fixed; z-index: 999999; left: 50%; bottom: 20px; transform: translateX(-50%); border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-weight: 600; opacity: 0; transition: 0.4s; display: flex; align-items: center; justify-content: center; gap: 10px;}
+
+        /* SKELETON LOADER */
+        .skeleton { background: linear-gradient(90deg, rgba(10,54,34,0.05) 25%, rgba(10,54,34,0.1) 50%, rgba(10,54,34,0.05) 75%); background-size: 200% 100%; animation: skeletonLoading 1.5s infinite; border-radius: 8px; }
+        body.eco-mode .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 75%); background-size: 200% 100%; }
+        @keyframes skeletonLoading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .skeleton-card { height: 350px; display: flex; flex-direction: column; padding: 0; border: 1px solid var(--card-border); border-radius: 16px; background: var(--card-bg);}
+        .skeleton-img { height: 220px; width: 100%; border-radius: 16px 16px 0 0; }
+        .skeleton-body { padding: 30px; flex: 1; display: flex; flex-direction: column; gap: 15px; }
+        .skeleton-tag { height: 14px; width: 30%; }
+        .skeleton-title { height: 24px; width: 80%; }
+        .skeleton-meta { height: 14px; width: 50%; margin-top: auto; }
+        
         #toast.show { visibility: visible; opacity: 1; bottom: 40px; border-color: var(--puserve-yellow);}
     </style>
 </head>
