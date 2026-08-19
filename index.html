@@ -15,7 +15,7 @@
     <meta property="og:type" content="website">
 
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
-  
+
     <!-- PWA & MOBILE HOME SCREEN ICONS (BRUTE FORCE) -->
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     <link rel="icon" type="image/png" sizes="192x192" href="logos/LOGO_PUSERVE.png">
@@ -26,7 +26,6 @@
     <meta name="application-name" content="PUSERVE">
     <link rel="manifest" href="manifest.json">
 
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         
@@ -202,12 +201,13 @@
         .social-links a { color: #8bada0; transition: 0.3s; }
         .social-links a:hover { color: var(--puserve-yellow); transform: translateY(-3px); }
 
-@media screen and (max-width: 768px) { 
-    .hero-title { font-size: 2.3rem; word-break: break-word; hyphens: auto; } 
-    .footer-grid { grid-template-columns: 1fr; gap: 50px; } 
-    .footer-bottom { flex-direction: column; text-align: center; } 
-    .impact-item { min-width: 100%; margin: 20px 0;} 
-}
+        @media screen and (max-width: 768px) { 
+            .hero-title { font-size: 2.3rem; word-break: break-word; hyphens: auto; } 
+            .footer-grid { grid-template-columns: 1fr; gap: 50px; } 
+            .footer-bottom { flex-direction: column; text-align: center; } 
+            .impact-item { min-width: 100%; margin: 20px 0;} 
+        }
+
         /* TOAST NOTIF */
         #toast { visibility: hidden; min-width: 250px; background-color: var(--primary-green); color: var(--white); text-align: center; border-radius: 12px; padding: 18px 25px; position: fixed; z-index: 999999; left: 50%; bottom: 20px; transform: translateX(-50%); border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-weight: 600; opacity: 0; transition: opacity 0.4s, bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: flex; align-items: center; justify-content: center; gap: 10px;}
         #toast.show { visibility: visible; opacity: 1; bottom: 40px; border-color: var(--puserve-yellow);}
@@ -225,8 +225,8 @@
     <script>
         document.addEventListener('mousemove', function(e) {
             let isEco = localStorage.getItem('puserve_eco') === 'true';
-            if(isEco) return; // Daun mati kalo Eco-Mode on biar hemat baterai
-            
+            if(isEco) return; 
+
             if(Math.random() > 0.90) {
                 const leaf = document.createElement('div');
                 leaf.className = 'cursor-leaf';
@@ -286,17 +286,17 @@
             </span>
             <h3 style="color: var(--primary-green); margin-bottom: 10px; font-size: 1.5rem;" data-en="Connect with Us" data-id="Hubungi Kami">Connect with Us</h3>
             <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 0.95rem; line-height: 1.5;" data-en="Select your inquiry type below. The system will prepare an official email draft for you." data-id="Pilih jenis keperluan Anda. Sistem akan menyiapkan draf email resmi untuk Anda.">Select your inquiry type below. The system will prepare an official email draft for you.</p>
-            
+
             <a href="mailto:preserve.presuniv@gmail.com?subject=Partnership%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AWe%20would%20like%20to%20propose%20a%20collaboration%20regarding...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0AKami%20ingin%20mengajak%20kolaborasi%20mengenai...%0A%0ATerima%20kasih." class="modal-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 <span data-en="Partnership / Collaboration" data-id="Kemitraan / Kolaborasi">Partnership / Collaboration</span>
             </a>
-            
+
             <a href="mailto:preserve.presuniv@gmail.com?subject=Volunteer%20Registration%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AMy%20name%20is%20[Name],%20batch%20[Year].%20I%20am%20interested%20in%20joining%20as%20a%20volunteer%20because...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0APerkenalkan%20nama%20saya%20[Nama],%20angkatan%20[Tahun].%20Saya%20tertarik%20untuk%20bergabung%20menjadi%20volunteer%20karena...%0A%0ATerima%20kasih." class="modal-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                 <span data-en="Volunteer Registration" data-id="Pendaftaran Volunteer">Volunteer Registration</span>
             </a>
-            
+
             <a href="mailto:preserve.presuniv@gmail.com?subject=General%20Inquiry%20-%20PUSERVE&body=Dear%20PUSERVE%20Team,%0A%0AI%20would%20like%20to%20ask%20about...%0A%0AThank%20you.%0A%0A--------------------------------%0A%0AHalo%20Tim%20PUSERVE,%0A%0ASaya%20ingin%20bertanya%20terkait...%0A%0ATerima%20kasih." class="modal-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 <span data-en="General Inquiries" data-id="Pertanyaan Umum">General Inquiries</span>
@@ -334,7 +334,7 @@
             <p style="color: #8bada0; font-weight: 700; margin-bottom: 15px; letter-spacing: 2px;" data-en="OFFICIAL PORTAL" data-id="PORTAL RESMI">OFFICIAL PORTAL</p>
             <h1 class="hero-title" data-en="Real Environmental Action.<br><span class='highlight-gold'>Empowering Changemakers.</span>" data-id="Aksi Lingkungan Nyata.<br><span class='highlight-gold'>Memberdayakan Perubahan.</span>">Real Environmental Action.<br><span class="highlight-gold">Empowering Changemakers.</span></h1>
             <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 35px; color: #d1e0d9;" data-en="Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet." data-id="Menciptakan ide, memperkuat kolaborasi, dan mengubahnya menjadi dampak nyata bagi planet kita.">Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet.</p>
-            
+
             <div class="hero-buttons">
                 <a href="#activities" class="primary-btn" data-en="Get Involved" data-id="Mulai Aksi">Get Involved</a>
                 <a href="https://drive.google.com/file/d/1WjKjPCBvSe0yt6PcfBsAFXr1NAu1X4sR/view?usp=drivesdk" target="_blank" class="secondary-btn" data-en="Explore Archive" data-id="Eksplorasi Arsip">Explore Archive</a>
@@ -342,7 +342,7 @@
         </div>
     </section>
 
-    <!-- IMPACT COUNTER -->
+    <!-- IMPACT COUNTER (BEBAS DARI NaN DAN SIAP TAMPUNG 9999+) -->
     <section class="section-container" style="padding-top: 80px; padding-bottom: 0;">
         <div class="impact-box">
             <div class="impact-item">
@@ -350,11 +350,12 @@
                 <div class="impact-label" data-en="Active Eco-Warriors" data-id="Pahlawan Lingkungan">Active Eco-Warriors</div>
             </div>
             <div class="impact-item">
-                <div class="impact-num counter" data-target="29">0</div>
+                <div class="impact-num counter" data-target="30">0</div>
                 <div class="impact-label" data-en="Campaigns Launched" data-id="Kampanye Terlaksana">Campaigns Launched</div>
             </div>
             <div class="impact-item">
-                <div class="impact-num counter" data-target="500+">0</div>
+                <!-- LU BISA ISI "9999" DI DATA-TARGET, SISTEM UDAH AMAN -->
+                <div class="impact-num counter" data-target="9999">0</div>
                 <div class="impact-label" data-en="Community Partners" data-id="Mitra Komunitas">Community Partners</div>
             </div>
         </div>
@@ -385,7 +386,7 @@
             <div class="section-line"></div>
         </div>
         <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;" data-en="Latest Environmental News, Opinions, and Analysis." data-id="Berita, Opini, dan Analisis Lingkungan Terkini.">Latest Environmental News, Opinions, and Analysis.</p>
-        
+
         <div id="home-news-carousel" class="news-carousel">
             <div class="loader-container">
                 <div class="spinner"></div>
@@ -412,7 +413,7 @@
                 </div>
                 <p class="footer-desc" data-en="A movement focused on environmental protection, sustainability, and social service for a better future." data-id="Gerakan yang berfokus pada perlindungan lingkungan, keberlanjutan, dan pengabdian sosial untuk masa depan yang lebih baik.">A movement focused on environmental protection, sustainability, and social service for a better future.</p>
             </div>
-            
+
             <div>
                 <div class="footer-heading" data-en="Navigation" data-id="Navigasi">Navigation</div>
                 <ul class="footer-links">
@@ -422,7 +423,7 @@
                     <li><a href="team.html" data-en="Our Team" data-id="Tim Kami">Our Team</a></li>
                 </ul>
             </div>
-            
+
             <div>
                 <div class="footer-heading" data-en="Get Involved" data-id="Terlibat">Get Involved</div>
                 <div style="display: flex; flex-direction: column; gap: 15px;">
@@ -444,7 +445,7 @@
                 </form>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <div>&copy; 2026 PUSERVE. President University. All rights reserved.</div>
             <div class="social-links">
@@ -506,7 +507,7 @@
                 el.innerHTML = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
                 if (el.placeholder) el.placeholder = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
             });
-            
+
             // Re-fetch content to apply localized date
             if (document.getElementById('home-events-grid').innerHTML.indexOf('href') > -1) {
                 fetchContent('_events', 'home-events-grid', 'read.html');
@@ -547,7 +548,7 @@
             fabContainer.classList.remove('open');
             showToast(currentLang === 'EN' ? (isEco ? "Eco-Mode Activated" : "Eco-Mode Disabled") : (isEco ? "Mode Hemat Daya Aktif" : "Mode Hemat Daya Nonaktif"));
         });
-        
+
         // Execute on load
         applyEcoMode();
         applyLanguage();
@@ -561,7 +562,7 @@
             if (st > lastScrollTop && st > 150) navbar.classList.add('nav-hidden'); 
             else navbar.classList.remove('nav-hidden'); 
             lastScrollTop = st <= 0 ? 0 : st; 
-            
+
             if (st > 500) backToTopBtn.classList.add('show'); 
             else backToTopBtn.classList.remove('show');
         });
@@ -571,18 +572,26 @@
         const navLinks = document.getElementById('mobile-menu');
         menuIcon.addEventListener('click', () => { navLinks.classList.toggle('active'); });
 
-        // --- IMPACT COUNTER ---
+        // --- IMPACT COUNTER (BULLETPROOF NaN FIX) ---
         const counters = document.querySelectorAll('.counter');
         const observerCounter = new IntersectionObserver((entries, obs) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
                     const counter = entry.target;
-                    const target = +counter.getAttribute('data-target');
+                    // Ambil angka kasarnya aja (buang simbol + atau koma)
+                    const targetStr = counter.getAttribute('data-target');
+                    const target = parseInt(targetStr.replace(/\D/g, ''), 10) || 0;
+                    
                     const updateCount = () => {
-                        const count = +counter.innerText.replace('+','');
+                        const count = parseInt(counter.innerText.replace(/\D/g, ''), 10) || 0;
                         const inc = target / 30; 
-                        if(count < target) { counter.innerText = Math.ceil(count + inc); setTimeout(updateCount, 40); } 
-                        else { counter.innerText = target + '+'; }
+                        
+                        if(count < target) { 
+                            counter.innerText = Math.ceil(count + inc); 
+                            setTimeout(updateCount, 40); 
+                        } else { 
+                            counter.innerText = target + '+'; 
+                        }
                     };
                     updateCount();
                     obs.unobserve(counter);
@@ -607,7 +616,7 @@
                     throw new Error("API Error");
                 }
                 const files = await res.json();
-                
+
                 let dataList = [];
                 for (const file of files) {
                     if (!file.name.endsWith('.md') || file.name.startsWith('TEMPLATE')) continue;
