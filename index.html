@@ -316,24 +316,26 @@
         </ul>
     </nav>
 
-    <!-- HERO -->
+<!-- HERO -->
     <section class="hero">
         <div class="hero-overlay"></div>
         <video id="bg-video" autoplay loop muted playsinline>
             <source src="forestbg.webm" type="video/webm">
         </video>
         <div class="hero-content">
-            <!-- AQI BANNER (BISA DI KLIK KE OPEN METEO) -->
-            <div class="aqi-banner">
+            <!-- AQI BANNER (SEJAJAR KANAN KIRI & LINK DIMATIIN) -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; width: 100%;">
+                <!-- Teks Kiri -->
                 <div>
                     <h2 style="color: var(--puserve-yellow); font-size: 1.5rem; margin-bottom: 5px;" data-en="Still Awake?" data-id="Masih Bangun?">Still Awake?</h2>
                     <p style="color: #d1e0d9; font-size: 0.95rem; font-weight: 500;" data-en="The earth needs resilient drivers, rest for your health." data-id="Bumi butuh penggerak yang kuat, istirahatlah demi kesehatanmu.">The earth needs resilient drivers, rest for your health.</p>
                 </div>
-                <a href="https://open-meteo.com/" target="_blank" class="aqi-link">
+                <!-- Box AQI Kanan (Bukan Link Lagi) -->
+                <div style="background: rgba(0,0,0,0.5); padding: 12px 18px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px); cursor: default; transition: 0.3s;" onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--puserve-yellow)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(255,255,255,0.1)';">
                     <p style="font-size: 0.7rem; font-weight: 800; color: #d1e0d9; letter-spacing: 1px; margin-bottom: 3px; text-transform: uppercase;">CIKARANG AIR QUALITY</p>
                     <p style="font-size: 1.1rem; font-weight: 800; color: #fff;">118 AQI - Unhealthy <span style="color: #ff3333;">🔴</span></p>
                     <p style="font-size: 0.65rem; color: #8bada0; margin-top: 5px;">Live Source: Open-Meteo Global API</p>
-                </a>
+                </div>
             </div>
 
             <h1 class="hero-title" data-en="Real Environmental Action.<br><span class='highlight-gold'>Empowering Changemakers.</span>" data-id="Aksi Lingkungan Nyata.<br><span class='highlight-gold'>Memberdayakan Perubahan.</span>">Real Environmental Action.<br><span class="highlight-gold">Empowering Changemakers.</span></h1>
