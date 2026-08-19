@@ -58,6 +58,13 @@
         @keyframes fadeInPage { to { opacity: 1; } }
         @view-transition { navigation: auto; }
         ::selection { background-color: var(--primary-green); color: var(--puserve-yellow); }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); border-left: 1px solid var(--card-border); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-green); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--puserve-yellow); }
+        body.eco-mode ::-webkit-scrollbar-track { background: var(--dark-green); }
         
         h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; }
         .hero-title { font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; color: #ffffff;}
