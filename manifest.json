@@ -1,0 +1,16 @@
+{
+  "name": "PUSERVE President University",
+  "short_name": "PUSERVE",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#051810",
+  "theme_color": "#0a3622",
+  "icons": [
+    {
+      "src": "logos/LOGO_PUSERVE.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
