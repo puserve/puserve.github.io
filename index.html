@@ -223,6 +223,33 @@
         body.eco-mode video { display: none; }
         body.eco-mode * { animation-play-state: paused !important; }
         body.eco-mode .section-title { color: var(--white); }
+
+        /* LIVE CAMPAIGN TRACKER */
+        .campaign-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-bottom: 20px; }
+        .campaign-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 40px 30px; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.04); transition: 0.4s; overflow: hidden; }
+        .campaign-card:hover { border-color: var(--puserve-yellow); transform: translateY(-5px); }
+        .campaign-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; }
+        .campaign-info h3 { font-size: 1.4rem; color: var(--text-color); margin-bottom: 5px; font-weight: 800;}
+        .campaign-info p { color: var(--text-muted); font-size: 0.95rem; font-weight: 600; }
+        .campaign-percentage { font-size: 2.5rem; font-weight: 800; color: var(--puserve-yellow); line-height: 1; }
+        
+        .progress-track { width: 100%; height: 14px; background: rgba(10,54,34,0.1); border-radius: 10px; position: relative; border: 1px solid var(--card-border); }
+        body.eco-mode .progress-track { background: rgba(255,255,255,0.05); }
+        
+        /* Bar yang jalan ke kanan */
+        .progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, var(--primary-green) 0%, var(--puserve-yellow) 100%); border-radius: 10px; width: 0; transition: width 2.5s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 0 15px rgba(252, 211, 77, 0.4); }
+        
+        /* Emitter Partikel di Ujung Bar */
+        .progress-emitter { position: absolute; right: 0; top: 50%; width: 1px; height: 1px; pointer-events: none; z-index: 10; }
+        
+        /* Animasi Daun Jatuh (Buat Pohon) */
+        .track-leaf { position: absolute; width: 8px; height: 8px; background: var(--puserve-yellow); border-radius: 0 8px 0 8px; opacity: 0; animation: dropLeaf 1.5s linear forwards; }
+        @keyframes dropLeaf { 0% { transform: translate(0, 0) rotate(0deg); opacity: 1; } 100% { transform: translate(-10px, 40px) rotate(180deg) scale(0.5); opacity: 0; } }
+
+        /* Animasi Percikan Bersih (Buat Plastik) */
+        .track-spark { position: absolute; width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 8px var(--puserve-yellow); opacity: 0; animation: floatSpark 1.2s ease-out forwards; }
+        @keyframes floatSpark { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(-15px, -30px) scale(0.2); opacity: 0; } }
+        
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
