@@ -70,6 +70,17 @@
         .cursor-leaf { position: fixed; width: 12px; height: 12px; background-color: var(--puserve-yellow); border-radius: 0 12px 0 12px; pointer-events: none; z-index: 99999; animation: leafFall 1s linear forwards; opacity: 0.8; }
         @keyframes leafFall { 0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; } 100% { transform: translateY(60px) rotate(120deg) scale(0.3); opacity: 0; } }
 
+        /* SKELETON LOADER */
+        .skeleton { background: linear-gradient(90deg, rgba(10,54,34,0.05) 25%, rgba(10,54,34,0.1) 50%, rgba(10,54,34,0.05) 75%); background-size: 200% 100%; animation: skeletonLoading 1.5s infinite; border-radius: 8px; }
+        body.eco-mode .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 75%); background-size: 200% 100%; }
+        @keyframes skeletonLoading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .skeleton-card { height: 350px; display: flex; flex-direction: column; padding: 0; border: 1px solid var(--card-border); border-radius: 16px; background: var(--card-bg);}
+        .skeleton-img { height: 220px; width: 100%; border-radius: 16px 16px 0 0; }
+        .skeleton-body { padding: 30px; flex: 1; display: flex; flex-direction: column; gap: 15px; }
+        .skeleton-tag { height: 14px; width: 30%; }
+        .skeleton-title { height: 24px; width: 80%; }
+        .skeleton-meta { height: 14px; width: 50%; margin-top: auto; }
+        
         /* EASTER EGG CSS FIXED */
         #easter-egg-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(10, 54, 34, 0.95); z-index: 99999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s ease; backdrop-filter: blur(15px); }
         #easter-egg-modal.show { opacity: 1; pointer-events: auto; }
