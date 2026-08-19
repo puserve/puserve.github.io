@@ -11,6 +11,7 @@
     <meta property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
+    
 
     <!-- PWA & MOBILE HOME SCREEN ICONS -->
     <link rel="apple-touch-icon" href="logos/LOGO_PUSERVE.png">
@@ -39,6 +40,17 @@
         ::-webkit-scrollbar-thumb { background: var(--primary-green); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--puserve-yellow); }
         body.eco-mode ::-webkit-scrollbar-track { background: var(--dark-green); }
+
+        /* SKELETON LOADER */
+        .skeleton { background: linear-gradient(90deg, rgba(10,54,34,0.05) 25%, rgba(10,54,34,0.1) 50%, rgba(10,54,34,0.05) 75%); background-size: 200% 100%; animation: skeletonLoading 1.5s infinite; border-radius: 8px; }
+        body.eco-mode .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 75%); background-size: 200% 100%; }
+        @keyframes skeletonLoading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .skeleton-card { height: 350px; display: flex; flex-direction: column; padding: 0; border: 1px solid var(--card-border); border-radius: 16px; background: var(--card-bg);}
+        .skeleton-img { height: 220px; width: 100%; border-radius: 16px 16px 0 0; }
+        .skeleton-body { padding: 30px; flex: 1; display: flex; flex-direction: column; gap: 15px; }
+        .skeleton-tag { height: 14px; width: 30%; }
+        .skeleton-title { height: 24px; width: 80%; }
+        .skeleton-meta { height: 14px; width: 50%; margin-top: auto; }
         
         /* NAVBAR */
         nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 100; background: rgba(5, 24, 16, 0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); transition: 0.4s ease; }
