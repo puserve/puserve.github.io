@@ -1,5 +1,5 @@
 ---
-title: "Press Release: Perselingkuhan? Mitos atau Fakta"
+title: "IGNITE: Event pertama di President University yang mengundang President Xi Jin Ping"
 date: 2026-08-17
 status: "Upcoming" # Tulis statusnya (Pilih: Upcoming / Running / Past)
 attendees: "1 Mahasiswa & 1 Dosen"
