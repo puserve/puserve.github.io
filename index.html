@@ -85,9 +85,8 @@
             .nav-links.active { right: 0; }
         }
 
-        /* SMART FAB DOCKED BOTTOM (KIRI DI HP, KANAN DI LAPTOP) */
+   /* SMART FAB DOCKED BOTTOM LEFT (SELALU DI KIRI) */
         .fab-container { position: fixed; bottom: 25px; left: 25px; z-index: 998; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        @media (min-width: 1024px) { .fab-container { left: auto; right: 25px; } }
         .fab-options { display: flex; flex-direction: column; gap: 15px; opacity: 0; transform: translateY(20px); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
         .fab-container.open .fab-options { opacity: 1; transform: translateY(0); pointer-events: auto; }
         .fab-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--primary-green); border: 2px solid rgba(255,255,255,0.1); color: #ffffff; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
@@ -96,10 +95,9 @@
         .fab-container.open .fab-main svg { transform: rotate(90deg); transition: 0.4s; }
         .lang-text { font-weight: 800; font-size: 0.9rem; }
 
-        /* BACK TO TOP */
-        #back-to-top { position: fixed; bottom: -80px; right: 25px; left: auto; width: 50px; height: 50px; background: var(--primary-green); color: var(--puserve-yellow); border-radius: 16px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 997; border: 2px solid rgba(255,255,255,0.1);}
+        /* BACK TO TOP (SELALU DI KANAN) */
+        #back-to-top { position: fixed; bottom: -80px; right: 25px; width: 50px; height: 50px; background: var(--primary-green); color: var(--puserve-yellow); border-radius: 16px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 997; border: 2px solid rgba(255,255,255,0.1);}
         #back-to-top.show { bottom: 25px; }
-        @media (min-width: 1024px) { #back-to-top { right: auto; left: 25px; } }
         #back-to-top:hover { background: var(--puserve-yellow); color: var(--dark-green); }
 
         /* DYNAMIC LEAVES CURSOR */
