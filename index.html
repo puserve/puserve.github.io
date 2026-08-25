@@ -98,6 +98,30 @@
         #back-to-top.show { bottom: 25px; }
         #back-to-top:hover { background: var(--puserve-yellow); color: var(--dark-green); }
 
+        /* =========================================
+           FIX FATAL: EASTER EGG (ANTI BOCOR)
+           ========================================= */
+        #easter-egg-modal { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background: rgba(10, 54, 34, 0.95) !important; z-index: 999999999 !important; display: flex !important; justify-content: center !important; align-items: center !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; transition: 0.3s ease !important; backdrop-filter: blur(15px) !important; }
+        #easter-egg-modal.show { visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        .easter-egg-content { background: #1a1a1a !important; border: 3px solid #ff3333 !important; padding: 30px !important; border-radius: 20px !important; text-align: center !important; color: white !important; width: 90% !important; max-width: 450px !important; transform: scale(0.8); transition: 0.3s; position: relative !important; box-shadow: 0 0 50px rgba(255, 51, 51, 0.3) !important; }
+        #easter-egg-modal.show .easter-egg-content { transform: scale(1); }
+        .warning-header { color: #ff3333 !important; font-weight: 800 !important; font-size: 1.3rem !important; margin-bottom: 20px !important; letter-spacing: 2px !important; }
+        .easter-egg-content img { width: 100% !important; max-height: 400px !important; object-fit: contain !important; border-radius: 10px !important; margin-bottom: 20px !important; border: 2px dashed #fcd34d !important; display: block !important; }
+        .prank-text { color: #fcd34d !important; font-weight: 700 !important; font-size: 1.1rem !important; line-height: 1.6 !important; margin: 0 !important; }
+        .close-egg { position: absolute !important; top: -20px !important; right: -20px !important; font-size: 2rem !important; font-family: sans-serif !important; line-height: 1 !important; background: #ff3333 !important; color: white !important; width: 45px !important; height: 45px !important; border-radius: 50% !important; display: flex !important; justify-content: center !important; align-items: center !important; cursor: pointer !important; border: 3px solid #f4f9f5 !important; transition: 0.2s !important; box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important; z-index: 10 !important; }
+        .close-egg:hover { transform: scale(1.15) !important; background: white !important; color: #ff3333 !important; border-color: #ff3333 !important; }
+
+        /* MODALS (JOIN US) */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.85); z-index: 999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s; backdrop-filter: blur(8px); }
+        .modal-overlay.show { opacity: 1; pointer-events: auto; }
+        .modal-content-box { background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px; border-radius: 20px; width: 90%; max-width: 450px; text-align: left; position: relative; transform: translateY(30px) scale(0.95); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
+        .modal-overlay.show .modal-content-box { transform: translateY(0) scale(1); }
+        .close-modal-btn { position: absolute; top: 20px; right: 25px; color: var(--text-muted); cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;}
+        .close-modal-btn:hover { color: var(--puserve-yellow); transform: rotate(90deg); }
+        .modal-btn { display: flex; align-items: center; gap: 15px; width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: 0.3s; border: 1px solid var(--card-border); background: var(--bg-color); color: var(--text-color); }
+        .modal-btn:hover { background: var(--primary-green); color: #ffffff; border-color: var(--primary-green); transform: translateX(5px); }
+        .modal-btn svg { stroke: var(--puserve-yellow); }
+
         /* HERO (RATA KIRI & LEBAR AMAN) */
         .hero { position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; text-align: left; padding: 120px 5% 60px; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); box-sizing: border-box; }
         .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); z-index: -2; object-fit: cover; transition: opacity 0.5s; }
@@ -177,19 +201,9 @@
         .pledge-date { color: var(--puserve-yellow); font-weight: 800; font-size: 1.2rem; }
         .pledge-id { color: #557a68; font-weight: 800; font-size: 1.5rem; letter-spacing: 1px; }
 
-        /* MODALS (JOIN US) */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.85); z-index: 999999; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s; backdrop-filter: blur(8px); }
-        .modal-overlay.show { opacity: 1; pointer-events: auto; }
-        .modal-content-box { background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px; border-radius: 20px; width: 90%; max-width: 450px; text-align: left; position: relative; transform: translateY(30px) scale(0.95); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
-        .modal-overlay.show .modal-content-box { transform: translateY(0) scale(1); }
-        .close-modal-btn { position: absolute; top: 20px; right: 25px; color: var(--text-muted); cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;}
-        .close-modal-btn:hover { color: var(--puserve-yellow); transform: rotate(90deg); }
-        .modal-btn { display: flex; align-items: center; gap: 15px; width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: 0.3s; border: 1px solid var(--card-border); background: var(--bg-color); color: var(--text-color); }
-        .modal-btn:hover { background: var(--primary-green); color: #ffffff; border-color: var(--primary-green); transform: translateX(5px); }
-        .modal-btn svg { stroke: var(--puserve-yellow); }
-
         /* RESPONSIVE OVERRIDES */
         @media screen and (max-width: 768px) { 
+            .hero { padding: 140px 5% 60px; }
             .hero-title { font-size: 2.5rem; word-break: break-word; hyphens: auto; } 
             
             .pledge-card-landscape { padding: 25px; min-height: 300px; }
@@ -231,7 +245,6 @@
         #toast { visibility: hidden; min-width: 250px; background-color: var(--primary-green); color: var(--white); text-align: center; border-radius: 12px; padding: 18px 25px; position: fixed; z-index: 999999; left: 50%; bottom: 20px; transform: translateX(-50%); border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-weight: 600; opacity: 0; transition: opacity 0.4s, bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: flex; align-items: center; justify-content: center; gap: 10px;}
         #toast.show { visibility: visible; opacity: 1; bottom: 40px; border-color: var(--puserve-yellow);}
         
-        /* ECO MODE TOGGLES */
         body.eco-mode .section-title { color: var(--white); }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
@@ -260,11 +273,11 @@
             </button>
         </div>
         <button class="fab-btn fab-main" id="fabMain" title="Settings">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         </button>
     </div>
 
-    <!-- SECRET EASTER EGG MODAL -->
+    <!-- SECRET EASTER EGG MODAL (FIX FATAL KUNCI MATI GAK BAKAL NEMBUS) -->
     <div id="easter-egg-modal">
         <div class="easter-egg-content">
             <span class="close-egg" onclick="closeEgg()">&times;</span>
@@ -298,11 +311,12 @@
         </div>
     </div>
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR (GLASSMORPHISM) -->
     <nav id="navbar">
         <div class="nav-logos">
             <a href="index.html"><img src="logos/LOGO_PU.png" alt="President University"></a>
             <a href="index.html"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"></a>
+            <!-- Easter Egg nempel di logo PUSERVE -->
             <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE" id="secret-trigger-logo" title="PUSERVE">
         </div>
         <div class="menu-icon" id="hamburger-icon">
@@ -568,7 +582,7 @@
                 el.innerHTML = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
                 if (el.placeholder) el.placeholder = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
             });
-            if (document.getElementById('home-events-grid').innerHTML.indexOf('href') > -1) {
+            if (document.getElementById('home-events-grid') && document.getElementById('home-events-grid').innerHTML.indexOf('href') > -1) {
                 fetchContent('_events', 'home-events-grid', 'read.html');
                 fetchContent('_news', 'home-news-carousel', 'read-news.html');
             }
@@ -688,6 +702,7 @@
 
         async function fetchContent(folder, containerId, targetFile) {
             const container = document.getElementById(containerId);
+            if (!container) return; // Prevent error if container missing
             const cacheKey = `puserve_cache_${folder}`;
             const emptyMsg = currentLang === 'EN' ? 'No records published yet.' : 'Belum ada catatan yang dipublikasikan.';
             
