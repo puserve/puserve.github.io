@@ -57,18 +57,19 @@
         .btn-join:hover { background: #e5be3c; transform: translateY(-2px); }
         @media (max-width: 1023px) { .menu-icon { display: flex; } .nav-links { display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: #051810; padding: 100px 30px 30px; border-left: 1px solid var(--border-color); align-items: flex-start; transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1); } .nav-links.active { right: 0; } }
 
-        /* SMART FAB (FIXED BOTTOM LEFT) */
-        .fab-container { position: fixed; bottom: 20px; left: 20px; z-index: 998; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        .fab-options { display: flex; flex-direction: column; gap: 10px; opacity: 0; transform: scale(0.5) translateY(20px); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
-        .fab-container.open .fab-options { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
+  /* SMART FAB DOCKED BOTTOM LEFT (SELALU DI KIRI) */
+        .fab-container { position: fixed; bottom: 25px; left: 25px; z-index: 998; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .fab-options { display: flex; flex-direction: column; gap: 15px; opacity: 0; transform: translateY(20px); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
+        .fab-container.open .fab-options { opacity: 1; transform: translateY(0); pointer-events: auto; }
         .fab-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--primary-green); border: 2px solid rgba(255,255,255,0.1); color: #ffffff; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .fab-btn:hover { border-color: var(--puserve-yellow); color: var(--puserve-yellow); }
-        .fab-main { width: 55px; height: 55px; background: var(--primary-green); box-shadow: 0 5px 20px rgba(10,54,34,0.3); border: 2px solid rgba(255,255,255,0.1);}
+        .fab-btn:hover { border-color: var(--puserve-yellow); color: var(--puserve-yellow); transform: scale(1.1); }
+        .fab-main { width: 55px; height: 55px; z-index: 2;}
         .fab-container.open .fab-main svg { transform: rotate(90deg); transition: 0.4s; }
         .lang-text { font-weight: 800; font-size: 0.9rem; }
-        
-        #back-to-top { position: fixed; bottom: -80px; right: 20px; width: 50px; height: 50px; background: var(--primary-green); color: var(--puserve-yellow); border-radius: 16px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.4s; z-index: 998; border: 2px solid rgba(255,255,255,0.1);}
-        #back-to-top.show { bottom: 20px; }
+
+        /* BACK TO TOP (SELALU DI KANAN) */
+        #back-to-top { position: fixed; bottom: -80px; right: 25px; width: 50px; height: 50px; background: var(--primary-green); color: var(--puserve-yellow); border-radius: 16px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 997; border: 2px solid rgba(255,255,255,0.1);}
+        #back-to-top.show { bottom: 25px; }
         #back-to-top:hover { background: var(--puserve-yellow); color: var(--dark-green); }
 
         /* DYNAMIC LEAVES */
