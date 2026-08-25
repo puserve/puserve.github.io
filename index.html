@@ -42,13 +42,11 @@
             --card-border: #113624;
         }
 
-        /* RESET & ANTI-NEMBUS LAYAR KANAN */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         html, body { width: 100%; max-width: 100vw; overflow-x: hidden; scroll-behavior: smooth; background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.5s ease, color 0.5s ease; }
         
         ::selection { background-color: var(--primary-green); color: var(--puserve-yellow); }
 
-        /* CUSTOM SCROLLBAR */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); border-left: 1px solid var(--card-border); }
         ::-webkit-scrollbar-thumb { background: var(--primary-green); border-radius: 4px; }
@@ -80,26 +78,49 @@
             .nav-links.active { right: 0; }
         }
 
-        /* SMART FAB GIR (DIKUNCI KIRI BAWAH & TENGAH SEMPURNA) */
+        /* ========================================================
+           SMART FAB GIR (RUMUS ABSOLUTE CENTER ANTI-GAGAL)
+           ======================================================== */
         .fab-container { position: fixed; bottom: 25px; left: 25px; z-index: 998; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 15px; }
         .fab-options { display: flex; flex-direction: column; gap: 15px; opacity: 0; transform: translateY(20px) scale(0.9); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
         .fab-container.open .fab-options { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
         
-        .fab-btn { width: 55px !important; height: 55px !important; border-radius: 50% !important; background: var(--primary-green) !important; border: 2px solid rgba(255,255,255,0.1) !important; color: #ffffff !important; display: flex !important; justify-content: center !important; align-items: center !important; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); padding: 0 !important; margin: 0 !important; outline: none !important; box-sizing: border-box !important; line-height: 0 !important; flex-shrink: 0 !important; }
-        .fab-btn svg { width: 24px !important; height: 24px !important; margin: 0 !important; padding: 0 !important; display: block !important; transition: transform 0.4s; flex-shrink: 0 !important; }
+        .fab-btn { 
+            position: relative; /* Ini Kuncinya */
+            width: 55px !important; height: 55px !important; 
+            border-radius: 50% !important; 
+            background: var(--primary-green) !important; 
+            border: 2px solid rgba(255,255,255,0.1) !important; 
+            color: #ffffff !important; 
+            cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+            padding: 0 !important; margin: 0 !important; outline: none !important; 
+            box-sizing: border-box !important; flex-shrink: 0 !important;
+        }
+        .fab-btn svg { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); /* Dipaku di tengah */
+            width: 24px !important; height: 24px !important; 
+            margin: 0 !important; padding: 0 !important; display: block !important; transition: transform 0.4s; flex-shrink: 0 !important;
+        }
         .fab-btn:hover { border-color: var(--puserve-yellow) !important; color: var(--puserve-yellow) !important; transform: scale(1.1); }
         .fab-main { z-index: 2; }
-        .fab-container.open .fab-main svg { transform: rotate(90deg); }
-        .lang-text { font-weight: 800; font-size: 1rem; }
+        .fab-container.open .fab-main svg { transform: translate(-50%, -50%) rotate(90deg); }
+        .lang-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 800; font-size: 1rem; }
 
-        /* BACK TO TOP (DIKUNCI KANAN BAWAH) */
-        #back-to-top { position: fixed; bottom: -80px; right: 25px; width: 50px !important; height: 50px !important; background: var(--primary-green) !important; color: var(--puserve-yellow) !important; border-radius: 16px !important; display: flex !important; justify-content: center !important; align-items: center !important; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 997; border: 2px solid rgba(255,255,255,0.1) !important; padding: 0 !important; margin: 0 !important; box-sizing: border-box !important; line-height: 0 !important; }
-        #back-to-top svg { width: 24px !important; height: 24px !important; margin: 0 !important; display: block !important; }
+        /* BACK TO TOP */
+        #back-to-top { 
+            position: fixed; bottom: -80px; right: 25px; 
+            width: 50px !important; height: 50px !important; 
+            background: var(--primary-green) !important; color: var(--puserve-yellow) !important; 
+            border-radius: 16px !important; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 997; 
+            border: 2px solid rgba(255,255,255,0.1) !important; padding: 0 !important; margin: 0 !important; box-sizing: border-box !important; 
+        }
+        #back-to-top svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 24px !important; height: 24px !important; margin: 0 !important; display: block !important; }
         #back-to-top.show { bottom: 25px; }
         #back-to-top:hover { background: var(--puserve-yellow) !important; color: var(--dark-green) !important; }
 
-        /* HERO (RATA KIRI & GAP DISTANCE DIPENDEKIN) */
-        .hero { position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; text-align: left; padding: 160px 5% 60px; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); box-sizing: border-box; background-color: var(--dark-green); }
+        /* HERO (GAP ATAS DIPENDEKIN JADI 100px) */
+        .hero { position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; text-align: left; padding: 100px 5% 60px; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); box-sizing: border-box; background-color: var(--dark-green); }
         .hero video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(5,24,16,0.85) 0%, rgba(5,24,16,0.6) 50%, rgba(5,24,16,0.95) 100%); z-index: 1; transition: background 0.5s; pointer-events: none;}
         .hero-content { position: relative; z-index: 2; width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: flex-start; }
@@ -226,7 +247,7 @@
 
         /* RESPONSIVE OVERRIDES FINAL */
         @media screen and (max-width: 768px) { 
-            .hero { padding: 120px 5% 60px; justify-content: flex-start; }
+            .hero { padding: 90px 5% 60px; justify-content: flex-start; }
             .hero-title { font-size: 2.5rem; word-break: break-word; hyphens: auto; } 
             
             .pledge-card-landscape { padding: 25px; min-height: 300px; }
@@ -277,19 +298,19 @@
         <span id="toast-msg"></span>
     </div>
 
-    <!-- BACK TO TOP -->
+    <!-- BACK TO TOP (DIKUNCI KANAN) -->
     <div id="back-to-top" title="Scroll to top">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </div>
 
-    <!-- SMART FAB (ECO & LANG TOGGLE) -->
+    <!-- SMART FAB (DIKUNCI KIRI) -->
     <div class="fab-container" id="fabContainer">
         <div class="fab-options">
             <button class="fab-btn" id="langToggle" aria-label="Toggle Language" title="Translate EN/ID">
                 <span class="lang-text" id="langText">EN</span>
             </button>
             <button class="fab-btn" id="ecoToggle" aria-label="Toggle Eco Mode" title="Eco Mode">
-                <svg id="ecoIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                <svg width="24" height="24" id="ecoIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
             </button>
         </div>
         <button class="fab-btn fab-main" id="fabMain" title="Settings">
@@ -331,11 +352,12 @@
         </div>
     </div>
 
-    <!-- NAVBAR (GLASSMORPHISM) -->
+    <!-- NAVBAR -->
     <nav id="navbar">
         <div class="nav-logos">
             <a href="index.html"><img src="logos/LOGO_PU.png" alt="President University"></a>
             <a href="index.html"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"></a>
+            <!-- Easter Egg nempel di logo PUSERVE -->
             <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE" id="secret-trigger-logo" title="PUSERVE">
         </div>
         <div class="menu-icon" id="hamburger-icon">
@@ -415,7 +437,9 @@
                     <div class="campaign-percentage counter-camp" data-target="75">0%</div>
                 </div>
                 <div class="progress-track">
-                    <div class="progress-fill" data-width="75%" id="fill-tree"></div>
+                    <div class="progress-fill" data-width="75%" id="fill-tree">
+                        <div class="progress-emitter" id="emitter-tree"></div>
+                    </div>
                 </div>
             </div>
 
@@ -428,7 +452,9 @@
                     <div class="campaign-percentage counter-camp" data-target="60">0%</div>
                 </div>
                 <div class="progress-track">
-                    <div class="progress-fill" data-width="60%" id="fill-plastic"></div>
+                    <div class="progress-fill" data-width="60%" id="fill-plastic">
+                        <div class="progress-emitter" id="emitter-plastic"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -461,6 +487,7 @@
         <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem; width: 100%; text-align: center;" data-en="Latest Environmental News, Opinions, and Analysis." data-id="Berita, Opini, dan Analisis Lingkungan Terkini.">Latest Environmental News, Opinions, and Analysis.</p>
 
         <div id="home-news-carousel" class="events-grid">
+            <!-- SKELETON PENGGANTI SPINNER -->
             <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
             <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
         </div>
@@ -473,6 +500,7 @@
     <section class="pledge-container">
         <div class="pledge-card-landscape">
             <img src="logos/LOGO_PUSERVE.png" class="pledge-watermark" alt="Puserve BG">
+            
             <div class="pledge-top">
                 <div class="pledge-logos">
                     <img src="logos/LOGO_PU.png" alt="PU">
@@ -481,10 +509,12 @@
                 </div>
                 <div class="pledge-badge" data-en="OFFICIAL<br>ECO-PLEDGE" data-id="IKRAR RESMI<br>LINGKUNGAN">OFFICIAL<br>ECO-PLEDGE</div>
             </div>
+            
             <div class="pledge-mid">
                 <h2>NOEL JACOB OTTLEY</h2>
                 <p data-en='"I pledge to protect and sustain our earth."' data-id='"Saya berikrar untuk melindungi dan melestarikan bumi kita."'>"I pledge to protect and sustain our earth."</p>
             </div>
+            
             <div class="pledge-bottom">
                 <span class="pledge-date">20/08/2026</span>
                 <span class="pledge-id">#PSR-3388</span>
