@@ -123,6 +123,40 @@
         .pulsing-dot { display: inline-block; width: 12px; height: 12px; background-color: #ef4444; border-radius: 50%; box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); animation: pulse-red 2s infinite; margin-left: 8px; vertical-align: middle; }
         @keyframes pulse-red { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
 
+<!-- HERO SECTION V3 (MASSIVE TYPOGRAPHY ALA GROW) -->
+    <section class="hero-centered">
+        <video id="bg-video" autoplay loop muted playsinline>
+            <source src="forestbg.webm" type="video/webm">
+        </video>
+        <div class="hero-overlay-center"></div>
+
+        <div class="hero-content-center">
+            <h1 class="massive-title animate-fade-up delay-1">PUSERVE</h1>
+            <p class="hero-subtext animate-fade-up delay-2" data-en="As an environmental movement, we're on a mission to generate ideas and transform them into meaningful impact for our planet." data-id="Sebagai gerakan lingkungan, kami memiliki misi untuk menciptakan ide dan mengubahnya menjadi dampak nyata bagi planet kita.">As an environmental movement, we're on a mission to generate ideas and transform them into meaningful impact for our planet.</p>
+            
+            <div class="animate-fade-up delay-3">
+                <a href="#activities" class="btn-massive-primary" data-en="Get Involved" data-id="Mulai Aksi">Get Involved</a>
+            </div>
+        </div>
+
+        <!-- Social Icons Bottom Center -->
+        <div class="hero-socials-bottom animate-fade-up delay-3">
+            <a href="https://www.instagram.com/puserve.presuniv" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            <a href="https://www.tiktok.com/@puserve.presuniv" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg></a>
+        </div>
+
+        <!-- AQI Card Bottom Right -->
+        <a href="https://open-meteo.com/" target="_blank" class="floating-aqi animate-fade-up delay-3">
+            <div class="glass-box-aqi">
+                <div class="pulsing-dot-big"></div>
+                <div class="aqi-info">
+                    <p class="aqi-label">Cikarang Air Quality</p>
+                    <p class="aqi-score">118 AQI - Unhealthy</p>
+                </div>
+            </div>
+        </a>
+    </section>
+        
         /* CENTERED SECTIONS */
         .section-container { max-width: 1200px; margin: 0 auto; padding: 80px 5% 20px; display: flex; flex-direction: column; align-items: center; text-align: center; box-sizing: border-box; }
         .section-header { display: flex; align-items: center; justify-content: center; margin-bottom: 30px; width: 100%; }
@@ -354,34 +388,39 @@
         </ul>
     </nav>
 
-    <!-- HERO SECTION V2 (CINEMATIC NOISE & ANIMASI) -->
-    <section class="hero">
+    <!-- HERO SECTION V3 (MASSIVE TYPOGRAPHY ALA GROW) -->
+    <section class="hero-centered">
         <video id="bg-video" autoplay loop muted playsinline>
             <source src="forestbg.webm" type="video/webm">
         </video>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="animate-fade-up delay-1" style="margin-bottom: 25px;">
-                <p style="color: #8bada0; font-weight: 700; margin-bottom: 12px; letter-spacing: 2px;" data-en="OFFICIAL PORTAL" data-id="PORTAL RESMI">OFFICIAL PORTAL</p>
-                <a href="https://open-meteo.com/" target="_blank" style="text-decoration: none; color: white;">
-                    <div class="glass-box">
-                        <p style="font-size: 0.75rem; letter-spacing: 1px; color: #d1e0d9;">CIKARANG AIR QUALITY INDEX</p>
-                        <p style="font-size: 1.3rem; font-weight: 800; margin-top: 5px;">118 AQI - Unhealthy <span class="pulsing-dot"></span></p>
-                        <p style="font-size: 0.65rem; color: #8bada0; margin-top: 5px;">Live Source: Open-Meteo Global API</p>
-                    </div>
-                </a>
-            </div>
-            
-            <h1 class="hero-title animate-fade-up delay-2" data-en="Real Environmental Action.<br><span class='highlight-gold'>Empowering Changemakers.</span>" data-id="Aksi Lingkungan Nyata.<br><span class='highlight-gold'>Memberdayakan Perubahan.</span>">Real Environmental Action.<br><span class="highlight-gold">Empowering Changemakers.</span></h1>
-            <p class="animate-fade-up delay-3" style="font-size: 1.15rem; line-height: 1.6; color: #d1e0d9;" data-en="Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet." data-id="Menciptakan ide, memperkuat kolaborasi, dan mengubahnya menjadi dampak nyata bagi planet kita.">Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet.</p>
+        <div class="hero-overlay-center"></div>
 
-            <div class="hero-buttons animate-fade-up delay-3">
-                <a href="#activities" class="primary-btn" data-en="Get Involved" data-id="Mulai Aksi">Get Involved</a>
-                <a href="https://drive.google.com/file/d/1WjKjPCBvSe0yt6PcfBsAFXr1NAu1X4sR/view?usp=drivesdk" target="_blank" class="secondary-btn" data-en="Explore Archive" data-id="Eksplorasi Arsip">Explore Archive</a>
+        <div class="hero-content-center">
+            <h1 class="massive-title animate-fade-up delay-1">PUSERVE</h1>
+            <p class="hero-subtext animate-fade-up delay-2" data-en="As an environmental movement, we're on a mission to generate ideas and transform them into meaningful impact for our planet." data-id="Sebagai gerakan lingkungan, kami memiliki misi untuk menciptakan ide dan mengubahnya menjadi dampak nyata bagi planet kita.">As an environmental movement, we're on a mission to generate ideas and transform them into meaningful impact for our planet.</p>
+            
+            <div class="animate-fade-up delay-3">
+                <a href="#activities" class="btn-massive-primary" data-en="Get Involved" data-id="Mulai Aksi">Get Involved</a>
             </div>
         </div>
-    </section>
 
+        <!-- Social Icons Bottom Center -->
+        <div class="hero-socials-bottom animate-fade-up delay-3">
+            <a href="https://www.instagram.com/puserve.presuniv" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            <a href="https://www.tiktok.com/@puserve.presuniv" target="_blank"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg></a>
+        </div>
+
+        <!-- AQI Card Bottom Right -->
+        <a href="https://open-meteo.com/" target="_blank" class="floating-aqi animate-fade-up delay-3">
+            <div class="glass-box-aqi">
+                <div class="pulsing-dot-big"></div>
+                <div class="aqi-info">
+                    <p class="aqi-label">Cikarang Air Quality</p>
+                    <p class="aqi-score">118 AQI - Unhealthy</p>
+                </div>
+            </div>
+        </a>
+    </section>
     <!-- IMPACT COUNTER 2.0 (ICONS ADDED BENERAN) -->
     <section class="section-container" style="padding-top: 80px; padding-bottom: 0;">
         <div class="impact-box">
