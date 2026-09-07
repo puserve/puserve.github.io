@@ -80,84 +80,69 @@
             .nav-links.active { right: 0; }
         }
 
-        /* ==========================================
-           SMART FAB GIR (KUNCI MATI ANTI MLEYOT)
-           ========================================== */
+        /* ========================================================
+           SMART FAB GIR (FLEXBOX MURNI ANTI-GAGAL)
+           ======================================================== */
         .fab-container { position: fixed; bottom: 25px; left: 25px; z-index: 998; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 15px; }
         .fab-options { display: flex; flex-direction: column; gap: 15px; opacity: 0; transform: translateY(20px) scale(0.9); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
         .fab-container.open .fab-options { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
         
         .fab-btn { 
-            width: 55px !important; 
-            height: 55px !important; 
+            width: 55px !important; height: 55px !important; 
             border-radius: 50% !important; 
             background: var(--primary-green) !important; 
             border: 2px solid rgba(255,255,255,0.1) !important; 
             color: #ffffff !important; 
-            display: flex !important; 
-            justify-content: center !important; 
-            align-items: center !important; 
-            padding: 0 !important; 
-            margin: 0 !important; 
-            cursor: pointer; 
-            transition: 0.3s; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
-            outline: none !important;
-            box-sizing: border-box !important;
-            line-height: 0 !important;
-            flex-shrink: 0 !important;
+            cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+            padding: 0 !important; margin: 0 !important; outline: none !important; 
+            box-sizing: border-box !important; flex-shrink: 0 !important;
+            
+            /* RUMUS TENGAH MURNI */
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
         .fab-btn svg { 
-            width: 24px !important; 
-            height: 24px !important; 
-            margin: 0 !important; 
-            padding: 0 !important; 
-            display: block !important; 
-            transition: transform 0.4s; 
-            flex-shrink: 0 !important;
+            width: 24px !important; height: 24px !important; 
+            margin: 0 !important; padding: 0 !important; 
+            display: block !important; transition: transform 0.4s; 
         }
         .fab-btn:hover { border-color: var(--puserve-yellow) !important; color: var(--puserve-yellow) !important; transform: scale(1.1); }
         .fab-main { z-index: 2; }
         .fab-container.open .fab-main svg { transform: rotate(90deg); }
-        .lang-text { font-weight: 800; font-size: 1rem; line-height: 1 !important;}
+        .lang-text { font-weight: 800; font-size: 1rem; }
 
-        /* BACK TO TOP (DIKUNCI KANAN BAWAH) */
+        /* BACK TO TOP */
         #back-to-top { 
             position: fixed; bottom: -80px; right: 25px; 
             width: 50px !important; height: 50px !important; 
-            background: var(--primary-green) !important; 
-            color: var(--puserve-yellow) !important; 
-            border-radius: 16px !important; 
-            display: flex !important; justify-content: center !important; align-items: center !important; 
-            cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
-            z-index: 997; border: 2px solid rgba(255,255,255,0.1) !important; 
-            padding: 0 !important; margin: 0 !important; 
-            box-sizing: border-box !important; line-height: 0 !important;
+            background: var(--primary-green) !important; color: var(--puserve-yellow) !important; 
+            border-radius: 16px !important; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 997; 
+            border: 2px solid rgba(255,255,255,0.1) !important; 
+            padding: 0 !important; margin: 0 !important; box-sizing: border-box !important; 
+            display: flex !important; align-items: center !important; justify-content: center !important;
         }
         #back-to-top svg { width: 24px !important; height: 24px !important; margin: 0 !important; display: block !important; }
         #back-to-top.show { bottom: 25px; }
         #back-to-top:hover { background: var(--puserve-yellow) !important; color: var(--dark-green) !important; }
 
-        /* ==========================================
-           HERO SECTION (PAS 1 LAYAR PENUH)
-           ========================================== */
-        .hero { position: relative; width: 100%; height: 100vh; min-height: 600px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; text-align: left; padding: 60px 5% 0; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); box-sizing: border-box; background-color: var(--dark-green); }
+        /* HERO (GAP ATAS DIPENDEKIN JADI 100px) */
+        .hero { position: relative; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; text-align: left; padding: 100px 5% 60px; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); box-sizing: border-box; background-color: var(--dark-green); }
         .hero video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(5,24,16,0.85) 0%, rgba(5,24,16,0.5) 40%, rgba(5,24,16,0.95) 100%); z-index: 1; transition: background 0.5s; pointer-events: none;}
-        
-        /* Konten ditarik sedikit ke atas biar gap header ga terlalu jauh */
-        .hero-content { position: relative; z-index: 2; width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: flex-start; transform: translateY(-15px); }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(5,24,16,0.85) 0%, rgba(5,24,16,0.6) 50%, rgba(5,24,16,0.95) 100%); z-index: 1; transition: background 0.5s; pointer-events: none;}
+        .hero-content { position: relative; z-index: 2; width: 100%; max-width: 800px; display: flex; flex-direction: column; align-items: flex-start; }
         body.eco-mode .hero video { display: none; }
         
-        .hero-title { font-size: clamp(2.5rem, 5vw, 4.2rem); line-height: 1.1; margin-bottom: 12px; color: #ffffff;}
+        .hero-title { font-size: 4.5rem; line-height: 1.1; margin-bottom: 20px; color: #ffffff;}
         .highlight-gold { color: var(--puserve-yellow); }
-        .hero-buttons { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; justify-content: flex-start;}
-        .primary-btn { background: var(--puserve-yellow); color: var(--dark-green); padding: 14px 35px; border-radius: 40px; font-size: 1rem; font-weight: 800; text-decoration: none; transition: 0.3s; }
+        .hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 35px; justify-content: flex-start;}
+        .primary-btn { background: var(--puserve-yellow); color: var(--dark-green); padding: 16px 40px; border-radius: 40px; font-size: 1.05rem; font-weight: 800; text-decoration: none; transition: 0.3s; }
         .primary-btn:hover { background: #ffffff; transform: translateY(-3px); }
-        .secondary-btn { background: rgba(255,255,255,0.1); color: #ffffff; border: 1px solid rgba(255,255,255,0.2); padding: 14px 35px; border-radius: 40px; font-size: 1rem; font-weight: 700; text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); }
+        .secondary-btn { background: rgba(255,255,255,0.1); color: #ffffff; border: 1px solid rgba(255,255,255,0.2); padding: 16px 40px; border-radius: 40px; font-size: 1.05rem; font-weight: 700; text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); }
         .secondary-btn:hover { background: rgba(255,255,255,0.2); border-color: #ffffff; transform: translateY(-3px); }
 
-        .glass-box { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 12px 20px; border-radius: 16px; display: inline-block; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); transition: transform 0.3s; }
+        .glass-box { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 15px 25px; border-radius: 16px; display: inline-block; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); transition: transform 0.3s; }
         .glass-box:hover { transform: translateY(-3px); }
 
         /* CENTERED SECTIONS */
@@ -270,8 +255,7 @@
 
         /* RESPONSIVE OVERRIDES FINAL */
         @media screen and (max-width: 768px) { 
-            .hero { padding: 90px 5% 40px; height: auto; min-height: 100vh; justify-content: center; }
-            .hero-content { transform: translateY(0); }
+            .hero { padding: 90px 5% 60px; justify-content: flex-start; }
             .hero-title { font-size: 2.5rem; word-break: break-word; hyphens: auto; } 
             
             .pledge-card-landscape { padding: 25px; min-height: 300px; }
@@ -324,21 +308,21 @@
 
     <!-- BACK TO TOP (DIKUNCI KANAN) -->
     <div id="back-to-top" title="Scroll to top">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </div>
 
-    <!-- SMART FAB (DIKUNCI KIRI) -->
+    <!-- SMART FAB (ECO & LANG TOGGLE) -->
     <div class="fab-container" id="fabContainer">
         <div class="fab-options">
             <button class="fab-btn" id="langToggle" aria-label="Toggle Language" title="Translate EN/ID">
                 <span class="lang-text" id="langText">EN</span>
             </button>
             <button class="fab-btn" id="ecoToggle" aria-label="Toggle Eco Mode" title="Eco Mode">
-                <svg id="ecoIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                <svg id="ecoIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
             </button>
         </div>
         <button class="fab-btn fab-main" id="fabMain" title="Settings">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         </button>
     </div>
 
@@ -404,8 +388,8 @@
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <div style="margin-bottom: 20px;">
-                <p style="color: #8bada0; font-weight: 700; margin-bottom: 12px; letter-spacing: 2px;" data-en="OFFICIAL PORTAL" data-id="PORTAL RESMI">OFFICIAL PORTAL</p>
+            <div style="margin-bottom: 30px;">
+                <p style="color: #8bada0; font-weight: 700; margin-bottom: 15px; letter-spacing: 2px;" data-en="OFFICIAL PORTAL" data-id="PORTAL RESMI">OFFICIAL PORTAL</p>
                 <a href="https://open-meteo.com/" target="_blank" style="text-decoration: none; color: white;">
                     <div class="glass-box">
                         <p style="font-size: 0.75rem; letter-spacing: 1px; color: #d1e0d9;">CIKARANG AIR QUALITY INDEX</p>
@@ -416,7 +400,7 @@
             </div>
             
             <h1 class="hero-title" data-en="Real Environmental Action.<br><span class='highlight-gold'>Empowering Changemakers.</span>" data-id="Aksi Lingkungan Nyata.<br><span class='highlight-gold'>Memberdayakan Perubahan.</span>">Real Environmental Action.<br><span class="highlight-gold">Empowering Changemakers.</span></h1>
-            <p style="font-size: 1.1rem; line-height: 1.5; color: #d1e0d9; max-width: 600px;" data-en="Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet." data-id="Menciptakan ide, memperkuat kolaborasi, dan mengubahnya menjadi dampak nyata bagi planet kita.">Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet.</p>
+            <p style="font-size: 1.2rem; line-height: 1.6; color: #d1e0d9;" data-en="Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet." data-id="Menciptakan ide, memperkuat kolaborasi, dan mengubahnya menjadi dampak nyata bagi planet kita.">Generating ideas, strengthening collaboration, and transforming them into meaningful impact for our planet.</p>
 
             <div class="hero-buttons">
                 <a href="#activities" class="primary-btn" data-en="Get Involved" data-id="Mulai Aksi">Get Involved</a>
@@ -461,9 +445,7 @@
                     <div class="campaign-percentage counter-camp" data-target="75">0%</div>
                 </div>
                 <div class="progress-track">
-                    <div class="progress-fill" data-width="75%" id="fill-tree">
-                        <div class="progress-emitter" id="emitter-tree"></div>
-                    </div>
+                    <div class="progress-fill" data-width="75%" id="fill-tree"></div>
                 </div>
             </div>
 
@@ -476,9 +458,7 @@
                     <div class="campaign-percentage counter-camp" data-target="60">0%</div>
                 </div>
                 <div class="progress-track">
-                    <div class="progress-fill" data-width="60%" id="fill-plastic">
-                        <div class="progress-emitter" id="emitter-plastic"></div>
-                    </div>
+                    <div class="progress-fill" data-width="60%" id="fill-plastic"></div>
                 </div>
             </div>
         </div>
