@@ -45,8 +45,9 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         html { scroll-behavior: smooth; }
         body { background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; transition: background-color 0.5s ease, color 0.5s ease; opacity: 0; animation: fadeInPage 0.8s forwards; }
-        @keyframes fadeInPage { to { opacity: 1; } }
         
+        @keyframes fadeInPage { to { opacity: 1; } }
+        @view-transition { navigation: auto; }
         ::selection { background-color: var(--primary-green); color: var(--puserve-yellow); }
 
         ::-webkit-scrollbar { width: 8px; height: 8px; }
@@ -72,7 +73,6 @@
         .btn-join { background: var(--dark-green); color: var(--puserve-yellow) !important; padding: 10px 24px; border-radius: 30px; font-weight: 700 !important; border: none; cursor: pointer; transition: 0.3s;}
         .btn-join:hover { background: var(--primary-green); transform: translateY(-2px); }
 
-        /* NAVBAR ECO MODE OVERRIDES */
         body.eco-mode nav { background: rgba(5, 24, 16, 0.8); border-bottom-color: rgba(255,255,255,0.1); }
         body.eco-mode .nav-links a { color: #ffffff; }
         body.eco-mode .menu-icon span { background: #ffffff; }
@@ -85,43 +85,25 @@
             .nav-links a { color: #ffffff; font-weight: 500;}
         }
 
-        /* =======================================================
-           SMART FAB (GEAR) - ABSOLUTE CENTERING ANTI-MLEYOT 1000%
-           ======================================================= */
+        /* SMART FAB (GEAR) */
         .fab-container { position: fixed; bottom: 25px; left: 25px; z-index: 998; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .fab-options { display: flex; flex-direction: column; gap: 15px; opacity: 0; transform: translateY(20px); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
         .fab-container.open .fab-options { opacity: 1; transform: translateY(0); pointer-events: auto; }
         
         .fab-btn { 
-            position: relative; /* KUNCI UTAMA */
             width: 50px; height: 50px; border-radius: 50%; 
             background: var(--primary-green); border: 2px solid rgba(255,255,255,0.1); 
             color: #ffffff; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
-            padding: 0; margin: 0; outline: none; border: none;
+            display: flex; justify-content: center; align-items: center; 
+            padding: 0; margin: 0; box-sizing: border-box; outline: none;
         }
         .fab-btn:hover { border-color: var(--puserve-yellow); color: var(--puserve-yellow); transform: scale(1.1); }
         .fab-main { width: 55px; height: 55px; background: var(--primary-green); box-shadow: 0 5px 20px rgba(10,54,34,0.3); border: 2px solid rgba(255,255,255,0.1); z-index: 2;}
-        
-        /* PAKU SVG DI TENGAH-TENGAH TOMBOL */
-        .fab-btn svg { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 24px; height: 24px; display: block; margin: 0; padding: 0; 
-        }
-        .fab-container.open .fab-main svg { transform: translate(-50%, -50%) rotate(90deg); transition: 0.4s; }
-        
-        /* PAKU TEXT EN/ID DI TENGAH-TENGAH TOMBOL */
-        .lang-text { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            font-weight: 800; font-size: 0.9rem; 
-        }
+        .fab-container.open .fab-main svg { transform: rotate(90deg); transition: 0.4s; }
+        .lang-text { font-weight: 800; font-size: 0.9rem; }
 
         /* BACK TO TOP */
-        #back-to-top { 
-            position: fixed; bottom: -80px; right: 25px; width: 50px; height: 50px; 
-            background: var(--primary-green); color: var(--puserve-yellow); border-radius: 16px; 
-            cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.4s; z-index: 998; border: 2px solid rgba(255,255,255,0.1);
-        }
-        #back-to-top svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 24px; height: 24px; display: block; }
+        #back-to-top { position: fixed; bottom: -80px; right: 25px; width: 50px; height: 50px; background: var(--primary-green); color: var(--puserve-yellow); border-radius: 16px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.4s; z-index: 998; border: 2px solid rgba(255,255,255,0.1);}
         #back-to-top.show { bottom: 25px; }
         #back-to-top:hover { background: var(--puserve-yellow); color: var(--dark-green); }
 
@@ -129,13 +111,10 @@
         .animate-fade-up { opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .delay-1 { animation-delay: 0.1s; }
         .delay-2 { animation-delay: 0.3s; }
-        .delay-3 { animation-delay: 0.8s; } /* Ngasih waktu 3 detik animasi text kelar */
+        .delay-3 { animation-delay: 0.8s; }
         @keyframes fadeUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
 
-        /* =======================================================
-           HERO SECTION LIGHT (AIRY, MODERN & MINIMALIST)
-           ======================================================= */
-        /* Padding top 180px biar Official Portal ga nabrak navbar (Desktop) */
+        /* HERO SECTION LIGHT */
         .hero-light { position: relative; width: 100%; height: 100vh; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); background-color: var(--bg-color); padding: 180px 5% 60px; }
         .bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; }
         .hero-overlay-light { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(244,249,245,0.1) 0%, rgba(244,249,245,0.85) 100%); z-index: 1; pointer-events: none;}
@@ -153,8 +132,8 @@
             margin-bottom: 15px; 
             position: relative; 
             z-index: 3;
-            white-space: nowrap; /* ANTI TULISAN TERBELAH JADI 2 BARIS */
-            animation: expandText 3s cubic-bezier(0.16, 1, 0.3, 1) forwards; /* ANIMASI 3 DETIK */
+            white-space: nowrap; 
+            animation: expandText 3s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
             opacity: 0; 
         }
 
@@ -171,7 +150,6 @@
         body.eco-mode .grad-text-1 { background: linear-gradient(90deg, #ffffff 0%, #ffffff 75%, #8bada0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         body.eco-mode .grad-text-2 { background: linear-gradient(90deg, #8bada0 0%, #ffffff 25%, #ffffff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
-        /* The 'S' Calligraphy with Reduced Green Glow */
         .font-serif.glow-s { 
             font-family: 'Playfair Display', serif; 
             font-style: italic; 
@@ -180,17 +158,15 @@
             margin: 0 -2px; 
             letter-spacing: -4px;
             display: inline-block;
-            color: var(--primary-green); /* S Hijau Solid */
+            color: var(--primary-green); 
             animation: sGlowLight 3s infinite alternate;
         }
 
-        /* S di Eco Mode juga Hijau */
         body.eco-mode .font-serif.glow-s { 
             color: #10b981; 
             animation: sGlowDark 3s infinite alternate;
         }
 
-        /* Efek Glow Dikurangi */
         @keyframes sGlowLight {
             0% { filter: drop-shadow(0 0 2px rgba(10, 54, 34, 0.1)); transform: scale(1); }
             100% { filter: drop-shadow(0 0 8px rgba(10, 54, 34, 0.4)); transform: scale(1.02); }
@@ -205,7 +181,7 @@
         .btn-massive-primary { background: var(--puserve-yellow); color: var(--dark-green); padding: 18px 50px; border-radius: 50px; font-size: 1.1rem; font-weight: 800; text-decoration: none; transition: 0.3s; box-shadow: 0 10px 25px rgba(252, 211, 77, 0.3); }
         .btn-massive-primary:hover { background: var(--primary-green); color: #ffffff; transform: translateY(-5px); box-shadow: 0 15px 35px rgba(10, 54, 34, 0.2); }
 
-        /* AQI CARD (TOP LEFT - FIX) */
+        /* AQI CARD (TOP LEFT) */
         .aqi-top-left { position: absolute; top: 110px; left: 5%; z-index: 4; text-align: left; }
         .glass-box-light { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); padding: 12px 20px; border-radius: 16px; color: var(--dark-green); box-shadow: 0 4px 20px rgba(0,0,0,0.05); cursor: default; }
         .aqi-label-light { font-size: 0.7rem; letter-spacing: 1.5px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 3px; font-weight: 700; }
@@ -279,8 +255,17 @@
         .progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(90deg, var(--primary-green) 0%, var(--accent-color) 100%); border-radius: 10px; width: 0; transition: width 2.5s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 0 15px rgba(252, 211, 77, 0.4); }
         .campaign-subtext { text-align: right; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;}
 
-        /* PLEDGE CARD */
+        /* PLEDGE FORM & CARD */
         .pledge-container { width: 100%; max-width: 1000px; margin: 0 auto 80px; padding: 0 5%; box-sizing: border-box; }
+        
+        .pledge-form { max-width: 600px; margin: 0 auto 40px; display: flex; flex-direction: column; gap: 15px; background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; }
+        .pledge-form h3 { color: var(--primary-green); font-size: 1.2rem; margin-bottom: 5px; }
+        .pledge-input-row { display: flex; gap: 15px; }
+        .pledge-input { flex: 1; padding: 12px 15px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--bg-color); color: var(--text-color); outline: none; }
+        .pledge-textarea { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--bg-color); color: var(--text-color); outline: none; resize: none; }
+        .btn-pledge-submit { background: var(--puserve-yellow); color: var(--dark-green); border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .btn-pledge-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+
         .pledge-card-landscape { background: #051810; border: 2px solid var(--puserve-yellow); border-radius: 24px; padding: 40px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 350px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); z-index: 1; }
         .pledge-watermark { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; opacity: 0.05; pointer-events: none; z-index: -1; }
         .pledge-top { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; }
@@ -296,7 +281,7 @@
         .pledge-date { color: var(--puserve-yellow); font-weight: 800; font-size: 1.2rem; }
         .pledge-id { color: #557a68; font-weight: 800; font-size: 1.5rem; letter-spacing: 1px; }
 
-        /* MODALS & EASTER EGG */
+        /* MODALS */
         .modal-overlay { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background: rgba(0,0,0,0.85) !important; z-index: 999999 !important; display: flex !important; justify-content: center !important; align-items: center !important; opacity: 0 !important; visibility: hidden !important; transition: 0.4s !important; backdrop-filter: blur(8px) !important; pointer-events: none !important;}
         .modal-overlay.show { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;}
         .modal-content-box { background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px; border-radius: 20px; width: 90%; max-width: 450px; text-align: left; position: relative; transform: translateY(30px) scale(0.95); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
@@ -337,26 +322,22 @@
         .social-links a { color: #8bada0; transition: 0.3s; }
         .social-links a:hover { color: var(--puserve-yellow); transform: translateY(-3px); }
 
-        /* =======================================================
-           RESPONSIVE OVERRIDES FINAL (MOBILE LAYOUT FIX)
-           ======================================================= */
+        /* RESPONSIVE OVERRIDES FINAL */
         @media screen and (max-width: 768px) { 
-            /* Hero di-compress ke atas, hapus center biar gak ada blank space di atas */
             .hero-light { padding: 100px 5% 40px; justify-content: flex-start; height: auto; min-height: 100vh; }
             .hero-content-center { transform: translateY(0); padding-top: 0;}
             
-            /* Jarak antar elemen dirapetin */
             .aqi-top-left { position: relative; top: auto; left: auto; margin-bottom: 20px; align-self: center; text-align: center; }
             .official-portal-text { margin-bottom: 10px; }
             .massive-title-light { font-size: 3.5rem; word-break: break-word; hyphens: auto; margin-bottom: 15px;} 
             .hero-subtext-light { font-size: 1rem; margin-bottom: 25px; }
             
-            /* THUMBNAIL VIDEO DITENGAH & DIKASIH JARAK JAUH DARI GIR BAWAH */
             .floating-thumb { position: relative; bottom: auto; right: auto; margin-top: 25px; margin-bottom: 100px; align-self: center; }
 
             .impact-box { flex-direction: column; }
             .impact-item:not(:last-child) { border-bottom: 1px solid var(--card-border); padding-bottom: 20px; }
 
+            .pledge-input-row { flex-direction: column; }
             .pledge-card-landscape { padding: 25px; min-height: 300px; }
             .pledge-top { flex-direction: column; gap: 20px; align-items: flex-start; }
             .pledge-badge { text-align: left; font-size: 1rem;}
@@ -383,22 +364,6 @@
 </head>
 <body>
 
-    <!-- DYNAMIC LEAVES -->
-    <script>
-        document.addEventListener('mousemove', function(e) {
-            let isEco = localStorage.getItem('puserve_eco') === 'true';
-            if(isEco) return; 
-            if(Math.random() > 0.90) {
-                const leaf = document.createElement('div');
-                leaf.className = 'cursor-leaf';
-                leaf.style.left = (e.clientX + 10) + 'px';
-                leaf.style.top = (e.clientY + 10) + 'px';
-                document.body.appendChild(leaf);
-                setTimeout(() => { leaf.remove(); }, 1000);
-            }
-        });
-    </script>
-
     <!-- TOAST NOTIFICATION -->
     <div id="toast">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
@@ -410,14 +375,14 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
     </div>
 
-    <!-- SMART FAB (GEAR) MURNI + POSITION ABSOLUTE ANTI MLEYOT -->
+    <!-- SMART FAB -->
     <div class="fab-container" id="fabContainer">
         <div class="fab-options">
             <button class="fab-btn" id="langToggle" title="Translate EN/ID"><span class="lang-text" id="langText">EN</span></button>
-            <button class="fab-btn" id="ecoToggle" title="Eco Mode"><svg id="ecoIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></button>
+            <button class="fab-btn" id="ecoToggle" title="Eco Mode"><svg id="ecoIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></button>
         </div>
         <button class="fab-btn fab-main" id="fabMain" title="Settings">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         </button>
     </div>
 
@@ -425,7 +390,7 @@
     <div id="easter-egg-modal">
         <div class="easter-egg-content">
             <span class="close-egg" onclick="closeEgg()">&times;</span>
-            <div class="warning-header">⚠️ CLASSIFIED ARCHIVE ⚠️</div>
+            <div class="warning-header">[CLASSIFIED] ARCHIVE</div>
             <img src="easter_egg.jpeg" alt="Top Secret Easter Egg">
             <p class="prank-text">"You found the secret! Don't forget to throw your trash in the right bin!"</p>
         </div>
@@ -605,8 +570,21 @@
         </div>
     </section>
 
-    <!-- PLEDGE SECTION (ROTATING CAROUSEL) -->
+    <!-- PLEDGE SECTION (FORM + DISPLAY CARD) -->
     <section class="pledge-container">
+        
+        <!-- PLEDGE FORM -->
+        <div class="pledge-form">
+            <h3 data-en="Make Your Pledge" data-id="Buat Ikrar Anda">Make Your Pledge</h3>
+            <div class="pledge-input-row">
+                <input type="text" id="p-firstname" class="pledge-input" placeholder="First Name">
+                <input type="text" id="p-lastname" class="pledge-input" placeholder="Last Name">
+            </div>
+            <textarea id="p-quote" class="pledge-textarea" rows="2" placeholder="I pledge to..."></textarea>
+            <button id="btn-generate-pledge" class="btn-pledge-submit" data-en="Generate Pledge" data-id="Buat Ikrar">Generate Pledge</button>
+        </div>
+
+        <!-- PLEDGE CARD -->
         <div class="pledge-card-landscape">
             <img src="logos/LOGO_PUSERVE.png" class="pledge-watermark" alt="Puserve BG">
             <div class="pledge-top">
@@ -620,12 +598,12 @@
             
             <div class="pledge-dynamic-content" id="pledge-dynamic-content">
                 <div class="pledge-mid">
-                    <h2 id="pledge-name">NOEL JACOB OTTLEY</h2>
-                    <p id="pledge-quote" data-en='"I pledge to protect and sustain our earth."' data-id='"Saya berikrar untuk melindungi dan melestarikan bumi kita."'>"I pledge to protect and sustain our earth."</p>
+                    <h2 id="pledge-name">YOUR NAME</h2>
+                    <p id="pledge-quote" data-en='"Write your commitment to the environment here."' data-id='"Tulis komitmen Anda terhadap lingkungan di sini."'>"Write your commitment to the environment here."</p>
                 </div>
                 <div class="pledge-bottom">
-                    <span class="pledge-date" id="pledge-date">20/08/2026</span>
-                    <span class="pledge-id" id="pledge-id">#PSR-3388</span>
+                    <span class="pledge-date" id="pledge-date">DD/MM/YYYY</span>
+                    <span class="pledge-id" id="pledge-id">#PSR-000</span>
                 </div>
             </div>
         </div>
@@ -657,7 +635,7 @@
                 <div class="footer-heading" data-en="Get Involved" data-id="Terlibat">Get Involved</div>
                 <div style="display: flex; flex-direction: column; gap: 15px;">
                     <a href="mailto:preserve.presuniv@gmail.com" class="contact-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><span>preserve.presuniv@gmail.com</span></a>
-                    <a href="https://maps.app.goo.gl/chRf67w8mQhZfHst5?g_st=ac" target="_blank" class="contact-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> <span data-en="President University, Cikarang Baru, Bekasi 17550 – Indonesia" data-id="President University, Cikarang Baru, Bekasi 17550 – Indonesia">President University, Cikarang Baru, Bekasi 17550 – Indonesia</span></a>
+                    <a href="https://maps.app.goo.gl/chRf67w8mQhZfHst5?g_st=ac" target="_blank" class="contact-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> <span data-en="President University, Cikarang Baru, Bekasi 17550 - Indonesia" data-id="President University, Cikarang Baru, Bekasi 17550 - Indonesia">President University, Cikarang Baru, Bekasi 17550 - Indonesia</span></a>
                 </div>
                 <div class="footer-heading" style="margin-top: 30px;" data-en="Newsletter" data-id="Buletin">Newsletter</div>
                 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){showToast(currentLang === 'EN' ? 'Subscription Successful!' : 'Berlangganan Berhasil!');}"></iframe>
@@ -690,32 +668,42 @@
         const fabMain = document.getElementById('fabMain'), fabContainer = document.getElementById('fabContainer');
         fabMain.addEventListener('click', () => { fabContainer.classList.toggle('open'); });
 
-        // --- PLEDGE CAROUSEL LOGIC ---
-        const pledgesData = [
-            { name: "NOEL JACOB OTTLEY", quoteEn: '"I pledge to protect and sustain our earth."', quoteId: '"Saya berikrar untuk melindungi dan melestarikan bumi kita."', date: "20/08/2026", id: "#PSR-3388" },
-            { name: "EDELINE STEFANIE", quoteEn: '"For a greener campus and a better tomorrow."', quoteId: '"Untuk kampus yang lebih hijau dan masa depan yang lebih baik."', date: "21/08/2026", id: "#PSR-3389" },
-            { name: "STEIRYN CERSEY", quoteEn: '"Sustainability starts from our own actions."', quoteId: '"Keberlanjutan dimulai dari tindakan kita sendiri."', date: "22/08/2026", id: "#PSR-3390" }
-        ];
-        let pIdx = 0;
-        setInterval(() => {
-            const pContainer = document.getElementById('pledge-dynamic-content');
-            if(pContainer) {
-                pContainer.style.opacity = 0;
-                setTimeout(() => {
-                    pIdx = (pIdx + 1) % pledgesData.length;
-                    document.getElementById('pledge-name').innerText = pledgesData[pIdx].name;
-                    
-                    const qEl = document.getElementById('pledge-quote');
-                    qEl.setAttribute('data-en', pledgesData[pIdx].quoteEn);
-                    qEl.setAttribute('data-id', pledgesData[pIdx].quoteId);
-                    qEl.innerText = localStorage.getItem('puserve_lang') === 'EN' ? pledgesData[pIdx].quoteEn : pledgesData[pIdx].quoteId;
-                    
-                    document.getElementById('pledge-date').innerText = pledgesData[pIdx].date;
-                    document.getElementById('pledge-id').innerText = pledgesData[pIdx].id;
-                    pContainer.style.opacity = 1;
-                }, 600);
+        // --- PLEDGE GENERATOR LOGIC ---
+        document.getElementById('btn-generate-pledge').addEventListener('click', () => {
+            const fn = document.getElementById('p-firstname').value.trim();
+            const ln = document.getElementById('p-lastname').value.trim();
+            const quote = document.getElementById('p-quote').value.trim();
+            
+            if(!fn || !ln || !quote) {
+                showToast(currentLang === 'EN' ? "Please fill all fields!" : "Harap isi semua kolom!");
+                return;
             }
-        }, 5000);
+            
+            document.getElementById('pledge-name').innerText = (fn + " " + ln).toUpperCase();
+            
+            const qEl = document.getElementById('pledge-quote');
+            qEl.setAttribute('data-en', '"' + quote + '"');
+            qEl.setAttribute('data-id', '"' + quote + '"');
+            qEl.innerText = '"' + quote + '"';
+            
+            const today = new Date();
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const yyyy = today.getFullYear();
+            document.getElementById('pledge-date').innerText = `${dd}/${mm}/${yyyy}`;
+            
+            let count = localStorage.getItem('pledge_count') || 0;
+            count = parseInt(count) + 1;
+            localStorage.setItem('pledge_count', count);
+            const idStr = String(count).padStart(3, '0');
+            document.getElementById('pledge-id').innerText = `#PSR-${idStr}`;
+            
+            showToast(currentLang === 'EN' ? "Pledge Generated!" : "Ikrar Berhasil Dibuat!");
+            
+            document.getElementById('p-firstname').value = '';
+            document.getElementById('p-lastname').value = '';
+            document.getElementById('p-quote').value = '';
+        });
 
         let currentLang = localStorage.getItem('puserve_lang') || 'EN';
         function applyLanguage() {
