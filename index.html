@@ -43,22 +43,17 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        html { scroll-behavior: smooth; }
-        body { background-color: var(--bg-color); color: var(--text-color); overflow-x: hidden; transition: background-color 0.5s ease, color 0.5s ease; opacity: 0; animation: fadeInPage 0.8s forwards; }
-        
+        html, body { width: 100%; max-width: 100vw; overflow-x: hidden; scroll-behavior: smooth; background-color: var(--bg-color); color: var(--text-color); transition: background-color 0.5s ease, color 0.5s ease; opacity: 0; animation: fadeInPage 0.8s forwards; }
         @keyframes fadeInPage { to { opacity: 1; } }
-        @view-transition { navigation: auto; }
+        
         ::selection { background-color: var(--primary-green); color: var(--puserve-yellow); }
 
-        /* CUSTOM SCROLLBAR */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); border-left: 1px solid var(--card-border); }
         ::-webkit-scrollbar-thumb { background: var(--primary-green); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--puserve-yellow); }
-        body.eco-mode ::-webkit-scrollbar-track { background: var(--dark-green); }
 
         h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; }
-        svg { display: inline-block; vertical-align: middle; }
 
         /* NAVBAR - DISESUAIKAN UNTUK LIGHT BG */
         nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); transition: 0.4s ease; }
@@ -136,13 +131,12 @@
 
         /* THUMBNAIL VIDEO BOX (BOTTOM RIGHT) */
         .floating-thumb { position: absolute; bottom: 50px; right: 5%; z-index: 4; }
-        .thumb-card { display: block; width: 220px; height: 130px; border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 4px solid #ffffff; transition: transform 0.3s; }
+        .thumb-card { display: block; width: 220px; height: 130px; border-radius: 16px; overflow: hidden; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.15); border: 4px solid #ffffff; transition: transform 0.3s; background-color: var(--dark-green); }
         .thumb-card:hover { transform: translateY(-5px) scale(1.03); }
         .thumb-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
         .thumb-card:hover img { filter: brightness(0.8); }
         .play-btn-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: rgba(252, 211, 77, 0.95); backdrop-filter: blur(5px); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: var(--dark-green); padding-left: 3px; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2);}
         .thumb-card:hover .play-btn-overlay { background: #ffffff; transform: translate(-50%, -50%) scale(1.1); }
-        .play-caption { position: absolute; bottom: -28px; right: 0; font-size: 0.85rem; font-weight: 700; color: var(--dark-green); }
 
         /* PULSING RED DOT */
         .pulsing-dot { display: block; width: 12px; height: 12px; background-color: #ef4444; border-radius: 50%; box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); animation: pulse-red 2s infinite; }
@@ -156,7 +150,6 @@
         body.eco-mode .glass-box-light { background: rgba(0, 0, 0, 0.4); border-color: rgba(255,255,255,0.1); }
         body.eco-mode .aqi-score-light { color: #ffffff; }
         body.eco-mode .thumb-card { border-color: var(--dark-green); }
-        body.eco-mode .play-caption { color: var(--puserve-yellow); }
 
         /* CENTERED SECTIONS */
         .section-container { max-width: 1200px; margin: 0 auto; padding: 80px 5% 20px; display: flex; flex-direction: column; align-items: center; text-align: center; box-sizing: border-box; }
@@ -272,7 +265,6 @@
             
             .aqi-top-left { position: relative; top: auto; left: auto; margin-bottom: 30px; align-self: center; text-align: center; }
             .floating-thumb { position: relative; bottom: auto; right: auto; margin-top: 40px; align-self: center; }
-            .play-caption { text-align: center; width: 100%; right: auto; }
 
             .impact-box { flex-direction: column; }
             .impact-item:not(:last-child) { border-bottom: 1px solid var(--card-border); padding-bottom: 20px; }
@@ -337,7 +329,7 @@
             <button class="fab-btn" id="ecoToggle" title="Eco Mode"><svg id="ecoIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></button>
         </div>
         <button class="fab-btn fab-main" id="fabMain" title="Settings">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         </button>
     </div>
 
@@ -400,8 +392,8 @@
 
         <!-- AQI (TOP LEFT - NON CLICKABLE) -->
         <div class="aqi-top-left animate-fade-up delay-1">
-            <p class="aqi-label-light">CIKARANG AIR QUALITY INDEX</p>
-            <div class="glass-box-light">
+            <div class="glass-box-light" style="cursor: default;">
+                <p class="aqi-label-light">CIKARANG AIR QUALITY INDEX</p>
                 <p class="aqi-score-light">118 AQI - Unhealthy <span class="pulsing-dot"></span></p>
                 <p style="font-size: 0.65rem; color: var(--text-muted); margin-top: 5px; font-weight: 600;">Live Source: Open-Meteo Global API</p>
             </div>
@@ -421,12 +413,11 @@
         <!-- FLOATING THUMBNAIL VIDEO (BOTTOM RIGHT) -->
         <div class="floating-thumb animate-fade-up delay-3">
             <a href="https://drive.google.com/file/d/1WjKjPCBvSe0yt6PcfBsAFXr1NAu1X4sR/view?usp=drivesdk" target="_blank" class="thumb-card" title="Play PUSERVE Profile Video">
-                <img src="thumb-photo.webp" alt="PUSERVE Video Thumbnail" onerror="this.src='https://via.placeholder.com/220x130/0a3622/fcd34d?text=Play+Video'">
+                <img src="thumb-photo.webp" alt="PUSERVE Video Thumbnail" onerror="this.style.opacity='0'">
                 <div class="play-btn-overlay">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 </div>
             </a>
-            <p class="play-caption" data-en="▶ How it works" data-id="▶ Cara kerja kami">▶ How it works</p>
         </div>
     </section>
 
