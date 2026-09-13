@@ -180,7 +180,9 @@ document.addEventListener("DOMContentLoaded", () => {
         let st = window.pageYOffset || document.documentElement.scrollTop;
         if(navbar) { if (st > lastScrollTop && st > 150) navbar.classList.add('nav-hidden'); else navbar.classList.remove('nav-hidden'); }
         lastScrollTop = st <= 0 ? 0 : st; 
-        if(backToTopBtn) { if (st > 500) backToTopBtn.classList.add('show'); else backToTopBtn.classList.remove('show'); }
+        
+        // BATAS SCROLL TURUN JADI 200PX BIAR CEPET MUNCUL
+        if(backToTopBtn) { if (st > 200) backToTopBtn.classList.add('show'); else backToTopBtn.classList.remove('show'); }
     });
     if(backToTopBtn) backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     const hamburger = document.getElementById('hamburger-icon');
