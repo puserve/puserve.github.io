@@ -172,7 +172,7 @@ if(ecoTog) {
 applyEcoMode(); 
 applyLanguage();
 
-// SCROLL BEHAVIOR & BACK TO TOP (SENSITIFITAS 200PX)
+// SCROLL BEHAVIOR & BACK TO TOP
 const navbar = document.getElementById('navbar'), backToTopBtn = document.getElementById('back-to-top');
 let lastScrollTop = 0;
 window.addEventListener('scroll', () => {
@@ -222,7 +222,6 @@ const campObserver = new IntersectionObserver((entries, obs) => {
 }, { threshold: 0.3 });
 if(document.querySelector('.campaign-grid')) campObserver.observe(document.querySelector('.campaign-grid'));
 
-// GITHUB API FETCH UNTUK EVENTS & OUTLOOK
 const repoName = 'puserve/puserve.github.io'; 
 const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(currentLang === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
 
@@ -262,6 +261,5 @@ async function fetchContent(folder, containerId, targetFile) {
     } catch (error) { if(!cachedData) container.innerHTML = `<div class="empty-state">${currentLang === 'EN' ? 'Data temporarily unavailable. (Please wait if rate limited).' : 'Data sementara tidak tersedia. (Tunggu sebentar jika limit).'}</div>`; }
 }
 
-// LANGSUNG PANGGIL ARTIKELNYA DI SINI BIAR SKELETONNYA ILANG
 fetchContent('_events', 'home-events-grid', 'read.html');
 fetchContent('_news', 'home-news-carousel', 'read-news.html');
