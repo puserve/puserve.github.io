@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,68 +58,6 @@
 
         h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; }
         svg { display: inline-block; vertical-align: middle; }
-
-        /* NAVBAR */
-        nav { padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); transition: 0.4s ease; }
-        nav.nav-hidden { transform: translateY(-100%); }
-        .nav-logos { display: flex; align-items: center; gap: 15px; }
-        .nav-logos img { height: 35px; object-fit: contain; }
-        #secret-trigger-logo { cursor: pointer; transition: transform 0.2s; }
-        #secret-trigger-logo:active { transform: scale(0.9); }
-        .menu-icon { display: none; flex-direction: column; cursor: pointer; width: 25px; gap: 5px; z-index: 1002; position: relative; }
-        .menu-icon span { background: var(--dark-green); height: 2px; width: 100%; border-radius: 2px; transition: 0.3s ease; }
-        .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
-        .nav-links a { color: var(--dark-green); text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: 0.3s; }
-        .nav-links a:hover { color: var(--primary-green); }
-        .btn-join { background: var(--dark-green); color: var(--puserve-yellow) !important; padding: 10px 24px; border-radius: 30px; font-weight: 700 !important; border: none; cursor: pointer; transition: 0.3s;}
-        .btn-join:hover { background: var(--primary-green); transform: translateY(-2px); }
-
-        body.eco-mode nav { background: rgba(5, 24, 16, 0.8); border-bottom-color: rgba(255,255,255,0.1); }
-        body.eco-mode .nav-links a { color: #ffffff; }
-        body.eco-mode .menu-icon span { background: #ffffff; }
-        body.eco-mode .btn-join { background: var(--puserve-yellow); color: var(--dark-green) !important; }
-
-        @media (max-width: 1023px) {
-            .menu-icon { display: flex !important; }
-            .nav-links { display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: rgba(5, 24, 16, 0.98); padding: 100px 30px 30px; border-left: 1px solid rgba(255,255,255,0.1); align-items: flex-start; transition: 0.4s ease-in-out; box-shadow: -10px 0 30px rgba(0,0,0,0.5); z-index: 1001; }
-            .nav-links.active { right: 0; }
-            .nav-links a { color: #ffffff; font-weight: 500;}
-        }
-
-        /* SMART FAB (GEAR) - KODE MURNI DARI TEAM.HTML LU */
-        .fab-container { position: fixed; bottom: 25px; left: 25px; z-index: 998; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .fab-options { display: flex; flex-direction: column; gap: 15px; opacity: 0; transform: translateY(20px); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; }
-        .fab-container.open .fab-options { opacity: 1; transform: translateY(0); pointer-events: auto; }
-        
-        .fab-btn { 
-            position: relative; 
-            width: 50px; height: 50px; border-radius: 50%; 
-            background: var(--primary-green); border: 2px solid rgba(255,255,255,0.1); 
-            color: #ffffff; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
-            padding: 0; margin: 0; outline: none; border: none;
-        }
-        .fab-btn:hover { border-color: var(--puserve-yellow); color: var(--puserve-yellow); transform: scale(1.1); }
-        .fab-main { width: 55px; height: 55px; background: var(--primary-green); box-shadow: 0 5px 20px rgba(10,54,34,0.3); border: 2px solid rgba(255,255,255,0.1); z-index: 2;}
-        .fab-btn svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 24px; height: 24px; display: block; margin: 0; padding: 0; }
-        .fab-container.open .fab-main svg { transform: translate(-50%, -50%) rotate(90deg); transition: 0.4s; }
-        .lang-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: 800; font-size: 0.9rem; }
-
-        /* BACK TO TOP */
-        #back-to-top { position: fixed; bottom: -80px; right: 25px; width: 50px; height: 50px; background: var(--primary-green); color: var(--puserve-yellow); border-radius: 16px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.4s; z-index: 998; border: 2px solid rgba(255,255,255,0.1);}
-        #back-to-top svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 24px; height: 24px; display: block; }
-        #back-to-top.show { bottom: 25px; }
-        #back-to-top:hover { background: var(--puserve-yellow); color: var(--dark-green); }
-
-        /* DYNAMIC LEAVES EFFECT */
-        .cursor-leaf { position: fixed; width: 12px; height: 12px; background-color: var(--puserve-yellow); border-radius: 0 12px 0 12px; pointer-events: none; z-index: 99999; animation: leafFall 1s linear forwards; opacity: 0.8; }
-        @keyframes leafFall { 0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; } 100% { transform: translateY(60px) rotate(120deg) scale(0.3); opacity: 0; } }
-
-        /* ANIMASI FADE-UP */
-        .animate-fade-up { opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.3s; }
-        .delay-3 { animation-delay: 0.8s; } 
-        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
 
         /* HERO SECTION LIGHT */
         .hero-light { position: relative; width: 100%; height: 100vh; min-height: 700px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); background-color: var(--bg-color); padding: 180px 5% 60px; }
@@ -220,9 +160,7 @@
         .skeleton-img { height: 220px; width: 100%; border-radius: 16px 16px 0 0; }
         .skeleton-body { padding: 30px; flex: 1; display: flex; flex-direction: column; gap: 15px; }
 
-        /* =======================================================
-           VOICES OF IMPACT (REPLACING PLEDGE)
-           ======================================================= */
+        /* VOICES OF IMPACT */
         .voices-card-landscape { background: #051810; border: 2px solid var(--puserve-yellow); border-radius: 24px; padding: 50px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); z-index: 1; width: 100%; max-width: 1000px; margin: 0 auto; text-align: left; }
         .voices-watermark { position: absolute; top: -80px; left: 40px; font-size: 30rem; color: var(--puserve-yellow); opacity: 0.05; font-family: 'Playfair Display', serif; line-height: 1; pointer-events: none; z-index: -1; }
         .voices-top { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; }
@@ -238,46 +176,12 @@
         .v-role-text { color: var(--puserve-yellow); font-weight: 700; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase; }
         .voices-date { color: #8bada0; font-weight: 700; font-size: 1.1rem; letter-spacing: 1px;}
 
-        /* MODALS & EASTER EGG */
-        .modal-overlay { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background: rgba(0,0,0,0.85) !important; z-index: 999999 !important; display: flex !important; justify-content: center !important; align-items: center !important; opacity: 0 !important; visibility: hidden !important; transition: 0.4s !important; backdrop-filter: blur(8px) !important; pointer-events: none !important;}
-        .modal-overlay.show { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;}
-        .modal-content-box { background: var(--card-bg); border: 1px solid var(--card-border); padding: 40px; border-radius: 20px; width: 90%; max-width: 450px; text-align: left; position: relative; transform: translateY(30px) scale(0.95); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
-        .modal-overlay.show .modal-content-box { transform: translateY(0) scale(1); }
-        .close-modal-btn { position: absolute; top: 20px; right: 25px; color: var(--text-muted); cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;}
-        .close-modal-btn:hover { color: var(--puserve-yellow); transform: rotate(90deg); }
-        .modal-btn { display: flex; align-items: center; gap: 15px; width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: 0.3s; border: 1px solid var(--card-border); background: var(--bg-color); color: var(--text-color); }
-        .modal-btn:hover { background: var(--primary-green); color: #ffffff; border-color: var(--primary-green); transform: translateX(5px); }
-        .modal-btn svg { stroke: var(--puserve-yellow); }
-
-        #easter-egg-modal { position: fixed !important; top: 0 !important; left: 0 !important; width: 100vw !important; height: 100vh !important; background: rgba(10, 54, 34, 0.95) !important; z-index: 999999999 !important; display: flex !important; justify-content: center !important; align-items: center !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; transition: 0.3s ease !important; backdrop-filter: blur(15px) !important; }
-        #easter-egg-modal.show { visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
-        .easter-egg-content { background: #1a1a1a !important; border: 3px solid #ff3333 !important; padding: 30px !important; border-radius: 20px !important; text-align: center !important; color: white !important; width: 90% !important; max-width: 450px !important; transform: scale(0.8); transition: 0.3s; position: relative !important; box-shadow: 0 0 50px rgba(255, 51, 51, 0.3) !important; }
-        #easter-egg-modal.show .easter-egg-content { transform: scale(1); }
-        .warning-header { color: #ff3333 !important; font-weight: 800 !important; font-size: 1.3rem !important; margin-bottom: 20px !important; letter-spacing: 2px !important; }
-        .easter-egg-content img { width: 100% !important; max-height: 400px !important; object-fit: contain !important; border-radius: 10px !important; margin-bottom: 20px !important; border: 2px dashed #fcd34d !important; display: block !important; }
-        .prank-text { color: #fcd34d !important; font-weight: 700 !important; font-size: 1.1rem !important; line-height: 1.6 !important; margin: 0 !important; }
-        .close-egg { position: absolute !important; top: -20px !important; right: -20px !important; font-size: 2rem !important; font-family: sans-serif !important; line-height: 1 !important; background: #ff3333 !important; color: white !important; width: 45px !important; height: 45px !important; border-radius: 50% !important; display: flex !important; justify-content: center !important; align-items: center !important; cursor: pointer !important; border: 3px solid #f4f9f5 !important; transition: 0.2s !important; box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important; z-index: 10 !important; }
-        .close-egg:hover { transform: scale(1.15) !important; background: white !important; color: #ff3333 !important; border-color: #ff3333 !important; }
-
-        /* FOOTER */
-        footer { background: var(--dark-green); padding: 80px 5% 40px; margin-top: 20px; border-top: 5px solid var(--puserve-yellow); color: #ffffff; text-align: left; }
-        .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1.5fr; gap: 60px; margin-bottom: 50px; width: 100%; }
-        .footer-logos img { height: 45px; margin-right: 10px; }
-        .brand-name { font-weight: 800; font-size: 1.5rem; line-height: 1.2; }
-        .brand-sub { color: var(--puserve-yellow); font-weight: 700; font-size: 0.85rem; letter-spacing: 2px; }
-        .footer-desc { color: #8bada0; font-size: 0.95rem; line-height: 1.7; margin-top: 15px;}
-        .footer-heading { color: var(--puserve-yellow); font-weight: 800; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; }
-        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 15px; }
-        .footer-links a, .contact-item { color: #8bada0; text-decoration: none; transition: 0.3s; font-size: 0.95rem; display: flex; align-items: flex-start; gap: 12px;}
-        .footer-links a:hover, .contact-item:hover { color: var(--white); padding-left: 5px; }
-        .newsletter-form { display: flex; gap: 10px; margin-top: 20px; width: 100%;}
-        .newsletter-input { flex: 1; padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; outline: none; }
-        .newsletter-btn { padding: 0 25px; background: var(--puserve-yellow); color: var(--dark-green); border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .newsletter-btn:hover { background: var(--white); }
-        .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-size: 0.9rem; color: #8bada0; width: 100%;}
-        .social-links { display: flex; gap: 20px; }
-        .social-links a { color: #8bada0; transition: 0.3s; }
-        .social-links a:hover { color: var(--puserve-yellow); transform: translateY(-3px); }
+        /* ANIMASI FADE-UP DASAR */
+        .animate-fade-up { opacity: 0; animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.8s; }
+        @keyframes fadeUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
 
         /* RESPONSIVE OVERRIDES FINAL (MOBILE LAYOUT FIX) */
         @media screen and (max-width: 768px) { 
@@ -304,114 +208,28 @@
 
             .footer-grid { display: flex !important; flex-direction: column !important; gap: 40px !important; } 
             .footer-bottom { display: flex !important; flex-direction: column !important; text-align: center !important; } 
-            .social-links { justify-content: center !important; width: 100% !important;}
+            .social-links { justify-content: center !important; width: 100% !important; margin-right: 0 !important; margin-bottom: 20px; }
             .section-title { font-size: 1.8rem; }
+            
+            /* Modal Overrides */
+            .modal-content-box { padding: 30px 20px; width: 95%; max-width: 400px; }
+            .modal-btn { padding: 15px; font-size: 0.95rem; }
+            .close-modal-btn { top: 15px; right: 15px; }
         }
 
-        #toast { visibility: hidden; min-width: 250px; background-color: var(--primary-green); color: var(--white); text-align: center; border-radius: 12px; padding: 18px 25px; position: fixed; z-index: 999999; left: 50%; bottom: 20px; transform: translateX(-50%); border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-weight: 600; opacity: 0; transition: opacity 0.4s, bottom 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: flex; align-items: center; justify-content: center; gap: 10px;}
-        #toast.show { visibility: visible; opacity: 1; bottom: 40px; border-color: var(--puserve-yellow);}
-        body.eco-mode .section-title { color: var(--white); }
+        /* MODALS & OTHERS DIHAPUS (DIPINDAHKAN KE FOOTER) */
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
 
-    <!-- DYNAMIC LEAVES EFFECT -->
-    <script>
-        document.addEventListener('mousemove', function(e) {
-            let isEco = localStorage.getItem('puserve_eco') === 'true';
-            if(isEco) return; 
-            if(Math.random() > 0.90) {
-                const leaf = document.createElement('div');
-                leaf.className = 'cursor-leaf';
-                leaf.style.left = (e.clientX + 10) + 'px';
-                leaf.style.top = (e.clientY + 10) + 'px';
-                document.body.appendChild(leaf);
-                setTimeout(() => { leaf.remove(); }, 1000);
-            }
-        });
-    </script>
-
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-        <span id="toast-msg"></span>
-    </div>
-
-    <!-- BACK TO TOP -->
-    <div id="back-to-top" title="Scroll to top">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
-    </div>
-
-    <!-- SMART FAB (GEAR SVG MENTAH DARI LU) -->
-    <div class="fab-container" id="fabContainer">
-        <div class="fab-options">
-            <button class="fab-btn" id="langToggle" title="Translate EN/ID"><span class="lang-text" id="langText">EN</span></button>
-            <button class="fab-btn" id="ecoToggle" title="Eco Mode"><svg id="ecoIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></button>
-        </div>
-        <button class="fab-btn fab-main" id="fabMain" title="Settings">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-        </button>
-    </div>
-
-    <!-- SECRET EASTER EGG MODAL -->
-    <div id="easter-egg-modal">
-        <div class="easter-egg-content">
-            <span class="close-egg" onclick="closeEgg()">&times;</span>
-            <div class="warning-header">⚠️ CLASSIFIED ARCHIVE ⚠️</div>
-            <img src="easter_egg.jpeg" alt="Top Secret Easter Egg">
-            <p class="prank-text">"You found the secret! Don't forget to throw your trash in the right bin!"</p>
-        </div>
-    </div>
-
-    <!-- PROFESSIONAL MODAL JOIN US -->
-    <div id="join-modal" class="modal-overlay">
-        <div class="modal-content-box">
-            <span class="close-modal-btn" onclick="closeJoinModal()">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </span>
-            <h3 style="color: var(--primary-green); margin-bottom: 10px; font-size: 1.5rem;" data-en="Connect with Us" data-id="Hubungi Kami">Connect with Us</h3>
-            <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 0.95rem; line-height: 1.5;" data-en="Select your inquiry type below." data-id="Pilih jenis keperluan Anda.">Select your inquiry type below.</p>
-
-            <a href="mailto:preserve.presuniv@gmail.com?subject=Partnership%20Inquiry%20-%20PUSERVE" class="modal-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                <span data-en="Partnership / Collaboration" data-id="Kemitraan / Kolaborasi">Partnership / Collaboration</span>
-            </a>
-            <a href="mailto:preserve.presuniv@gmail.com?subject=Volunteer%20Registration%20-%20PUSERVE" class="modal-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                <span data-en="Volunteer Registration" data-id="Pendaftaran Volunteer">Volunteer Registration</span>
-            </a>
-            <a href="mailto:preserve.presuniv@gmail.com?subject=General%20Inquiry%20-%20PUSERVE" class="modal-btn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                <span data-en="General Inquiries" data-id="Pertanyaan Umum">General Inquiries</span>
-            </a>
-        </div>
-    </div>
-
-    <!-- NAVBAR ADJUSTED FOR LIGHT THEME -->
-    <nav id="navbar">
-        <div class="nav-logos">
-            <a href="index.html"><img src="logos/LOGO_PU.png" alt="PU"></a>
-            <a href="index.html"><img src="logos/LOGO_CEDRS.png" alt="CEDRS"></a>
-            <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE" id="secret-trigger-logo" title="PUSERVE">
-        </div>
-        <div class="menu-icon" id="hamburger-icon"><span></span><span></span><span></span></div>
-        <ul class="nav-links" id="mobile-menu">
-            <li><a href="index.html" class="trans-link" style="color: var(--primary-green);" data-en="Home" data-id="Beranda">Home</a></li>
-            <li><a href="events.html" class="trans-link" data-en="Events" data-id="Acara">Events</a></li>
-            <li><a href="news.html" class="trans-link" data-en="Outlook" data-id="Berita">Outlook</a></li>
-            <li><a href="repository.html" class="trans-link" data-en="Repository" data-id="Repositori">Repository</a></li>
-            <li><a href="team.html" class="trans-link" data-en="Team" data-id="Tim">Team</a></li>
-            <li><button onclick="openJoinModal()" class="btn-join" data-en="Connect" data-id="Hubungi">Connect</button></li>
-        </ul>
-    </nav>
+    <!-- MANTRA INJEKSI NAVBAR -->
+    {% include navbar.html %}
 
     <!-- HERO SECTION LIGHT V4 -->
     <section class="hero-light">
         <img src="PUSERVE BG.webp" class="bg-img" alt="Background">
         <div class="hero-overlay-light"></div>
 
-        <!-- AQI (TOP LEFT - NON CLICKABLE) -->
         <div class="aqi-top-left animate-fade-up delay-1">
             <div class="glass-box-light" style="cursor: default;">
                 <p class="aqi-label-light">CIKARANG AIR QUALITY INDEX</p>
@@ -421,7 +239,6 @@
         </div>
 
         <div class="hero-content-center">
-            
             <div class="animate-fade-up delay-1" style="margin-bottom: 10px;">
                 <p class="official-portal-text" data-en="OFFICIAL PORTAL" data-id="PORTAL RESMI">OFFICIAL PORTAL</p>
             </div>
@@ -437,7 +254,6 @@
             </div>
         </div>
 
-        <!-- FLOATING THUMBNAIL VIDEO (BOTTOM RIGHT) -->
         <div class="floating-thumb animate-fade-up delay-3">
             <a href="https://drive.google.com/file/d/1WjKjPCBvSe0yt6PcfBsAFXr1NAu1X4sR/view?usp=drivesdk" target="_blank" class="thumb-card" title="Play PUSERVE Profile Video">
                 <img src="thumb-photo.webp" alt="PUSERVE Video Thumbnail" onerror="this.style.opacity='0'">
@@ -536,7 +352,7 @@
         </div>
     </section>
 
-    <!-- VOICES OF PUSERVE (AUTO-FETCH FROM GOOGLE SHEETS) -->
+    <!-- VOICES OF PUSERVE -->
     <section class="section-container" style="padding-top: 40px; padding-bottom: 80px;">
         <div class="section-header">
             <div class="section-line"></div>
@@ -568,332 +384,8 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="footer-logos">
-                    <img src="logos/LOGO_PU.png" alt="PU">
-                    <img src="logos/LOGO_CEDRS.png" alt="CEDRS">
-                    <img src="logos/LOGO_PUSERVE.png" alt="PUSERVE">
-                </div>
-                <div><div class="brand-name">PUSERVE</div><div class="brand-sub">PRESIDENT UNIVERSITY</div></div>
-                <p class="footer-desc" data-en="A movement focused on environmental protection, sustainability, and social service." data-id="Gerakan yang berfokus pada perlindungan lingkungan, keberlanjutan, dan pengabdian sosial.">A movement focused on environmental protection, sustainability, and social service.</p>
-            </div>
-            <div>
-                <div class="footer-heading" data-en="Navigation" data-id="Navigasi">Navigation</div>
-                <ul class="footer-links">
-                    <li><a href="index.html" class="trans-link" data-en="Home & About" data-id="Beranda & Tentang">Home & About</a></li>
-                    <li><a href="events.html" class="trans-link" data-en="Events & Programs" data-id="Acara & Program">Events & Programs</a></li>
-                    <li><a href="news.html" class="trans-link" data-en="PUSERVE Outlook" data-id="PUSERVE Outlook">PUSERVE Outlook</a></li>
-                    <li><a href="repository.html" class="trans-link" data-en="Repository" data-id="Repositori">Repository</a></li>
-                    <li><a href="team.html" class="trans-link" data-en="Our Team" data-id="Tim Kami">Our Team</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="footer-heading" data-en="Get Involved" data-id="Terlibat">Get Involved</div>
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <a href="mailto:preserve.presuniv@gmail.com" class="contact-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><span>preserve.presuniv@gmail.com</span></a>
-                    <a href="https://maps.app.goo.gl/chRf67w8mQhZfHst5?g_st=ac" target="_blank" class="contact-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> <span data-en="President University, Cikarang Baru, Bekasi 17550 - Indonesia" data-id="President University, Cikarang Baru, Bekasi 17550 - Indonesia">President University, Cikarang Baru, Bekasi 17550 - Indonesia</span></a>
-                </div>
-                <div class="footer-heading" style="margin-top: 30px;" data-en="Newsletter" data-id="Buletin">Newsletter</div>
-                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){showToast(currentLang === 'EN' ? 'Subscription Successful!' : 'Berlangganan Berhasil!');}"></iframe>
-                <form action="#" method="POST" target="hidden_iframe" onsubmit="submitted=true; this.reset();" class="newsletter-form">
-                    <input type="email" name="entry.123456" placeholder="Email Address" required class="newsletter-input">
-                    <button type="submit" class="newsletter-btn" data-en="Join" data-id="Ikut">Join</button>
-                </form>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div>&copy; 2026 PUSERVE. President University. All rights reserved.</div>
-            <div class="social-links">
-                <a href="https://www.instagram.com/puserve.presuniv" target="_blank" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
-                <a href="https://www.tiktok.com/@puserve.presuniv" target="_blank" aria-label="TikTok"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg></a>
-            </div>
-        </div>
-    </footer>
+    <!-- MANTRA INJEKSI FOOTER -->
+    {% include footer.html %}
 
-    <script>
-        var submitted = false;
-        function showToast(msg) { document.getElementById('toast-msg').innerText = msg; let toast = document.getElementById("toast"); toast.classList.add("show"); setTimeout(() => { toast.classList.remove("show"); }, 3000); }
-        function openJoinModal() { document.getElementById('mobile-menu').classList.remove('active'); document.getElementById('join-modal').classList.add('show'); }
-        function closeJoinModal() { document.getElementById('join-modal').classList.remove('show'); }
-
-        let logoClicks = 0, logoTimer;
-        const secretLogo = document.getElementById('secret-trigger-logo');
-        if (secretLogo) { secretLogo.addEventListener('click', () => { logoClicks++; clearTimeout(logoTimer); logoTimer = setTimeout(() => { logoClicks = 0; }, 1500); if (logoClicks >= 5) { document.getElementById('easter-egg-modal').classList.add('show'); logoClicks = 0; } }); }
-        function closeEgg() { document.getElementById('easter-egg-modal').classList.remove('show'); }
-
-        const fabMain = document.getElementById('fabMain'), fabContainer = document.getElementById('fabContainer');
-        fabMain.addEventListener('click', () => { fabContainer.classList.toggle('open'); });
-
-        // =================================================================================
-        // SCRIPT GOOGLE SHEETS: VOICES OF IMPACT
-        // =================================================================================
-        const sheetCSVUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTI5BjB18YdlDCkrQas1wXa9oN6O449XHbOHtBR92fOgq-MdS8HAX149tpDMcco4NXR0jHd6gYNOUSE/pub?output=csv';
-        
-        let voicesData = [
-            // Data Default kalau Google Sheets kosong / gagal dimuat
-            { 
-                name: "LOREM IPSUM", 
-                roleEn: "Your Role Goes Here", 
-                roleId: "Jabatan Anda Disini", 
-                org: "PUSERVE", 
-                quoteEn: '"Your quotes will appear here once submitted."', 
-                quoteId: '"Kutipan Anda akan muncul di sini setelah dikirim."', 
-                date: "DD/MM/YYYY",
-                customLogo: null
-            }
-        ];
-
-        // Parser CSV yang aman buat baca koma di dalam tanda kutip Excel
-        function csvToArray(text) {
-            let p = '', row = [''], ret = [row], i = 0, r = 0, s = !0, l;
-            for (l of text) {
-                if ('"' === l) {
-                    if (s && l === p) row[i] += l;
-                    s = !s;
-                } else if (',' === l && s) l = row[++i] = '';
-                else if ('\n' === l && s) {
-                    if ('\r' === p) row[i] = row[i].slice(0, -1);
-                    row = ret[++r] = [l = '']; i = 0;
-                } else row[i] += l;
-                p = l;
-            }
-            return ret;
-        }
-
-        // Algo pemecah Link Google Drive biar jadi Direct Image
-        function getDriveDirectUrl(url) {
-            if (!url) return null;
-            const match = url.match(/(?:id=|d\/)([a-zA-Z0-9_-]{25,})/);
-            if (match && match[1]) {
-                return `https://drive.google.com/uc?export=view&id=${match[1]}`;
-            }
-            return null;
-        }
-
-        async function fetchVoicesData() {
-            try {
-                const response = await fetch(sheetCSVUrl);
-                const csvText = await response.text();
-                const rows = csvToArray(csvText);
-                
-                if (rows.length > 1) {
-                    const newData = [];
-                    // Mulai dari baris 1 (karena baris 0 itu judul kolom Excel)
-                    for (let i = 1; i < rows.length; i++) {
-                        const row = rows[i];
-                        // Pastikan ada data Nama Lengkap (Kolom B / index 1)
-                        if (row.length >= 6 && row[1] && row[1].trim() !== '') {
-                            
-                            // Cek apakah ada link Google Drive Logo di Kolom G (index 6)
-                            let logoUrl = null;
-                            if (row.length >= 7 && row[6] && row[6].trim() !== '') {
-                                logoUrl = getDriveDirectUrl(row[6].trim());
-                            }
-
-                            newData.push({
-                                name: row[1].trim().toUpperCase(),
-                                date: row[2] ? row[2].trim() : "",
-                                org: row[3] ? row[3].trim() : "PUSERVE",
-                                roleEn: row[4] ? row[4].trim() : "Member",
-                                roleId: row[4] ? row[4].trim() : "Anggota",
-                                quoteEn: '"' + (row[5] ? row[5].trim() : "") + '"',
-                                quoteId: '"' + (row[5] ? row[5].trim() : "") + '"',
-                                customLogo: logoUrl // Masukin URL ajaib G-Drive
-                            });
-                        }
-                    }
-                    if(newData.length > 0) {
-                        voicesData = newData; // Timpa data Lorem Ipsum kalau ada isi G-Sheets
-                    }
-                }
-            } catch (error) {
-                console.error('Data G-Sheets telat/gagal ditarik:', error);
-            }
-            // Langsung puter slider pas kelar nge-fetch
-            renderVoice();
-        }
-
-        let vIdx = 0;
-        function renderVoice() {
-            const vContainer = document.getElementById('voices-dynamic-content');
-            const vLogo = document.getElementById('v-logo');
-            
-            if(vContainer) {
-                vContainer.style.opacity = 0;
-                vLogo.style.opacity = 0;
-                
-                setTimeout(() => {
-                    const data = voicesData[vIdx];
-                    document.getElementById('v-name').innerText = data.name;
-                    
-                    const qEl = document.getElementById('v-quote');
-                    qEl.setAttribute('data-en', data.quoteEn);
-                    qEl.setAttribute('data-id', data.quoteId);
-                    
-                    const currentL = localStorage.getItem('puserve_lang') || 'EN';
-                    qEl.innerText = currentL === 'EN' ? data.quoteEn : data.quoteId;
-
-                    const rEl = document.getElementById('v-role');
-                    rEl.setAttribute('data-en', data.roleEn);
-                    rEl.setAttribute('data-id', data.roleId);
-                    rEl.innerText = currentL === 'EN' ? data.roleEn : data.roleId;
-                    
-                    document.getElementById('v-date').innerText = data.date;
-
-                    // LOGIC GANTI LOGO OTOMATIS (Prioritas Utama: Uploadan G-Drive)
-                    if (data.customLogo) {
-                        vLogo.src = data.customLogo;
-                    } else {
-                        // Skenario Cadangan kalau dia males upload foto (Pake logo bawaan)
-                        let orgCheck = data.org.toUpperCase();
-                        if(orgCheck.includes("CEDRS")) vLogo.src = "logos/LOGO_CEDRS.png";
-                        else if(orgCheck === "PU" || orgCheck === "PRESIDENT UNIVERSITY") vLogo.src = "logos/LOGO_PU.png";
-                        else vLogo.src = "logos/LOGO_PUSERVE.png";
-                    }
-
-                    vContainer.style.opacity = 1;
-                    vLogo.style.opacity = 1;
-
-                    vIdx = (vIdx + 1) % voicesData.length;
-                }, 600);
-            }
-        }
-        
-        // Sedot data G-Sheets di detik pertama, lalu puter Carousel tiap 6 Detik
-        fetchVoicesData();
-        setInterval(renderVoice, 6000);
-        // =================================================================================
-
-        let currentLang = localStorage.getItem('puserve_lang') || 'EN';
-        function applyLanguage() {
-            document.getElementById('langText').innerText = currentLang;
-            document.querySelectorAll('[data-en]').forEach(el => {
-                el.innerHTML = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
-                if (el.placeholder) el.placeholder = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
-            });
-            if (document.getElementById('home-events-grid') && document.getElementById('home-events-grid').innerHTML.indexOf('href') > -1) {
-                fetchContent('_events', 'home-events-grid', 'read.html');
-                fetchContent('_news', 'home-news-carousel', 'read-news.html');
-            }
-        }
-        document.getElementById('langToggle').addEventListener('click', () => { 
-            currentLang = currentLang === 'EN' ? 'ID' : 'EN'; 
-            localStorage.setItem('puserve_lang', currentLang); 
-            applyLanguage(); 
-            // Update teks langsung ke slide yang lagi muter
-            renderVoice();
-            fabContainer.classList.remove('open'); 
-            showToast(currentLang === 'EN' ? "Language: English" : "Bahasa: Indonesia"); 
-        });
-
-        let isEco = localStorage.getItem('puserve_eco') === 'true';
-        function applyEcoMode() {
-            const ecoIcon = document.getElementById('ecoIcon');
-            const bgVid = document.getElementById('bg-video');
-            if (isEco) {
-                document.body.classList.add('eco-mode');
-                if(bgVid) bgVid.pause();
-                ecoIcon.innerHTML = '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>'; 
-            } else {
-                document.body.classList.remove('eco-mode');
-                if(bgVid) bgVid.play();
-                ecoIcon.innerHTML = '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>'; 
-            }
-        }
-        document.getElementById('ecoToggle').addEventListener('click', () => { isEco = !isEco; localStorage.setItem('puserve_eco', isEco); applyEcoMode(); fabContainer.classList.remove('open'); showToast(currentLang === 'EN' ? (isEco ? "Eco-Mode Activated" : "Eco-Mode Disabled") : (isEco ? "Mode Hemat Daya Aktif" : "Mode Hemat Daya Nonaktif")); });
-        applyEcoMode(); applyLanguage();
-
-        const navbar = document.getElementById('navbar'), backToTopBtn = document.getElementById('back-to-top');
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', () => {
-            let st = window.pageYOffset || document.documentElement.scrollTop;
-            if (st > lastScrollTop && st > 150) navbar.classList.add('nav-hidden'); else navbar.classList.remove('nav-hidden'); 
-            lastScrollTop = st <= 0 ? 0 : st; 
-            if (st > 500) backToTopBtn.classList.add('show'); else backToTopBtn.classList.remove('show');
-        });
-        backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-        document.getElementById('hamburger-icon').addEventListener('click', () => { document.getElementById('mobile-menu').classList.toggle('active'); });
-        document.querySelectorAll('.trans-link').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); const targetUrl = e.currentTarget.href; setTimeout(() => { window.location.href = targetUrl; }, 100); }); });
-
-        const counters = document.querySelectorAll('.counter');
-        const observerCounter = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = parseInt(counter.getAttribute('data-target').replace(/\D/g, ''), 10) || 0;
-                    const updateCount = () => {
-                        const count = parseInt(counter.innerText.replace(/\D/g, ''), 10) || 0;
-                        const inc = target / 30; 
-                        if(count < target) { counter.innerText = Math.ceil(count + inc); setTimeout(updateCount, 40); } 
-                        else { counter.innerText = target + '+'; }
-                    };
-                    updateCount(); obs.unobserve(counter);
-                }
-            });
-        }, { threshold: 0.5 });
-        counters.forEach(c => observerCounter.observe(c));
-
-        const campObserver = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting) {
-                    entry.target.querySelectorAll('.counter-camp').forEach(c => {
-                        const target = +c.getAttribute('data-target'); let count = 0;
-                        const updateCount = () => { const inc = target / 40; if(count < target) { count += inc; c.innerText = Math.ceil(count) + '%'; setTimeout(updateCount, 40); } else { c.innerText = target + '%'; } };
-                        updateCount();
-                    });
-                    entry.target.querySelectorAll('.progress-fill').forEach(f => { f.style.width = f.getAttribute('data-width'); });
-                    obs.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-        if(document.querySelector('.campaign-grid')) campObserver.observe(document.querySelector('.campaign-grid'));
-
-        const repoName = 'puserve/puserve.github.io'; 
-        const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(currentLang === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
-
-        async function fetchContent(folder, containerId, targetFile) {
-            const container = document.getElementById(containerId);
-            if (!container) return; 
-            const cacheKey = `puserve_cache_${folder}`;
-            const emptyMsg = currentLang === 'EN' ? 'No records published yet.' : 'Belum ada catatan yang dipublikasikan.';
-            const cachedData = localStorage.getItem(cacheKey);
-            if (cachedData) container.innerHTML = cachedData;
-
-            try {
-                const res = await fetch(`https://api.github.com/repos/${repoName}/contents/${folder}`);
-                if (!res.ok) throw new Error("API Limit");
-                const files = await res.json();
-                let dataList = [];
-                for (const file of files) {
-                    if (!file.name.endsWith('.md') || file.name.startsWith('TEMPLATE')) continue;
-                    const mdText = await (await fetch(file.download_url)).text();
-                    const parts = mdText.split('---');
-                    if (parts.length >= 3) { const fm = jsyaml.load(parts[1]); fm.fileName = file.name; dataList.push(fm); }
-                }
-                if (dataList.length === 0) { container.innerHTML = `<div class="empty-state">${emptyMsg}</div>`; return; }
-                dataList.sort((a, b) => new Date(b.date) - new Date(a.date));
-                const html = dataList.slice(0, 4).map(fm => `
-                    <a href="${targetFile}?file=${fm.fileName}" class="card trans-link">
-                        <img src="${fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png'}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
-                        <div class="card-body">
-                            <span class="card-tag">${fm.status || fm.category || 'Update'}</span>
-                            <h3 class="card-title">${fm.title}</h3>
-                            <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
-                        </div>
-                    </a>
-                `).join('');
-                container.innerHTML = html; localStorage.setItem(cacheKey, html); 
-                document.querySelectorAll(`#${containerId} .trans-link`).forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); const targetUrl = e.currentTarget.href; setTimeout(() => { window.location.href = targetUrl; }, 100); }); });
-            } catch (error) { if(!cachedData) container.innerHTML = `<div class="empty-state">${currentLang === 'EN' ? 'Data temporarily unavailable. (Please wait if rate limited).' : 'Data sementara tidak tersedia. (Tunggu sebentar jika limit).'}</div>`; }
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            fetchContent('_events', 'home-events-grid', 'read.html');
-            fetchContent('_news', 'home-news-carousel', 'read-news.html');
-        });
-    </script>
 </body>
 </html>
