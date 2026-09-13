@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
         lastScrollTop = st <= 0 ? 0 : st; 
         
         // BATAS SCROLL TURUN JADI 200PX BIAR CEPET MUNCUL
-        if(backToTopBtn) { if (st > 200) backToTopBtn.classList.add('show'); else backToTopBtn.classList.remove('show'); }
+        if(backToTopBtn) { if (st > 100) backToTopBtn.classList.add('show'); else backToTopBtn.classList.remove('show'); }
     });
     if(backToTopBtn) backToTopBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     const hamburger = document.getElementById('hamburger-icon');
