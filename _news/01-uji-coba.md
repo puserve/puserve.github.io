@@ -2,7 +2,7 @@
 title: "PUSERVE Resmi Meluncurkan Portal Baru"
 date: 2026-10-24
 category: "Highlight" 
-author: "Presiden PUSERVE"
+author: "PUSERVE"
 thumbnail: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1000&auto=format&fit=crop"
 image_2: ""
 image_3: ""
