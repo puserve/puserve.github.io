@@ -1,21 +1,18 @@
 ---
-title_en: Noel Handsome
-title_id: Noel ganteng
+title_en: "Write the English Title Here"
+title_id: "Tulis Judul Bahasa Indonesia Di Sini"
 date: 2026-10-24
-category: Highlight
-author: PUSERVE Editorial
-thumbnail: /uploads/NOEL.jpeg
-quote: Noel ganteg bgt ajeldjadjaeldoaw
-image_2: ''
-image_3: ''
+category: "Highlight" 
+author: "PUSERVE Editorial"
+thumbnail: "https://via.placeholder.com/800x500"
 ---
 
-Lorem ipsum ahahah noel really handsome bejir
+Write the first paragraph of the news here in English. Explain what happened clearly.
 
 You can add an image in the middle of the article like this:
-![Image Description](/uploads/luca-bravo-zAjdgNXsMeg-unsplash.jpg)
+![Image Description](https://via.placeholder.com/800x400)
 
-> "I love noel."
+> "This is a very important quote that will be highlighted in yellow."
 
 If you have two images and want them side-by-side, use this:
 <div class="img-grid">
@@ -25,12 +22,12 @@ If you have two images and want them side-by-side, use this:
 
 ===ID===
 
-Lorem ipsum ahahah noel ganteng bejir
+Tulis paragraf pertama berita di sini menggunakan Bahasa Indonesia. Jelaskan apa yang terjadi secara jelas.
 
 Kamu bisa menambahkan gambar di tengah artikel seperti ini:
-![Deskripsi Gambar](/uploads/luca-bravo-zAjdgNXsMeg-unsplash.jpg)
+![Deskripsi Gambar](https://via.placeholder.com/800x400)
 
-> "aku sayang noel"
+> "Ini adalah kutipan sangat penting yang akan disorot dengan warna kuning."
 
 Jika kamu punya dua gambar dan ingin diletakkan bersebelahan (kiri-kanan), gunakan ini:
 <div class="img-grid">
