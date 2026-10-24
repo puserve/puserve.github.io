@@ -282,7 +282,7 @@ body.eco-mode .section-title { color: var(--white); }
 .search-input:focus { border-color: var(--puserve-yellow); box-shadow: 0 0 20px rgba(252, 211, 77, 0.15); }
 .search-input::placeholder { color: rgba(255,255,255,0.6); }
 
-main.container { max-width: 1200px; margin: 0 auto; padding: 20px 5% 80px; width: 100%; }
+main.container { display: block; max-width: 1200px; margin: 0 auto; padding: 40px 5% 80px; width: 100%; }x
 .empty-state { grid-column: 1 / -1; padding: 60px; text-align: center; border: 1px dashed var(--card-border); border-radius: 16px; color: var(--text-muted); font-size: 1.1rem;}
 
 #reading-progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--puserve-yellow); z-index: 99999; width: 0%; transition: width 0.1s ease-out; }
