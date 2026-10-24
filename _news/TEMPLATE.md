@@ -1,6 +1,6 @@
 ---
-title_en: Noel Ganteng
-title_id: Noel Handsome
+title_en: Noel Handsome
+title_id: Noel ganteng
 date: 2026-10-24
 category: Highlight
 author: PUSERVE Editorial
