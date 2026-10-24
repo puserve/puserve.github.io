@@ -29,7 +29,6 @@
         <div class="section-header"><h2 class="section-title" data-en="Highlight" data-id="Sorotan">Highlight</h2><div class="section-line"></div></div>
         <div id="grid-highlight" class="events-grid">
             <div class="skeleton-card"><div class="skeleton-img skeleton"></div><div class="skeleton-body"><div class="skeleton-tag skeleton"></div><div class="skeleton-title skeleton"></div><div class="skeleton-meta skeleton"></div></div></div>
-            <div class="skeleton-card"><div class="skeleton-img skeleton"></div><div class="skeleton-body"><div class="skeleton-tag skeleton"></div><div class="skeleton-title skeleton"></div><div class="skeleton-meta skeleton"></div></div></div>
         </div>
 
         <div class="section-header"><h2 class="section-title" data-en="Latest News" data-id="Berita Terbaru">Latest News</h2><div class="section-line"></div></div>
@@ -46,9 +45,7 @@
     {% include footer.html %}
 
     <script>
-        // Mesin Penerjemah Tanggal (Biar formatnya cantik)
-        const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(localStorage.getItem('puserve_lang') === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
-
+        // KODE BERSIH ANTI TABRAKAN
         async function loadCatalog() {
             const grids = { highlight: document.getElementById('grid-highlight'), latest: document.getElementById('grid-latest'), archive: document.getElementById('grid-archive') };
             let currentLang = localStorage.getItem('puserve_lang') || 'EN';
@@ -89,7 +86,7 @@
                         `).join('');
                     }
                 });
-            } catch (error) { Object.values(grids).forEach(grid => grid.innerHTML = `<div class="empty-state">Data loading...</div>`); }
+            } catch (error) { Object.values(grids).forEach(grid => grid.innerHTML = `<div class="empty-state">Data loading... (Make sure TEMPLATE.md is uploaded)</div>`); }
         }
         
         document.addEventListener("DOMContentLoaded", loadCatalog);
