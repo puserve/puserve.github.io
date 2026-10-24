@@ -2,24 +2,42 @@ backend:
   name: github
   repo: puserve/puserve.github.io
   branch: main
-  auth_type: pkce
-  app_id: "Ov23li1puh2q6WY4DSnY"
 
 media_folder: "uploads"
-public_folder: "/uploads"
-publish_mode: editorial_workflow
+public_folder: "uploads"
 
 collections:
+  - name: "news"
+    label: "PUSERVE Outlook (Berita)"
+    folder: "_news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Judul (English)", name: "title_en", widget: "string"}
+      - {label: "Judul (Indonesia)", name: "title_id", widget: "string"}
+      - {label: "Tanggal Terbit", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Kategori Berita", name: "category", widget: "select", options: ["Highlight", "Latest News", "Archive"]}
+      - {label: "Penulis", name: "author", widget: "string", default: "PUSERVE Editorial"}
+      - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
+      - {label: "Kutipan Penting (Key Quote)", name: "quote", widget: "string", required: false}
+      - {label: "Foto Tambahan 1 (Opsional)", name: "image_2", widget: "image", required: false}
+      - {label: "Foto Tambahan 2 (Opsional)", name: "image_3", widget: "image", required: false}
+      - {label: "Isi Berita (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
+
   - name: "events"
-    label: "Events"
+    label: "Events & Programs (Acara)"
     folder: "_events"
     create: true
-    slug: "{{year}}-{{month}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - {label: "Judul Event", name: "title", widget: "string"}
-      - {label: "Status Event", name: "status", widget: "select", options: ["Upcoming", "Running", "Past"]}
-      - {label: "Tanggal Event", name: "date", widget: "datetime"}
-      - {label: "Jumlah Peserta", name: "attendees", widget: "string", required: false}
-      - {label: "Target/Hasil Progress", name: "result_text", widget: "string"}
-      - {label: "Poster", name: "thumbnail", widget: "image"}
-      - {label: "Deskripsi", name: "body", widget: "markdown"}
+      - {label: "Nama Acara (English)", name: "title_en", widget: "string"}
+      - {label: "Nama Acara (Indonesia)", name: "title_id", widget: "string"}
+      - {label: "Tanggal Acara", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Kategori Acara", name: "category", widget: "select", options: ["Upcoming", "Past Initiatives"]}
+      - {label: "Status", name: "status", widget: "string", default: "Program"}
+      - {label: "Jumlah Peserta", name: "attendees", widget: "string", default: "200+ Participants"}
+      - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
+      - {label: "Hasil/Dampak Acara (Outcome)", name: "outcome", widget: "string", required: false}
+      - {label: "Foto Tambahan 1 (Opsional)", name: "image_2", widget: "image", required: false}
+      - {label: "Foto Tambahan 2 (Opsional)", name: "image_3", widget: "image", required: false}
+      - {label: "Isi Laporan (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
