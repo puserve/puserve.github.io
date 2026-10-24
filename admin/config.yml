@@ -2,10 +2,12 @@ backend:
   name: github
   repo: puserve/puserve.github.io
   branch: main
+  app_id: "PASTE_CLIENT_ID_LU_DI_SINI" # <--- TAMBAHIN BARIS INI DOANG
 
 media_folder: "uploads"
 public_folder: "uploads"
 
+# ... (kode ke bawahnya biarin aja sama persis kayak sebelumnya)
 collections:
   - name: "news"
     label: "PUSERVE Outlook (Berita)"
