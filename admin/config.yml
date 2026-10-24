@@ -2,6 +2,7 @@ backend:
   name: github
   repo: puserve/puserve.github.io
   branch: main
+  auth_type: pkce
   app_id: Ov23lilpuh2q6WY4DSnYNG
 
 media_folder: "uploads"
