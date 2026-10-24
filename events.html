@@ -40,7 +40,8 @@
     {% include footer.html %}
 
     <script>
-        // KODE BERSIH ANTI TABRAKAN
+        const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(localStorage.getItem('puserve_lang') === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
+
         async function loadCatalog() {
             const grids = { highlight: document.getElementById('grid-highlight'), latest: document.getElementById('grid-latest') };
             let currentLang = localStorage.getItem('puserve_lang') || 'EN';
@@ -68,19 +69,23 @@
                     data[key].sort((a, b) => new Date(b.date) - new Date(a.date));
                     if (data[key].length === 0) { grids[key].innerHTML = `<div class="empty-state">${emptyMsg}</div>`; } 
                     else {
-                        grids[key].innerHTML = data[key].map(fm => `
+                        grids[key].innerHTML = data[key].map(fm => {
+                            const title = currentLang === 'EN' ? (fm.title_en || fm.title) : (fm.title_id || fm.title);
+                            return `
                             <a href="read.html?file=${fm.fileName}" class="card trans-link">
                                 <img src="${fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png'}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
                                 <div class="card-body">
                                     <span class="card-tag">${fm.status || 'Event'}</span>
-                                    <h3 class="card-title">${fm.title}</h3>
+                                    <h3 class="card-title">${title}</h3>
                                     <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
                                 </div>
-                            </a>
-                        `).join('');
+                            </a>`;
+                        }).join('');
                     }
                 });
-            } catch (error) { Object.values(grids).forEach(grid => grid.innerHTML = `<div class="empty-state">Data loading... (Make sure TEMPLATE.md is uploaded)</div>`); }
+            } catch (error) { 
+                Object.values(grids).forEach(grid => grid.innerHTML = `<div class="empty-state">Data loading...</div>`); 
+            }
         }
         
         document.addEventListener("DOMContentLoaded", loadCatalog);
@@ -91,6 +96,10 @@
                 const title = card.querySelector('.card-title').innerText.toLowerCase();
                 card.style.display = title.includes(term) ? 'flex' : 'none';
             });
+        });
+
+        document.getElementById('langToggle').addEventListener('click', () => { 
+            setTimeout(() => { loadCatalog(); }, 100); 
         });
     </script>
 </body>
