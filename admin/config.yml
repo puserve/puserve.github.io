@@ -42,3 +42,17 @@ collections:
       - {label: "Foto Tambahan 1 (Opsional)", name: "image_2", widget: "image", required: false}
       - {label: "Foto Tambahan 2 (Opsional)", name: "image_3", widget: "image", required: false}
       - {label: "Isi Laporan (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
+      
+- name: "team"
+    label: "Team Members (Pengurus)"
+    folder: "_team"
+    create: true
+    slug: "{{year}}-{{slug}}"
+    fields:
+      - {label: "Nama Lengkap", name: "title", widget: "string"}
+      - {label: "Foto Profil", name: "thumbnail", widget: "image"}
+      - {label: "Jabatan", name: "position", widget: "select", options: ["Advisor", "Chairperson", "Vice Chairperson 1", "Vice Chairperson 2", "Head of Division", "Vice Head of Division"]}
+      - {label: "Divisi", name: "division", widget: "select", options: ["Advisor", "Board of Director", "Secretary", "Treasure", "Human Resources", "General Resources", "Research, Observation, and Innovation", "Internal Public Relations", "External Public Relations", "Multimedia", "Documentation"]}
+      - {label: "Program Studi (Major)", name: "major", widget: "string", default: "International Relations"}
+      - {label: "Student ID", name: "student_id", widget: "string"}
+      - {label: "Email Campus / Pribadi", name: "email", widget: "string"}
