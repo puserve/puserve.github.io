@@ -240,7 +240,7 @@ body.eco-mode .progress-track { background: rgba(255,255,255,0.05); }
    8. READ ARTICLE PAGES (NEWS & EVENTS)
    ========================================= */
 #reading-progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--puserve-yellow); z-index: 99999; width: 0%; transition: width 0.1s ease-out; }
-main.read-container { flex: 1; padding: 130px 5% 60px; display: flex; justify-content: center; } /* Beda nama kelas biar ga tabrakan */
+main.read-container { flex: 1; padding: 130px 5% 60px; display: flex; justify-content: center; } 
 .paper { background-color: var(--card-bg); border: 1px solid var(--card-border); max-width: 900px; width: 100%; border-radius: 24px; padding: 60px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); overflow-wrap: break-word; transition: 0.5s; margin: 0 auto;}
 
 .pr-header { text-align: center; border-bottom: 1px solid var(--card-border); padding-bottom: 30px; margin-bottom: 35px; }
@@ -297,12 +297,23 @@ body.eco-mode .back-link:hover { color: var(--puserve-yellow); }
 body.eco-mode .div-title { color: var(--white); }
 .div-title::after { content: ''; display: block; width: 50px; height: 4px; background: var(--puserve-yellow); margin: 15px auto 0; border-radius: 2px; }
 
-/* POPUP TEAM */
-.popup-data { background: var(--bg-color); padding: 25px; border-radius: 16px; border: 1px solid var(--card-border); margin-top: 20px; text-align: left; }
-.popup-data p { margin-bottom: 12px; font-size: 0.95rem; color: var(--text-color); display: flex; align-items: center; gap: 10px;}
-.popup-data p:last-child { margin-bottom: 0; }
-.popup-icon { color: var(--primary-green); }
-body.eco-mode .popup-icon { color: var(--puserve-yellow); }
+/* POPUP TEAM (RATA KIRI, TITIK DUA SEJAJAR, KLIK COPY) */
+.popup-data { background: var(--bg-color); padding: 20px; border-radius: 16px; border: 1px solid var(--card-border); margin-top: 20px; text-align: left; display: flex; flex-direction: column; gap: 10px; }
+.popup-row { display: flex; align-items: flex-start; width: 100%; font-size: 0.95rem; color: var(--text-color); }
+.popup-row.copyable { cursor: pointer; transition: 0.2s; padding: 6px; border-radius: 8px; margin: -6px; }
+.popup-row.copyable:hover { background: rgba(10, 54, 34, 0.05); }
+body.eco-mode .popup-row.copyable:hover { background: rgba(255, 255, 255, 0.05); }
+
+.p-icon { width: 24px; color: var(--primary-green); flex-shrink: 0; display: flex; align-items: center; margin-top: 1px; }
+body.eco-mode .p-icon { color: var(--puserve-yellow); }
+.p-label { width: 85px; font-weight: 700; flex-shrink: 0; }
+.p-colon { width: 15px; font-weight: 700; flex-shrink: 0; text-align: center; }
+
+/* Email kepanjangan di-break ke bawah */
+.p-val { flex: 1; word-break: break-all; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+.copy-icon { width: 14px; height: 14px; color: var(--primary-green); opacity: 0; transition: 0.2s; flex-shrink: 0; }
+body.eco-mode .copy-icon { color: var(--puserve-yellow); }
+.popup-row.copyable:hover .copy-icon { opacity: 1; }
 
 /* =========================================
    10. FOOTER
@@ -372,6 +383,11 @@ footer { background: var(--dark-green); padding: 80px 5% 40px; margin-top: 20px;
     .share-box { flex-direction: column !important; align-items: stretch !important; gap: 15px !important; margin-top: 40px !important; }
     .share-buttons { width: 100% !important; display: flex !important; flex-direction: row !important; gap: 10px !important; }
     .share-btn { flex: 1 !important; padding: 12px 5px !important; font-size: 0.9rem !important; justify-content: center !important; }
+    
+    /* Responsif Popup Team di HP */
+    .p-label { width: 75px; font-size: 0.9rem; }
+    .p-val { font-size: 0.9rem; word-break: break-all; }
+    .copy-icon { opacity: 1; } /* Tombol copy selalu muncul di HP */
     
     /* Footer */
     .footer-grid { display: flex !important; flex-direction: column !important; gap: 40px !important; } 
