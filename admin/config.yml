@@ -52,6 +52,6 @@ collections:
       - {label: "Foto Profil", name: "thumbnail", widget: "image"}
       - {label: "Jabatan", name: "position", widget: "select", options: ["Advisor", "Chairperson", "Vice Chairperson 1", "Vice Chairperson 2", "Head of Division", "Vice Head of Division", "Member"]}
       - {label: "Divisi", name: "division", widget: "select", options: ["Advisor", "Board of Director", "Secretary", "Treasure", "Human Resources", "General Resources", "Research, Observation, and Innovation", "Internal Public Relations", "External Public Relations", "Multimedia", "Documentation"]}
-      - {label: "Program Studi (Major)", name: "major", widget: "string", default: "International Relations"}
-      - {label: "Student ID", name: "student_id", widget: "string"}
+      - {label: "Program Studi (Major)", name: "major", widget: "string", required: false}
+      - {label: "Student ID", name: "student_id", widget: "string", required: false}
       - {label: "Email Campus", name: "email", widget: "string"}
