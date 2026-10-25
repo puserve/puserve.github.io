@@ -1,6 +1,6 @@
 ---
 title: Steiryn Cersey Kately Sumajow
-thumbnail: /uploads/pasted-image-1792954377038.png
+thumbnail: /uploads/2-500kb.jpeg
 position: Vice Chairperson 1
 division: Board of Director
 major: International Relations
