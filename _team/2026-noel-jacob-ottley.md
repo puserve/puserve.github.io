@@ -1,6 +1,6 @@
 ---
 title: Noel Jacob Ottley
-thumbnail: /uploads/NOEL.jpeg
+thumbnail: /uploads/3.png
 position: Vice Chairperson 2
 division: Board of Director
 major: International Relations
