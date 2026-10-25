@@ -363,8 +363,9 @@ body.eco-mode .back-link:hover { color: var(--puserve-yellow); }
 /* =========================================
    PAGE SPECIFIC (OUR TEAM)
    ========================================= */
-.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; width: 100%; max-width: 1200px; margin: 0 auto 50px; justify-items: center; }
-.team-card { cursor: pointer; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 40px 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.03); transition: 0.4s ease; width: 100%; max-width: 350px; border-top: 4px solid var(--primary-green); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
+/* GANTI 2 BARIS INI AJA YAK BIAR OTOMATIS KE TENGAH */
+.team-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; width: 100%; max-width: 1200px; margin: 0 auto 50px; }
+.team-card { flex: 0 1 280px; width: 100%; cursor: pointer; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 40px 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.03); transition: 0.4s ease; border-top: 4px solid var(--primary-green); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; }
 .team-card:hover { transform: translateY(-8px); border-top-color: var(--puserve-yellow); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
 .team-img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; margin-bottom: 25px; border: 4px solid var(--bg-color); transition: 0.4s; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 .team-card:hover .team-img { border-color: var(--puserve-yellow); transform: scale(1.05); }
