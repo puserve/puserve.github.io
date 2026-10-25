@@ -54,4 +54,4 @@ collections:
       - {label: "Divisi", name: "division", widget: "select", options: ["Advisor", "Board of Director", "Secretary", "Treasure", "Human Resources", "General Resources", "Research, Observation, and Innovation", "Internal Public Relations", "External Public Relations", "Multimedia", "Documentation"]}
       - {label: "Program Studi (Major)", name: "major", widget: "string", default: "International Relations"}
       - {label: "Student ID", name: "student_id", widget: "string"}
-      - {label: "Email Campus / Pribadi", name: "email", widget: "string"}
+      - {label: "Email Campus", name: "email", widget: "string"}
