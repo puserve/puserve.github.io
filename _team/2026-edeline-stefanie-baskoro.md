@@ -1,6 +1,6 @@
 ---
 title: Edeline Stefanie Baskoro
-thumbnail: /uploads/Edeline Baskoro_International Relations_Event.png
+thumbnail: /uploads/1.png
 position: Chairperson
 division: Board of Director
 major: International Relations
