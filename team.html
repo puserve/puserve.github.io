@@ -19,13 +19,17 @@
 
     <header class="page-hero">
         <h1 data-en="Meet Our Team" data-id="Kenali Tim Kami">Meet Our Team</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9;" data-en="The passionate minds and hands behind PUSERVE's environmental initiatives." data-id="Pemikir dan penggerak di balik inisiatif lingkungan PUSERVE.">The passionate minds and hands behind PUSERVE's environmental initiatives.</p>
+        <p style="font-size: 1.1rem; opacity: 0.9;" data-en="The passionate minds and hands behind PUSERVE's environmental initiatives." data-id="Para pemikir dan penggerak di balik inisiatif lingkungan PUSERVE.">The passionate minds and hands behind PUSERVE's environmental initiatives.</p>
     </header>
 
     <main class="container">
-        <!-- ROBOT KITA BAKAL NAMBAHIN DAFTAR DIVISI DAN ORANG-ORANGNYA DI DALAM KOTAK INI SECARA OTOMATIS -->
+        <!-- ROBOT KITA BAKAL NAMBAHIN DAFTAR DIVISI DAN ORANG-ORANGNYA DI SINI OTOMATIS -->
         <div id="team-container">
-            <div class="skeleton-card" style="height: 300px; align-items: center; padding-top: 40px; margin: 0 auto;"><div class="skeleton" style="width: 120px; height: 120px; border-radius: 50%;"></div><div class="skeleton" style="width: 70%; height: 20px; margin-top: 20px;"></div><div class="skeleton" style="width: 40%; height: 15px; margin-top: 10px;"></div></div>
+            <div class="skeleton-card" style="height: 300px; align-items: center; padding-top: 40px; margin: 0 auto;">
+                <div class="skeleton" style="width: 120px; height: 120px; border-radius: 50%;"></div>
+                <div class="skeleton" style="width: 70%; height: 20px; margin-top: 20px;"></div>
+                <div class="skeleton" style="width: 40%; height: 15px; margin-top: 10px;"></div>
+            </div>
         </div>
     </main>
 
@@ -40,9 +44,9 @@
             <div id="modal-t-role" style="color: var(--primary-green); font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;">Jabatan - Divisi</div>
             
             <div class="popup-data">
-                <p><svg class="popup-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> <strong data-en="Major:" data-id="Prodi:">Major:</strong> <span id="modal-t-major"></span></p>
-                <p><svg class="popup-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> <strong data-en="Student ID:" data-id="NIM:">Student ID:</strong> <span id="modal-t-id"></span></p>
-                <p><svg class="popup-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> <strong data-en="Email:" data-id="Email:">Email:</strong> <span id="modal-t-email"></span></p>
+                <p id="row-major"><svg class="popup-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> <strong data-en="Major:" data-id="Prodi:">Major:</strong> &nbsp;<span id="modal-t-major"></span></p>
+                <p id="row-id"><svg class="popup-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> <strong data-en="Student ID:" data-id="NIM:">Student ID:</strong> &nbsp;<span id="modal-t-id"></span></p>
+                <p><svg class="popup-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> <strong data-en="Email:" data-id="Email:">Email:</strong> &nbsp;<span id="modal-t-email"></span></p>
             </div>
         </div>
     </div>
@@ -51,6 +55,21 @@
 
     <script>
         let teamData = [];
+        
+        // KAMUS TERJEMAHAN DIVISI
+        const divTranslations = {
+            "Advisor": "Advisor",
+            "Board of Director": "Dewan Direksi",
+            "Secretary": "Sekretaris",
+            "Treasure": "Bendahara",
+            "Human Resources": "Sumber Daya Manusia",
+            "General Resources": "Sumber Daya Umum",
+            "Research, Observation, and Innovation": "Penelitian, Observasi, dan Inovasi",
+            "Internal Public Relations": "Humas Internal",
+            "External Public Relations": "Humas Eksternal",
+            "Multimedia": "Multimedia",
+            "Documentation": "Dokumentasi"
+        };
 
         async function loadTeam() {
             const container = document.getElementById('team-container');
@@ -74,11 +93,11 @@
 
                 if (teamData.length === 0) { container.innerHTML = `<div class="empty-state">${emptyMsg}</div>`; return; }
 
-                // 1. Urutkan berdasarkan Kasta Jabatan
+                // 1. MESIN PENGURUTAN JABATAN (Biar bos di atas)
                 const hierarchy = { "Advisor": 1, "Chairperson": 2, "Vice Chairperson 1": 3, "Vice Chairperson 2": 4, "Head of Division": 5, "Vice Head of Division": 6, "Member": 7 };
                 teamData.sort((a, b) => (hierarchy[a.position] || 99) - (hierarchy[b.position] || 99));
 
-                // 2. Susun berdasarkan Urutan Divisi
+                // 2. MESIN SUSUNAN DIVISI
                 const divisionsOrder = [
                     "Advisor", "Board of Director", "Secretary", "Treasure", 
                     "Human Resources", "General Resources", "Research, Observation, and Innovation", 
@@ -88,23 +107,16 @@
                 let htmlContent = '';
                 
                 divisionsOrder.forEach(divName => {
-                    // Saring orang-orang yang ada di divisi ini
                     const membersInDiv = teamData.filter(m => m.division === divName);
                     
                     if (membersInDiv.length > 0) {
-                        // Bikin kamus terjemahan otomatis buat nama divisi
-                        let divTitleID = divName;
-                        if(divName === "Board of Director") divTitleID = "Dewan Direksi";
-                        if(divName === "Secretary") divTitleID = "Sekretaris";
-                        if(divName === "Treasure") divTitleID = "Bendahara";
-                        if(divName === "Human Resources") divTitleID = "Sumber Daya Manusia";
-                        
+                        const divTitleID = divTranslations[divName] || divName;
                         htmlContent += `<h2 class="div-title" data-en="${divName}" data-id="${divTitleID}">${currentLang === 'EN' ? divName : divTitleID}</h2>`;
-                        htmlContent += `<div class="team-grid">`;
                         
+                        htmlContent += `<div class="team-grid">`;
                         membersInDiv.forEach(fm => {
                             const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
-                            const globalIndex = teamData.indexOf(fm); // Buat modal popup
+                            const globalIndex = teamData.indexOf(fm); 
                             
                             htmlContent += `
                                 <div class="team-card" onclick="openTeamModal(${globalIndex})">
@@ -125,7 +137,7 @@
             }
         }
 
-        // MESIN POP-UP INTERAKTIF
+        // MESIN POP-UP SUPER PINTAR (BISA DETEKSI ADVISOR)
         function openTeamModal(index) {
             const fm = teamData[index];
             const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
@@ -134,14 +146,25 @@
             document.getElementById('modal-t-name').innerText = fm.title || '-';
             
             const roleEl = document.getElementById('modal-t-role');
-            roleEl.innerText = `${fm.position || '-'} - ${fm.division || '-'}`;
+            let divName = fm.division || '-';
+            if (localStorage.getItem('puserve_lang') === 'ID' && divTranslations[divName]) { divName = divTranslations[divName]; }
+            
+            roleEl.innerText = `${fm.position || '-'} - ${divName}`;
             if(localStorage.getItem('puserve_eco') === 'true') { roleEl.style.color = 'var(--puserve-yellow)'; } 
             else { roleEl.style.color = 'var(--primary-green)'; }
 
-            document.getElementById('modal-t-major').innerText = fm.major || '-';
-            document.getElementById('modal-t-id').innerText = fm.student_id || '-';
-            document.getElementById('modal-t-email').innerText = fm.email || '-';
+            // LOGIKA PENGHILANG MAJOR & ID KHUSUS ADVISOR
+            if (fm.position === "Advisor") {
+                document.getElementById('row-major').style.display = 'none';
+                document.getElementById('row-id').style.display = 'none';
+            } else {
+                document.getElementById('row-major').style.display = 'flex';
+                document.getElementById('row-id').style.display = 'flex';
+                document.getElementById('modal-t-major').innerText = fm.major || '-';
+                document.getElementById('modal-t-id').innerText = fm.student_id || '-';
+            }
 
+            document.getElementById('modal-t-email').innerText = fm.email || '-';
             document.getElementById('team-modal').classList.add('show');
         }
 
@@ -151,17 +174,17 @@
 
         document.addEventListener("DOMContentLoaded", loadTeam);
         
-        // Ngerestart terjemahan kalau tombol EN/ID dipencet
+        // REFRESH BILINGUAL OTOMATIS PAS TOMBOL EN/ID DITEKAN
         document.getElementById('langToggle').addEventListener('click', () => { 
             setTimeout(() => { 
                 let currentLang = localStorage.getItem('puserve_lang') || 'EN';
                 
-                // Translate div titles
+                // Terjemahin Judul Divisi
                 document.querySelectorAll('.div-title').forEach(el => {
                     el.innerText = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
                 });
 
-                // Translate modal strong tags
+                // Terjemahin teks di dalam Pop-up (Major, Student ID, Email)
                 document.querySelectorAll('.popup-data strong[data-en]').forEach(el => {
                     el.innerHTML = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
                 });
