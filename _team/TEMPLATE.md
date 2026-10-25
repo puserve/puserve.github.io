@@ -1,9 +1,9 @@
 ---
-title: "Noel Jacob Ottley"
+title: "Name Goes Here"
 thumbnail: "https://via.placeholder.com/400"
-position: "Chairperson"
-division: "Board of Director"
-major: "International Relations"
+position: "Position Goes Here"
+division: "Division Goes Here"
+major: "Major Goes Here"
 student_id: "123456789"
-email: "noel@student.president.ac.id"
+email: "puserve@student.president.ac.id"
 ---
