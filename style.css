@@ -356,3 +356,6 @@ body.eco-mode .back-link:hover { color: var(--puserve-yellow); }
     .share-buttons { width: 100% !important; display: flex !important; flex-direction: row !important; gap: 10px !important; }
     .share-btn { flex: 1 !important; padding: 12px 5px !important; font-size: 0.9rem !important; justify-content: center !important; }
 }
+
+/* BALIKIN SPASI PARAGRAF YANG HILANG */
+.pr-body p { margin-bottom: 25px !important; }
