@@ -23,7 +23,7 @@
     </header>
 
     <main class="container">
-        <!-- ROBOT KITA BAKAL NAMBAHIN DAFTAR DIVISI DAN ORANG-ORANGNYA DI SINI OTOMATIS -->
+        <!-- KOTAK TEAM -->
         <div id="team-container">
             <div class="skeleton-card" style="height: 300px; align-items: center; padding-top: 40px; margin: 0 auto;">
                 <div class="skeleton" style="width: 120px; height: 120px; border-radius: 50%;"></div>
@@ -43,10 +43,28 @@
             <h3 id="modal-t-name" style="color: var(--text-color); margin-bottom: 5px; font-size: 1.6rem; font-weight: 800;">Nama Lengkap</h3>
             <div id="modal-t-role" style="color: var(--primary-green); font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;">Jabatan - Divisi</div>
             
+            <!-- DATA DENGAN FITUR COPY -->
             <div class="popup-data">
-                <p id="row-major"><svg class="popup-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> <strong data-en="Major:" data-id="Prodi:">Major:</strong> &nbsp;<span id="modal-t-major"></span></p>
-                <p id="row-id"><svg class="popup-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> <strong data-en="Student ID:" data-id="NIM:">Student ID:</strong> &nbsp;<span id="modal-t-id"></span></p>
-                <p><svg class="popup-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> <strong data-en="Email:" data-id="Email:">Email:</strong> &nbsp;<span id="modal-t-email"></span></p>
+                <div class="popup-row" id="row-major">
+                    <div class="p-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
+                    <div class="p-label"><strong data-en="Major" data-id="Prodi">Major</strong></div>
+                    <div class="p-colon">:</div>
+                    <div class="p-val"><span id="modal-t-major"></span></div>
+                </div>
+                
+                <div class="popup-row copyable" id="row-id" onclick="copyTeamData('modal-t-id', 'Student ID')" title="Click to Copy">
+                    <div class="p-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
+                    <div class="p-label"><strong data-en="Student ID" data-id="NIM">Student ID</strong></div>
+                    <div class="p-colon">:</div>
+                    <div class="p-val"><span id="modal-t-id"></span> <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></div>
+                </div>
+
+                <div class="popup-row copyable" id="row-email" onclick="copyTeamData('modal-t-email', 'Email')" title="Click to Copy">
+                    <div class="p-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+                    <div class="p-label"><strong data-en="Email" data-id="Email">Email</strong></div>
+                    <div class="p-colon">:</div>
+                    <div class="p-val"><span id="modal-t-email"></span> <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></div>
+                </div>
             </div>
         </div>
     </div>
@@ -93,11 +111,11 @@
 
                 if (teamData.length === 0) { container.innerHTML = `<div class="empty-state">${emptyMsg}</div>`; return; }
 
-                // 1. MESIN PENGURUTAN JABATAN (Biar bos di atas)
+                // MESIN PENGURUTAN JABATAN
                 const hierarchy = { "Advisor": 1, "Chairperson": 2, "Vice Chairperson 1": 3, "Vice Chairperson 2": 4, "Head of Division": 5, "Vice Head of Division": 6, "Member": 7 };
                 teamData.sort((a, b) => (hierarchy[a.position] || 99) - (hierarchy[b.position] || 99));
 
-                // 2. MESIN SUSUNAN DIVISI
+                // MESIN SUSUNAN DIVISI
                 const divisionsOrder = [
                     "Advisor", "Board of Director", "Secretary", "Treasure", 
                     "Human Resources", "General Resources", "Research, Observation, and Innovation", 
@@ -137,7 +155,7 @@
             }
         }
 
-        // MESIN POP-UP SUPER PINTAR (BISA DETEKSI ADVISOR)
+        // MESIN POP-UP
         function openTeamModal(index) {
             const fm = teamData[index];
             const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
@@ -172,6 +190,21 @@
             document.getElementById('team-modal').classList.remove('show');
         }
 
+        // MESIN KLIK UNTUK COPY
+        function copyTeamData(elementId, labelName) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            if (!textToCopy || textToCopy === '-') return;
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const isID = localStorage.getItem('puserve_lang') === 'ID';
+                if (typeof showToast === 'function') {
+                    showToast(isID ? `${labelName} berhasil disalin!` : `${labelName} copied!`);
+                } else {
+                    alert(isID ? `${labelName} berhasil disalin!` : `${labelName} copied!`);
+                }
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", loadTeam);
         
         // REFRESH BILINGUAL OTOMATIS PAS TOMBOL EN/ID DITEKAN
@@ -179,12 +212,10 @@
             setTimeout(() => { 
                 let currentLang = localStorage.getItem('puserve_lang') || 'EN';
                 
-                // Terjemahin Judul Divisi
                 document.querySelectorAll('.div-title').forEach(el => {
                     el.innerText = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
                 });
 
-                // Terjemahin teks di dalam Pop-up (Major, Student ID, Email)
                 document.querySelectorAll('.popup-data strong[data-en]').forEach(el => {
                     el.innerHTML = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
                 });
