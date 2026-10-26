@@ -55,3 +55,18 @@ collections:
       - {label: "Program Studi (Major)", name: "major", widget: "string", required: false}
       - {label: "Student ID", name: "student_id", widget: "string", required: false}
       - {label: "Email Campus", name: "email", widget: "string"}
+
+  - name: "repository"
+    label: "Public Repository (Dokumen)"
+    folder: "_repository"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    fields:
+      - {label: "Judul Dokumen (English)", name: "title_en", widget: "string"}
+      - {label: "Judul Dokumen (Indonesia)", name: "title_id", widget: "string"}
+      - {label: "Tanggal Update", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Kategori / Label", name: "category", widget: "string", hint: "Ketik kategori baru atau yang sudah ada (misal: Legal & Ethics, Guidelines & SOPs). Ini akan otomatis jadi tombol filter di web."}
+      - {label: "Format File", name: "format", widget: "select", options: ["PDF", "ZIP", "DOCX", "XLSX", "PPTX", "IMAGE"]}
+      - {label: "Ukuran File (Contoh: 1.2 MB)", name: "size", widget: "string"}
+      - {label: "Upload File Dokumen", name: "file_url", widget: "file"}
+      - {label: "Isi Dokumen (Hanya untuk fitur Baca Pop-up)", name: "body", widget: "markdown", required: false, hint: "Isi teks dokumen di sini jika ingin fitur Pop-up Baca. Gunakan ===ID=== sebagai pemisah bahasa EN/ID."}
