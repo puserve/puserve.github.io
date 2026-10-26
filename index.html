@@ -27,6 +27,7 @@
     <link rel="manifest" href="manifest.json">
     
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
 
@@ -192,5 +193,67 @@
 
     {% include footer.html %}
 
+    <script>
+        async function loadHomeData() {
+            let currentLang = localStorage.getItem('puserve_lang') || 'EN';
+            const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(currentLang === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e){} return dateStr; };
+
+            const renderCard = (fm, folder) => {
+                const title = currentLang === 'EN' ? (fm.title_en || fm.title_id || fm.title) : (fm.title_id || fm.title_en || fm.title);
+                const link = folder === '_events' ? `read.html?file=${fm.fileName}` : `read-news.html?file=${fm.fileName}`;
+                const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
+                return `
+                <a href="${link}" class="card trans-link">
+                    <img src="${img}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
+                    <div class="card-body">
+                        <span class="card-tag">${fm.status || fm.category || 'Highlight'}</span>
+                        <h3 class="card-title">${title}</h3>
+                        <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
+                    </div>
+                </a>`;
+            };
+
+            const errMsg = currentLang === 'EN' ? 'API Limit Reached. Please wait 1 hour.' : 'Batas API GitHub tercapai. Tunggu 1 jam.';
+            const errHtml = `<div class="empty-state" style="color: #ef4444; width:100%; text-align:center;">${errMsg}</div>`;
+
+            // Load Events
+            try {
+                const res = await fetch('https://api.github.com/repos/puserve/puserve.github.io/contents/_events');
+                if(!res.ok) throw new Error();
+                const files = await res.json();
+                let events = [];
+                for(let file of files) {
+                    if(!file.name.endsWith('.md') || file.name.startsWith('TEMPLATE')) continue;
+                    const txt = await (await fetch(file.download_url)).text();
+                    const pts = txt.split('---');
+                    if(pts.length >= 3) { const fm = jsyaml.load(pts[1]); fm.fileName = file.name; events.push(fm); }
+                }
+                events.sort((a,b) => new Date(b.date) - new Date(a.date));
+                const eGrid = document.getElementById('home-events-grid');
+                if(eGrid) eGrid.innerHTML = events.slice(0,2).map(fm => renderCard(fm, '_events')).join('') || `<div class="empty-state">No events yet.</div>`;
+            } catch(e) { const eGrid = document.getElementById('home-events-grid'); if(eGrid) eGrid.innerHTML = errHtml; }
+
+            // Load News
+            try {
+                const res = await fetch('https://api.github.com/repos/puserve/puserve.github.io/contents/_news');
+                if(!res.ok) throw new Error();
+                const files = await res.json();
+                let news = [];
+                for(let file of files) {
+                    if(!file.name.endsWith('.md') || file.name.startsWith('TEMPLATE')) continue;
+                    const txt = await (await fetch(file.download_url)).text();
+                    const pts = txt.split('---');
+                    if(pts.length >= 3) { const fm = jsyaml.load(pts[1]); fm.fileName = file.name; news.push(fm); }
+                }
+                news.sort((a,b) => new Date(b.date) - new Date(a.date));
+                const nGrid = document.getElementById('home-news-carousel');
+                if(nGrid) nGrid.innerHTML = news.slice(0,2).map(fm => renderCard(fm, '_news')).join('') || `<div class="empty-state">No news yet.</div>`;
+            } catch(e) { const nGrid = document.getElementById('home-news-carousel'); if(nGrid) nGrid.innerHTML = errHtml; }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadHomeData);
+        const langToggleCustom = document.getElementById('langToggle');
+        if(langToggleCustom) langToggleCustom.addEventListener('click', () => { setTimeout(() => { loadHomeData(); }, 100); });
+    </script>
 </body>
 </html>
