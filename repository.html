@@ -45,11 +45,13 @@
         .repo-search-input:focus { border-color: var(--primary-green); box-shadow: 0 5px 20px rgba(10, 54, 34, 0.1); }
         body.eco-mode .repo-search-input:focus { border-color: var(--puserve-yellow); }
 
-        /* BOOK POP-UP MODAL */
+        /* BOOK POP-UP MODAL (Diperlebar biar baca PDF enak) */
         #book-modal .modal-content-box { max-width: 900px; width: 95%; max-height: 90vh; padding: 40px 50px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--card-border); box-shadow: 0 25px 50px rgba(0,0,0,0.3); display: flex; flex-direction: column;}
         .book-meta { padding-bottom: 15px; border-bottom: 2px solid var(--card-border); margin-bottom: 20px; flex-shrink: 0; }
         .book-content { flex: 1; min-height: 50vh; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #e5e5e5; border-radius: 8px; }
         body.eco-mode .book-content { background: #1a1a1a; }
+        
+        /* IFRAME PDF & IMG VIEWER */
         .book-content iframe, .book-content img { width: 100%; height: 100%; object-fit: contain; border: none; }
 
         @media (max-width: 768px) {
@@ -86,6 +88,7 @@
         </div>
     </main>
 
+    <!-- BOOK POP-UP MODAL (Viewer PDF / Gambar) -->
     <div id="book-modal" class="modal-overlay">
         <div class="modal-content-box">
             <span class="close-modal-btn" onclick="closeBookModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
@@ -93,7 +96,9 @@
                 <div style="color: var(--puserve-yellow); font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;" id="book-category">CATEGORY</div>
                 <h2 id="book-title" style="font-size: 1.6rem; color: var(--text-color); margin-bottom: 10px; line-height: 1.2;">Document Title</h2>
             </div>
-            <div class="book-content" id="book-content"></div>
+            <div class="book-content" id="book-content">
+                <!-- PDF atau Gambar akan muncul di sini otomatis -->
+            </div>
         </div>
     </div>
 
@@ -130,10 +135,14 @@
                     if (!file.name.endsWith('.md') || file.name.startsWith('TEMPLATE')) continue;
                     const mdText = await (await fetch(file.download_url)).text();
                     const parts = mdText.split('---');
+                    
                     if (parts.length >= 3) {
                         const fm = jsyaml.load(parts[1]); 
                         const fmt = (fm.format || '').toUpperCase();
+                        
+                        // Cek apakah file bisa di-preview (PDF, Image)
                         fm.canPreview = (fmt === 'PDF' || fmt === 'IMAGE' || fmt === 'JPG' || fmt === 'PNG');
+                        
                         repoData.push(fm);
                         if(fm.category) categories.add(fm.category);
                     }
@@ -173,7 +182,6 @@
                     if(!fileUrl.includes('uploads/')) fileUrl = `uploads/${fileUrl}`;
                 }
 
-                // INI YANG GUA BENERIN TANDA KUTIPNYA BOS!
                 const dlClick = fileUrl === '#' ? `onclick="showToast('${lang === 'EN' ? 'File not available for download.' : 'File belum tersedia untuk diunduh.'}'); return false;"` : `target="_blank"`;
                 
                 const titleAction = fm.canPreview ? `onclick="openBookModal(${index})"` : ``;
