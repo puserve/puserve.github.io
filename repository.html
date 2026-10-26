@@ -17,14 +17,14 @@
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     <link rel="stylesheet" href="style.css">
     
-    <!-- MESIN 3D FLIPBOOK (DFLIP) -->
+    <!-- INI BENSINNYA YANG KETINGGALAN KEMAREN BOSKU 😭 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/css/dflip.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/css/themify-icons.min.css">
     <script>var dFlipLocation = "https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/";</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/js/dflip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-    
+    <!-- ============================================== -->
+
     <style>
         .filter-tabs { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;}
         .filter-btn { padding: 10px 25px; border-radius: 30px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text-color); font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.95rem; }
@@ -86,8 +86,6 @@
         .close-book-btn:hover { transform: scale(1.1) rotate(90deg); background: white; color: #ef4444; }
         
         #flipbook-container { width: 100%; height: 100%; }
-        
-        /* Modifikasi bawaan 3D dFlip biar nyatu sama tema */
         .df-container { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 
         @media (max-width: 768px) {
@@ -97,6 +95,7 @@
             #book-modal .modal-content-box { height: 75vh; }
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
 
@@ -108,6 +107,7 @@
     </header>
 
     <main class="container">
+        
         <div class="repo-search-container">
             <input type="text" id="repoSearchInput" class="repo-search-input" placeholder="Search documents..." data-en="Search documents..." data-id="Cari dokumen...">
         </div>
@@ -127,7 +127,6 @@
             <div class="close-book-btn" onclick="closeBookModal()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </div>
-            <!-- Ruang kosong ini bakal disulap otomatis jadi buku 3D sama Javascript -->
             <div id="flipbook-container"></div>
         </div>
     </div>
@@ -170,7 +169,6 @@
                         const fm = jsyaml.load(parts[1]); 
                         const fmt = (fm.format || '').toUpperCase();
                         
-                        // Cek apakah file bisa di-preview (PDF, Image)
                         fm.canPreview = (fmt === 'PDF' || fmt === 'IMAGE' || fmt === 'JPG' || fmt === 'PNG');
                         
                         repoData.push(fm);
@@ -214,7 +212,6 @@
 
                 const dlClick = fileUrl === '#' ? `onclick="showToast('${lang === 'EN' ? 'File not available for download.' : 'File belum tersedia untuk diunduh.'}'); return false;"` : `target="_blank"`;
                 
-                // Kalau bisa di-preview, klik buka pop up 3D Book
                 const titleAction = fm.canPreview ? `onclick="openBookModal(${index})"` : ``;
                 const hoverStyle = fm.canPreview ? `style="cursor: pointer;" title="${lang==='EN'?'Click to read document':'Klik untuk membaca dokumen'}"` : `style="cursor: default;"`;
 
@@ -272,7 +269,6 @@
             });
         });
 
-        // MESIN 3D FLIPBOOK
         function openBookModal(index) {
             const fm = repoData[index];
             if(!fm || !fm.canPreview) return;
@@ -287,15 +283,17 @@
             document.getElementById('book-modal').classList.add('show');
             
             const container = document.getElementById('flipbook-container');
-            container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--text-color); font-weight: 700; font-size: 1.2rem;">Menyiapkan Dokumen... </div>`; // Loading Text
+            container.innerHTML = `<div style="text-align:center; padding: 50px; color: white; font-weight: 700; font-size: 1.2rem;">Menyiapkan Dokumen... ⏳</div>`; 
             
             if (fmt === 'PDF') {
                 const flipId = 'flipbook-' + index;
+                let attempts = 0;
                 
-                // Mesin Pengecek Otomatis (Nungguin dFlip Siap)
+                // Mesin Pengecek Otomatis dengan Limit Waktu
                 const checkAndLoadFlipbook = setInterval(() => {
+                    attempts++;
                     if (window.jQuery && $.fn.DFlip) {
-                        clearInterval(checkAndLoadFlipbook); // Berhentiin timer kalau udah siap
+                        clearInterval(checkAndLoadFlipbook); 
                         container.innerHTML = `<div id="${flipId}"></div>`;
                         
                         $(`#${flipId}`).DFlip({
@@ -306,17 +304,20 @@
                             autoEnableOutline: false,
                             autoEnableThumbnail: false
                         });
+                    } else if (attempts > 20) { // Kalau 10 detik gak kelar juga, berarti sinyal tewas
+                        clearInterval(checkAndLoadFlipbook);
+                        container.innerHTML = `<div style="text-align:center; padding: 50px; color: #ef4444; font-weight: 700;">Gagal memuat mesin 3D. Pastikan koneksi internet stabil. ❌</div>`;
                     }
-                }, 500); // Cek tiap setengah detik sampai mesinnya ready!
+                }, 500); 
                 
             } else if (fmt === 'IMAGE' || fmt === 'JPG' || fmt === 'PNG') {
                 container.innerHTML = `<img src="${fileUrl}" style="width:100%; height:100%; object-fit:contain; border-radius:12px; background:var(--card-bg);">`;
             }
         }
+
         function closeBookModal() {
             document.getElementById('book-modal').classList.remove('show');
-            // Bersihin iframe flipbook biar HP gak berat
-            document.getElementById('flipbook-container').innerHTML = '';
+            document.getElementById('flipbook-container').innerHTML = ''; // Bersihin layar
         }
 
         document.addEventListener("DOMContentLoaded", loadRepository);
