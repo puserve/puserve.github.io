@@ -17,6 +17,14 @@
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     <link rel="stylesheet" href="style.css">
     
+    <!-- LINK SERVER DFLIP YANG BENAR (JSDELIVR) ANTI GAGAL -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/css/dflip.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/css/themify-icons.min.css">
+    <script>var dFlipLocation = "https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/";</script>
+    <script src="https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/js/dflip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    
     <style>
         .filter-tabs { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;}
         .filter-btn { padding: 10px 25px; border-radius: 30px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text-color); font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.95rem; }
@@ -50,6 +58,8 @@
         .close-book-btn { position: absolute; top: -40px; right: 0; color: white; cursor: pointer; background: #ef4444; border-radius: 50%; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; z-index: 10000; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: 0.3s; }
         .close-book-btn:hover { transform: scale(1.1) rotate(90deg); background: white; color: #ef4444; }
         #flipbook-container { width: 100%; height: 100%; }
+        
+        /* Modifikasi container dFlip biar mulus */
         .df-container { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 
         @media (max-width: 768px) {
@@ -59,14 +69,6 @@
             #book-modal .modal-content-box { height: 75vh; }
         }
     </style>
-    
-    <!-- PRE-LOAD SCRIPT DFLIP & JQUERY DI AWAL BIAR CEPET -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/css/dflip.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/css/themify-icons.min.css">
-    <script>var dFlipLocation = "https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/";</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/js/dflip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
 
@@ -78,12 +80,15 @@
     </header>
 
     <main class="container">
+        
         <div class="repo-search-container">
             <input type="text" id="repoSearchInput" class="repo-search-input" placeholder="Search documents..." data-en="Search documents..." data-id="Cari dokumen...">
         </div>
+
         <div class="filter-tabs" id="filterContainer">
             <button class="filter-btn active" onclick="filterRepo('all')" data-en="All Documents" data-id="Semua Dokumen">All Documents</button>
         </div>
+
         <div class="repo-list" id="repoList">
             <div class="skeleton-card" style="height: 100px; max-width: 100%; flex-direction: row; align-items: center; padding: 20px;"><div class="skeleton" style="width: 50px; height: 50px; border-radius: 12px; margin-right: 20px;"></div><div style="flex:1;"><div class="skeleton" style="width: 40%; height: 20px; margin-bottom: 10px;"></div><div class="skeleton" style="width: 30%; height: 15px;"></div></div></div>
         </div>
@@ -156,7 +161,7 @@
                 renderRepoList(repoData, currentLang);
 
             } catch (error) { 
-                container.innerHTML = `<div class="empty-state" style="color:#ef4444;">${currentLang === 'EN' ? 'GitHub API Rate Limit Reached. Please wait 1 hour.' : 'Batas akses API GitHub tercapai. Tunggu 1 jam.'}</div>`; 
+                container.innerHTML = `<div class="empty-state" style="color:#ef4444;">${currentLang === 'EN' ? 'GitHub API Rate Limit Reached. Please wait 1 hour or change your internet connection.' : 'Batas akses API GitHub tercapai. Tunggu 1 jam atau ganti koneksi internet (WiFi/Data) Anda.'}</div>`; 
             }
         }
 
@@ -236,29 +241,7 @@
             });
         });
 
-        // MESIN 3D FLIPBOOK ANTI GAGAL (Inject Force)
-        function injectDflipAndLoad(fileUrl, flipId, container) {
-            if (window.jQuery && $.fn.DFlip) {
-                // Udah ada, langsung jalanin
-                $(`#${flipId}`).DFlip({ source: fileUrl, webgl: true, height: '100%', backgroundColor: 'transparent', autoEnableOutline: false, autoEnableThumbnail: false });
-            } else {
-                // Belum ada, paksa suntik jQuery & dFlip ke browser saat itu juga!
-                container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--puserve-yellow); font-weight: 700;">Loading...</div>`;
-                const jqScript = document.createElement("script");
-                jqScript.src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js";
-                jqScript.onload = () => {
-                    const dfScript = document.createElement("script");
-                    dfScript.src = "https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/js/dflip.min.js";
-                    dfScript.onload = () => {
-                        container.innerHTML = `<div id="${flipId}"></div>`;
-                        $(`#${flipId}`).DFlip({ source: fileUrl, webgl: true, height: '100%', backgroundColor: 'transparent', autoEnableOutline: false, autoEnableThumbnail: false });
-                    };
-                    document.head.appendChild(dfScript);
-                };
-                document.head.appendChild(jqScript);
-            }
-        }
-
+        // MESIN 3D FLIPBOOK LANGSUNG GAS
         function openBookModal(index) {
             const fm = repoData[index];
             if(!fm || !fm.canPreview) return;
@@ -276,7 +259,20 @@
             if (fmt === 'PDF') {
                 const flipId = 'flipbook-' + index;
                 container.innerHTML = `<div id="${flipId}"></div>`;
-                injectDflipAndLoad(fileUrl, flipId, container);
+                
+                // Ini langsung jalan karena link CDN-nya udah bener di atas
+                if (window.jQuery && $.fn.DFlip) {
+                    $(`#${flipId}`).DFlip({
+                        source: fileUrl,
+                        webgl: true,
+                        height: '100%',
+                        backgroundColor: 'transparent',
+                        autoEnableOutline: false,
+                        autoEnableThumbnail: false
+                    });
+                } else {
+                    container.innerHTML = `<div style="text-align:center; padding: 50px; color: #ef4444; font-weight: 700;">Gagal memuat mesin 3D. Refresh halaman. ❌</div>`;
+                }
             } else if (fmt === 'IMAGE' || fmt === 'JPG' || fmt === 'PNG') {
                 container.innerHTML = `<img src="${fileUrl}" style="width:100%; height:100%; object-fit:contain; border-radius:12px; background:var(--card-bg);">`;
             }
@@ -284,7 +280,7 @@
 
         function closeBookModal() {
             document.getElementById('book-modal').classList.remove('show');
-            document.getElementById('flipbook-container').innerHTML = ''; // Bersihin layar pas ditutup
+            document.getElementById('flipbook-container').innerHTML = ''; // Bersihin memori pas ditutup
         }
 
         document.addEventListener("DOMContentLoaded", loadRepository);
