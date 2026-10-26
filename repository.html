@@ -17,6 +17,14 @@
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     <link rel="stylesheet" href="style.css">
     
+    <!-- MESIN 3D FLIPBOOK (DFLIP) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/css/dflip.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/css/themify-icons.min.css">
+    <script>var dFlipLocation = "https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/";</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dflip/2.2.0/js/dflip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    
     <style>
         .filter-tabs { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;}
         .filter-btn { padding: 10px 25px; border-radius: 30px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text-color); font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.95rem; }
@@ -45,24 +53,50 @@
         .repo-search-input:focus { border-color: var(--primary-green); box-shadow: 0 5px 20px rgba(10, 54, 34, 0.1); }
         body.eco-mode .repo-search-input:focus { border-color: var(--puserve-yellow); }
 
-        /* BOOK POP-UP MODAL (Diperlebar biar baca PDF enak) */
-        #book-modal .modal-content-box { max-width: 900px; width: 95%; max-height: 90vh; padding: 40px 50px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--card-border); box-shadow: 0 25px 50px rgba(0,0,0,0.3); display: flex; flex-direction: column;}
-        .book-meta { padding-bottom: 15px; border-bottom: 2px solid var(--card-border); margin-bottom: 20px; flex-shrink: 0; }
-        .book-content { flex: 1; min-height: 50vh; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #e5e5e5; border-radius: 8px; }
-        body.eco-mode .book-content { background: #1a1a1a; }
+        /* FLIPBOOK MODAL STYLE */
+        #book-modal .modal-content-box { 
+            max-width: 1000px; 
+            width: 95%; 
+            height: 85vh; 
+            padding: 0; 
+            background: transparent; 
+            border: none; 
+            box-shadow: none; 
+            display: flex; 
+            flex-direction: column;
+            position: relative;
+        }
+        .close-book-btn {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            cursor: pointer;
+            background: #ef4444;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+        .close-book-btn:hover { transform: scale(1.1) rotate(90deg); background: white; color: #ef4444; }
         
-        /* IFRAME PDF & IMG VIEWER */
-        .book-content iframe, .book-content img { width: 100%; height: 100%; object-fit: contain; border: none; }
+        #flipbook-container { width: 100%; height: 100%; }
+        
+        /* Modifikasi bawaan 3D dFlip biar nyatu sama tema */
+        .df-container { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 
         @media (max-width: 768px) {
             .repo-item { flex-direction: column; align-items: flex-start; padding: 20px; }
             .repo-actions { width: 100%; justify-content: space-between; }
             .repo-download { width: 100%; justify-content: center; }
-            #book-modal .modal-content-box { padding: 30px 20px; max-height: 85vh;}
-            .book-content { min-height: 60vh; }
+            #book-modal .modal-content-box { height: 75vh; }
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
 
@@ -74,7 +108,6 @@
     </header>
 
     <main class="container">
-        
         <div class="repo-search-container">
             <input type="text" id="repoSearchInput" class="repo-search-input" placeholder="Search documents..." data-en="Search documents..." data-id="Cari dokumen...">
         </div>
@@ -88,17 +121,14 @@
         </div>
     </main>
 
-    <!-- BOOK POP-UP MODAL (Viewer PDF / Gambar) -->
+    <!-- 3D FLIPBOOK MODAL -->
     <div id="book-modal" class="modal-overlay">
         <div class="modal-content-box">
-            <span class="close-modal-btn" onclick="closeBookModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
-            <div class="book-meta">
-                <div style="color: var(--puserve-yellow); font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;" id="book-category">CATEGORY</div>
-                <h2 id="book-title" style="font-size: 1.6rem; color: var(--text-color); margin-bottom: 10px; line-height: 1.2;">Document Title</h2>
+            <div class="close-book-btn" onclick="closeBookModal()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </div>
-            <div class="book-content" id="book-content">
-                <!-- PDF atau Gambar akan muncul di sini otomatis -->
-            </div>
+            <!-- Ruang kosong ini bakal disulap otomatis jadi buku 3D sama Javascript -->
+            <div id="flipbook-container"></div>
         </div>
     </div>
 
@@ -182,11 +212,11 @@
                     if(!fileUrl.includes('uploads/')) fileUrl = `uploads/${fileUrl}`;
                 }
 
-                // INI YANG GUA BENERIN TANDA KUTIPNYA BOS!
                 const dlClick = fileUrl === '#' ? `onclick="showToast('${lang === 'EN' ? 'File not available for download.' : 'File belum tersedia untuk diunduh.'}'); return false;"` : `target="_blank"`;
                 
+                // Kalau bisa di-preview, klik buka pop up 3D Book
                 const titleAction = fm.canPreview ? `onclick="openBookModal(${index})"` : ``;
-                const hoverStyle = fm.canPreview ? `style="cursor: pointer;" title="${lang==='EN'?'Click to preview document':'Klik untuk melihat dokumen'}"` : `style="cursor: default;"`;
+                const hoverStyle = fm.canPreview ? `style="cursor: pointer;" title="${lang==='EN'?'Click to read document':'Klik untuk membaca dokumen'}"` : `style="cursor: default;"`;
 
                 return `
                 <div class="repo-item" data-category="${safeCatId}">
@@ -207,7 +237,7 @@
                         </div>
                     </div>
                     <div class="repo-actions">
-                        ${fm.canPreview ? `<button class="filter-btn" style="padding: 10px 15px; border-color: var(--primary-green); color: var(--primary-green);" onclick="openBookModal(${index})" title="Preview"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>` : ''}
+                        ${fm.canPreview ? `<button class="filter-btn" style="padding: 10px 15px; border-color: var(--primary-green); color: var(--primary-green);" onclick="openBookModal(${index})" title="Read Book"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></button>` : ''}
                         <a href="${fileUrl}" class="repo-download" ${dlClick}>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> 
                             <span>${lang === 'EN' ? 'Download' : 'Unduh'}</span>
@@ -242,39 +272,50 @@
             });
         });
 
+        // MESIN 3D FLIPBOOK MAGIC!
         function openBookModal(index) {
             const fm = repoData[index];
             if(!fm || !fm.canPreview) return;
 
-            const lang = localStorage.getItem('puserve_lang') || 'EN';
-            const title = lang === 'EN' ? (fm.title_en || fm.title_id) : (fm.title_id || fm.title_en);
-            
             let fileUrl = '#';
             if(fm.file_url) {
                 fileUrl = fm.file_url.startsWith('/') ? fm.file_url.slice(1) : fm.file_url;
                 if(!fileUrl.includes('uploads/')) fileUrl = `uploads/${fileUrl}`;
             }
 
-            document.getElementById('book-category').innerText = fm.category || 'DOCUMENT';
-            document.getElementById('book-title').innerText = title;
-            
-            const contentBox = document.getElementById('book-content');
             const fmt = (fm.format || '').toUpperCase();
+            document.getElementById('book-modal').classList.add('show');
+            
+            const container = document.getElementById('flipbook-container');
+            container.innerHTML = ''; // Reset container
             
             if (fmt === 'PDF') {
-                contentBox.innerHTML = `<iframe src="${fileUrl}#toolbar=0" title="${title}"></iframe>`;
+                // Suntik PDF ke dalem mesin Flipbook 3D
+                const flipId = 'flipbook-' + index;
+                container.innerHTML = `<div id="${flipId}"></div>`;
+                
+                // Nyalain mesinnya!
+                if(window.jQuery && $.fn.DFlip) {
+                    $(`#${flipId}`).DFlip({
+                        source: fileUrl,
+                        webgl: true, // Biar 3D halus
+                        height: '100%',
+                        backgroundColor: 'transparent', // Biar nyatu sama tema gelap pop-up
+                        autoEnableOutline: false,
+                        autoEnableThumbnail: false
+                    });
+                } else {
+                    container.innerHTML = `<div style="text-align:center; padding: 20px; color: white;">Flipbook engine loading... Please try again.</div>`;
+                }
             } else if (fmt === 'IMAGE' || fmt === 'JPG' || fmt === 'PNG') {
-                contentBox.innerHTML = `<img src="${fileUrl}" alt="${title}">`;
-            } else {
-                contentBox.innerHTML = `<div style="text-align:center; padding: 20px; color: var(--text-muted);">Preview not supported. Please download the file.</div>`;
+                container.innerHTML = `<img src="${fileUrl}" style="width:100%; height:100%; object-fit:contain; border-radius:12px; background:var(--card-bg);">`;
             }
-
-            document.getElementById('book-modal').classList.add('show');
         }
 
         function closeBookModal() {
             document.getElementById('book-modal').classList.remove('show');
-            document.getElementById('book-content').innerHTML = '';
+            // Bersihin iframe flipbook biar HP gak berat
+            document.getElementById('flipbook-container').innerHTML = '';
         }
 
         document.addEventListener("DOMContentLoaded", loadRepository);
