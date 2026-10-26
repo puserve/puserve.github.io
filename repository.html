@@ -182,6 +182,7 @@
                     if(!fileUrl.includes('uploads/')) fileUrl = `uploads/${fileUrl}`;
                 }
 
+                // INI YANG GUA BENERIN TANDA KUTIPNYA BOS!
                 const dlClick = fileUrl === '#' ? `onclick="showToast('${lang === 'EN' ? 'File not available for download.' : 'File belum tersedia untuk diunduh.'}'); return false;"` : `target="_blank"`;
                 
                 const titleAction = fm.canPreview ? `onclick="openBookModal(${index})"` : ``;
