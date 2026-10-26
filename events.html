@@ -39,7 +39,7 @@
 
     {% include footer.html %}
 
-    <script>
+<script>
         const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(localStorage.getItem('puserve_lang') === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
 
         async function loadCatalog() {
@@ -49,7 +49,7 @@
 
             try {
                 const res = await fetch(`https://api.github.com/repos/puserve/puserve.github.io/contents/_events`);
-                if (!res.ok) throw new Error("API Error");
+                if (!res.ok) throw new Error("API Error or Rate Limit Exceeded");
                 const files = await res.json();
                 
                 let data = { highlight: [], latest: [] };
@@ -84,7 +84,9 @@
                     }
                 });
             } catch (error) { 
-                Object.values(grids).forEach(grid => grid.innerHTML = `<div class="empty-state">Data loading...</div>`); 
+                console.error("Fetch Error:", error);
+                // INI FIX-NYA: GANTI SKELETON JADI PESAN ERROR
+                Object.values(grids).forEach(grid => grid.innerHTML = `<div class="empty-state" style="color: #ef4444;">${currentLang === 'EN' ? 'Oops! Please wait a moment and refresh the page (GitHub API limit).' : 'Sistem sibuk. Silakan tunggu sebentar dan muat ulang halaman (Limit GitHub API).'}</div>`); 
             }
         }
         
