@@ -15,7 +15,6 @@
 </head>
 <body>
 
-    <!-- MANGGIL NAVBAR OTOMATIS DARI _includes/navbar.html -->
     {% include navbar.html %}
 
     <header class="page-hero">
@@ -75,7 +74,6 @@
     <script>
         let teamData = [];
         
-        // KAMUS TERJEMAHAN DIVISI
         const divTranslations = {
             "Advisor": "Advisor",
             "Board of Director": "Dewan Direksi",
@@ -112,11 +110,9 @@
 
                 if (teamData.length === 0) { container.innerHTML = `<div class="empty-state">${emptyMsg}</div>`; return; }
 
-                // MESIN PENGURUTAN JABATAN
                 const hierarchy = { "Advisor": 1, "Chairperson": 2, "Vice Chairperson 1": 3, "Vice Chairperson 2": 4, "Head of Division": 5, "Vice Head of Division": 6, "Member": 7 };
                 teamData.sort((a, b) => (hierarchy[a.position] || 99) - (hierarchy[b.position] || 99));
 
-                // MESIN SUSUNAN DIVISI
                 const divisionsOrder = [
                     "Advisor", "Board of Director", "Secretary", "Treasure", 
                     "Human Resources", "General Resources", "Research, Observation, and Innovation", 
@@ -156,7 +152,6 @@
             }
         }
 
-        // MESIN POP-UP
         function openTeamModal(index) {
             const fm = teamData[index];
             const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
@@ -172,7 +167,6 @@
             if(localStorage.getItem('puserve_eco') === 'true') { roleEl.style.color = 'var(--puserve-yellow)'; } 
             else { roleEl.style.color = 'var(--primary-green)'; }
 
-            // LOGIKA PENGHILANG MAJOR & ID KHUSUS ADVISOR
             if (fm.position === "Advisor") {
                 document.getElementById('row-major').style.display = 'none';
                 document.getElementById('row-id').style.display = 'none';
@@ -191,7 +185,6 @@
             document.getElementById('team-modal').classList.remove('show');
         }
 
-        // MESIN KLIK UNTUK COPY
         function copyTeamData(elementId, labelName) {
             const textToCopy = document.getElementById(elementId).innerText;
             if (!textToCopy || textToCopy === '-') return;
@@ -208,20 +201,20 @@
 
         document.addEventListener("DOMContentLoaded", loadTeam);
         
-        // REFRESH BILINGUAL OTOMATIS PAS TOMBOL EN/ID DITEKAN
-        document.getElementById('langToggle').addEventListener('click', () => { 
-            setTimeout(() => { 
-                let currentLang = localStorage.getItem('puserve_lang') || 'EN';
-                
-                document.querySelectorAll('.div-title').forEach(el => {
-                    el.innerText = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
-                });
-
-                document.querySelectorAll('.popup-data strong[data-en]').forEach(el => {
-                    el.innerHTML = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
-                });
-            }, 100); 
-        });
+        const langToggleCustom = document.getElementById('langToggle');
+        if(langToggleCustom) {
+            langToggleCustom.addEventListener('click', () => { 
+                setTimeout(() => { 
+                    let currentLang = localStorage.getItem('puserve_lang') || 'EN';
+                    document.querySelectorAll('.div-title').forEach(el => {
+                        el.innerText = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
+                    });
+                    document.querySelectorAll('.popup-data strong[data-en]').forEach(el => {
+                        el.innerHTML = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
+                    });
+                }, 100); 
+            });
+        }
     </script>
 </body>
 </html>
