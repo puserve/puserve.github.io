@@ -49,7 +49,6 @@
 
         // MESIN BILINGUAL UNTUK KOTAK BERITA & EVENT
         async function loadCatalog() {
-            // Karena events dan news beda ID kotak, ini kode dinamisnya:
             const grids = { 
                 highlight: document.getElementById('grid-highlight'), 
                 latest: document.getElementById('grid-latest'), 
@@ -81,7 +80,7 @@
                 }
 
                 Object.keys(data).forEach(key => {
-                    if(!grids[key]) return; // Skip kalau halamannya nggak punya kotak Archive
+                    if(!grids[key]) return; 
                     data[key].sort((a, b) => new Date(b.date) - new Date(a.date));
                     if (data[key].length === 0) { grids[key].innerHTML = `<div class="empty-state">${emptyMsg}</div>`; } 
                     else {
@@ -114,10 +113,10 @@
             });
         });
 
-        // Bikin halaman ini ikut kerestart kalau tombol bahasa dipencet
-        document.getElementById('langToggle').addEventListener('click', () => { 
-            setTimeout(() => { loadCatalog(); }, 100); 
-        });
+        const langToggleCustom = document.getElementById('langToggle');
+        if(langToggleCustom) {
+            langToggleCustom.addEventListener('click', () => { setTimeout(() => { loadCatalog(); }, 100); });
+        }
     </script>
 </body>
 </html>
