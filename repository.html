@@ -40,27 +40,26 @@
         .repo-download { padding: 12px 25px; background: var(--puserve-yellow); color: var(--dark-green); border-radius: 10px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s; white-space: nowrap;}
         .repo-download:hover { background: var(--primary-green); color: white; transform: scale(1.05); }
 
-        /* SEARCH BAR KHUSUS REPO */
         .repo-search-container { max-width: 600px; margin: 0 auto 30px auto; width: 100%; }
         .repo-search-input { width: 100%; padding: 15px 25px; border-radius: 30px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text-color); font-size: 1rem; outline: none; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
         .repo-search-input:focus { border-color: var(--primary-green); box-shadow: 0 5px 20px rgba(10, 54, 34, 0.1); }
         body.eco-mode .repo-search-input:focus { border-color: var(--puserve-yellow); }
 
         /* BOOK POP-UP MODAL */
-        #book-modal .modal-content-box { max-width: 800px; width: 95%; max-height: 90vh; overflow-y: auto; padding: 40px 50px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--card-border); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
-        .book-content { font-size: 1.1rem; line-height: 1.8; color: var(--text-color); margin-top: 20px; }
-        .book-content h1, .book-content h2, .book-content h3 { color: var(--primary-green); margin-top: 30px; margin-bottom: 15px; }
-        body.eco-mode .book-content h1, body.eco-mode .book-content h2, body.eco-mode .book-content h3 { color: var(--puserve-yellow); }
-        .book-meta { padding-bottom: 20px; border-bottom: 2px solid var(--card-border); margin-bottom: 30px; }
+        #book-modal .modal-content-box { max-width: 900px; width: 95%; max-height: 90vh; padding: 40px 50px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--card-border); box-shadow: 0 25px 50px rgba(0,0,0,0.3); display: flex; flex-direction: column;}
+        .book-meta { padding-bottom: 15px; border-bottom: 2px solid var(--card-border); margin-bottom: 20px; flex-shrink: 0; }
+        .book-content { flex: 1; min-height: 50vh; display: flex; justify-content: center; align-items: center; overflow: hidden; background: #e5e5e5; border-radius: 8px; }
+        body.eco-mode .book-content { background: #1a1a1a; }
+        .book-content iframe, .book-content img { width: 100%; height: 100%; object-fit: contain; border: none; }
 
         @media (max-width: 768px) {
             .repo-item { flex-direction: column; align-items: flex-start; padding: 20px; }
             .repo-actions { width: 100%; justify-content: space-between; }
             .repo-download { width: 100%; justify-content: center; }
-            #book-modal .modal-content-box { padding: 30px 20px; }
+            #book-modal .modal-content-box { padding: 30px 20px; max-height: 85vh;}
+            .book-content { min-height: 60vh; }
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
@@ -74,15 +73,12 @@
 
     <main class="container">
         
-        <!-- Search Bar -->
         <div class="repo-search-container">
             <input type="text" id="repoSearchInput" class="repo-search-input" placeholder="Search documents..." data-en="Search documents..." data-id="Cari dokumen...">
         </div>
 
-        <!-- Filter Tabs (Auto Generated) -->
         <div class="filter-tabs" id="filterContainer">
             <button class="filter-btn active" onclick="filterRepo('all')" data-en="All Documents" data-id="Semua Dokumen">All Documents</button>
-            <!-- Tombol filter lain akan di-generate otomatis oleh script -->
         </div>
 
         <div class="repo-list" id="repoList">
@@ -90,24 +86,20 @@
         </div>
     </main>
 
-    <!-- BOOK POP-UP MODAL (Untuk baca dokumen) -->
     <div id="book-modal" class="modal-overlay">
         <div class="modal-content-box">
             <span class="close-modal-btn" onclick="closeBookModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
             <div class="book-meta">
                 <div style="color: var(--puserve-yellow); font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;" id="book-category">CATEGORY</div>
-                <h2 id="book-title" style="font-size: 2rem; color: var(--text-color); margin-bottom: 10px;">Document Title</h2>
-                <div style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;" id="book-date">Updated Date</div>
+                <h2 id="book-title" style="font-size: 1.6rem; color: var(--text-color); margin-bottom: 10px; line-height: 1.2;">Document Title</h2>
             </div>
-            <div class="book-content" id="book-content">
-                Memuat isi dokumen...
-            </div>
+            <div class="book-content" id="book-content"></div>
         </div>
     </div>
 
     {% include footer.html %}
 
-<script>
+    <script>
         let repoData = [];
         let categories = new Set();
 
@@ -128,7 +120,7 @@
 
             try {
                 const res = await fetch(`https://api.github.com/repos/puserve/puserve.github.io/contents/_repository`);
-                if (!res.ok) throw new Error("API Error or Rate Limit Exceeded");
+                if (!res.ok) throw new Error("API Limit");
                 const files = await res.json();
                 
                 repoData = [];
@@ -140,10 +132,8 @@
                     const parts = mdText.split('---');
                     if (parts.length >= 3) {
                         const fm = jsyaml.load(parts[1]); 
-                        
                         const fmt = (fm.format || '').toUpperCase();
                         fm.canPreview = (fmt === 'PDF' || fmt === 'IMAGE' || fmt === 'JPG' || fmt === 'PNG');
-                        
                         repoData.push(fm);
                         if(fm.category) categories.add(fm.category);
                     }
@@ -162,9 +152,7 @@
                 renderRepoList(repoData, currentLang);
 
             } catch (error) { 
-                console.error("Fetch Error:", error);
-                // INI FIX-NYA: GANTI SKELETON JADI PESAN ERROR
-                container.innerHTML = `<div class="empty-state" style="color: #ef4444;">${currentLang === 'EN' ? 'Oops! Please wait a moment and refresh the page (GitHub API limit).' : 'Sistem sibuk. Silakan tunggu sebentar dan muat ulang halaman (Limit GitHub API).'}</div>`; 
+                container.innerHTML = `<div class="empty-state" style="color:#ef4444;">${currentLang === 'EN' ? 'GitHub API Rate Limit Reached. Please wait 1 hour or change your internet connection.' : 'Batas akses API GitHub tercapai. Tunggu 1 jam atau ganti koneksi internet (WiFi/Data) Anda.'}</div>`; 
             }
         }
 
@@ -185,7 +173,8 @@
                     if(!fileUrl.includes('uploads/')) fileUrl = `uploads/${fileUrl}`;
                 }
 
-                const dlClick = fileUrl === '#' ? `onclick="showToast('${lang === 'EN' ? 'File not available for download.' : 'File belum tersedia untuk diunduh.}'); return false;"` : `target="_blank"`;
+                // INI YANG GUA BENERIN TANDA KUTIPNYA BOS!
+                const dlClick = fileUrl === '#' ? `onclick="showToast('${lang === 'EN' ? 'File not available for download.' : 'File belum tersedia untuk diunduh.'}'); return false;"` : `target="_blank"`;
                 
                 const titleAction = fm.canPreview ? `onclick="openBookModal(${index})"` : ``;
                 const hoverStyle = fm.canPreview ? `style="cursor: pointer;" title="${lang==='EN'?'Click to preview document':'Klik untuk melihat dokumen'}"` : `style="cursor: default;"`;
