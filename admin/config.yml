@@ -69,4 +69,4 @@ collections:
       - {label: "Format File", name: "format", widget: "select", options: ["PDF", "ZIP", "DOCX", "XLSX", "PPTX", "IMAGE"]}
       - {label: "Ukuran File (Contoh: 1.2 MB)", name: "size", widget: "string"}
       - {label: "Upload File Dokumen", name: "file_url", widget: "file"}
-      - {label: "Isi Dokumen (Hanya untuk fitur Baca Pop-up)", name: "body", widget: "markdown", required: false, hint: "Isi teks dokumen di sini jika ingin fitur Pop-up Baca. Gunakan ===ID=== sebagai pemisah bahasa EN/ID."}
+     
