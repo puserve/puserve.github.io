@@ -1,7 +1,7 @@
 ---
 title_en: 'PUSERVE Enters a New Era: The Official Portal is Live!'
 title_id: 'PUSERVE Memasuki Era Baru: Portal Resmi Telah Hadir!'
-date: 2026-10-24
+date: 2026-11-02
 category: Highlight
 author: PUSERVE Editorial
 thumbnail: /uploads/pasted-image-1792836037200.png
