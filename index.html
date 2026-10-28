@@ -100,7 +100,14 @@
           );
         }
       });
+        /* IMPACT ICONS + DIVIDER */
+.impact-icon { display: block; margin: 0 auto 12px; color: var(--primary-green); }
+body.eco-mode .impact-icon { color: var(--puserve-yellow); }
+.impact-item + .impact-item { border-left: 1px solid var(--card-border); }
+.campaign-current { margin-top: 14px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+@media screen and (max-width: 768px) { .impact-item + .impact-item { border-left: none; } }
 
+      
       // --- TEMPLATE EVENTS ---
       var EventPreview = createClass({
         render: function() {
