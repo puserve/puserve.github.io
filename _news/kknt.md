@@ -2,11 +2,13 @@
 title_en: PUSERVE Collaborates with KEMDIKTISAINTEK to Hold the “Sampah Tuntas” Thematic Community Service Program (KKN) for LLDIKTI Region IV in 2026
 title_id: PUSERVE berkolaborasi dengan KEMDIKTISAINTEK Gelar KKN Tematik Sampah Tuntas LLDIKTI Wilayah IV 2026
 date: 2026-11-02
-author: PUSERVE Editorial
+author: Muh. Ahsan I.S. Zulni
 thumbnail: /uploads/THUMBNAIL NEWS-500kb.jpeg
-quote: Pendekatan rekayasa  sosial (social engineering), mahasiswa diposisikan bukan sebagai petugas  pengangkut atau pemilah sampah, melainkan sebagai motivator dan penggerak  perubahan perilaku masyarakat dalam memilah dan mengelola sampah sejak dari  sumbernya. -Dr. Lukman, S.T., M.Hum.
+quote_en: ''
+quote_id: ''
 image_2: ''
 image_3: ''
+quote: Pendekatan rekayasa  sosial (social engineering), mahasiswa diposisikan bukan sebagai petugas  pengangkut atau pemilah sampah, melainkan sebagai motivator dan penggerak  perubahan perilaku masyarakat dalam memilah dan mengelola sampah sejak dari  sumbernya. -Dr. Lukman, S.T., M.Hum.
 ---
 
 **Cikarang, October 28, 2026 — PUSERVE (President University Serve Environment)** has officially established a collaboration with the **MoHEST (Ministry of Higher Education, Science, and Technology**) through active participation in the “Sampah Tuntas” Thematic Community Service Program (KKN) organized by LLDIKTI Region IV. This series of community service activities will take place intensively from October 2026 through December 2026, with the primary goal of addressing the urgent waste crisis in the Greater Bandung area and Sumedang Regency.
