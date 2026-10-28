@@ -1,21 +1,21 @@
 impact:
-  warriors: 50
+  warriors: 45
   campaigns: 29
-  partners: 3463
+  partners: 0
 campaigns:
   - title_en: Greener Campus
     title_id: Kampus Lebih Hijau
-    target_en: "Target: 1,000 Trees Planted"
-    target_id: "Target: 1.000 Pohon Ditanam"
-    percentage: 75
-    color: "#10b981"
-    current_en: 750 / 1,000 trees
-    current_id: 750 / 1.000 pohon
+    target_en: 'Target: 1,000 Trees Planted'
+    target_id: 'Target: 1.000 Pohon Ditanam'
+    percentage: 0
+    color: '#10b981'
+    current_en: 0 / 1,000 trees
+    current_id: 0 / 1.000 pohon
   - title_en: Zero Plastic Initiative
     title_id: Inisiatif Bebas Plastik
-    target_en: "Target: 5,000 Bottles Recycled"
-    target_id: "Target: 5.000 Botol Didaur Ulang"
-    percentage: 60
-    color: "#3b82f6"
-    current_en: 3,000 / 5,000 bottles
-    current_id: 3.000 / 5.000 botol
+    target_en: 'Target: 5,000 Bottles Recycled'
+    target_id: 'Target: 5.000 Botol Didaur Ulang'
+    percentage: 0
+    color: '#3b82f6'
+    current_en: 0 / 5,000 bottles
+    current_id: 0 / 5.000 botol
