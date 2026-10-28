@@ -13,20 +13,38 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
-    <!-- CSS TAMBAHAN ANTI GEPENG DAN BIKIN SIMETRIS -->
+    <!-- CSS TAMBAHAN ANTI GEPENG DAN ANTI TITIK-TITIK -->
     <style>
         .team-grid-fixed {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 25px;
-            margin-bottom: 25px; /* Spasi antar kasta (Petinggi ke Member) */
+            margin-bottom: 25px;
             width: 100%;
         }
         .team-card-fixed {
-            width: 260px; /* Kunci ukuran kartu biar nggak melar/mengecil */
-            flex: 0 0 auto; /* Dilarang merubah ukuran sembarangan */
+            width: 260px;
+            flex: 0 0 auto;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        /* OBAT ANTI TITIK-TITIK BUAT NAMA PANJANG */
+        .team-card-fixed .team-name {
+            white-space: normal !important; 
+            word-wrap: break-word !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            line-height: 1.3 !important;
+            margin-bottom: 8px !important;
+        }
+        /* OBAT ANTI TITIK-TITIK BUAT JABATAN PANJANG */
+        .team-card-fixed .team-role {
+            white-space: normal !important;
+            display: block !important;
+            line-height: 1.3 !important;
         }
     </style>
 </head>
@@ -40,7 +58,6 @@
     </header>
 
     <main class="container">
-        <!-- ROBOT KITA BAKAL NAMBAHIN DAFTAR DIVISI DAN ORANG-ORANGNYA DI SINI OTOMATIS -->
         <div id="team-container">
             <div class="skeleton-card" style="height: 300px; align-items: center; padding-top: 40px; margin: 0 auto; width: 260px;">
                 <div class="skeleton" style="width: 120px; height: 120px; border-radius: 50%;"></div>
@@ -60,7 +77,6 @@
             <h3 id="modal-t-name" style="color: var(--text-color); margin-bottom: 5px; font-size: 1.6rem; font-weight: 800;">Nama Lengkap</h3>
             <div id="modal-t-role" style="color: var(--primary-green); font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;">Jabatan - Divisi</div>
             
-            <!-- DATA DENGAN FITUR COPY -->
             <div class="popup-data">
                 <div class="popup-row" id="row-major">
                     <div class="p-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
@@ -145,11 +161,9 @@
                         const divTitleID = divTranslations[divName] || divName;
                         htmlContent += `<h2 class="div-title" data-en="${divName}" data-id="${divTitleID}" style="text-align: center; margin-top: 50px; margin-bottom: 25px;">${currentLang === 'EN' ? divName : divTitleID}</h2>`;
                         
-                        // MESIN PEMISAH KASTA (PETINGGI vs MEMBER)
                         const leaders = membersInDiv.filter(m => m.position !== 'Member');
                         const members = membersInDiv.filter(m => m.position === 'Member');
 
-                        // Fungsi pencetak kartu biar rapi
                         const renderCards = (group) => {
                             if (group.length === 0) return '';
                             let groupHtml = `<div class="team-grid-fixed">`;
@@ -169,7 +183,6 @@
                             return groupHtml;
                         };
 
-                        // Cetak Lantai 1 (Petinggi) dulu, baru Lantai 2 (Member)
                         htmlContent += renderCards(leaders);
                         htmlContent += renderCards(members);
                     }
