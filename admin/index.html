@@ -7,66 +7,121 @@
     <link rel="icon" type="image/png" href="../logos/LOGO_PUSERVE.png">
   </head>
   <body>
-    <!-- MESIN UTAMA SVELTIA CMS -->
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
-
-    <!-- OTAK TAMBAHAN BUAT LIVE PREVIEW DESAIN -->
     <script>
-      // 1. Suntikin file CSS utama PUSERVE ke dalam layar admin
       CMS.registerPreviewStyle("../style.css");
 
-      // 2. Bikin cetakan desain (Template) khusus buat NEWS / OUTLOOK
+      // --- TEMPLATE UNTUK NEWS / OUTLOOK ---
       var NewsPreview = createClass({
         render: function() {
           var entry = this.props.entry;
-          // Narik data yang lagi diketik di sebelah kiri
           var title = entry.getIn(['data', 'title_en']) || entry.getIn(['data', 'title_id']) || 'Ketik Judul Berita...';
-          var date = entry.getIn(['data', 'date']) || 'Pilih Tanggal';
+          var date = entry.getIn(['data', 'date']) || 'November 2, 2026';
           var author = entry.getIn(['data', 'author']) || 'PUSERVE Editorial';
+          var quote = entry.getIn(['data', 'quote']);
           var image = entry.getIn(['data', 'thumbnail']);
-          var body = this.props.widgetFor('body'); // Narik hasil ketikan isi beritanya
           
-          // Ngerender gambar kalau udah diupload
-          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '20px', objectFit: 'cover', maxHeight: '400px'}}) : '';
+          // Pisahin bahasa (Ambil bahasa Inggris aja buat preview biar rapi)
+          var rawBody = entry.getIn(['data', 'body']) || '';
+          var bodyContent = rawBody;
+          if (rawBody.includes('===ID===')) {
+              bodyContent = rawBody.split('===ID===')[0].trim();
+          }
 
-          // Ngerakit tampilan pakai HTML yang disuntik CSS
-          return h('div', {className: 'container', style: {padding: '40px 20px', backgroundColor: 'var(--bg-color)', color: 'var(--text-color)', minHeight: '100vh'}},
-            h('div', {className: 'article-header', style: {marginBottom: '30px'}},
-              h('h1', {style: {fontSize: '2.5rem', color: 'var(--primary-green)', fontWeight: '900', marginBottom: '10px'}}, title),
-              h('div', {style: {color: 'var(--text-muted)', fontWeight: '600'}}, "📅 " + date + "   |   ✍️ " + author)
+          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
+          
+          var quoteHtml = quote ? h('div', {style: {background: '#f8fafc', borderLeft: '4px solid var(--puserve-yellow)', padding: '25px', borderRadius: '12px', marginTop: '30px', marginBottom: '30px'}}, 
+            h('div', {style: {color: 'var(--puserve-yellow)', fontWeight: '800', fontSize: '0.85rem', letterSpacing: '1px', marginBottom: '10px', textTransform: 'uppercase'}}, 'KEY QUOTE'),
+            h('p', {style: {fontStyle: 'italic', fontSize: '1.1rem', fontWeight: '600', color: 'var(--text-color)', margin: '0'}}, '"' + quote + '"')
+          ) : '';
+
+          return h('div', {className: 'container', style: {padding: '40px 20px', backgroundColor: '#ffffff', color: 'var(--text-color)', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
+            
+            // Tombol Back Palsu
+            h('div', {style: {display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600', marginBottom: '40px'}}, 
+              h('span', null, '←'), h('span', null, 'Back to Outlook')
             ),
+
+            // Header Area
+            h('div', {style: {textAlign: 'center', marginBottom: '40px'}},
+              h('div', {style: {color: 'var(--puserve-yellow)', fontWeight: '800', fontSize: '0.85rem', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '15px'}}, 'PUSERVE OUTLOOK REPORT'),
+              h('h1', {style: {fontSize: '2.5rem', color: 'var(--dark-green)', fontWeight: '900', marginBottom: '20px', lineHeight: '1.2'}}, title),
+              h('div', {style: {display: 'flex', justifyContent: 'center', gap: '20px', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: '600', flexWrap: 'wrap'}}, 
+                h('span', null, '📍 Jakarta, ID'),
+                h('span', null, '📅 ' + date),
+                h('span', null, '👤 ' + author),
+                h('span', null, '⏱️ 1 min read')
+              )
+            ),
+
             imgHtml,
-            h('div', {className: 'article-content', style: {lineHeight: '1.8', fontSize: '1.1rem'}}, body)
+            
+            // Content Area
+            h('div', {style: {lineHeight: '1.8', fontSize: '1.05rem', color: '#334155'}}, this.props.widgetFor('body')),
+            
+            quoteHtml,
+
+            // Share Box Palsu
+            h('div', {style: {borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '20px 0', marginTop: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}},
+              h('span', {style: {fontWeight: '700', color: 'var(--text-color)', fontSize: '0.9rem'}}, 'Share this article:'),
+              h('div', {style: {display: 'flex', gap: '10px'}},
+                h('div', {style: {background: '#25D366', color: 'white', padding: '10px 20px', borderRadius: '8px', fontWeight: '700', fontSize: '0.9rem'}}, '💬 WhatsApp'),
+                h('div', {style: {background: '#f1f5f9', color: '#475569', border: '1px solid #cbd5e1', padding: '10px 20px', borderRadius: '8px', fontWeight: '700', fontSize: '0.9rem'}}, '🔗 Copy Link')
+              )
+            )
           );
         }
       });
 
-      // 3. Bikin cetakan desain khusus buat EVENTS
+      // --- TEMPLATE UNTUK EVENTS ---
       var EventPreview = createClass({
         render: function() {
           var entry = this.props.entry;
           var title = entry.getIn(['data', 'title_en']) || entry.getIn(['data', 'title_id']) || 'Ketik Nama Acara...';
-          var date = entry.getIn(['data', 'date']) || 'Pilih Tanggal';
+          var date = entry.getIn(['data', 'date']) || 'November 2, 2026';
           var status = entry.getIn(['data', 'status']) || 'Program';
-          var attendees = entry.getIn(['data', 'attendees']) || 'Jumlah Peserta';
+          var attendees = entry.getIn(['data', 'attendees']) || '200+ Participants';
+          var outcome = entry.getIn(['data', 'outcome']);
           var image = entry.getIn(['data', 'thumbnail']);
-          var body = this.props.widgetFor('body');
           
-          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '20px', objectFit: 'cover', maxHeight: '400px'}}) : '';
+          var rawBody = entry.getIn(['data', 'body']) || '';
+          var bodyContent = rawBody;
+          if (rawBody.includes('===ID===')) {
+              bodyContent = rawBody.split('===ID===')[0].trim();
+          }
 
-          return h('div', {className: 'container', style: {padding: '40px 20px', backgroundColor: 'var(--bg-color)', color: 'var(--text-color)', minHeight: '100vh'}},
-            h('div', {className: 'article-header', style: {marginBottom: '30px'}},
-              h('span', {style: {background: 'var(--puserve-yellow)', color: 'var(--dark-green)', padding: '5px 15px', borderRadius: '20px', fontWeight: '800', fontSize: '0.9rem'}}, status),
-              h('h1', {style: {fontSize: '2.5rem', color: 'var(--primary-green)', fontWeight: '900', marginTop: '15px', marginBottom: '10px'}}, title),
-              h('div', {style: {color: 'var(--text-muted)', fontWeight: '600'}}, "📅 " + date + "   |   👥 " + attendees)
+          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
+
+          var outcomeHtml = outcome ? h('div', {style: {background: 'rgba(10,54,34,0.05)', border: '1px solid rgba(10,54,34,0.1)', padding: '20px', borderRadius: '12px', marginTop: '30px', marginBottom: '30px'}}, 
+            h('div', {style: {color: 'var(--primary-green)', fontWeight: '800', fontSize: '0.85rem', letterSpacing: '1px', marginBottom: '10px', textTransform: 'uppercase'}}, 'PROGRAM OUTCOME'),
+            h('p', {style: {fontSize: '1rem', fontWeight: '600', color: 'var(--dark-green)', margin: '0'}}, outcome)
+          ) : '';
+
+          return h('div', {className: 'container', style: {padding: '40px 20px', backgroundColor: '#ffffff', color: 'var(--text-color)', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
+            
+            h('div', {style: {display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600', marginBottom: '40px'}}, 
+              h('span', null, '←'), h('span', null, 'Back to Events')
             ),
+
+            h('div', {style: {marginBottom: '40px'}},
+              h('span', {style: {background: 'var(--puserve-yellow)', color: 'var(--dark-green)', padding: '6px 15px', borderRadius: '20px', fontWeight: '800', fontSize: '0.85rem', textTransform: 'uppercase'}}, status),
+              h('h1', {style: {fontSize: '2.5rem', color: 'var(--dark-green)', fontWeight: '900', marginTop: '20px', marginBottom: '20px', lineHeight: '1.2'}}, title),
+              h('div', {style: {display: 'flex', gap: '20px', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: '600', flexWrap: 'wrap'}}, 
+                h('span', null, '📍 President University'),
+                h('span', null, '📅 ' + date),
+                h('span', null, '👥 ' + attendees)
+              )
+            ),
+
             imgHtml,
-            h('div', {className: 'article-content', style: {lineHeight: '1.8', fontSize: '1.1rem'}}, body)
+            
+            h('div', {style: {lineHeight: '1.8', fontSize: '1.05rem', color: '#334155'}}, this.props.widgetFor('body')),
+            
+            outcomeHtml
           );
         }
       });
 
-      // 4. Daftarin cetakan ini ke mesin Sveltia
       CMS.registerPreviewTemplate("news", NewsPreview);
       CMS.registerPreviewTemplate("events", EventPreview);
     </script>
