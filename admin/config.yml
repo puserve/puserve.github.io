@@ -21,7 +21,7 @@ collections:
       - {label: "Kutipan Penting (Key Quote)", name: "quote", widget: "string", required: false}
       - {label: "Foto Tambahan 1 (Opsional)", name: "image_2", widget: "image", required: false}
       - {label: "Foto Tambahan 2 (Opsional)", name: "image_3", widget: "image", required: false}
-      - {label: "Isi Berita (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
+      - {label: "Isi Berita (Tulis ===ID=== di baris sendiri sbg pemisah bahasa, JANGAN di-bold)", name: "body", widget: "markdown"}
 
   - name: "events"
     label: "Events & Programs (Acara)"
@@ -31,14 +31,23 @@ collections:
     fields:
       - {label: "Nama Acara (English)", name: "title_en", widget: "string"}
       - {label: "Nama Acara (Indonesia)", name: "title_id", widget: "string"}
-      - {label: "Tanggal Acara (Mempengaruhi Kategori Otomatis)", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
-      - {label: "Status", name: "status", widget: "string", default: "Program"}
+      - {label: "Tanggal Acara", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - label: "Status Acara"
+        name: "status"
+        widget: "select"
+        default: "upcoming"
+        hint: "Menentukan acara tampil di bagian mana pada halaman Events."
+        options:
+          - {label: "On Going Event (Sedang Berlangsung)", value: "ongoing"}
+          - {label: "Upcoming Event (Akan Datang)", value: "upcoming"}
+          - {label: "Latest Event (Sudah Selesai / Terbaru)", value: "latest"}
       - {label: "Jumlah Peserta", name: "attendees", widget: "string", default: "200+ Participants"}
       - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
-      - {label: "Hasil/Dampak Acara (Outcome)", name: "outcome", widget: "string", required: false}
+      - {label: "Hasil/Dampak Acara (English)", name: "outcome_en", widget: "string", required: false}
+      - {label: "Hasil/Dampak Acara (Indonesia)", name: "outcome_id", widget: "string", required: false}
       - {label: "Foto Tambahan 1 (Opsional)", name: "image_2", widget: "image", required: false}
       - {label: "Foto Tambahan 2 (Opsional)", name: "image_3", widget: "image", required: false}
-      - {label: "Isi Laporan (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
+      - {label: "Isi Laporan (Tulis ===ID=== di baris sendiri sbg pemisah bahasa, JANGAN di-bold)", name: "body", widget: "markdown"}
 
   - name: "team"
     label: "Team Members (Pengurus)"
@@ -67,7 +76,7 @@ collections:
       - {label: "Format File", name: "format", widget: "select", options: ["PDF", "ZIP", "DOCX", "XLSX", "PPTX", "IMAGE"]}
       - {label: "Ukuran File (Contoh: 1.2 MB)", name: "size", widget: "string"}
       - {label: "Upload File Dokumen", name: "file_url", widget: "file"}
-     
+
   - name: "settings"
     label: "Web Settings & Stats"
     files:
