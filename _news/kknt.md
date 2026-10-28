@@ -4,8 +4,8 @@ title_id: PUSERVE berkolaborasi dengan KEMDIKTISAINTEK Gelar KKN Tematik Sampah 
 date: 2026-11-02
 author: Muh. Ahsan I.S. Zulni
 thumbnail: /uploads/THUMBNAIL NEWS-500kb.jpeg
-quote_en: ''
-quote_id: ''
+quote_en: “Through a social engineering approach, students are positioned not as waste collectors or sorters, but as motivators and catalysts for behavioral change in the community regarding waste sorting and management starting at the source. —Dr. Lukman, S.T., M.Hum.”
+quote_id: '"Pendekatan rekayasa sosial (social engineering), mahasiswa diposisikan bukan sebagai petugas pengangkut atau pemilah sampah, melainkan sebagai motivator dan penggerak perubahan perilaku masyarakat dalam memilah dan mengelola sampah sejak dari sumbernya. -Dr. Lukman, S.T., M.Hum."'
 image_2: ''
 image_3: ''
 quote: Pendekatan rekayasa  sosial (social engineering), mahasiswa diposisikan bukan sebagai petugas  pengangkut atau pemilah sampah, melainkan sebagai motivator dan penggerak  perubahan perilaku masyarakat dalam memilah dan mengelola sampah sejak dari  sumbernya. -Dr. Lukman, S.T., M.Hum.
