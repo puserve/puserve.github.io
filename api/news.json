@@ -1,0 +1,17 @@
+---
+layout: null
+---
+[
+  {% for news in site.news %}
+  {
+    "title_en": {{ news.title_en | jsonify }},
+    "title_id": {{ news.title_id | jsonify }},
+    "date": "{{ news.date | date: '%Y-%m-%d' }}",
+    "thumbnail": {{ news.thumbnail | jsonify }},
+    "status": {{ news.status | jsonify }},
+    "author": {{ news.author | jsonify }},
+    "quote": {{ news.quote | jsonify }},
+    "fileName": {{ news.path | split: '/' | last | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]
