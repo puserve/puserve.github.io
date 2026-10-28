@@ -10,7 +10,8 @@ layout: null
     "thumbnail": {{ news.thumbnail | jsonify }},
     "status": {{ news.status | jsonify }},
     "author": {{ news.author | jsonify }},
-    "quote": {{ news.quote | jsonify }},
+    "quote_en": {{ news.quote_en | jsonify }},
+    "quote_id": {{ news.quote_id | jsonify }},
     "fileName": {{ news.path | split: '/' | last | jsonify }}
   }{% unless forloop.last %},{% endunless %}
   {% endfor %}
