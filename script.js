@@ -174,3 +174,52 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCount();
     });
 });
+
+// FORMSPREE AJAX SUBMIT (BIAR NGGAK PINDAH HALAMAN)
+document.addEventListener("DOMContentLoaded", () => {
+    const contactForm = document.getElementById("puserve-contact-form");
+    if (contactForm) {
+        contactForm.addEventListener("submit", async function(event) {
+            event.preventDefault(); // Mencegah pindah halaman
+            const status = document.getElementById("form-status");
+            const btn = document.getElementById("submit-form-btn");
+            const currentLang = localStorage.getItem('puserve_lang') || 'EN';
+            
+            btn.innerText = currentLang === 'EN' ? "Sending..." : "Mengirim...";
+            btn.style.opacity = "0.7";
+            
+            const data = new FormData(event.target);
+            fetch(event.target.action, {
+                method: contactForm.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if (response.ok) {
+                    status.style.display = "block";
+                    status.style.color = "var(--primary-green)";
+                    status.innerHTML = currentLang === 'EN' ? "✅ Message sent successfully!" : "✅ Pesan berhasil dikirim!";
+                    contactForm.reset();
+                    // Modal ditutup otomatis setelah 3 detik
+                    setTimeout(() => { closeJoinModal(); status.style.display = "none"; }, 3000);
+                } else {
+                    response.json().then(data => {
+                        status.style.display = "block";
+                        status.style.color = "#ef4444";
+                        if (Object.hasOwn(data, 'errors')) {
+                            status.innerHTML = "❌ " + data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            status.innerHTML = currentLang === 'EN' ? "❌ Oops! There was a problem." : "❌ Oops! Terjadi kesalahan.";
+                        }
+                    })
+                }
+            }).catch(error => {
+                status.style.display = "block";
+                status.style.color = "#ef4444";
+                status.innerHTML = currentLang === 'EN' ? "❌ Oops! Check your connection." : "❌ Oops! Periksa koneksi Anda.";
+            }).finally(() => {
+                btn.innerText = currentLang === 'EN' ? "Send Message" : "Kirim Pesan";
+                btn.style.opacity = "1";
+            });
+        });
+    }
+});
