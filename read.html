@@ -29,7 +29,7 @@
 
     <script>
       function copyLink() { navigator.clipboard.writeText(window.location.href).then(() => { showToast(localStorage.getItem('puserve_lang') === 'EN' ? "Link copied!" : "Tautan disalin!"); }); }
-        
+
         let currentFm = null;
         let currentBodyEN = "";
         let currentBodyID = "";
@@ -39,9 +39,9 @@
             const lang = localStorage.getItem('puserve_lang') || 'EN';
             const title = lang === 'EN' ? (currentFm.title_en || currentFm.title) : (currentFm.title_id || currentFm.title);
             const mdText = lang === 'EN' ? currentBodyEN : currentBodyID;
-            
+
             const bodyHTML = marked.parse(mdText);
-            
+
             const wordCount = bodyHTML.replace(/<[^>]*>?/gm, '').split(/\s+/).length;
             const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
@@ -66,11 +66,17 @@
             `;
 
             if(img1) html += `<img src="${img1}" class="hero-img" alt="Thumbnail" onerror="this.style.display='none'">`;
-            
+
             html += `<div class="pr-body">${bodyHTML}</div>`;
 
-            if (currentFm.outcome) { html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">OUTCOME</div><div class="outcome-text">"${currentFm.outcome}"</div></div>`; }
-            
+            // Outcome per bahasa (outcome lama tetap dipakai sebagai cadangan)
+            const outcome = lang === 'EN'
+                ? (currentFm.outcome_en || currentFm.outcome)
+                : (currentFm.outcome_id || currentFm.outcome);
+            if (outcome) {
+                html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">${lang==='EN' ? 'OUTCOME' : 'HASIL'}</div><div class="outcome-text">"${outcome}"</div></div>`;
+            }
+
             const shareText = lang === 'EN' ? 'Share this article:' : 'Bagikan artikel ini:';
             const currentUrl = encodeURIComponent(window.location.href);
             html += `
@@ -102,13 +108,14 @@
                 if (parts.length >= 3) {
                     currentFm = jsyaml.load(parts[1]);
                     const rawBody = parts.slice(2).join('---');
-                    
-                    const splitBody = rawBody.split('===ID===');
+
+                    // Pemisah EN/ID toleran: tetap kebaca walau ===ID=== ke-bold di editor (**===ID===**)
+                    const splitBody = rawBody.split(/^[\s*_]*===ID===[\s*_]*$/m);
                     currentBodyEN = splitBody[0] ? splitBody[0].trim() : "";
                     currentBodyID = splitBody[1] ? splitBody[1].trim() : currentBodyEN;
-                    
+
                     renderArticle();
-                    
+
                     window.addEventListener('scroll', () => {
                         let st = window.pageYOffset || document.documentElement.scrollTop;
                         let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -117,7 +124,7 @@
                 }
             } catch (error) { contentDiv.innerHTML = `<h2 style='color:var(--text-muted); text-align:center;'>${currentLang==='EN'?'Failed to load document.':'Gagal memuat dokumen.'}</h2>`; }
         }
-        
+
         document.addEventListener("DOMContentLoaded", loadPressRelease);
 
         const langToggleCustom = document.getElementById('langToggle');
