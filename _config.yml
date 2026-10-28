@@ -1,0 +1,10 @@
+# NGASIH TAU JEKYLL BUAT BACA FOLDER-FOLDER INI
+collections:
+  news:
+    output: true
+  events:
+    output: true
+  repository:
+    output: true
+  team:
+    output: true
