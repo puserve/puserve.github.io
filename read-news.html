@@ -50,7 +50,14 @@
 
             const img1 = currentFm.thumbnail ? (currentFm.thumbnail.includes('/') ? currentFm.thumbnail : `uploads/${currentFm.thumbnail}`) : '';
             const tagText = lang==='EN'?"PUSERVE OUTLOOK REPORT":"LAPORAN PUSERVE OUTLOOK";
-            const metaIcon = `<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> ${currentFm.author || 'Editorial'}</span>`;
+            
+            // LOGIC TRANSLATOR DEWAN REDAKSI
+            let authorName = currentFm.author || 'PUSERVE Editorial Board';
+            if (lang === 'ID' && authorName === 'PUSERVE Editorial Board') {
+                authorName = 'Dewan Redaksi Puserve';
+            }
+
+            const metaIcon = `<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> ${authorName}</span>`;
 
             let html = `
                 <div class="pr-header">
@@ -69,7 +76,11 @@
             
             html += `<div class="pr-body">${bodyHTML}</div>`;
             
-            if (currentFm.quote) { html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">KEY QUOTE</div><div class="outcome-text">"${currentFm.quote}"</div></div>`; }
+            // LOGIC QUOTE DUA BAHASA
+            const quoteText = lang === 'EN' ? (currentFm.quote_en || currentFm.quote) : (currentFm.quote_id || currentFm.quote);
+            if (quoteText) { 
+                html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">KEY QUOTE</div><div class="outcome-text">"${quoteText}"</div></div>`; 
+            }
 
             const shareText = lang === 'EN' ? 'Share this article:' : 'Bagikan artikel ini:';
             const currentUrl = encodeURIComponent(window.location.href);
