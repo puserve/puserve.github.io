@@ -4,7 +4,7 @@ backend:
   branch: main
 
 media_folder: "uploads"
-public_folder: "uploads"
+public_folder: "/uploads"
 
 collections:
   - name: "news"
@@ -15,22 +15,16 @@ collections:
     fields:
       - {label: "Judul (English)", name: "title_en", widget: "string"}
       - {label: "Judul (Indonesia)", name: "title_id", widget: "string"}
-      - {label: "Tanggal Terbit (Baru/Lama)", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
-      # INI DROPDOWN PENULIS (UDAH FIX ANTI ERROR)
+      - {label: "Tanggal Terbit", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
       - label: "Penulis"
         name: "author"
         widget: "select"
-        options: 
-          - label: "PUSERVE Editorial Board"
-            value: "PUSERVE Editorial Board"
-          - label: "Muh. Ahsan I.S. Zulni"
-            value: "Muh. Ahsan I.S. Zulni"
-          - label: "Aurelia C.P. Kaparang"
-            value: "Aurelia C.P. Kaparang"
-          - label: "Beatrix K.P. Madeline"
-            value: "Beatrix K.P. Madeline"
-          - label: "Muhammad H.F. Adzhim"
-            value: "Muhammad H.F. Adzhim"
+        options:
+          - {label: "PUSERVE Editorial Board", value: "PUSERVE Editorial Board"}
+          - {label: "Muh. Ahsan I.S. Zulni", value: "Muh. Ahsan I.S. Zulni"}
+          - {label: "Aurelia C.P. Kaparang", value: "Aurelia C.P. Kaparang"}
+          - {label: "Beatrix K.P. Madeline", value: "Beatrix K.P. Madeline"}
+          - {label: "Muhammad H.F. Adzhim", value: "Muhammad H.F. Adzhim"}
         default: "PUSERVE Editorial Board"
       - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
       - {label: "Kutipan Penting (Key Quote - English)", name: "quote_en", widget: "string", required: false}
@@ -47,8 +41,8 @@ collections:
     fields:
       - {label: "Nama Acara (English)", name: "title_en", widget: "string"}
       - {label: "Nama Acara (Indonesia)", name: "title_id", widget: "string"}
-      - {label: "Tanggal Acara (Mempengaruhi Kategori)", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
-      - {label: "Status", name: "status", widget: "string", default: "Program"}
+      - {label: "Tanggal Acara", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Status (menentukan kategori di halaman Events)", name: "status", widget: "select", options: ["Running", "Upcoming", "Archived"], default: "Upcoming"}
       - {label: "Jumlah Peserta", name: "attendees", widget: "string", default: "200+ Participants"}
       - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
       - {label: "Hasil/Dampak Acara (Outcome - English)", name: "outcome_en", widget: "string", required: false}
@@ -79,12 +73,12 @@ collections:
     fields:
       - {label: "Judul Dokumen (English)", name: "title_en", widget: "string"}
       - {label: "Judul Dokumen (Indonesia)", name: "title_id", widget: "string"}
-      - {label: "Tanggal Update", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Tanggal Update", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
       - {label: "Kategori / Label", name: "category", widget: "string", hint: "Ketik kategori baru atau yang sudah ada (misal: Legal & Ethics, Guidelines & SOPs). Ini akan otomatis jadi tombol filter di web."}
       - {label: "Format File", name: "format", widget: "select", options: ["PDF", "ZIP", "DOCX", "XLSX", "PPTX", "IMAGE"]}
       - {label: "Ukuran File (Contoh: 1.2 MB)", name: "size", widget: "string"}
       - {label: "Upload File Dokumen", name: "file_url", widget: "file"}
-      
+
   - name: "settings"
     label: "Web Settings & Stats"
     files:
@@ -102,12 +96,13 @@ collections:
           - label: "KAMPANYE BERJALAN (LIVE CAMPAIGNS)"
             name: "campaigns"
             widget: "list"
+            summary: "{{fields.title_en}} - {{fields.percentage}}%"
             fields:
               - {label: "Judul Kampanye (EN)", name: "title_en", widget: "string"}
               - {label: "Judul Kampanye (ID)", name: "title_id", widget: "string"}
               - {label: "Teks Target (EN)", name: "target_en", widget: "string"}
               - {label: "Teks Target (ID)", name: "target_id", widget: "string"}
-              - {label: "Persentase Progress (0-100)", name: "percentage", widget: "number"}
+              - {label: "Persentase Progress (0-100)", name: "percentage", widget: "number", min: 0, max: 100}
               - {label: "Warna Progress Bar (Hex Code)", name: "color", widget: "string", default: "#10b981", hint: "Contoh: Hijau #10b981, Biru #3b82f6, Kuning #fcd34d"}
-              - {label: "Status Saat Ini (EN)", name: "current_en", widget: "string"}
-              - {label: "Status Saat Ini (ID)", name: "current_id", widget: "string"}
+              - {label: "Status Saat Ini (EN)", name: "current_en", widget: "string", hint: "Contoh: 750 / 1,000 trees planted"}
+              - {label: "Status Saat Ini (ID)", name: "current_id", widget: "string", hint: "Contoh: 750 / 1.000 pohon ditanam"}
