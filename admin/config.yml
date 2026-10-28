@@ -17,20 +17,20 @@ collections:
       - {label: "Judul (Indonesia)", name: "title_id", widget: "string"}
       - {label: "Tanggal Terbit (Baru/Lama)", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
       # INI DROPDOWN PENULIS (UDAH FIX ANTI ERROR)
-      - label: "Penulis (Dewan Redaksi)"
+      - label: "Penulis"
         name: "author"
         widget: "select"
         options: 
-          - label: "PUSERVE Editorial Board (Dewan Redaksi Puserve)"
+          - label: "PUSERVE Editorial Board"
             value: "PUSERVE Editorial Board"
           - label: "Muh. Ahsan I.S. Zulni"
             value: "Muh. Ahsan I.S. Zulni"
-          - label: "Aurelia Kaparang"
-            value: "Aurelia Kaparang"
-          - label: "Beatrix Madeline"
-            value: "Beatrix Madeline"
-          - label: "Muhammad Adzhim"
-            value: "Muhammad Adzhim"
+          - label: "Aurelia C.P. Kaparang"
+            value: "Aurelia C.P. Kaparang"
+          - label: "Beatrix K.P. Madeline"
+            value: "Beatrix K.P. Madeline"
+          - label: "Muhammad H.F. Adzhim"
+            value: "Muhammad H.F. Adzhim"
         default: "PUSERVE Editorial Board"
       - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
       - {label: "Kutipan Penting (Key Quote - English)", name: "quote_en", widget: "string", required: false}
