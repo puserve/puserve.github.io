@@ -6,125 +6,18 @@
     <title>PUSERVE | Admin Dashboard</title>
     <link rel="icon" type="image/png" href="../logos/LOGO_PUSERVE.png">
     
+    <!-- CSS UTAMA BIAR ADMIN NGGAK POLOS -->
     <link rel="stylesheet" href="../style.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
+    <!-- SVELTIA CMS MURNI TANPA CUSTOM SCRIPT YANG BIKIN CRASH -->
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+    
+    <!-- DAFTARIN CSS AJA BIAR TEKSNYA RAPI -->
     <script>
-      CMS.registerPreviewStyle("../style.css");
-
-      var globalStyles = h('style', null, `
-        .preview-content p { margin-bottom: 1.5em; line-height: 1.8; color: #334155; }
-        .preview-content h1, .preview-content h2, .preview-content h3 { color: var(--dark-green); margin-top: 1.5em; margin-bottom: 0.5em; }
-        .preview-content ul, .preview-content ol { margin-bottom: 1.5em; padding-left: 20px; }
-        .preview-content li { margin-bottom: 0.5em; }
-      `);
-
-      // --- TEMPLATE NEWS ---
-      var NewsPreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var title = entry.getIn(['data', 'title_en']) || entry.getIn(['data', 'title_id']) || 'Ketik Judul Berita...';
-          var date = entry.getIn(['data', 'date']) || 'November 2, 2026';
-          
-          // LOGIKA GABUNGAN DEWAN REDAKSI BUAT CMS
-          var rawAuthor = entry.getIn(['data', 'author']) || 'PUSERVE Editorial Board';
-          var displayAuthor = '';
-          if (rawAuthor === 'PUSERVE Editorial Board') {
-              displayAuthor = 'PUSERVE Editorial Board / Dewan Redaksi Puserve';
-          } else {
-              displayAuthor = 'PUSERVE Editorial Board | ' + rawAuthor;
-          }
-          
-          var quoteEn = entry.getIn(['data', 'quote_en']);
-          var quoteId = entry.getIn(['data', 'quote_id']);
-          var quote = quoteEn || quoteId; 
-
-          var image = entry.getIn(['data', 'thumbnail']);
-          
-          var rawBody = entry.getIn(['data', 'body']) || '';
-          var enBody = rawBody.split('===ID===')[0].trim();
-          var htmlBody = marked.parse(enBody);
-
-          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
-          
-          var quoteHtml = quote ? h('div', {style: {background: '#f8fafc', borderLeft: '4px solid var(--puserve-yellow)', padding: '25px', borderRadius: '12px', marginTop: '30px', marginBottom: '30px'}}, 
-            h('div', {style: {color: 'var(--puserve-yellow)', fontWeight: '800', fontSize: '0.85rem', letterSpacing: '1px', marginBottom: '10px', textTransform: 'uppercase'}}, 'KEY QUOTE'),
-            h('p', {style: {fontStyle: 'italic', fontSize: '1.1rem', fontWeight: '600', color: 'var(--text-color)', margin: '0'}}, '"' + quote + '"')
-          ) : '';
-
-          return h('div', {className: 'container', style: {padding: '40px 20px', backgroundColor: '#ffffff', color: 'var(--text-color)', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
-            globalStyles,
-            h('div', {style: {display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600', marginBottom: '40px'}}, 
-              h('span', null, '←'), h('span', null, 'Back to Outlook')
-            ),
-            h('div', {style: {textAlign: 'center', marginBottom: '40px'}},
-              h('div', {style: {color: 'var(--puserve-yellow)', fontWeight: '800', fontSize: '0.85rem', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '15px'}}, 'PUSERVE OUTLOOK REPORT'),
-              h('h1', {style: {fontSize: '2.5rem', color: 'var(--dark-green)', fontWeight: '900', marginBottom: '20px', lineHeight: '1.2'}}, title),
-              h('div', {style: {display: 'flex', justifyContent: 'center', gap: '20px', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: '600', flexWrap: 'wrap'}}, 
-                h('span', null, '📍 Jakarta, ID'),
-                h('span', null, '📅 ' + date),
-                h('span', null, '👤 ' + displayAuthor),
-                h('span', null, '⏱️ 1 min read')
-              )
-            ),
-            imgHtml,
-            h('div', {className: 'preview-content', dangerouslySetInnerHTML: {__html: htmlBody}}),
-            quoteHtml
-          );
-        }
-      });
-
-      // --- TEMPLATE EVENTS ---
-      var EventPreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var title = entry.getIn(['data', 'title_en']) || entry.getIn(['data', 'title_id']) || 'Ketik Nama Acara...';
-          var date = entry.getIn(['data', 'date']) || 'November 2, 2026';
-          var status = entry.getIn(['data', 'status']) || 'Program';
-          var attendees = entry.getIn(['data', 'attendees']) || '200+ Participants';
-          
-          var outcomeEn = entry.getIn(['data', 'outcome_en']);
-          var outcomeId = entry.getIn(['data', 'outcome_id']);
-          var outcome = outcomeEn || outcomeId; 
-
-          var image = entry.getIn(['data', 'thumbnail']);
-          
-          var rawBody = entry.getIn(['data', 'body']) || '';
-          var enBody = rawBody.split('===ID===')[0].trim();
-          var htmlBody = marked.parse(enBody);
-
-          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
-
-          var outcomeHtml = outcome ? h('div', {style: {background: 'rgba(10,54,34,0.05)', border: '1px solid rgba(10,54,34,0.1)', padding: '20px', borderRadius: '12px', marginTop: '30px', marginBottom: '30px'}}, 
-            h('div', {style: {color: 'var(--primary-green)', fontWeight: '800', fontSize: '0.85rem', letterSpacing: '1px', marginBottom: '10px', textTransform: 'uppercase'}}, 'PROGRAM OUTCOME'),
-            h('p', {style: {fontSize: '1rem', fontWeight: '600', color: 'var(--dark-green)', margin: '0'}}, outcome)
-          ) : '';
-
-          return h('div', {className: 'container', style: {padding: '40px 20px', backgroundColor: '#ffffff', color: 'var(--text-color)', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
-            globalStyles,
-            h('div', {style: {display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600', marginBottom: '40px'}}, 
-              h('span', null, '←'), h('span', null, 'Back to Events')
-            ),
-            h('div', {style: {marginBottom: '40px'}},
-              h('span', {style: {background: 'var(--puserve-yellow)', color: 'var(--dark-green)', padding: '6px 15px', borderRadius: '20px', fontWeight: '800', fontSize: '0.85rem', textTransform: 'uppercase'}}, status),
-              h('h1', {style: {fontSize: '2.5rem', color: 'var(--dark-green)', fontWeight: '900', marginTop: '20px', marginBottom: '20px', lineHeight: '1.2'}}, title),
-              h('div', {style: {display: 'flex', gap: '20px', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: '600', flexWrap: 'wrap'}}, 
-                h('span', null, '📍 President University'),
-                h('span', null, '📅 ' + date),
-                h('span', null, '👥 ' + attendees)
-              )
-            ),
-            imgHtml,
-            h('div', {className: 'preview-content', dangerouslySetInnerHTML: {__html: htmlBody}}),
-            outcomeHtml
-          );
-        }
-      });
-
-      CMS.registerPreviewTemplate("news", NewsPreview);
-      CMS.registerPreviewTemplate("events", EventPreview);
+      if (typeof CMS !== 'undefined') {
+        CMS.registerPreviewStyle("../style.css");
+      }
     </script>
   </body>
 </html>
