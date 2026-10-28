@@ -9,7 +9,7 @@ image_2: ''
 image_3: ''
 ---
 
-**Cikarang, October 28, 2026 — PUSERVE (President University Serve Environment)** has officially established a collaboration with the **MoHEST (Ministry of Higher Education, Science, and Technology**) through active participation in the “Sampah Tuntas” Thematic Community Service Program (KKN) organized by LLDIKTI Region IV. This series of community service activities will take place intensively from October 2026 through February 2027, with the primary goal of addressing the urgent waste crisis in the Greater Bandung area and Sumedang Regency.
+**Cikarang, October 28, 2026 — PUSERVE (President University Serve Environment)** has officially established a collaboration with the **MoHEST (Ministry of Higher Education, Science, and Technology**) through active participation in the “Sampah Tuntas” Thematic Community Service Program (KKN) organized by LLDIKTI Region IV. This series of community service activities will take place intensively from October 2026 through December 2026, with the primary goal of addressing the urgent waste crisis in the Greater Bandung area and Sumedang Regency.
 
 **Context of the Problem and Social Engineering Approach**
 
@@ -44,7 +44,7 @@ As part of its commitment to transparency and efforts to broaden the reach of in
 This cross-sector collaboration is expected to be more than just a temporary community service program; rather, it is intended to serve as a catalyst for the emergence of a deeply rooted environmental culture among the community. PUSERVE believes that meaningful change always begins with concern that is translated into concrete action. Together, let’s build a society that not only enjoys nature but is also empowered to protect it.
 **===ID===**
 
-**Cikarang, 28 Oktober 2026** — PUSERVE (President University Serve Environment) secara resmi menjalin kolaborasi dengan Kementerian Pendidikan Tinggi, Sains, dan Teknologi (KEMDIKTISAINTEK) melalui partisipasi aktif dalam program Kuliah Kerja Nyata (KKN) Tematik "Sampah Tuntas" LLDIKTI Wilayah IV. Rangkaian kegiatan pengabdian masyarakat ini akan berlangsung secara intensif mulai Oktober 2026 hingga ~~Februari 2027~~, dengan tujuan utama mengurai persoalan darurat sampah di kawasan ~~Bandung Raya dan Kabupaten Sumedang.~~
+**Cikarang, 28 Oktober 2026** — PUSERVE (President University Serve Environment) secara resmi menjalin kolaborasi dengan Kementerian Pendidikan Tinggi, Sains, dan Teknologi (KEMDIKTISAINTEK) melalui partisipasi aktif dalam program Kuliah Kerja Nyata (KKN) Tematik "Sampah Tuntas" LLDIKTI Wilayah IV. Rangkaian kegiatan pengabdian masyarakat ini akan berlangsung secara intensif mulai Oktober 2026 hingga Desember 2026, dengan tujuan utama mengurai persoalan darurat sampah di kawasan Bandung Raya dan Kabupaten Sumedang.
 
 **Konteks Persoalan dan Pendekatan Rekayasa Sosial** 
 
