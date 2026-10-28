@@ -16,12 +16,15 @@ collections:
       - {label: "Judul (English)", name: "title_en", widget: "string"}
       - {label: "Judul (Indonesia)", name: "title_id", widget: "string"}
       - {label: "Tanggal Terbit (Tentukan apakah ini Baru/Lama)", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
-      - {label: "Penulis", name: "author", widget: "string", default: "PUSERVE Editorial"}
+      # INI DROPDOWN PENULISNYA (PUSERVE EDITORIAL BOARD)
+      - {label: "Penulis (Dewan Redaksi Puserve)", name: "author", widget: "select", options: ["PUSERVE Editorial Board", "Muh. Ahsan I.S. Zulni", "Aurelia Kaparang", "Beatrix Madeline", "Muhammad Adzhim"]}
       - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
-      - {label: "Kutipan Penting (Key Quote)", name: "quote", widget: "string", required: false}
+      # KEY QUOTE DIPISAH EN & ID BIAR BISA DITERJEMAHIN
+      - {label: "Kutipan Penting (Key Quote - English)", name: "quote_en", widget: "string", required: false}
+      - {label: "Kutipan Penting (Key Quote - Indonesia)", name: "quote_id", widget: "string", required: false}
       - {label: "Foto Tambahan 1 (Opsional)", name: "image_2", widget: "image", required: false}
       - {label: "Foto Tambahan 2 (Opsional)", name: "image_3", widget: "image", required: false}
-      - {label: "Isi Berita (Tulis ===ID=== di baris sendiri sbg pemisah bahasa, JANGAN di-bold)", name: "body", widget: "markdown"}
+      - {label: "Isi Berita (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
 
   - name: "events"
     label: "Events & Programs (Acara)"
@@ -31,23 +34,16 @@ collections:
     fields:
       - {label: "Nama Acara (English)", name: "title_en", widget: "string"}
       - {label: "Nama Acara (Indonesia)", name: "title_id", widget: "string"}
-      - {label: "Tanggal Acara", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
-      - label: "Status Acara"
-        name: "status"
-        widget: "select"
-        default: "upcoming"
-        hint: "Menentukan acara tampil di bagian mana pada halaman Events."
-        options:
-          - {label: "On Going Event (Sedang Berlangsung)", value: "ongoing"}
-          - {label: "Upcoming Event (Akan Datang)", value: "upcoming"}
-          - {label: "Latest Event (Sudah Selesai / Terbaru)", value: "latest"}
+      - {label: "Tanggal Acara (Mempengaruhi Kategori Otomatis)", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+      - {label: "Status", name: "status", widget: "string", default: "Program"}
       - {label: "Jumlah Peserta", name: "attendees", widget: "string", default: "200+ Participants"}
       - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
-      - {label: "Hasil/Dampak Acara (English)", name: "outcome_en", widget: "string", required: false}
-      - {label: "Hasil/Dampak Acara (Indonesia)", name: "outcome_id", widget: "string", required: false}
+      # OUTCOME DIPISAH EN & ID BIAR BISA DITERJEMAHIN
+      - {label: "Hasil/Dampak Acara (Outcome - English)", name: "outcome_en", widget: "string", required: false}
+      - {label: "Hasil/Dampak Acara (Outcome - Indonesia)", name: "outcome_id", widget: "string", required: false}
       - {label: "Foto Tambahan 1 (Opsional)", name: "image_2", widget: "image", required: false}
       - {label: "Foto Tambahan 2 (Opsional)", name: "image_3", widget: "image", required: false}
-      - {label: "Isi Laporan (Tulis ===ID=== di baris sendiri sbg pemisah bahasa, JANGAN di-bold)", name: "body", widget: "markdown"}
+      - {label: "Isi Laporan (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
 
   - name: "team"
     label: "Team Members (Pengurus)"
@@ -76,7 +72,7 @@ collections:
       - {label: "Format File", name: "format", widget: "select", options: ["PDF", "ZIP", "DOCX", "XLSX", "PPTX", "IMAGE"]}
       - {label: "Ukuran File (Contoh: 1.2 MB)", name: "size", widget: "string"}
       - {label: "Upload File Dokumen", name: "file_url", widget: "file"}
-
+      
   - name: "settings"
     label: "Web Settings & Stats"
     files:
