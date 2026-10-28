@@ -141,3 +141,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (document.getElementById('home-events-grid')) { fetchContent('_events', 'home-events-grid', 'read.html'); fetchContent('_news', 'home-news-carousel', 'read-news.html'); }
 });
+
+// Animasi Counter Angka Impact
+const counters = document.querySelectorAll('.counter');
+const speed = 200; 
+counters.forEach(counter => {
+    const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const inc = target / speed;
+        if (count < target) {
+            counter.innerText = Math.ceil(count + inc);
+            setTimeout(updateCount, 1);
+        } else {
+            counter.innerText = target.toLocaleString('en-US'); // Biar ada koma ribuannya
+        }
+    };
+    updateCount();
+});
