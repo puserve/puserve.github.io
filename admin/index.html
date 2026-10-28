@@ -1,230 +1,118 @@
----
----
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="view-transition" content="same-origin">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PUSERVE | Admin Dashboard</title>
+    <link rel="icon" type="image/png" href="../logos/LOGO_PUSERVE.png">
     
-    <title>PUSERVE | President University Serve Environment</title>
-    
-    <link rel="preload" as="image" href="PUSERVE BG.webp">
-    <link rel="preload" as="image" href="logos/LOGO_PUSERVE.png">
-    
-    <meta property="og:title" content="PUSERVE | Official Portal">
-    <meta property="og:description" content="Real Environmental Action, Education, and Sustainability at President University.">
-    <meta property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
-    <meta property="og:url" content="https://puserve.github.io">
-    <meta property="og:type" content="website">
+    <!-- INI DIA KUNCI UTAMANYA BIAR ADMIN NGGAK POLOS (NYEDOT CSS UTAMA) -->
+    <link rel="stylesheet" href="../style.css">
 
-    <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
-    <link rel="apple-touch-icon" href="logos/LOGO_PUSERVE.png">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="PUSERVE">
-    <meta name="application-name" content="PUSERVE">
-    <link rel="manifest" href="manifest.json">
-    
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-</head>
-<body>
-
-    {% include navbar.html %}
-
-    <section class="hero-light">
-        <img src="PUSERVE BG.webp" class="bg-img" alt="Background">
-        <div class="hero-overlay-light"></div>
-
-        <div class="aqi-top-left animate-fade-up delay-1">
-            <div class="glass-box-light" style="cursor: default;">
-                <p class="aqi-label-light">CIKARANG AIR QUALITY INDEX</p>
-                <p class="aqi-score-light">118 AQI - Unhealthy <span class="pulsing-dot"></span></p>
-                <p style="font-size: 0.65rem; color: var(--text-muted); margin-top: 5px; font-weight: 600;">Live Source: Open-Meteo Global API</p>
-            </div>
-        </div>
-
-        <div class="hero-content-center">
-            <div class="animate-fade-up delay-1" style="margin-bottom: 10px;">
-                <p class="official-portal-text" data-en="OFFICIAL PORTAL" data-id="PORTAL RESMI">OFFICIAL PORTAL</p>
-            </div>
-
-            <h1 class="massive-title-light">
-                <span class="grad-text-1">PU</span><span class="font-serif glow-s">S</span><span class="grad-text-2">ERVE</span>
-            </h1>
-            
-            <p class="hero-subtext-light animate-fade-up delay-3" data-en="As an environmental movement, we're on a mission to generate ideas and transform them into meaningful impact for our planet." data-id="Sebagai gerakan lingkungan, kami memiliki misi untuk menciptakan ide dan mengubahnya menjadi dampak nyata bagi planet kita.">As an environmental movement, we're on a mission to generate ideas and transform them into meaningful impact for our planet.</p>
-            
-            <div class="animate-fade-up delay-3">
-                <a href="#activities" class="btn-massive-primary" data-en="Get Involved" data-id="Mulai Aksi">Get Involved</a>
-            </div>
-        </div>
-
-        <div class="floating-thumb animate-fade-up delay-3">
-            <a href="https://drive.google.com/file/d/1WjKjPCBvSe0yt6PcfBsAFXr1NAu1X4sR/view?usp=drivesdk" target="_blank" class="thumb-card" title="Play PUSERVE Profile Video">
-                <img src="thumb-photo.webp" alt="PUSERVE Video Thumbnail" onerror="this.style.opacity='0'">
-                <div class="play-btn-overlay">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                </div>
-            </a>
-        </div>
-    </section>
-
-    <!-- IMPACT COUNTER -->
-    <section class="section-container" style="padding-top: 80px; padding-bottom: 0;">
-        <div class="impact-box">
-            <div class="impact-item">
-                <svg class="impact-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
-                <div class="impact-num counter">{{ site.data.stats.impact.warriors | default: 0 }}</div>
-                <div class="impact-label" data-en="Active Eco-Warriors" data-id="Pahlawan Lingkungan">Active Eco-Warriors</div>
-            </div>
-            <div class="impact-item">
-                <svg class="impact-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                <div class="impact-num counter">{{ site.data.stats.impact.campaigns | default: 0 }}</div>
-                <div class="impact-label" data-en="Campaigns Launched" data-id="Kampanye Terlaksana">Campaigns Launched</div>
-            </div>
-            <div class="impact-item">
-                <svg class="impact-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                <div class="impact-num counter">{{ site.data.stats.impact.partners | default: 0 }}</div>
-                <div class="impact-label" data-en="Community Partners" data-id="Mitra Komunitas">Community Partners</div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- LIVE CAMPAIGN TRACKER -->
-    <section class="section-container" style="padding-top: 40px; padding-bottom: 40px;">
-        <div class="section-header">
-            <div class="section-line"></div>
-            <h2 class="section-title" data-en="Live Campaigns" data-id="Kampanye Berjalan">Live Campaigns</h2>
-            <div class="section-line"></div>
-        </div>
-        <div class="campaign-grid">
-            {% for camp in site.data.stats.campaigns %}
-            <div class="campaign-card" style="--accent-color: {{ camp.color }};">
-                <div class="campaign-header">
-                    <div class="campaign-info">
-                        <h3 data-en="{{ camp.title_en }}" data-id="{{ camp.title_id }}">{{ camp.title_en }}</h3>
-                        <p data-en="{{ camp.target_en }}" data-id="{{ camp.target_id }}">{{ camp.target_en }}</p>
-                    </div>
-                    <div class="campaign-percentage counter-camp" data-target="{{ camp.percentage }}">0%</div>
-                </div>
-                <div class="progress-track"><div class="progress-fill" style="width: {{ camp.percentage }}%;"></div></div>
-                <p class="campaign-subtext" data-en="{{ camp.current_en }}" data-id="{{ camp.current_id }}">{{ camp.current_en }}</p>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-    
-    <!-- EVENTS SECTION -->
-    <section class="section-container" id="activities">
-        <div class="section-header">
-            <div class="section-line"></div>
-            <h2 class="section-title" data-en="Our Initiatives" data-id="Inisiatif Kami">Our Initiatives</h2>
-            <div class="section-line"></div>
-        </div>
-        <div id="home-events-grid" class="events-grid">
-            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
-            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
-        </div>
-        <div style="text-align: center; margin-top: 40px; width: 100%;">
-            <a href="events.html" style="color: var(--primary-green); text-decoration: none; font-weight: 700; font-size: 1.05rem; border-bottom: 2px solid var(--puserve-yellow); padding-bottom: 5px; transition: 0.3s;" data-en="View All Events" data-id="Lihat Semua Acara">View All Events</a>
-        </div>
-    </section>
-
-    <!-- NEWS SECTION -->
-    <section class="section-container" style="padding-top: 40px; padding-bottom: 40px;">
-        <div class="section-header">
-            <div class="section-line"></div>
-            <h2 class="section-title" data-en="PUSERVE Outlook" data-id="PUSERVE Outlook">PUSERVE Outlook</h2>
-            <div class="section-line"></div>
-        </div>
-        <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem; width: 100%; text-align: center;" data-en="Latest Environmental News, Opinions, and Analysis." data-id="Berita, Opini, dan Analisis Lingkungan Terkini.">Latest Environmental News, Opinions, and Analysis.</p>
-
-        <div id="home-news-carousel" class="events-grid">
-            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
-            <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton-body"><div class="skeleton skeleton-tag"></div><div class="skeleton skeleton-title"></div><div class="skeleton skeleton-meta"></div></div></div>
-        </div>
-        <div style="text-align: center; margin-top: 40px; width: 100%;">
-            <a href="news.html" style="color: var(--primary-green); text-decoration: none; font-weight: 700; font-size: 1.05rem; border-bottom: 2px solid var(--puserve-yellow); padding-bottom: 5px; transition: 0.3s;" data-en="Read More Outlook" data-id="Baca Kabar Lainnya">Read More Outlook</a>
-        </div>
-    </section>
-
-    <!-- VOICES OF PUSERVE -->
-    <section class="section-container" style="padding-top: 40px; padding-bottom: 80px;">
-        <div class="section-header">
-            <div class="section-line"></div>
-            <h2 class="section-title" data-en="Voices of Impact" data-id="Suara Perubahan">Voices of Impact</h2>
-            <div class="section-line"></div>
-        </div>
-        
-        <div class="voices-card-landscape">
-            <div class="voices-watermark">"</div>
-            <div class="voices-top">
-                <div class="voices-logos">
-                    <img id="v-logo" src="logos/LOGO_PUSERVE.png" alt="Org Logo">
-                </div>
-                <div class="voices-badge" data-en="OFFICIAL<br>STATEMENT" data-id="PERNYATAAN<br>RESMI">OFFICIAL<br>STATEMENT</div>
-            </div>
-            
-            <div class="voices-dynamic-content" id="voices-dynamic-content">
-                <div class="voices-mid">
-                    <p id="v-quote" data-en='"Your voice goes here..."' data-id='"Pesan Anda muncul di sini..."'>"Your voice goes here..."</p>
-                </div>
-                <div class="voices-bottom">
-                    <div>
-                        <h2 id="v-name">LOREM IPSUM</h2>
-                        <p id="v-role" class="v-role-text">Loading Data...</p>
-                    </div>
-                    <span class="voices-date" id="v-date">-</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {% include footer.html %}
-
+    <!-- MESIN TRANSLATOR MARKDOWN -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  </head>
+  <body>
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
     <script>
-        async function loadHomeData() {
-            let currentLang = localStorage.getItem('puserve_lang') || 'EN';
-            const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(currentLang === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e){} return dateStr; };
+      // Daftarin CSS utama ke Sveltia
+      CMS.registerPreviewStyle("../style.css");
 
-            const renderCard = (fm, folder) => {
-                const title = currentLang === 'EN' ? (fm.title_en || fm.title) : (fm.title_id || fm.title);
-                const link = folder === 'events' ? `read.html?file=${fm.fileName}` : `read-news.html?file=${fm.fileName}`;
-                const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
-                return `
-                <a href="${link}" class="card trans-link">
-                    <img src="${img}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
-                    <div class="card-body">
-                        <span class="card-tag">${fm.status || 'Highlight'}</span>
-                        <h3 class="card-title">${title}</h3>
-                        <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
-                    </div>
-                </a>`;
-            };
+      var globalStyles = h('style', null, `
+        .preview-content p { margin-bottom: 1.5em; line-height: 1.8; color: #334155; }
+        .preview-content h1, .preview-content h2, .preview-content h3 { color: var(--dark-green); margin-top: 1.5em; margin-bottom: 0.5em; }
+        .preview-content ul, .preview-content ol { margin-bottom: 1.5em; padding-left: 20px; }
+        .preview-content li { margin-bottom: 0.5em; }
+      `);
 
-            // Load Events dari JSON Lokal
-            try {
-                const res = await fetch('api/events.json');
-                const events = await res.json();
-                events.sort((a,b) => new Date(b.date) - new Date(a.date));
-                const eGrid = document.getElementById('home-events-grid');
-                if(eGrid) eGrid.innerHTML = events.slice(0,2).map(fm => renderCard(fm, 'events')).join('') || `<div class="empty-state">No events yet.</div>`;
-            } catch(e) { }
+      // --- TEMPLATE NEWS ---
+      var NewsPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var title = entry.getIn(['data', 'title_en']) || entry.getIn(['data', 'title_id']) || 'Ketik Judul Berita...';
+          var date = entry.getIn(['data', 'date']) || 'November 2, 2026';
+          var author = entry.getIn(['data', 'author']) || 'PUSERVE Editorial';
+          var quote = entry.getIn(['data', 'quote']);
+          var image = entry.getIn(['data', 'thumbnail']);
+          
+          var rawBody = entry.getIn(['data', 'body']) || '';
+          var enBody = rawBody.split('===ID===')[0].trim();
+          var htmlBody = marked.parse(enBody);
 
-            // Load News dari JSON Lokal
-            try {
-                const res = await fetch('api/news.json');
-                const news = await res.json();
-                news.sort((a,b) => new Date(b.date) - new Date(a.date));
-                const nGrid = document.getElementById('home-news-carousel');
-                if(nGrid) nGrid.innerHTML = news.slice(0,2).map(fm => renderCard(fm, 'news')).join('') || `<div class="empty-state">No news yet.</div>`;
-            } catch(e) { }
+          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
+          
+          var quoteHtml = quote ? h('div', {style: {background: '#f8fafc', borderLeft: '4px solid var(--puserve-yellow)', padding: '25px', borderRadius: '12px', marginTop: '30px', marginBottom: '30px'}}, 
+            h('div', {style: {color: 'var(--puserve-yellow)', fontWeight: '800', fontSize: '0.85rem', letterSpacing: '1px', marginBottom: '10px', textTransform: 'uppercase'}}, 'KEY QUOTE'),
+            h('p', {style: {fontStyle: 'italic', fontSize: '1.1rem', fontWeight: '600', color: 'var(--text-color)', margin: '0'}}, '"' + quote + '"')
+          ) : '';
+
+          return h('div', {className: 'container', style: {padding: '40px 20px', backgroundColor: '#ffffff', color: 'var(--text-color)', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
+            globalStyles,
+            h('div', {style: {display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600', marginBottom: '40px'}}, 
+              h('span', null, '←'), h('span', null, 'Back to Outlook')
+            ),
+            h('div', {style: {textAlign: 'center', marginBottom: '40px'}},
+              h('div', {style: {color: 'var(--puserve-yellow)', fontWeight: '800', fontSize: '0.85rem', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '15px'}}, 'PUSERVE OUTLOOK REPORT'),
+              h('h1', {style: {fontSize: '2.5rem', color: 'var(--dark-green)', fontWeight: '900', marginBottom: '20px', lineHeight: '1.2'}}, title),
+              h('div', {style: {display: 'flex', justifyContent: 'center', gap: '20px', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: '600', flexWrap: 'wrap'}}, 
+                h('span', null, '📍 Jakarta, ID'),
+                h('span', null, '📅 ' + date),
+                h('span', null, '👤 ' + author),
+                h('span', null, '⏱️ 1 min read')
+              )
+            ),
+            imgHtml,
+            h('div', {className: 'preview-content', dangerouslySetInnerHTML: {__html: htmlBody}}),
+            quoteHtml
+          );
         }
+      });
 
-        document.addEventListener("DOMContentLoaded", loadHomeData);
-        const langToggleCustom = document.getElementById('langToggle');
-        if(langToggleCustom) langToggleCustom.addEventListener('click', () => { setTimeout(() => { loadHomeData(); }, 100); });
+      // --- TEMPLATE EVENTS ---
+      var EventPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var title = entry.getIn(['data', 'title_en']) || entry.getIn(['data', 'title_id']) || 'Ketik Nama Acara...';
+          var date = entry.getIn(['data', 'date']) || 'November 2, 2026';
+          var status = entry.getIn(['data', 'status']) || 'Program';
+          var attendees = entry.getIn(['data', 'attendees']) || '200+ Participants';
+          var outcome = entry.getIn(['data', 'outcome']);
+          var image = entry.getIn(['data', 'thumbnail']);
+          
+          var rawBody = entry.getIn(['data', 'body']) || '';
+          var enBody = rawBody.split('===ID===')[0].trim();
+          var htmlBody = marked.parse(enBody);
+
+          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
+
+          var outcomeHtml = outcome ? h('div', {style: {background: 'rgba(10,54,34,0.05)', border: '1px solid rgba(10,54,34,0.1)', padding: '20px', borderRadius: '12px', marginTop: '30px', marginBottom: '30px'}}, 
+            h('div', {style: {color: 'var(--primary-green)', fontWeight: '800', fontSize: '0.85rem', letterSpacing: '1px', marginBottom: '10px', textTransform: 'uppercase'}}, 'PROGRAM OUTCOME'),
+            h('p', {style: {fontSize: '1rem', fontWeight: '600', color: 'var(--dark-green)', margin: '0'}}, outcome)
+          ) : '';
+
+          return h('div', {className: 'container', style: {padding: '40px 20px', backgroundColor: '#ffffff', color: 'var(--text-color)', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
+            globalStyles,
+            h('div', {style: {display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600', marginBottom: '40px'}}, 
+              h('span', null, '←'), h('span', null, 'Back to Events')
+            ),
+            h('div', {style: {marginBottom: '40px'}},
+              h('span', {style: {background: 'var(--puserve-yellow)', color: 'var(--dark-green)', padding: '6px 15px', borderRadius: '20px', fontWeight: '800', fontSize: '0.85rem', textTransform: 'uppercase'}}, status),
+              h('h1', {style: {fontSize: '2.5rem', color: 'var(--dark-green)', fontWeight: '900', marginTop: '20px', marginBottom: '20px', lineHeight: '1.2'}}, title),
+              h('div', {style: {display: 'flex', gap: '20px', color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: '600', flexWrap: 'wrap'}}, 
+                h('span', null, '📍 President University'),
+                h('span', null, '📅 ' + date),
+                h('span', null, '👥 ' + attendees)
+              )
+            ),
+            imgHtml,
+            h('div', {className: 'preview-content', dangerouslySetInnerHTML: {__html: htmlBody}}),
+            outcomeHtml
+          );
+        }
+      });
+
+      CMS.registerPreviewTemplate("news", NewsPreview);
+      CMS.registerPreviewTemplate("events", EventPreview);
     </script>
-</body>
+  </body>
 </html>
