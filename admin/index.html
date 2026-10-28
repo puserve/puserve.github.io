@@ -5,11 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PUSERVE | Admin Dashboard</title>
     <link rel="icon" type="image/png" href="../logos/LOGO_PUSERVE.png">
+    
+    <!-- MESIN TRANSLATOR MARKDOWN (Buat ngatur spasi & motong teks) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
     <script>
       CMS.registerPreviewStyle("../style.css");
+
+      // BIKIN CSS KHUSUS BUAT PREVIEW BIAR SPASI PARAGRAF LEGA
+      var globalStyles = h('style', null, `
+        .preview-content p { margin-bottom: 1.5em; line-height: 1.8; color: #334155; }
+        .preview-content h1, .preview-content h2, .preview-content h3 { color: var(--dark-green); margin-top: 1.5em; margin-bottom: 0.5em; }
+        .preview-content ul, .preview-content ol { margin-bottom: 1.5em; padding-left: 20px; }
+        .preview-content li { margin-bottom: 0.5em; }
+      `);
 
       // --- TEMPLATE UNTUK NEWS / OUTLOOK ---
       var NewsPreview = createClass({
@@ -21,12 +32,10 @@
           var quote = entry.getIn(['data', 'quote']);
           var image = entry.getIn(['data', 'thumbnail']);
           
-          // Pisahin bahasa (Ambil bahasa Inggris aja buat preview biar rapi)
+          // AMBIL TEKS MENTAH -> POTONG ===ID=== -> UBAH JADI HTML RAPI
           var rawBody = entry.getIn(['data', 'body']) || '';
-          var bodyContent = rawBody;
-          if (rawBody.includes('===ID===')) {
-              bodyContent = rawBody.split('===ID===')[0].trim();
-          }
+          var enBody = rawBody.split('===ID===')[0].trim();
+          var htmlBody = marked.parse(enBody); // Diterjemahin mesin marked.js
 
           var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
           
@@ -36,13 +45,12 @@
           ) : '';
 
           return h('div', {className: 'container', style: {padding: '40px 20px', backgroundColor: '#ffffff', color: 'var(--text-color)', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
+            globalStyles, // Suntik CSS spasi paragraf di sini
             
-            // Tombol Back Palsu
             h('div', {style: {display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600', marginBottom: '40px'}}, 
               h('span', null, '←'), h('span', null, 'Back to Outlook')
             ),
 
-            // Header Area
             h('div', {style: {textAlign: 'center', marginBottom: '40px'}},
               h('div', {style: {color: 'var(--puserve-yellow)', fontWeight: '800', fontSize: '0.85rem', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '15px'}}, 'PUSERVE OUTLOOK REPORT'),
               h('h1', {style: {fontSize: '2.5rem', color: 'var(--dark-green)', fontWeight: '900', marginBottom: '20px', lineHeight: '1.2'}}, title),
@@ -56,12 +64,11 @@
 
             imgHtml,
             
-            // Content Area
-            h('div', {style: {lineHeight: '1.8', fontSize: '1.05rem', color: '#334155'}}, this.props.widgetFor('body')),
+            // Render Teks HTML yang udah rapi spasi dan kepotong
+            h('div', {className: 'preview-content', dangerouslySetInnerHTML: {__html: htmlBody}}),
             
             quoteHtml,
 
-            // Share Box Palsu
             h('div', {style: {borderTop: '1px solid #e2e8f0', borderBottom: '1px solid #e2e8f0', padding: '20px 0', marginTop: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}},
               h('span', {style: {fontWeight: '700', color: 'var(--text-color)', fontSize: '0.9rem'}}, 'Share this article:'),
               h('div', {style: {display: 'flex', gap: '10px'}},
@@ -85,10 +92,8 @@
           var image = entry.getIn(['data', 'thumbnail']);
           
           var rawBody = entry.getIn(['data', 'body']) || '';
-          var bodyContent = rawBody;
-          if (rawBody.includes('===ID===')) {
-              bodyContent = rawBody.split('===ID===')[0].trim();
-          }
+          var enBody = rawBody.split('===ID===')[0].trim();
+          var htmlBody = marked.parse(enBody);
 
           var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
 
@@ -98,6 +103,7 @@
           ) : '';
 
           return h('div', {className: 'container', style: {padding: '40px 20px', backgroundColor: '#ffffff', color: 'var(--text-color)', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
+            globalStyles, 
             
             h('div', {style: {display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', fontSize: '0.9rem', fontWeight: '600', marginBottom: '40px'}}, 
               h('span', null, '←'), h('span', null, 'Back to Events')
@@ -115,7 +121,7 @@
 
             imgHtml,
             
-            h('div', {style: {lineHeight: '1.8', fontSize: '1.05rem', color: '#334155'}}, this.props.widgetFor('body')),
+            h('div', {className: 'preview-content', dangerouslySetInnerHTML: {__html: htmlBody}}),
             
             outcomeHtml
           );
