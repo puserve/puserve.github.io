@@ -1,7 +1,7 @@
 ---
 title: Beatrix Kezhia Pasya Putri Madeline
 thumbnail: /uploads/LOGO_PUSERVE.png
-position: Member
+position: Vice Head of Division
 division: Research, Observation, and Innovation
 major: ''
 student_id: ''
