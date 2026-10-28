@@ -12,6 +12,23 @@
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+
+    <!-- CSS TAMBAHAN ANTI GEPENG DAN BIKIN SIMETRIS -->
+    <style>
+        .team-grid-fixed {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px; /* Spasi antar kasta (Petinggi ke Member) */
+            width: 100%;
+        }
+        .team-card-fixed {
+            width: 260px; /* Kunci ukuran kartu biar nggak melar/mengecil */
+            flex: 0 0 auto; /* Dilarang merubah ukuran sembarangan */
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
 
@@ -25,7 +42,7 @@
     <main class="container">
         <!-- ROBOT KITA BAKAL NAMBAHIN DAFTAR DIVISI DAN ORANG-ORANGNYA DI SINI OTOMATIS -->
         <div id="team-container">
-            <div class="skeleton-card" style="height: 300px; align-items: center; padding-top: 40px; margin: 0 auto;">
+            <div class="skeleton-card" style="height: 300px; align-items: center; padding-top: 40px; margin: 0 auto; width: 260px;">
                 <div class="skeleton" style="width: 120px; height: 120px; border-radius: 50%;"></div>
                 <div class="skeleton" style="width: 70%; height: 20px; margin-top: 20px;"></div>
                 <div class="skeleton" style="width: 40%; height: 15px; margin-top: 10px;"></div>
@@ -126,22 +143,35 @@
                     
                     if (membersInDiv.length > 0) {
                         const divTitleID = divTranslations[divName] || divName;
-                        htmlContent += `<h2 class="div-title" data-en="${divName}" data-id="${divTitleID}">${currentLang === 'EN' ? divName : divTitleID}</h2>`;
+                        htmlContent += `<h2 class="div-title" data-en="${divName}" data-id="${divTitleID}" style="text-align: center; margin-top: 50px; margin-bottom: 25px;">${currentLang === 'EN' ? divName : divTitleID}</h2>`;
                         
-                        htmlContent += `<div class="team-grid">`;
-                        membersInDiv.forEach(fm => {
-                            const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
-                            const globalIndex = teamData.indexOf(fm); 
-                            
-                            htmlContent += `
-                                <div class="team-card" onclick="openTeamModal(${globalIndex})">
-                                    <img src="${img}" class="team-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
-                                    <h3 class="team-name">${fm.title || 'PUSERVE Member'}</h3>
-                                    <span class="team-role">${fm.position || 'Member'}</span>
-                                </div>
-                            `;
-                        });
-                        htmlContent += `</div>`;
+                        // MESIN PEMISAH KASTA (PETINGGI vs MEMBER)
+                        const leaders = membersInDiv.filter(m => m.position !== 'Member');
+                        const members = membersInDiv.filter(m => m.position === 'Member');
+
+                        // Fungsi pencetak kartu biar rapi
+                        const renderCards = (group) => {
+                            if (group.length === 0) return '';
+                            let groupHtml = `<div class="team-grid-fixed">`;
+                            group.forEach(fm => {
+                                const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
+                                const globalIndex = teamData.indexOf(fm); 
+                                
+                                groupHtml += `
+                                    <div class="team-card team-card-fixed" onclick="openTeamModal(${globalIndex})">
+                                        <img src="${img}" class="team-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
+                                        <h3 class="team-name">${fm.title || 'PUSERVE Member'}</h3>
+                                        <span class="team-role">${fm.position || 'Member'}</span>
+                                    </div>
+                                `;
+                            });
+                            groupHtml += `</div>`;
+                            return groupHtml;
+                        };
+
+                        // Cetak Lantai 1 (Petinggi) dulu, baru Lantai 2 (Member)
+                        htmlContent += renderCards(leaders);
+                        htmlContent += renderCards(members);
                     }
                 });
 
