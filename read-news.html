@@ -51,7 +51,9 @@
             const img1 = currentFm.thumbnail ? (currentFm.thumbnail.includes('/') ? currentFm.thumbnail : `uploads/${currentFm.thumbnail}`) : '';
             const tagText = lang==='EN'?"PUSERVE OUTLOOK REPORT":"LAPORAN PUSERVE OUTLOOK";
             
-            // LOGIKANYA DI SINI BOSKU: NGGABUNGIN EDITORIAL BOARD SAMA NAMA ORANGNYA
+            // ==========================================
+            // LOGIKA NAMA PENULIS (EDITORIAL BOARD + NAMA)
+            // ==========================================
             let rawAuthor = currentFm.author || 'PUSERVE Editorial Board';
             let finalAuthor = '';
             
@@ -68,6 +70,7 @@
                     finalAuthor = 'PUSERVE Editorial Board | ' + rawAuthor;
                 }
             }
+            // ==========================================
 
             const metaIcon = `<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> ${finalAuthor}</span>`;
 
@@ -88,6 +91,7 @@
             
             html += `<div class="pr-body">${bodyHTML}</div>`;
             
+            // LOGIKA KEY QUOTE 2 BAHASA
             const quoteText = lang === 'EN' ? (currentFm.quote_en || currentFm.quote) : (currentFm.quote_id || currentFm.quote);
             if (quoteText) { 
                 html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">KEY QUOTE</div><div class="outcome-text">"${quoteText}"</div></div>`; 
