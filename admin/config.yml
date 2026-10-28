@@ -15,8 +15,7 @@ collections:
     fields:
       - {label: "Judul (English)", name: "title_en", widget: "string"}
       - {label: "Judul (Indonesia)", name: "title_id", widget: "string"}
-      - {label: "Tanggal Terbit", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
-      - {label: "Kategori Berita", name: "category", widget: "select", options: ["Highlight", "Latest News", "Archive"]}
+      - {label: "Tanggal Terbit (Tentukan apakah ini Baru/Lama)", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
       - {label: "Penulis", name: "author", widget: "string", default: "PUSERVE Editorial"}
       - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
       - {label: "Kutipan Penting (Key Quote)", name: "quote", widget: "string", required: false}
@@ -32,8 +31,7 @@ collections:
     fields:
       - {label: "Nama Acara (English)", name: "title_en", widget: "string"}
       - {label: "Nama Acara (Indonesia)", name: "title_id", widget: "string"}
-      - {label: "Tanggal Acara", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
-      - {label: "Kategori Acara", name: "category", widget: "select", options: ["Upcoming", "Past Initiatives"]}
+      - {label: "Tanggal Acara (Mempengaruhi Kategori Otomatis)", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
       - {label: "Status", name: "status", widget: "string", default: "Program"}
       - {label: "Jumlah Peserta", name: "attendees", widget: "string", default: "200+ Participants"}
       - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
