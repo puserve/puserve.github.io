@@ -142,20 +142,30 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById('home-events-grid')) { fetchContent('_events', 'home-events-grid', 'read.html'); fetchContent('_news', 'home-news-carousel', 'read-news.html'); }
 });
 
-// Animasi Counter Angka Impact
-const counters = document.querySelectorAll('.counter');
-const speed = 200; 
-counters.forEach(counter => {
-    const updateCount = () => {
-        const target = +counter.getAttribute('data-target');
-        const count = +counter.innerText;
-        const inc = target / speed;
-        if (count < target) {
-            counter.innerText = Math.ceil(count + inc);
-            setTimeout(updateCount, 1);
-        } else {
-            counter.innerText = target.toLocaleString('en-US'); // Biar ada koma ribuannya
-        }
-    };
-    updateCount();
+// Animasi Counter Angka Impact (ANTI GAGAL)
+document.addEventListener("DOMContentLoaded", () => {
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200; 
+    
+    counters.forEach(counter => {
+        const updateCount = () => {
+            // Kita parse ke integer biar valid
+            const target = parseInt(counter.getAttribute('data-target')) || 0; 
+            const count = parseInt(counter.innerText) || 0;
+            const inc = target / speed;
+            
+            if (target === 0) {
+                counter.innerText = '0'; // Kalau targetnya 0, yaudah 0
+                return;
+            }
+
+            if (count < target) {
+                counter.innerText = Math.ceil(count + inc);
+                setTimeout(updateCount, 15); // Cepetin animasinya dikit
+            } else {
+                counter.innerText = target.toLocaleString('en-US'); // Format koma
+            }
+        };
+        updateCount();
+    });
 });
