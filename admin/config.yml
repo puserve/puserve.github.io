@@ -68,3 +68,29 @@ collections:
       - {label: "Ukuran File (Contoh: 1.2 MB)", name: "size", widget: "string"}
       - {label: "Upload File Dokumen", name: "file_url", widget: "file"}
      
+  - name: "settings"
+    label: "Web Settings & Stats"
+    files:
+      - label: "Impact & Live Campaigns"
+        name: "stats"
+        file: "_data/stats.yml"
+        fields:
+          - label: "ANGKA DAMPAK (IMPACT STATS)"
+            name: "impact"
+            widget: "object"
+            fields:
+              - {label: "Jumlah Eco-Warriors", name: "warriors", widget: "number"}
+              - {label: "Jumlah Kampanye", name: "campaigns", widget: "number"}
+              - {label: "Jumlah Mitra/Partner", name: "partners", widget: "number"}
+          - label: "KAMPANYE BERJALAN (LIVE CAMPAIGNS)"
+            name: "campaigns"
+            widget: "list"
+            fields:
+              - {label: "Judul Kampanye (EN)", name: "title_en", widget: "string"}
+              - {label: "Judul Kampanye (ID)", name: "title_id", widget: "string"}
+              - {label: "Teks Target (EN)", name: "target_en", widget: "string"}
+              - {label: "Teks Target (ID)", name: "target_id", widget: "string"}
+              - {label: "Persentase Progress (0-100)", name: "percentage", widget: "number"}
+              - {label: "Warna Progress Bar (Hex Code)", name: "color", widget: "string", default: "#10b981", hint: "Contoh: Hijau #10b981, Biru #3b82f6, Kuning #fcd34d"}
+              - {label: "Status Saat Ini (EN)", name: "current_en", widget: "string"}
+              - {label: "Status Saat Ini (ID)", name: "current_id", widget: "string"}
