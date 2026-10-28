@@ -3,21 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
     <title>PUSERVE | Admin Dashboard</title>
-    <link rel="icon" type="image/png" href="../logos/LOGO_PUSERVE.png">
-    
-    <!-- CSS UTAMA BIAR ADMIN NGGAK POLOS -->
-    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../logos/LOGO_PUSERVE.png" />
+    <link href="./config.yml" type="text/yaml" rel="cms-config-url" />
   </head>
   <body>
-    <!-- SVELTIA CMS MURNI TANPA CUSTOM SCRIPT YANG BIKIN CRASH -->
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
-    
-    <!-- DAFTARIN CSS AJA BIAR TEKSNYA RAPI -->
-    <script>
-      if (typeof CMS !== 'undefined') {
-        CMS.registerPreviewStyle("../style.css");
-      }
-    </script>
   </body>
 </html>
