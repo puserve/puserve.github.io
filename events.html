@@ -26,12 +26,20 @@
     </header>
 
     <main class="container">
+        <!-- ON GOING (otomatis disembunyikan kalau kosong) -->
+        <div id="sec-ongoing" style="display:none;">
+            <div class="section-header"><h2 class="section-title" data-en="On Going Events" data-id="Acara Berlangsung">On Going Events</h2><div class="section-line"></div></div>
+            <div id="grid-ongoing" class="events-grid"></div>
+        </div>
+
+        <!-- UPCOMING -->
         <div class="section-header"><h2 class="section-title" data-en="Upcoming Events" data-id="Acara Mendatang">Upcoming Events</h2><div class="section-line"></div></div>
-        <div id="grid-highlight" class="events-grid">
+        <div id="grid-upcoming" class="events-grid">
             <div class="skeleton-card"><div class="skeleton-img skeleton"></div><div class="skeleton-body"><div class="skeleton-tag skeleton"></div><div class="skeleton-title skeleton"></div><div class="skeleton-meta skeleton"></div></div></div>
         </div>
 
-        <div class="section-header"><h2 class="section-title" data-en="Past Initiatives" data-id="Inisiatif Lalu">Past Initiatives</h2><div class="section-line"></div></div>
+        <!-- LATEST -->
+        <div class="section-header"><h2 class="section-title" data-en="Latest Events" data-id="Acara Terbaru">Latest Events</h2><div class="section-line"></div></div>
         <div id="grid-latest" class="events-grid">
             <div class="skeleton-card"><div class="skeleton-img skeleton"></div><div class="skeleton-body"><div class="skeleton-tag skeleton"></div><div class="skeleton-title skeleton"></div><div class="skeleton-meta skeleton"></div></div></div>
         </div>
@@ -40,61 +48,89 @@
     {% include footer.html %}
 
 <script>
+        const SECTIONS = ['ongoing', 'upcoming', 'latest'];
+
+        // Label badge di kartu (EN / ID)
+        const STATUS_LABEL = {
+            ongoing:  { en: 'On Going', id: 'Sedang Berlangsung' },
+            upcoming: { en: 'Upcoming', id: 'Akan Datang' },
+            latest:   { en: 'Latest',   id: 'Terbaru' }
+        };
+
         const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(localStorage.getItem('puserve_lang') === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
 
+        // Tentukan masuk section mana.
+        // 1) Pakai pilihan status dari admin (ongoing / upcoming / latest).
+        // 2) Kalau data lama (status masih "Program" dll), tebak dari tanggal:
+        //    tanggal di masa depan = upcoming, hari ini = ongoing, lewat = latest.
+        function resolveStatus(fm) {
+            const s = String(fm.status || '').toLowerCase().replace(/[\s_-]/g, '');
+            if (s.includes('ongoing')) return 'ongoing';
+            if (s.includes('upcoming')) return 'upcoming';
+            if (s.includes('latest') || s.includes('past')) return 'latest';
+
+            const d = new Date(fm.date);
+            if (isNaN(d)) return 'latest';
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            d.setHours(0, 0, 0, 0);
+            if (d.getTime() > today.getTime()) return 'upcoming';
+            if (d.getTime() === today.getTime()) return 'ongoing';
+            return 'latest';
+        }
+
         async function loadCatalog() {
-            const grids = { highlight: document.getElementById('grid-highlight'), latest: document.getElementById('grid-latest') };
-            let currentLang = localStorage.getItem('puserve_lang') || 'EN';
+            const grids = {};
+            SECTIONS.forEach(k => grids[k] = document.getElementById('grid-' + k));
+            const currentLang = localStorage.getItem('puserve_lang') || 'EN';
+            const L = currentLang === 'EN' ? 'en' : 'id';
             const emptyMsg = currentLang === 'EN' ? 'No records published yet.' : 'Belum ada catatan di kategori ini.';
 
             try {
-                // SEKARANG KITA NARIK DARI SISTEM SENDIRI, BUKAN GITHUB API! ANTI LIMIT!
                 const res = await fetch(`api/events.json`);
-                if (!res.ok) throw new Error("API Limit");
+                if (!res.ok) throw new Error("API Error");
                 const files = await res.json();
-                
-                let data = { highlight: [], latest: [] };
-                const today = new Date();
 
+                const data = { ongoing: [], upcoming: [], latest: [] };
                 for (const fm of files) {
-                    if(!fm.title_en) continue;
-                    
-                    // MESIN PENGHITUNG UMUR HARI OTOMATIS
-                    const eventDate = new Date(fm.date);
-                    const diffTime = Math.abs(today - eventDate);
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-                    
-                    if (diffDays <= 3) {
-                        data.highlight.push(fm); // 1-3 Hari masuk Highlight
-                    } else {
-                        data.latest.push(fm); // Sisanya masuk Past Initiatives
-                    }
+                    if (!fm.title_en && !fm.title_id) continue;
+                    data[resolveStatus(fm)].push(fm);
                 }
 
-                Object.keys(data).forEach(key => {
-                    data[key].sort((a, b) => new Date(b.date) - new Date(a.date));
-                    if (data[key].length === 0) { grids[key].innerHTML = `<div class="empty-state">${emptyMsg}</div>`; } 
-                    else {
-                        grids[key].innerHTML = data[key].map(fm => {
-                            const title = currentLang === 'EN' ? (fm.title_en || fm.title) : (fm.title_id || fm.title);
-                            const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
-                            return `
-                            <a href="read.html?file=${fm.fileName}" class="card trans-link">
-                                <img src="${img}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
-                                <div class="card-body">
-                                    <span class="card-tag">${fm.status || 'Event'}</span>
-                                    <h3 class="card-title">${title}</h3>
-                                    <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
-                                </div>
-                            </a>`;
-                        }).join('');
+                SECTIONS.forEach(key => {
+                    // Upcoming: yang paling dekat tampil duluan. Lainnya: yang terbaru duluan.
+                    data[key].sort((a, b) => key === 'upcoming'
+                        ? new Date(a.date) - new Date(b.date)
+                        : new Date(b.date) - new Date(a.date));
+
+                    if (key === 'ongoing') {
+                        document.getElementById('sec-ongoing').style.display = data.ongoing.length ? '' : 'none';
                     }
+
+                    if (data[key].length === 0) {
+                        grids[key].innerHTML = `<div class="empty-state">${emptyMsg}</div>`;
+                        return;
+                    }
+
+                    grids[key].innerHTML = data[key].map(fm => {
+                        const title = currentLang === 'EN' ? (fm.title_en || fm.title_id || fm.title) : (fm.title_id || fm.title_en || fm.title);
+                        const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
+                        return `
+                        <a href="read.html?file=${fm.fileName}" class="card trans-link">
+                            <img src="${img}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
+                            <div class="card-body">
+                                <span class="card-tag">${STATUS_LABEL[key][L]}</span>
+                                <h3 class="card-title">${title}</h3>
+                                <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
+                            </div>
+                        </a>`;
+                    }).join('');
                 });
-            } catch (error) { 
-                Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = `<div class="empty-state" style="color:#ef4444;">Gagal memuat data dari server. Refresh halaman.</div>` }); 
+            } catch (error) {
+                Object.values(grids).forEach(grid => { if (grid) grid.innerHTML = `<div class="empty-state" style="color:#ef4444;">Gagal memuat data dari server. Refresh halaman.</div>`; });
+                document.getElementById('sec-ongoing').style.display = 'none';
             }
         }
-        
+
         document.addEventListener("DOMContentLoaded", loadCatalog);
 
         document.getElementById('searchInput').addEventListener('input', function(e) {
@@ -106,7 +142,7 @@
         });
 
         const langToggleCustom = document.getElementById('langToggle');
-        if(langToggleCustom) {
+        if (langToggleCustom) {
             langToggleCustom.addEventListener('click', () => { setTimeout(() => { loadCatalog(); }, 100); });
         }
     </script>
