@@ -4,8 +4,8 @@ title_id: 'PUSERVE Memasuki Era Baru: Portal Resmi Telah Hadir!'
 date: 2026-11-02
 author: PUSERVE Editorial
 thumbnail: /uploads/pasted-image-1792836037200.png
-quote_en: '"A massive leap for our environmental movement. Technology and sustainability, finally hand in hand." - Noel Jacob Ottley'
-quote_id: “Sebuah lompatan besar bagi gerakan lingkungan kita. Teknologi dan keberlanjutan, akhirnya berjalan beriringan.” - Noel Jacob Ottley
+quote_en: A massive leap for our environmental movement. Technology and sustainability, finally hand in hand. - Noel Jacob Ottley
+quote_id: Sebuah lompatan besar bagi gerakan lingkungan kita. Teknologi dan keberlanjutan, akhirnya berjalan beriringan. - Noel Jacob Ottley
 image_2: ''
 image_3: ''
 category: Highlight
