@@ -1,5 +1,5 @@
 ---
-title: I Gusti Gedhe Wastu Widyadana
+title: I Gusti Gede Wastu Widyadana
 thumbnail: /uploads/LOGO_PUSERVE.png
 position: Vice Head of Division
 division: General Resources
