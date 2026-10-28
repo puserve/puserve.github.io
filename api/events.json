@@ -9,6 +9,8 @@ layout: null
     "date": "{{ event.date | date: '%Y-%m-%d' }}",
     "thumbnail": {{ event.thumbnail | jsonify }},
     "status": {{ event.status | jsonify }},
+    "outcome_en": {{ event.outcome_en | jsonify }},
+    "outcome_id": {{ event.outcome_id | jsonify }},
     "fileName": {{ event.path | split: '/' | last | jsonify }}
   }{% unless forloop.last %},{% endunless %}
   {% endfor %}
