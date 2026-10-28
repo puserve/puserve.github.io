@@ -1,0 +1,17 @@
+---
+layout: null
+---
+[
+  {% for repo in site.repository %}
+  {
+    "title_en": {{ repo.title_en | jsonify }},
+    "title_id": {{ repo.title_id | jsonify }},
+    "date": "{{ repo.date | date: '%Y-%m-%d' }}",
+    "category": {{ repo.category | jsonify }},
+    "format": {{ repo.format | jsonify }},
+    "size": {{ repo.size | jsonify }},
+    "file_url": {{ repo.file_url | jsonify }},
+    "hasContent": {% if repo.content.size > 5 %}true{% else %}false{% endif %}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]
