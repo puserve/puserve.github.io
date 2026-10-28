@@ -142,28 +142,33 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById('home-events-grid')) { fetchContent('_events', 'home-events-grid', 'read.html'); fetchContent('_news', 'home-news-carousel', 'read-news.html'); }
 });
 
-// Animasi Counter Angka Impact (ANTI GAGAL)
+// Animasi Counter Angka Impact (ANTI GAGAL VERSI 3.0)
 document.addEventListener("DOMContentLoaded", () => {
     const counters = document.querySelectorAll('.counter');
     const speed = 200; 
     
     counters.forEach(counter => {
+        // Nyolong angka target langsung dari teks di dalem div (yang disembur Jekyll)
+        const targetText = counter.innerText.trim();
+        const target = parseInt(targetText) || 0; 
+        
+        // Reset angka HTML jadi 0 sebelum animasi mulai
+        counter.innerText = '0';
+
         const updateCount = () => {
-            // Kita parse ke integer biar valid
-            const target = parseInt(counter.getAttribute('data-target')) || 0; 
-            const count = parseInt(counter.innerText) || 0;
+            const count = parseInt(counter.innerText.replace(/,/g, '')) || 0;
             const inc = target / speed;
             
             if (target === 0) {
-                counter.innerText = '0'; // Kalau targetnya 0, yaudah 0
+                counter.innerText = '0'; 
                 return;
             }
 
             if (count < target) {
                 counter.innerText = Math.ceil(count + inc);
-                setTimeout(updateCount, 15); // Cepetin animasinya dikit
+                setTimeout(updateCount, 15); 
             } else {
-                counter.innerText = target.toLocaleString('en-US'); // Format koma
+                counter.innerText = target.toLocaleString('en-US'); 
             }
         };
         updateCount();
