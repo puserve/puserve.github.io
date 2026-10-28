@@ -44,7 +44,7 @@
 
     {% include footer.html %}
 
-    <script>
+<script>
     const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(localStorage.getItem('puserve_lang') === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
 
         async function loadCatalog() {
@@ -55,26 +55,30 @@
             };
             let currentLang = localStorage.getItem('puserve_lang') || 'EN';
             const emptyMsg = currentLang === 'EN' ? 'No records published yet.' : 'Belum ada catatan di kategori ini.';
-            const isEventPage = window.location.pathname.includes('events.html');
-            const folderName = isEventPage ? '_events' : '_news';
-            const targetLink = isEventPage ? 'read.html' : 'read-news.html';
 
             try {
-                const res = await fetch(`https://api.github.com/repos/puserve/puserve.github.io/contents/${folderName}`);
-                if (!res.ok) throw new Error("API Limit");
+                // NARIK DARI MESIN JSON KITA SENDIRI, ANTI LIMIT!
+                const res = await fetch(`api/news.json`);
+                if (!res.ok) throw new Error("API Error");
                 const files = await res.json();
                 
                 let data = { highlight: [], latest: [], archive: [] };
-                for (const file of files) {
-                    if (!file.name.endsWith('.md') || file.name.startsWith('TEMPLATE')) continue;
-                    const mdText = await (await fetch(file.download_url)).text();
-                    const parts = mdText.split('---');
-                    if (parts.length >= 3) {
-                        const fm = jsyaml.load(parts[1]); fm.fileName = file.name;
-                        const cat = (fm.category || '').toLowerCase();
-                        if (cat === 'highlight' || cat === 'upcoming') data.highlight.push(fm);
-                        else if (cat === 'archive') data.archive.push(fm);
-                        else data.latest.push(fm);
+                const today = new Date();
+
+                for (const fm of files) {
+                    if(!fm.title_en) continue;
+                    
+                    // MESIN PENGHITUNG UMUR HARI OTOMATIS
+                    const eventDate = new Date(fm.date);
+                    const diffTime = Math.abs(today - eventDate);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+                    
+                    if (diffDays <= 3) {
+                        data.highlight.push(fm);
+                    } else if (diffDays > 3 && diffDays <= 7) {
+                        data.latest.push(fm);
+                    } else {
+                        data.archive.push(fm);
                     }
                 }
 
@@ -85,11 +89,12 @@
                     else {
                         grids[key].innerHTML = data[key].map(fm => {
                             const title = currentLang === 'EN' ? (fm.title_en || fm.title) : (fm.title_id || fm.title);
+                            const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
                             return `
-                            <a href="${targetLink}?file=${fm.fileName}" class="card trans-link">
-                                <img src="${fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png'}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
+                            <a href="read-news.html?file=${fm.fileName}" class="card trans-link">
+                                <img src="${img}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
                                 <div class="card-body">
-                                    <span class="card-tag">${fm.status || fm.category || 'News'}</span>
+                                    <span class="card-tag">${fm.status || 'Outlook News'}</span>
                                     <h3 class="card-title">${title}</h3>
                                     <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
                                 </div>
@@ -98,8 +103,7 @@
                     }
                 });
             } catch (error) { 
-                const errMsg = currentLang === 'EN' ? 'GitHub API Rate Limit Reached. Please wait 1 hour or change your internet connection.' : 'Batas akses API GitHub tercapai. Tunggu 1 jam atau ganti koneksi internet Anda.';
-                Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = `<div class="empty-state" style="color:#ef4444;">${errMsg}</div>` }); 
+                Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = `<div class="empty-state" style="color:#ef4444;">Gagal memuat data dari server. Refresh halaman.</div>` }); 
             }
         }
         
