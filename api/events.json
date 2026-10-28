@@ -1,0 +1,15 @@
+---
+layout: null
+---
+[
+  {% for event in site.events %}
+  {
+    "title_en": {{ event.title_en | jsonify }},
+    "title_id": {{ event.title_id | jsonify }},
+    "date": "{{ event.date | date: '%Y-%m-%d' }}",
+    "thumbnail": {{ event.thumbnail | jsonify }},
+    "status": {{ event.status | jsonify }},
+    "fileName": {{ event.path | split: '/' | last | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]
