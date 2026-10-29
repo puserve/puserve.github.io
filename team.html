@@ -104,6 +104,8 @@
 
     {% include footer.html %}
 
+
+    
     <script>
         let teamData = [];
         
@@ -258,6 +260,27 @@
                 }, 100); 
             });
         }
+        // LOGIKA LINK PINTAR DARI HALAMAN BERITA (AUTO SCROLL & CLICK MODAL)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const params = new URLSearchParams(window.location.search);
+                const scrollToName = params.get('scrollto');
+                
+                if (scrollToName) {
+                    // Cari semua kartu team yang ada namanya
+                    const cards = document.querySelectorAll('.team-card-fixed');
+                    cards.forEach(card => {
+                        const nameEl = card.querySelector('.team-name');
+                        if (nameEl && nameEl.innerText.toLowerCase() === scrollToName.toLowerCase()) {
+                            // Ketemu! Langsung Scroll ke mukanya, terus pura-pura di-klik!
+                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            card.classList.add('pulse-glow'); // Kasih efek dikit biar tau yang mana
+                            setTimeout(() => { card.click(); }, 800);
+                        }
+                    });
+                }
+            }, 1500); // Nunggu grid team-nya ke-render dulu
+        });
     </script>
 </body>
 </html>
