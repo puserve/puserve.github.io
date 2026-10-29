@@ -6,9 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events & Programs | PUSERVE</title>
-    <meta property="og:title" content="Events & Programs | PUSERVE">
-    <meta property="og:description" content="Discover our latest environmental actions.">
-    <meta property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
+    
+    <!-- METADATA WA SHARE -->
+    <meta property="og:title" content="PUSERVE Events"> 
+    <meta id="og-desc" property="og:description" content="Discover our latest environmental actions.">
+    <meta id="og-image" property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
+    <meta property="og:type" content="article">
+
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
@@ -26,7 +30,7 @@
     </header>
 
     <main class="container">
-        <!-- ON GOING (otomatis disembunyikan kalau kosong) -->
+        <!-- ON GOING -->
         <div id="sec-ongoing" style="display:none;">
             <div class="section-header"><h2 class="section-title" data-en="On Going Events" data-id="Acara Berlangsung">On Going Events</h2><div class="section-line"></div></div>
             <div id="grid-ongoing" class="events-grid"></div>
@@ -50,32 +54,42 @@
 <script>
         const SECTIONS = ['ongoing', 'upcoming', 'latest'];
 
-        // Label badge di kartu (EN / ID)
         const STATUS_LABEL = {
             ongoing:  { en: 'On Going', id: 'Sedang Berlangsung' },
             upcoming: { en: 'Upcoming', id: 'Akan Datang' },
             latest:   { en: 'Latest',   id: 'Terbaru' }
         };
 
-        const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(localStorage.getItem('puserve_lang') === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
+        const formatDate = (dateStr) => { 
+            try { 
+                // Ganti tanda minus (-) sama slash (/) buat Safari/iOS biar ga error
+                let safeDateStr = (dateStr || '').replace(/-/g, "/");
+                const d = new Date(safeDateStr); 
+                if (!isNaN(d)) return d.toLocaleDateString(localStorage.getItem('puserve_lang') === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); 
+            } catch(e){} 
+            return dateStr; 
+        };
 
-        // Tentukan masuk section mana.
-        // 1) Pakai pilihan status dari admin (ongoing / upcoming / latest).
-        // 2) Kalau data lama (status masih "Program" dll), tebak dari tanggal:
-        //    tanggal di masa depan = upcoming, hari ini = ongoing, lewat = latest.
         function resolveStatus(fm) {
             const s = String(fm.status || '').toLowerCase().replace(/[\s_-]/g, '');
-            if (s.includes('ongoing')) return 'ongoing';
+            if (s.includes('ongoing') || s.includes('running')) return 'ongoing';
             if (s.includes('upcoming')) return 'upcoming';
-            if (s.includes('latest') || s.includes('past')) return 'latest';
+            if (s.includes('latest') || s.includes('past') || s.includes('archived')) return 'latest';
 
-            const d = new Date(fm.date);
-            if (isNaN(d)) return 'latest';
-            const today = new Date(); today.setHours(0, 0, 0, 0);
-            d.setHours(0, 0, 0, 0);
-            if (d.getTime() > today.getTime()) return 'upcoming';
-            if (d.getTime() === today.getTime()) return 'ongoing';
-            return 'latest';
+            try {
+                let safeDateStr = (fm.date || '').replace(/-/g, "/");
+                const d = new Date(safeDateStr);
+                if (isNaN(d)) return 'latest';
+                
+                const today = new Date(); today.setHours(0, 0, 0, 0);
+                d.setHours(0, 0, 0, 0);
+                
+                if (d.getTime() > today.getTime()) return 'upcoming';
+                if (d.getTime() === today.getTime()) return 'ongoing';
+                return 'latest';
+            } catch (e) {
+                return 'latest';
+            }
         }
 
         async function loadCatalog() {
@@ -92,15 +106,16 @@
 
                 const data = { ongoing: [], upcoming: [], latest: [] };
                 for (const fm of files) {
-                    if (!fm.title_en && !fm.title_id) continue;
+                    if (!fm.title_en && !fm.title_id && !fm.title) continue;
                     data[resolveStatus(fm)].push(fm);
                 }
 
                 SECTIONS.forEach(key => {
-                    // Upcoming: yang paling dekat tampil duluan. Lainnya: yang terbaru duluan.
-                    data[key].sort((a, b) => key === 'upcoming'
-                        ? new Date(a.date) - new Date(b.date)
-                        : new Date(b.date) - new Date(a.date));
+                    data[key].sort((a, b) => {
+                        let dateA = new Date((a.date || '').replace(/-/g, "/"));
+                        let dateB = new Date((b.date || '').replace(/-/g, "/"));
+                        return key === 'upcoming' ? dateA - dateB : dateB - dateA;
+                    });
 
                     if (key === 'ongoing') {
                         document.getElementById('sec-ongoing').style.display = data.ongoing.length ? '' : 'none';
