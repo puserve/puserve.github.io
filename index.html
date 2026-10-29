@@ -149,24 +149,133 @@
         </div>
     </section>
 
-    <!-- VOICES OF PUSERVE -->
-    <section class="section-container" style="padding-top: 40px; padding-bottom: 80px;">
-        <div class="section-header">
-            <div class="section-line"></div>
-            <h2 class="section-title" data-en="Voices of Impact" data-id="Suara Perubahan">Voices of Impact</h2>
-            <div class="section-line"></div>
+    <!-- VOICES OF PUSERVE -->  
+<section class="section-container" style="padding-top: 40px; padding-bottom: 80px;">  
+    <div class="section-header">  
+        <div class="section-line"></div>  
+        <h2 class="section-title" data-en="Voices of Impact" data-id="Suara Perubahan">Voices of Impact</h2>  
+        <div class="section-line"></div>  
+    </div>
+    
+    <div class="voices-card-landscape">  
+        <div class="voices-watermark">"</div>  
+        <div class="voices-top">  
+            <div class="voices-logos">  
+                <img id="v-logo" src="logos/LOGO_PUSERVE.png" alt="Org Logo" style="transition: opacity 0.5s ease;">  
+            </div>  
+            <div class="voices-badge" data-en="OFFICIAL<br>STATEMENT" data-id="PERNYATAAN<br>RESMI">OFFICIAL<br>STATEMENT</div>  
         </div>
         
-        <div class="voices-card-landscape">
-            <div class="voices-watermark">"</div>
-            <div class="voices-top">
-                <div class="voices-logos">
-                    <!-- TAMBAHAN EFEK TRANSISI BUAT LOGO -->
-                    <img id="v-logo" src="logos/LOGO_PUSERVE.png" alt="Org Logo" style="transition: opacity 0.5s ease;">
-                </div>
-                <div class="voices-badge" data-en="OFFICIAL<br>STATEMENT" data-id="PERNYATAAN<br>RESMI">OFFICIAL<br>STATEMENT</div>
+        <div class="voices-dynamic-content" id="voices-dynamic-content" style="transition: opacity 0.5s ease;">  
+            <div class="voices-mid">
+                <p id="v-quote" data-en='"Your voice goes here..."' data-id='"Pesan Anda muncul di sini..."'>"Your voice goes here..."</p>
             </div>
+            <div class="voices-bottom">
+                <div>
+                    <h2 id="v-name">LOREM IPSUM</h2>
+                    <p id="v-role" class="v-role-text">Loading Data...</p>
+                </div>
+                <span class="voices-date" id="v-date">-</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include footer.html %}
+
+<script>
+    async function loadHomeData() {
+        let currentLang = localStorage.getItem('puserve_lang') || 'EN';
+        const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(currentLang === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e){} return dateStr; };
+
+        const renderCard = (fm, folder) => {
+            const title = currentLang === 'EN' ? (fm.title_en || fm.title) : (fm.title_id || fm.title);
+            const link = folder === 'events' ? `read.html?file=${fm.fileName}` : `read-news.html?file=${fm.fileName}`;
+            const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
+            return `
+            <a href="${link}" class="card trans-link">
+                <img src="${img}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
+                <div class="card-body">
+                    <span class="card-tag">${fm.status || 'Highlight'}</span>
+                    <h3 class="card-title">${title}</h3>
+                    <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
+                </div>
+            </a>`;
+        };
+        
+        // 1. VOICES AUTO ROTATE (NO CUT OFF)
+        try {
+            const vRes = await fetch('api/voices.json');
+            const voices = await vRes.json();
             
-            <!-- TAMBAHAN EFEK TRANSISI BUAT KONTEN -->
-            <div class="voices-dynamic-content" id="voices-dynamic-content" style="transition: opacity 0.5s ease;">
-                <div class="voices-mid">
+            if (voices && voices.length > 0) {
+                voices.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                let currentIndex = 0;
+                const dynamicContent = document.getElementById('voices-dynamic-content');
+                const logoEl = document.getElementById('v-logo');
+
+                const showVoice = (index) => {
+                    const v = voices[index]; 
+                    const quote = currentLang === 'EN' ? v.quote_en : v.quote_id;
+                    const role = currentLang === 'EN' ? v.role_en : v.role_id;
+                    
+                    let logoSrc = 'logos/LOGO_PUSERVE.png';
+                    if (v.logo) {
+                        let hasExt = /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(v.logo);
+                        let finalFileName = hasExt ? v.logo : `${v.logo}.png`; 
+                        let rawUrl = finalFileName.startsWith('/') ? finalFileName.slice(1) : finalFileName;
+                        if(!rawUrl.includes('uploads/')) rawUrl = `uploads/${rawUrl}`;
+                        logoSrc = encodeURI(rawUrl); 
+                    }
+                    
+                    document.getElementById('v-quote').innerText = `"${quote}"`;
+                    document.getElementById('v-name').innerText = v.name;
+                    document.getElementById('v-role').innerText = role;
+                    document.getElementById('v-date').innerText = formatDate(v.date);
+                    logoEl.src = logoSrc;
+                };
+
+                showVoice(currentIndex);
+
+                if (voices.length > 1) {
+                    setInterval(() => {
+                        currentIndex = (currentIndex + 1) % voices.length;
+                        if (dynamicContent) dynamicContent.style.opacity = '0';
+                        if (logoEl) logoEl.style.opacity = '0';
+
+                        setTimeout(() => {
+                            showVoice(currentIndex);
+                            if (dynamicContent) dynamicContent.style.opacity = '1';
+                            if (logoEl) logoEl.style.opacity = '1';
+                        }, 500); 
+                    }, 10000); 
+                }
+            }
+        } catch(e) { console.error("Voices error:", e); }
+
+        // 2. EVENTS
+        try {
+            const res = await fetch('api/events.json');
+            const events = await res.json();
+            events.sort((a,b) => new Date(b.date) - new Date(a.date));
+            const eGrid = document.getElementById('home-events-grid');
+            if(eGrid) eGrid.innerHTML = events.slice(0,2).map(fm => renderCard(fm, 'events')).join('') || `<div class="empty-state">No events yet.</div>`;
+        } catch(e) { console.error("Events error:", e); }
+
+        // 3. NEWS
+        try {
+            const res = await fetch('api/news.json');
+            const news = await res.json();
+            news.sort((a,b) => new Date(b.date) - new Date(a.date));
+            const nGrid = document.getElementById('home-news-carousel');
+            if(nGrid) nGrid.innerHTML = news.slice(0,2).map(fm => renderCard(fm, 'news')).join('') || `<div class="empty-state">No news yet.</div>`;
+        } catch(e) { console.error("News error:", e); }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadHomeData);
+    const langToggleCustom = document.getElementById('langToggle');
+    if(langToggleCustom) langToggleCustom.addEventListener('click', () => { setTimeout(() => { loadHomeData(); }, 100); });
+</script>
+</body>
+</html>
