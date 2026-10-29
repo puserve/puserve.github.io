@@ -106,3 +106,15 @@ collections:
               - {label: "Warna Progress Bar (Hex Code)", name: "color", widget: "string", default: "#10b981", hint: "Contoh: Hijau #10b981, Biru #3b82f6, Kuning #fcd34d"}
               - {label: "Status Saat Ini (EN)", name: "current_en", widget: "string", hint: "Contoh: 750 / 1,000 trees planted"}
               - {label: "Status Saat Ini (ID)", name: "current_id", widget: "string", hint: "Contoh: 750 / 1.000 pohon ditanam"}
+  - name: "voices"
+    label: "Voices of Impact (Kutipan)"
+    folder: "_voices"
+    create: true
+    slug: "{{year}}-{{month}}-{{slug}}"
+    fields:
+      - {label: "Nama Tokoh", name: "title", widget: "string", hint: "Contoh: Edeline Stefanie Baskoro"}
+      - {label: "Jabatan (English)", name: "role_en", widget: "string", hint: "Contoh: Chairperson of PUSERVE"}
+      - {label: "Jabatan (Indonesia)", name: "role_id", widget: "string", hint: "Contoh: Ketua PUSERVE"}
+      - {label: "Kutipan (English)", name: "quote_en", widget: "text"}
+      - {label: "Kutipan (Indonesia)", name: "quote_id", widget: "text"}
+      - {label: "Tanggal Dibuat", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
