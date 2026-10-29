@@ -1,0 +1,15 @@
+---
+layout: null
+---
+[
+  {% assign first = true %}
+  {% for member in site.team %}
+    {% if member.title %}
+      {% if first %}{% assign first = false %}{% else %},{% endif %}
+      {
+        "name": {{ member.title | jsonify }},
+        "thumbnail": {{ member.thumbnail | jsonify }}
+      }
+    {% endif %}
+  {% endfor %}
+]
