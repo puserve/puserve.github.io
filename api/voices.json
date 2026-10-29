@@ -2,16 +2,19 @@
 layout: null
 ---
 [
+  {% assign first = true %}
   {% for voice in site.voices %}
-    {% if voice.title %}
-    {
-      "name": {{ voice.title | jsonify }},
-      "role_en": {{ voice.role_en | jsonify }},
-      "role_id": {{ voice.role_id | jsonify }},
-      "quote_en": {{ voice.quote_en | jsonify }},
-      "quote_id": {{ voice.quote_id | jsonify }},
-      "date": "{{ voice.date | date: '%Y-%m-%d' }}"
-    }{% unless forloop.last %},{% endunless %}
+    {% if voice.title and voice.published != false %}
+      {% if first %}{% assign first = false %}{% else %},{% endif %}
+      {
+        "name": {{ voice.title | jsonify }},
+        "role_en": {{ voice.role_en | jsonify }},
+        "role_id": {{ voice.role_id | jsonify }},
+        "logo": {{ voice.logo | jsonify }},
+        "quote_en": {{ voice.quote_en | jsonify }},
+        "quote_id": {{ voice.quote_id | jsonify }},
+        "date": "{{ voice.date | date: '%Y-%m-%d' }}"
+      }
     {% endif %}
   {% endfor %}
 ]
