@@ -3,7 +3,7 @@ layout: null
 ---
 [
   {% assign first = true %}
-  {% for fm in site.events %}
+  {% for fm in site.news %}
     {% if fm.title and fm.published != false %}
       {% if first %}{% assign first = false %}{% else %},{% endif %}
       {
