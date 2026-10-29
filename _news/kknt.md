@@ -1,6 +1,8 @@
 ---
 title_en: PUSERVE Collaborates with KEMDIKTISAINTEK to Hold the “Sampah Tuntas” Thematic Community Service Program (KKN) for LLDIKTI Region IV in 2026
 title_id: PUSERVE berkolaborasi dengan KEMDIKTISAINTEK Gelar KKN Tematik Sampah Tuntas LLDIKTI Wilayah IV 2026
+desc_en: Noel is really handsome
+desc_id: Noel ganteng bgt
 date: 2026-11-02
 author: Muh. Ahsan I.S. Zulni
 thumbnail: /uploads/THUMBNAIL NEWS-500kb.jpeg
