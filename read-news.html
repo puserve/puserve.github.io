@@ -8,8 +8,9 @@
     <title>Outlook Article | PUSERVE</title>
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     
-    <meta property="og:title" content="PUSERVE Outlook"> 
-    <meta id="og-desc" property="og:description" content="Latest Environmental News, Opinions, and Analysis.">
+    <!-- METADATA WA SHARE (DIBIKIN KOSONG DULU BIAR JS YANG NGISI OTOMATIS) -->
+    <meta id="og-title" property="og:title" content="PUSERVE Outlook"> 
+    <meta id="og-desc" property="og:description" content="Loading Article...">
     <meta id="og-image" property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
     <meta property="og:type" content="article">
 
@@ -91,6 +92,7 @@
             const apTimeStr = formatAPTime(currentFm.date, lang);
             const img1 = currentFm.thumbnail ? (currentFm.thumbnail.includes('/') ? currentFm.thumbnail : `uploads/${currentFm.thumbnail}`) : '';
             
+            // LOGIKA META WHATSAPP TERBARU (ANTI PUSERVE LOGO)
             const desc = lang === 'EN' ? (currentFm.desc_en || title) : (currentFm.desc_id || title);
             document.title = `${title} | PUSERVE Outlook`;
             document.getElementById('og-desc').setAttribute('content', desc);
@@ -149,9 +151,9 @@
                 html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">KEY QUOTE</div><div class="outcome-text">"${quoteText}"</div></div>`; 
             }
 
-            // WhatsApp Tɛks Ak (Pre-fill text in chat)
             const shareText = lang === 'EN' ? 'Share this article:' : 'Bagikan artikel ini:';
             const readMore = lang === 'EN' ? 'Read more at:' : 'Baca selengkapnya di:';
+            // WA Text (Pre-filled chat) dengan Deskripsi Khusus Sveltia!
             const waText = encodeURIComponent(`*${title}*\n${desc}\n\n${readMore}\n${window.location.href.split('&lang=')[0]}&lang=${lang}`);
             
             html += `
@@ -177,7 +179,6 @@
             const contentDiv = document.getElementById('pr-content');
             if (!fileName) { contentDiv.innerHTML = `<h2 style='color:var(--puserve-yellow); text-align:center;'>${currentLang==='EN'?'Error: Document not found.':'Dokumen tidak ditemukan.'}</h2>`; return; }
 
-            // LOD DI Picha Frɔm Team API
             try {
                 const teamRes = await fetch('api/team.json');
                 if(teamRes.ok) teamDataList = await teamRes.json();
