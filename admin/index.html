@@ -3,36 +3,63 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
     <title>PUSERVE | Admin Dashboard</title>
     <link rel="icon" type="image/png" href="../logos/LOGO_PUSERVE.png">
-    <link rel="stylesheet" href="../style.css">
+
+    <!--
+      JANGAN PERNAH load ../style.css di sini.
+      CSS situs akan nimpa tampilan dashboard Sveltia (daftar collection melayang di tengah,
+      latar blur, layout hancur). Style situs cukup lewat CMS.registerPreviewStyle() di bawah,
+      karena itu hanya dipasang di panel preview.
+    -->
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
     <script>
-      CMS.registerPreviewStyle("../style.css");
+      CMS.registerPreviewStyle("/style.css");
+
+      // --- HELPER ---
+      // Ambil teks Inggris (sebelum ===ID===). Toleran kalau ===ID=== ke-bold (**===ID===**)
+      function getEnglishBody(entry) {
+        try {
+          var rawBody = String(entry.getIn(['data', 'body']) || '');
+          return marked.parse(rawBody.split(/^[\s*_]*===ID===[\s*_]*$/m)[0].trim());
+        } catch (e) {
+          return '<p>Loading text...</p>';
+        }
+      }
+
+      // Tanggal selalu jadi string (objek Date bikin React error)
+      function formatDate(value, fallback) {
+        if (!value) return fallback;
+        try {
+          var d = new Date(value);
+          if (!isNaN(d)) return d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+        } catch (e) {}
+        return String(value);
+      }
 
       // --- TEMPLATE NEWS ---
       var NewsPreview = createClass({
         render: function() {
           var entry = this.props.entry;
           var title = entry.getIn(['data', 'title_en']) || entry.getIn(['data', 'title_id']) || 'Ketik Judul Berita...';
-          var date = entry.getIn(['data', 'date']) || 'Tanggal Terbit';
+          var date = formatDate(entry.getIn(['data', 'date']), 'Tanggal Terbit');
           var rawAuthor = entry.getIn(['data', 'author']) || 'PUSERVE Editorial Board';
           var displayAuthor = rawAuthor === 'PUSERVE Editorial Board' ? 'PUSERVE Editorial Board' : 'PUSERVE Editorial Board | ' + rawAuthor;
-          var quote = entry.getIn(['data', 'quote_en']) || entry.getIn(['data', 'quote_id']); 
+          var quote = entry.getIn(['data', 'quote_en']) || entry.getIn(['data', 'quote_id']);
           var image = entry.getIn(['data', 'thumbnail']);
-          
-          var htmlBody = "";
-          try { var rawBody = entry.getIn(['data', 'body']) || ''; htmlBody = marked.parse(rawBody.split('===ID===')[0].trim()); } catch (e) { htmlBody = "<p>Loading text...</p>"; }
+          var htmlBody = getEnglishBody(entry);
 
-          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
-          var quoteHtml = quote ? h('div', {style: {background: '#f8fafc', borderLeft: '4px solid #fcd34d', padding: '25px', borderRadius: '12px', marginTop: '30px'}}, h('div', {style: {color: '#fcd34d', fontWeight: '800', fontSize: '0.85rem', marginBottom: '10px'}}, 'KEY QUOTE'), h('p', {style: {fontStyle: 'italic', fontSize: '1.1rem', fontWeight: '600', margin: '0'}}, '"' + quote + '"')) : '';
+          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : null;
+          var quoteHtml = quote ? h('div', {style: {background: '#f8fafc', borderLeft: '4px solid #fcd34d', padding: '25px', borderRadius: '12px', marginTop: '30px'}}, h('div', {style: {color: '#fcd34d', fontWeight: '800', fontSize: '0.85rem', marginBottom: '10px'}}, 'KEY QUOTE'), h('p', {style: {fontStyle: 'italic', fontSize: '1.1rem', fontWeight: '600', margin: '0'}}, '"' + quote + '"')) : null;
 
           return h('div', {style: {padding: '40px 20px', backgroundColor: '#ffffff', color: '#1e293b', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
             h('h1', {style: {fontSize: '2.5rem', color: '#0a3622', fontWeight: '900', marginBottom: '20px'}}, title),
-            h('div', {style: {display: 'flex', gap: '20px', color: '#64748b', fontSize: '0.85rem', fontWeight: '600', marginBottom: '40px'}}, h('span', null, '📅 ' + date), h('span', null, '👤 ' + displayAuthor)),
+            h('div', {style: {display: 'flex', gap: '20px', color: '#64748b', fontSize: '0.85rem', fontWeight: '600', marginBottom: '40px', flexWrap: 'wrap'}}, h('span', null, '📅 ' + date), h('span', null, '👤 ' + displayAuthor)),
             imgHtml, h('div', {dangerouslySetInnerHTML: {__html: htmlBody}}), quoteHtml
           );
         }
@@ -43,16 +70,14 @@
         render: function() {
           var entry = this.props.entry;
           var title = entry.getIn(['data', 'title_en']) || entry.getIn(['data', 'title_id']) || 'Ketik Nama Acara...';
-          var date = entry.getIn(['data', 'date']) || 'Tanggal Acara';
-          var status = entry.getIn(['data', 'status']) || 'Program';
-          var outcome = entry.getIn(['data', 'outcome_en']) || entry.getIn(['data', 'outcome_id']); 
+          var date = formatDate(entry.getIn(['data', 'date']), 'Tanggal Acara');
+          var status = entry.getIn(['data', 'status']) || 'Upcoming';
+          var outcome = entry.getIn(['data', 'outcome_en']) || entry.getIn(['data', 'outcome_id']);
           var image = entry.getIn(['data', 'thumbnail']);
-          
-          var htmlBody = "";
-          try { var rawBody = entry.getIn(['data', 'body']) || ''; htmlBody = marked.parse(rawBody.split('===ID===')[0].trim()); } catch (e) { htmlBody = "<p>Loading text...</p>"; }
+          var htmlBody = getEnglishBody(entry);
 
-          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
-          var outcomeHtml = outcome ? h('div', {style: {background: 'rgba(10,54,34,0.05)', border: '1px solid rgba(10,54,34,0.1)', padding: '20px', borderRadius: '12px', marginTop: '30px'}}, h('div', {style: {color: '#16a34a', fontWeight: '800', fontSize: '0.85rem', marginBottom: '10px'}}, 'PROGRAM OUTCOME'), h('p', {style: {fontSize: '1rem', fontWeight: '600', color: '#0a3622', margin: '0'}}, outcome)) : '';
+          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : null;
+          var outcomeHtml = outcome ? h('div', {style: {background: 'rgba(10,54,34,0.05)', border: '1px solid rgba(10,54,34,0.1)', padding: '20px', borderRadius: '12px', marginTop: '30px'}}, h('div', {style: {color: '#16a34a', fontWeight: '800', fontSize: '0.85rem', marginBottom: '10px'}}, 'PROGRAM OUTCOME'), h('p', {style: {fontSize: '1rem', fontWeight: '600', color: '#0a3622', margin: '0'}}, outcome)) : null;
 
           return h('div', {style: {padding: '40px 20px', backgroundColor: '#ffffff', color: '#1e293b', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
             h('span', {style: {background: '#fcd34d', color: '#0a3622', padding: '6px 15px', borderRadius: '20px', fontWeight: '800', fontSize: '0.85rem'}}, status),
@@ -63,9 +88,48 @@
         }
       });
 
+      // --- TEMPLATE VOICES OF IMPACT ---
+      var VoicePreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var name = entry.getIn(['data', 'title']) || 'NAMA TOKOH';
+          var role = entry.getIn(['data', 'role_en']) || 'Jabatan / Peran';
+          var quote = entry.getIn(['data', 'quote_en']) || 'Kutipan akan muncul di sini...';
+          var date = formatDate(entry.getIn(['data', 'date']), 'Oct 29, 2026');
+
+          // Kalau ada logo instansi pakai itu, kalau kosong pakai logo PUSERVE
+          var logo = entry.getIn(['data', 'logo']);
+          var logoUrl = logo ? this.props.getAsset(logo).toString() : '/logos/LOGO_PUSERVE.png';
+
+          return h('div', {style: {padding: '40px 20px', backgroundColor: '#e2e8f0', minHeight: '100vh', fontFamily: 'Manrope, sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center'}},
+            h('div', {style: {width: '100%', maxWidth: '850px', backgroundColor: '#071a10', borderRadius: '16px', border: '1px solid rgba(252,211,77,0.3)', padding: '50px', position: 'relative', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.3)'}},
+
+              h('div', {style: {display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px'}},
+                h('div', {style: {width: '65px', height: '65px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '14px', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid rgba(252,211,77,0.2)'}},
+                  h('img', {src: logoUrl, style: {maxWidth: '50px', maxHeight: '50px', objectFit: 'contain'}})
+                ),
+                h('div', {style: {color: '#fcd34d', fontWeight: '800', fontSize: '0.85rem', textAlign: 'right', letterSpacing: '1px', lineHeight: '1.4', whiteSpace: 'pre-line'}}, 'OFFICIAL\nSTATEMENT')
+              ),
+
+              h('div', {style: {marginBottom: '40px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '30px'}},
+                h('p', {style: {color: '#ffffff', fontSize: '1.8rem', fontStyle: 'italic', fontWeight: '500', lineHeight: '1.5', margin: '0', fontFamily: 'Georgia, serif'}}, '"' + quote + '"')
+              ),
+
+              h('div', {style: {display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}},
+                h('div', null,
+                  h('h2', {style: {color: '#ffffff', fontSize: '1.6rem', fontWeight: '900', margin: '0 0 5px 0', textTransform: 'uppercase', letterSpacing: '-0.5px'}}, name),
+                  h('p', {style: {color: '#fcd34d', fontSize: '0.85rem', fontWeight: '800', margin: '0', textTransform: 'uppercase', letterSpacing: '1px'}}, role)
+                ),
+                h('div', {style: {color: '#94a3b8', fontSize: '1rem', fontWeight: '600'}}, date)
+              )
+            )
+          );
+        }
+      });
+
       CMS.registerPreviewTemplate("news", NewsPreview);
       CMS.registerPreviewTemplate("events", EventPreview);
-      // NOTE: Preview untuk 'voices' sengaja dimatikan agar CMS tidak crash saat membaca logo.
+      CMS.registerPreviewTemplate("voices", VoicePreview);
     </script>
   </body>
 </html>
