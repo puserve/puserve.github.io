@@ -43,7 +43,8 @@ collections:
     fields:
       - {label: "Nama Acara (English)", name: "title_en", widget: "string"}
       - {label: "Nama Acara (Indonesia)", name: "title_id", widget: "string"}
-      # UPDATE PENTING: time_format diubah jadi true biar Jam muncul di CMS!
+      - {label: "Deskripsi Singkat (WA Share - EN)", name: "desc_en", widget: "string", hint: "Teks ini muncul pas link dibagikan."}
+      - {label: "Deskripsi Singkat (WA Share - ID)", name: "desc_id", widget: "string", hint: "Teks ini muncul pas link dibagikan."}
       - {label: "Tanggal & Jam Acara", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm"}
       - {label: "Status", name: "status", widget: "select", options: ["Running", "Upcoming", "Archived"], default: "Upcoming"}
       - {label: "Jumlah Peserta", name: "attendees", widget: "string", default: "200+ Participants"}
