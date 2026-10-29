@@ -161,12 +161,14 @@
             <div class="voices-watermark">"</div>
             <div class="voices-top">
                 <div class="voices-logos">
-                    <img id="v-logo" src="logos/LOGO_PUSERVE.png" alt="Org Logo">
+                    <!-- TAMBAHAN EFEK TRANSISI BUAT LOGO -->
+                    <img id="v-logo" src="logos/LOGO_PUSERVE.png" alt="Org Logo" style="transition: opacity 0.5s ease;">
                 </div>
                 <div class="voices-badge" data-en="OFFICIAL<br>STATEMENT" data-id="PERNYATAAN<br>RESMI">OFFICIAL<br>STATEMENT</div>
             </div>
             
-            <div class="voices-dynamic-content" id="voices-dynamic-content">
+            <!-- TAMBAHAN EFEK TRANSISI BUAT KONTEN -->
+            <div class="voices-dynamic-content" id="voices-dynamic-content" style="transition: opacity 0.5s ease;">
                 <div class="voices-mid">
                     <p id="v-quote" data-en='"Your voice goes here..."' data-id='"Pesan Anda muncul di sini..."'>"Your voice goes here..."</p>
                 </div>
@@ -202,23 +204,50 @@
                     </div>
                 </a>`;
             };
-            // Load Voices of Impact
+            
+            // Load Voices of Impact - VERSI AUTO ROTATE 10 DETIK
             try {
                 const vRes = await fetch('api/voices.json');
                 const voices = await vRes.json();
                 
                 if (voices && voices.length > 0) {
-                    // Urutin dari yang terbaru
                     voices.sort((a, b) => new Date(b.date) - new Date(a.date));
-                    const v = voices[0]; // Ambil 1 kutipan paling baru
                     
-                    const quote = currentLang === 'EN' ? v.quote_en : v.quote_id;
-                    const role = currentLang === 'EN' ? v.role_en : v.role_id;
-                    
-                    document.getElementById('v-quote').innerText = `"${quote}"`;
-                    document.getElementById('v-name').innerText = v.name;
-                    document.getElementById('v-role').innerText = role;
-                    document.getElementById('v-date').innerText = formatDate(v.date);
+                    let currentIndex = 0;
+                    const dynamicContent = document.getElementById('voices-dynamic-content');
+                    const logoEl = document.getElementById('v-logo');
+
+                    const showVoice = (index) => {
+                        const v = voices[index]; 
+                        const quote = currentLang === 'EN' ? v.quote_en : v.quote_id;
+                        const role = currentLang === 'EN' ? v.role_en : v.role_id;
+                        const logoSrc = v.logo ? (v.logo.includes('/') ? v.logo : `uploads/${v.logo}`) : 'logos/LOGO_PUSERVE.png';
+                        
+                        document.getElementById('v-quote').innerText = `"${quote}"`;
+                        document.getElementById('v-name').innerText = v.name;
+                        document.getElementById('v-role').innerText = role;
+                        document.getElementById('v-date').innerText = formatDate(v.date);
+                        logoEl.src = logoSrc;
+                    };
+
+                    showVoice(currentIndex);
+
+                    if (voices.length > 1) {
+                        setInterval(() => {
+                            currentIndex = (currentIndex + 1) % voices.length;
+                            
+                            if (dynamicContent) dynamicContent.style.opacity = '0';
+                            if (logoEl) logoEl.style.opacity = '0';
+
+                            setTimeout(() => {
+                                showVoice(currentIndex);
+                                if (dynamicContent) dynamicContent.style.opacity = '1';
+                                if (logoEl) logoEl.style.opacity = '1';
+                            }, 500); 
+
+                        }, 10000); // SETTINGAN 10 DETIK ADA DI SINI
+                    }
+
                 } else {
                     document.getElementById('v-quote').innerText = currentLang === 'EN' ? '"Ready to make an impact."' : '"Siap membuat perubahan."';
                     document.getElementById('v-name').innerText = 'PUSERVE';
@@ -226,6 +255,7 @@
                 }
             } catch(e) { console.log("Voices error:", e); }
 
+            // Load Events
             try {
                 const res = await fetch('api/events.json');
                 const events = await res.json();
@@ -234,6 +264,7 @@
                 if(eGrid) eGrid.innerHTML = events.slice(0,2).map(fm => renderCard(fm, 'events')).join('') || `<div class="empty-state">No events yet.</div>`;
             } catch(e) { }
 
+            // Load News
             try {
                 const res = await fetch('api/news.json');
                 const news = await res.json();
