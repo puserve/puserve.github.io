@@ -202,6 +202,29 @@
                     </div>
                 </a>`;
             };
+            // Load Voices of Impact
+            try {
+                const vRes = await fetch('api/voices.json');
+                const voices = await vRes.json();
+                
+                if (voices && voices.length > 0) {
+                    // Urutin dari yang terbaru
+                    voices.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    const v = voices[0]; // Ambil 1 kutipan paling baru
+                    
+                    const quote = currentLang === 'EN' ? v.quote_en : v.quote_id;
+                    const role = currentLang === 'EN' ? v.role_en : v.role_id;
+                    
+                    document.getElementById('v-quote').innerText = `"${quote}"`;
+                    document.getElementById('v-name').innerText = v.name;
+                    document.getElementById('v-role').innerText = role;
+                    document.getElementById('v-date').innerText = formatDate(v.date);
+                } else {
+                    document.getElementById('v-quote').innerText = currentLang === 'EN' ? '"Ready to make an impact."' : '"Siap membuat perubahan."';
+                    document.getElementById('v-name').innerText = 'PUSERVE';
+                    document.getElementById('v-role').innerText = '-';
+                }
+            } catch(e) { console.log("Voices error:", e); }
 
             try {
                 const res = await fetch('api/events.json');
