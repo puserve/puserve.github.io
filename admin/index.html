@@ -63,53 +63,9 @@
         }
       });
 
-      // --- TEMPLATE VOICES OF IMPACT (FIX LOGO) ---
-      var VoicePreview = createClass({
-        render: function() {
-          var entry = this.props.entry;
-          var name = entry.getIn(['data', 'title']) || 'NAMA TOKOH';
-          var role = entry.getIn(['data', 'role_en']) || 'Jabatan / Peran';
-          var quote = entry.getIn(['data', 'quote_en']) || 'Kutipan akan muncul di sini...';
-          var date = entry.getIn(['data', 'date']) || 'Oct 29, 2026';
-          
-          // INI DIA KUNCINYA: NGEBACA DATA 'LOGO' DARI CMS
-          var logo = entry.getIn(['data', 'logo']); 
-          
-          // LOGIKA: KALAU ADA LOGO, PAKE ITU. KALAU KOSONG, PAKE LOGO PUSERVE!
-          var logoUrl = logo ? this.props.getAsset(logo).toString() : '../logos/LOGO_PUSERVE.png';
-
-          return h('div', {style: {padding: '40px 20px', backgroundColor: '#e2e8f0', minHeight: '100vh', fontFamily: 'Manrope, sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center'}},
-            h('div', {style: {width: '100%', maxWidth: '850px', backgroundColor: '#071a10', borderRadius: '16px', border: '1px solid rgba(252,211,77,0.3)', padding: '50px', position: 'relative', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.3)'}},
-              
-              // Top Row: Logo & Badge
-              h('div', {style: {display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px'}},
-                h('div', {style: {width: '65px', height: '65px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '14px', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid rgba(252,211,77,0.2)'}},
-                  h('img', {src: logoUrl, style: {maxWidth: '50px', maxHeight: '50px', objectFit: 'contain'}})
-                ),
-                h('div', {style: {color: '#fcd34d', fontWeight: '800', fontSize: '0.85rem', textAlign: 'right', letterSpacing: '1px', lineHeight: '1.4'}}, 'OFFICIAL\nSTATEMENT')
-              ),
-
-              // Quote
-              h('div', {style: {marginBottom: '40px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '30px'}},
-                h('p', {style: {color: '#ffffff', fontSize: '1.8rem', fontStyle: 'italic', fontWeight: '500', lineHeight: '1.5', margin: '0', fontFamily: 'Georgia, serif'}}, '"' + quote + '"')
-              ),
-
-              // Bottom Row: Name, Role, Date
-              h('div', {style: {display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}},
-                h('div', null,
-                  h('h2', {style: {color: '#ffffff', fontSize: '1.6rem', fontWeight: '900', margin: '0 0 5px 0', textTransform: 'uppercase', letterSpacing: '-0.5px'}}, name),
-                  h('p', {style: {color: '#fcd34d', fontSize: '0.85rem', fontWeight: '800', margin: '0', textTransform: 'uppercase', letterSpacing: '1px'}}, role)
-                ),
-                h('div', {style: {color: '#94a3b8', fontSize: '1rem', fontWeight: '600'}}, date)
-              )
-            )
-          );
-        }
-      });
-
       CMS.registerPreviewTemplate("news", NewsPreview);
       CMS.registerPreviewTemplate("events", EventPreview);
-      CMS.registerPreviewTemplate("voices", VoicePreview);
+      // NOTE: Preview untuk 'voices' sengaja dimatikan agar CMS tidak crash saat membaca logo.
     </script>
   </body>
 </html>
