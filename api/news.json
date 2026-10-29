@@ -2,17 +2,19 @@
 layout: null
 ---
 [
-  {% for news in site.news %}
-  {
-    "title_en": {{ news.title_en | jsonify }},
-    "title_id": {{ news.title_id | jsonify }},
-    "date": "{{ news.date | date: '%Y-%m-%d' }}",
-    "thumbnail": {{ news.thumbnail | jsonify }},
-    "status": {{ news.status | jsonify }},
-    "author": {{ news.author | jsonify }},
-    "quote_en": {{ news.quote_en | jsonify }},
-    "quote_id": {{ news.quote_id | jsonify }},
-    "fileName": {{ news.path | split: '/' | last | jsonify }}
-  }{% unless forloop.last %},{% endunless %}
+  {% assign first = true %}
+  {% for fm in site.news %}
+    {% if fm.title and fm.published != false %}
+      {% if first %}{% assign first = false %}{% else %},{% endif %}
+      {
+        "title": {{ fm.title | jsonify }},
+        "title_en": {{ fm.title_en | default: fm.title | jsonify }},
+        "title_id": {{ fm.title_id | default: fm.title | jsonify }},
+        "date": "{{ fm.date | date: '%Y-%m-%d' }}",
+        "thumbnail": {{ fm.thumbnail | jsonify }},
+        "status": {{ fm.status | jsonify }},
+        "fileName": {{ fm.path | split: '/' | last | jsonify }}
+      }
+    {% endif %}
   {% endfor %}
 ]
