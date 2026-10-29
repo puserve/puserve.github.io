@@ -3,12 +3,113 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex" />
     <title>PUSERVE | Admin Dashboard</title>
-    <link rel="icon" type="image/png" href="../logos/LOGO_PUSERVE.png" />
-    <link href="./config.yml" type="text/yaml" rel="cms-config-url" />
+    <link rel="icon" type="image/png" href="../logos/LOGO_PUSERVE.png">
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+    <script>
+      CMS.registerPreviewStyle("../style.css");
+
+      // --- TEMPLATE NEWS ---
+      var NewsPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var title = entry.getIn(['data', 'title_en']) || entry.getIn(['data', 'title_id']) || 'Ketik Judul Berita...';
+          var date = entry.getIn(['data', 'date']) || 'Tanggal Terbit';
+          var rawAuthor = entry.getIn(['data', 'author']) || 'PUSERVE Editorial Board';
+          var displayAuthor = rawAuthor === 'PUSERVE Editorial Board' ? 'PUSERVE Editorial Board' : 'PUSERVE Editorial Board | ' + rawAuthor;
+          var quote = entry.getIn(['data', 'quote_en']) || entry.getIn(['data', 'quote_id']); 
+          var image = entry.getIn(['data', 'thumbnail']);
+          
+          var htmlBody = "";
+          try { var rawBody = entry.getIn(['data', 'body']) || ''; htmlBody = marked.parse(rawBody.split('===ID===')[0].trim()); } catch (e) { htmlBody = "<p>Loading text...</p>"; }
+
+          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
+          var quoteHtml = quote ? h('div', {style: {background: '#f8fafc', borderLeft: '4px solid #fcd34d', padding: '25px', borderRadius: '12px', marginTop: '30px'}}, h('div', {style: {color: '#fcd34d', fontWeight: '800', fontSize: '0.85rem', marginBottom: '10px'}}, 'KEY QUOTE'), h('p', {style: {fontStyle: 'italic', fontSize: '1.1rem', fontWeight: '600', margin: '0'}}, '"' + quote + '"')) : '';
+
+          return h('div', {style: {padding: '40px 20px', backgroundColor: '#ffffff', color: '#1e293b', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
+            h('h1', {style: {fontSize: '2.5rem', color: '#0a3622', fontWeight: '900', marginBottom: '20px'}}, title),
+            h('div', {style: {display: 'flex', gap: '20px', color: '#64748b', fontSize: '0.85rem', fontWeight: '600', marginBottom: '40px'}}, h('span', null, '📅 ' + date), h('span', null, '👤 ' + displayAuthor)),
+            imgHtml, h('div', {dangerouslySetInnerHTML: {__html: htmlBody}}), quoteHtml
+          );
+        }
+      });
+
+      // --- TEMPLATE EVENTS ---
+      var EventPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var title = entry.getIn(['data', 'title_en']) || entry.getIn(['data', 'title_id']) || 'Ketik Nama Acara...';
+          var date = entry.getIn(['data', 'date']) || 'Tanggal Acara';
+          var status = entry.getIn(['data', 'status']) || 'Program';
+          var outcome = entry.getIn(['data', 'outcome_en']) || entry.getIn(['data', 'outcome_id']); 
+          var image = entry.getIn(['data', 'thumbnail']);
+          
+          var htmlBody = "";
+          try { var rawBody = entry.getIn(['data', 'body']) || ''; htmlBody = marked.parse(rawBody.split('===ID===')[0].trim()); } catch (e) { htmlBody = "<p>Loading text...</p>"; }
+
+          var imgHtml = image ? h('img', {src: this.props.getAsset(image).toString(), style: {width: '100%', borderRadius: '16px', marginBottom: '30px', objectFit: 'cover'}}) : '';
+          var outcomeHtml = outcome ? h('div', {style: {background: 'rgba(10,54,34,0.05)', border: '1px solid rgba(10,54,34,0.1)', padding: '20px', borderRadius: '12px', marginTop: '30px'}}, h('div', {style: {color: '#16a34a', fontWeight: '800', fontSize: '0.85rem', marginBottom: '10px'}}, 'PROGRAM OUTCOME'), h('p', {style: {fontSize: '1rem', fontWeight: '600', color: '#0a3622', margin: '0'}}, outcome)) : '';
+
+          return h('div', {style: {padding: '40px 20px', backgroundColor: '#ffffff', color: '#1e293b', minHeight: '100vh', maxWidth: '800px', margin: '0 auto', fontFamily: 'Manrope, sans-serif'}},
+            h('span', {style: {background: '#fcd34d', color: '#0a3622', padding: '6px 15px', borderRadius: '20px', fontWeight: '800', fontSize: '0.85rem'}}, status),
+            h('h1', {style: {fontSize: '2.5rem', color: '#0a3622', fontWeight: '900', marginTop: '20px', marginBottom: '20px'}}, title),
+            h('div', {style: {display: 'flex', gap: '20px', color: '#64748b', fontSize: '0.85rem', fontWeight: '600', marginBottom: '40px'}}, h('span', null, '📅 ' + date)),
+            imgHtml, h('div', {dangerouslySetInnerHTML: {__html: htmlBody}}), outcomeHtml
+          );
+        }
+      });
+
+      // --- TEMPLATE VOICES OF IMPACT (FIX LOGO) ---
+      var VoicePreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var name = entry.getIn(['data', 'title']) || 'NAMA TOKOH';
+          var role = entry.getIn(['data', 'role_en']) || 'Jabatan / Peran';
+          var quote = entry.getIn(['data', 'quote_en']) || 'Kutipan akan muncul di sini...';
+          var date = entry.getIn(['data', 'date']) || 'Oct 29, 2026';
+          
+          // INI DIA KUNCINYA: NGEBACA DATA 'LOGO' DARI CMS
+          var logo = entry.getIn(['data', 'logo']); 
+          
+          // LOGIKA: KALAU ADA LOGO, PAKE ITU. KALAU KOSONG, PAKE LOGO PUSERVE!
+          var logoUrl = logo ? this.props.getAsset(logo).toString() : '../logos/LOGO_PUSERVE.png';
+
+          return h('div', {style: {padding: '40px 20px', backgroundColor: '#e2e8f0', minHeight: '100vh', fontFamily: 'Manrope, sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center'}},
+            h('div', {style: {width: '100%', maxWidth: '850px', backgroundColor: '#071a10', borderRadius: '16px', border: '1px solid rgba(252,211,77,0.3)', padding: '50px', position: 'relative', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.3)'}},
+              
+              // Top Row: Logo & Badge
+              h('div', {style: {display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '30px'}},
+                h('div', {style: {width: '65px', height: '65px', backgroundColor: 'rgba(255,255,255,0.05)', borderRadius: '14px', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid rgba(252,211,77,0.2)'}},
+                  h('img', {src: logoUrl, style: {maxWidth: '50px', maxHeight: '50px', objectFit: 'contain'}})
+                ),
+                h('div', {style: {color: '#fcd34d', fontWeight: '800', fontSize: '0.85rem', textAlign: 'right', letterSpacing: '1px', lineHeight: '1.4'}}, 'OFFICIAL\nSTATEMENT')
+              ),
+
+              // Quote
+              h('div', {style: {marginBottom: '40px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '30px'}},
+                h('p', {style: {color: '#ffffff', fontSize: '1.8rem', fontStyle: 'italic', fontWeight: '500', lineHeight: '1.5', margin: '0', fontFamily: 'Georgia, serif'}}, '"' + quote + '"')
+              ),
+
+              // Bottom Row: Name, Role, Date
+              h('div', {style: {display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}},
+                h('div', null,
+                  h('h2', {style: {color: '#ffffff', fontSize: '1.6rem', fontWeight: '900', margin: '0 0 5px 0', textTransform: 'uppercase', letterSpacing: '-0.5px'}}, name),
+                  h('p', {style: {color: '#fcd34d', fontSize: '0.85rem', fontWeight: '800', margin: '0', textTransform: 'uppercase', letterSpacing: '1px'}}, role)
+                ),
+                h('div', {style: {color: '#94a3b8', fontSize: '1rem', fontWeight: '600'}}, date)
+              )
+            )
+          );
+        }
+      });
+
+      CMS.registerPreviewTemplate("news", NewsPreview);
+      CMS.registerPreviewTemplate("events", EventPreview);
+      CMS.registerPreviewTemplate("voices", VoicePreview);
+    </script>
   </body>
 </html>
