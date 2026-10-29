@@ -125,7 +125,6 @@
             const emptyMsg = currentLang === 'EN' ? 'No documents available.' : 'Belum ada dokumen yang tersedia.';
 
             try {
-                // NARIK DARI JSON SENDIRI, KITA BEBAS LIMIT!
                 const res = await fetch(`api/repository.json`);
                 if (!res.ok) throw new Error("Gagal Load JSON");
                 const files = await res.json();
@@ -170,10 +169,13 @@
                 const title = lang === 'EN' ? (fm.title_en || fm.title_id) : (fm.title_id || fm.title_en);
                 const safeCatId = (fm.category || '').toLowerCase().replace(/[^a-z0-9]/g, '-');
                 
+                // MENGATASI MASALAH ALAMAT FILE YANG BENER
                 let fileUrl = '#';
                 if(fm.file_url) {
-                    fileUrl = fm.file_url.startsWith('/') ? fm.file_url.slice(1) : fm.file_url;
-                    if(!fileUrl.includes('uploads/')) fileUrl = `uploads/${fileUrl}`;
+                    // Kalau alamat filenya pake spasi, wajib encodeURI biar nggak error di browser
+                    let rawUrl = fm.file_url.startsWith('/') ? fm.file_url.slice(1) : fm.file_url;
+                    if(!rawUrl.includes('uploads/')) rawUrl = `uploads/${rawUrl}`;
+                    fileUrl = encodeURI(rawUrl); // <--- INI OBAT MUJARABNYA!
                 }
 
                 const dlClick = fileUrl === '#' ? `onclick="showToast('${lang === 'EN' ? 'File not available for download.' : 'File belum tersedia untuk diunduh.'}'); return false;"` : `target="_blank"`;
@@ -241,8 +243,10 @@
 
             let fileUrl = '#';
             if(fm.file_url) {
-                fileUrl = fm.file_url.startsWith('/') ? fm.file_url.slice(1) : fm.file_url;
-                if(!fileUrl.includes('uploads/')) fileUrl = `uploads/${fileUrl}`;
+                // SAMA KAYAK YANG DI ATAS, WAJIB ENCODE URI!
+                let rawUrl = fm.file_url.startsWith('/') ? fm.file_url.slice(1) : fm.file_url;
+                if(!rawUrl.includes('uploads/')) rawUrl = `uploads/${rawUrl}`;
+                fileUrl = encodeURI(rawUrl); 
             }
 
             const fmt = (fm.format || '').toUpperCase();
