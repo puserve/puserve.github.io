@@ -1,0 +1,17 @@
+---
+layout: null
+---
+[
+  {% for voice in site.voices %}
+    {% if voice.title %}
+    {
+      "name": {{ voice.title | jsonify }},
+      "role_en": {{ voice.role_en | jsonify }},
+      "role_id": {{ voice.role_id | jsonify }},
+      "quote_en": {{ voice.quote_en | jsonify }},
+      "quote_id": {{ voice.quote_id | jsonify }},
+      "date": "{{ voice.date | date: '%Y-%m-%d' }}"
+    }{% unless forloop.last %},{% endunless %}
+    {% endif %}
+  {% endfor %}
+]
