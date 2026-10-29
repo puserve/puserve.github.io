@@ -2,16 +2,18 @@
 layout: null
 ---
 [
-  {% for repo in site.repository %}
-  {
-    "title_en": {{ repo.title_en | jsonify }},
-    "title_id": {{ repo.title_id | jsonify }},
-    "date": "{{ repo.date | date: '%Y-%m-%d' }}",
-    "category": {{ repo.category | jsonify }},
-    "format": {{ repo.format | jsonify }},
-    "size": {{ repo.size | jsonify }},
-    "file_url": {{ repo.file_url | jsonify }},
-    "hasContent": {% if repo.content.size > 5 %}true{% else %}false{% endif %}
-  }{% unless forloop.last %},{% endunless %}
+  {% for doc in site.repository %}
+    {% if doc.title_en and doc.title_en != "" and doc.published != false %}
+    {
+      "title_en": {{ doc.title_en | jsonify }},
+      "title_id": {{ doc.title_id | jsonify }},
+      "date": "{{ doc.date | date: '%Y-%m-%d' }}",
+      "category": {{ doc.category | jsonify }},
+      "format": {{ doc.format | jsonify }},
+      "size": {{ doc.size | jsonify }},
+      "file_url": {{ doc.file_url | jsonify }},
+      "fileName": {{ doc.path | split: '/' | last | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endif %}
   {% endfor %}
 ]
