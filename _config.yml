@@ -1,10 +1,11 @@
-# INI OTAK UTAMA JEKYLL BIAR DIA BACA FOLDER-FOLDER KITA
 collections:
   news:
     output: true
   events:
     output: true
-  repository:
-    output: true
   team:
     output: true
+  repository:
+    output: true
+  voices:
+    output: false # False karena kita cuma butuh datanya buat di halaman depan, bukan dibikin halaman baru
