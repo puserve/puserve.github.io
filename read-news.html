@@ -8,11 +8,9 @@
     <title>Outlook Article | PUSERVE</title>
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     
-    <!-- TEMPAT BUAT INJECT METADATA WA SHARE (Kunci Thumbnail WA!) -->
-    <!-- JUDUL OTOMATIS SELALU 'PUSERVE Outlook' -->
+    <!-- METADATA WA SHARE -->
     <meta property="og:title" content="PUSERVE Outlook"> 
     <meta id="og-desc" property="og:description" content="Latest Environmental News, Opinions, and Analysis.">
-    <!-- Gambar Thumbnail diset kosong dulu, bakal diisi JS nanti -->
     <meta id="og-image" property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
     <meta property="og:type" content="article">
 
@@ -21,61 +19,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
     
     <style>
-        /* Gaya Khusus ala AP News (Author Section) */
-        .ap-author-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-            padding: 15px 0;
-            border-top: 1px solid rgba(0,0,0,0.1);
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        }
+        .ap-author-section { display: flex; align-items: center; gap: 15px; margin-top: 30px; margin-bottom: 30px; padding: 15px 0; border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
         body.eco-mode .ap-author-section { border-color: rgba(255,255,255,0.1); }
-        
-        .ap-author-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--puserve-yellow);
-            background: #eee;
-        }
-        
-        .ap-author-info {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-        
-        .ap-author-name {
-            font-weight: 800;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-color);
-        }
-        
-        .ap-author-name a {
-            color: var(--text-color);
-            text-decoration: underline;
-            text-decoration-thickness: 2px;
-            text-underline-offset: 2px;
-            transition: 0.2s ease;
-        }
-        
-        .ap-author-name a:hover {
-            color: var(--primary-green);
-        }
+        .ap-author-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--puserve-yellow); background: #eee; }
+        .ap-author-info { display: flex; flex-direction: column; gap: 3px; }
+        .ap-author-name { font-weight: 800; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-color); }
+        .ap-author-name a { color: var(--text-color); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px; transition: 0.2s ease; }
+        .ap-author-name a:hover { color: var(--primary-green); }
         body.eco-mode .ap-author-name a:hover { color: var(--puserve-yellow); }
-        
-        .ap-author-time {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
+        .ap-author-time { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
     </style>
 </head>
 <body>
@@ -98,8 +50,17 @@
         let currentFm = null;
         let currentBodyEN = "";
         let currentBodyID = "";
+        let teamDataList = [];
 
-        // Fungsi khusus ngerakit tanggal format AP News: "Updated 11:29 PM GMT+7, October 29, 2026"
+        // Database Nama Singkat vs Nama Panjang (Target Scroll)
+        const authorMappings = {
+            "Muh. Ahsan I.S. Zulni": "Muh. Ahsan Ilham Safatullah Zulni",
+            "Aurelia C.P. Kaparang": "Aurelia Cecillia Patricia Kaparang",
+            "Beatrix K.P. Madeline": "Beatrix Kezhia Pasya Putri Madeline",
+            "Muhammad H.F. Adzhim": "Muhammad Habib Fauzan Adzhim",
+            "Noel Jacob Ottley": "Noel Jacob Ottley" // Pas-in kalau ada nama lu
+        };
+
         function formatAPTime(dateStr, lang) {
             try { 
                 const d = new Date(dateStr); 
@@ -115,14 +76,6 @@
             return dateStr;
         }
 
-        // Mapping foto author (Bisa ditambahin kalau ada admin lain)
-        const authorPhotos = {
-            "Noel Jacob Ottley": "https://puserve.github.io/uploads/DSC_5757.JPG", // Asumsi lu pake foto profile ini
-            "PUSERVE Editorial Board": "https://puserve.github.io/logos/LOGO_PUSERVE.png",
-            // Tambahin author lain di sini kalau perlu:
-            // "Muh. Ahsan I.S. Zulni": "https://puserve.github.io/uploads/foto-ahsan.jpg",
-        };
-
         function renderArticle() {
             if (!currentFm) return;
             const lang = localStorage.getItem('puserve_lang') || 'EN';
@@ -134,27 +87,29 @@
             const wordCount = bodyHTML.replace(/<[^>]*>?/gm, '').split(/\s+/).length;
             const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
-            // Format tanggal jadi ala AP News
             const apTimeStr = formatAPTime(currentFm.date, lang);
 
-            // LOGIKA GAMBAR & META THUMBNAIL
             const img1 = currentFm.thumbnail ? (currentFm.thumbnail.includes('/') ? currentFm.thumbnail : `uploads/${currentFm.thumbnail}`) : '';
             
-            // Meta Description (yang muncul di WA bareng judul "PUSERVE Outlook")
+            // META THUMBNAIL (Buat WA)
             const desc = lang === 'EN' ? (currentFm.desc_en || title) : (currentFm.desc_id || title);
             document.title = `${title} | PUSERVE Outlook`;
             document.getElementById('og-desc').setAttribute('content', desc);
-            // Kalau ada thumbnail artikel, paksa WA nampilin thumbnail itu, bukan logo puserve!
             if (img1) {
                 const fullImgUrl = `https://puserve.github.io/${img1.startsWith('/') ? img1.slice(1) : img1}`;
                 document.getElementById('og-image').setAttribute('content', fullImgUrl);
             }
 
-            // LOGIKA PENULIS (AP NEWS STYLE)
+            // LOGIKA NAMA PENULIS & TARIK FOTO PROFIL
             let rawAuthor = currentFm.author || 'PUSERVE Editorial Board';
+            let targetFullName = authorMappings[rawAuthor] || rawAuthor; // Nyari nama aslinya
             
-            // Ambil foto author, kalau nggak ada pakai logo puserve
-            let authorImg = authorPhotos[rawAuthor] || "https://puserve.github.io/logos/LOGO_PUSERVE.png";
+            // Nyari foto di data CMS Team
+            let authorImg = "logos/LOGO_PUSERVE.png";
+            let teamMatch = teamDataList.find(t => t.name && t.name.toLowerCase() === targetFullName.toLowerCase());
+            if (teamMatch && teamMatch.thumbnail) {
+                authorImg = teamMatch.thumbnail.includes('/') ? teamMatch.thumbnail : `uploads/${teamMatch.thumbnail}`;
+            }
             
             let authorBlock = '';
             if (rawAuthor === 'PUSERVE Editorial Board') {
@@ -163,7 +118,7 @@
             } else {
                 const byText = lang === 'ID' ? 'OLEH' : 'BY';
                 const editorialText = lang === 'ID' ? 'DEWAN REDAKSI PUSERVE | ' : 'PUSERVE EDITORIAL BOARD | ';
-                let safeNameUrl = encodeURIComponent(rawAuthor);
+                let safeNameUrl = encodeURIComponent(targetFullName); // Linknya nembak nama aslinya!
                 authorBlock = `
                     <span class="ap-author-name">
                         ${byText} ${editorialText} <a href="team.html?scrollto=${safeNameUrl}">${rawAuthor.toUpperCase()}</a>
@@ -190,9 +145,7 @@
 
             if(img1) html += `<img src="${img1}" class="hero-img" alt="Thumbnail" onerror="this.style.display='none'">`;
             
-            // Masukin section author ala AP News tepat di bawah gambar (atau judul kalau gak ada gambar)
             html += apAuthorSection;
-            
             html += `<div class="pr-body">${bodyHTML}</div>`;
             
             const quoteText = lang === 'EN' ? (currentFm.quote_en || currentFm.quote) : (currentFm.quote_id || currentFm.quote);
@@ -219,13 +172,17 @@
             const fileName = params.get('file');
             
             const forcedLang = params.get('lang');
-            if(forcedLang) {
-                localStorage.setItem('puserve_lang', forcedLang.toUpperCase());
-            }
+            if(forcedLang) { localStorage.setItem('puserve_lang', forcedLang.toUpperCase()); }
 
             let currentLang = localStorage.getItem('puserve_lang') || 'EN';
             const contentDiv = document.getElementById('pr-content');
             if (!fileName) { contentDiv.innerHTML = `<h2 style='color:var(--puserve-yellow); text-align:center;'>${currentLang==='EN'?'Error: Document not found.':'Dokumen tidak ditemukan.'}</h2>`; return; }
+
+            // TARIK DATA TIM DULU BIAR DAPET FOTONYA!
+            try {
+                const teamRes = await fetch('api/team.json');
+                if(teamRes.ok) teamDataList = await teamRes.json();
+            } catch(e) {}
 
             try {
                 const response = await fetch(`https://raw.githubusercontent.com/puserve/puserve.github.io/main/_news/${fileName}`);
