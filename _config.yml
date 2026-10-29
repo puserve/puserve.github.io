@@ -8,4 +8,4 @@ collections:
   repository:
     output: true
   voices:
-    output: false # False karena kita cuma butuh datanya buat di halaman depan, bukan dibikin halaman baru
+    output: false
