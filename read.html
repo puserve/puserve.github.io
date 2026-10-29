@@ -8,8 +8,9 @@
     <title>Event Details | PUSERVE</title>
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     
+    <!-- METADATA WA SHARE (DIBIKIN KOSONG DULU BIAR JS YANG NGISI OTOMATIS) -->
     <meta property="og:title" content="PUSERVE Events"> 
-    <meta id="og-desc" property="og:description" content="Discover our latest environmental actions.">
+    <meta id="og-desc" property="og:description" content="Loading Document...">
     <meta id="og-image" property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
     <meta property="og:type" content="article">
 
@@ -59,7 +60,7 @@
             const tagText = lang==='EN'?"OFFICIAL EVENTS & PROGRAMS REPORT":"LAPORAN ACARA & PROGRAM RESMI";
             const metaIcon = `<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> ${currentFm.attendees || '-'}</span>`;
 
-            // META WA
+            // LOGIKA META WHATSAPP TERBARU (ANTI PUSERVE LOGO)
             const desc = lang === 'EN' ? (currentFm.desc_en || currentFm.outcome_en || title) : (currentFm.desc_id || currentFm.outcome_id || title);
             document.title = `${title} | PUSERVE Events`;
             document.getElementById('og-desc').setAttribute('content', desc);
@@ -89,9 +90,9 @@
                 html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">${lang==='EN' ? 'OUTCOME' : 'HASIL'}</div><div class="outcome-text">"${outcome}"</div></div>`;
             }
 
-            // WhatsApp Tɛks Ak (Pre-fill text in chat)
             const shareText = lang === 'EN' ? 'Share this article:' : 'Bagikan artikel ini:';
             const readMore = lang === 'EN' ? 'Read more at:' : 'Baca selengkapnya di:';
+            // WA Text (Pre-filled chat) dengan Deskripsi Khusus Sveltia!
             const waText = encodeURIComponent(`*${title}*\n${desc}\n\n${readMore}\n${window.location.href.split('&lang=')[0]}&lang=${lang}`);
             
             html += `
