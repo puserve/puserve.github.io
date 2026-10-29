@@ -6,23 +6,15 @@
     <meta name="robots" content="noindex" />
     <title>PUSERVE | Admin Dashboard</title>
     <link rel="icon" type="image/png" href="../logos/LOGO_PUSERVE.png">
-
-    <!--
-      JANGAN PERNAH load ../style.css di sini.
-      CSS situs akan nimpa tampilan dashboard Sveltia (daftar collection melayang di tengah,
-      latar blur, layout hancur). Style situs cukup lewat CMS.registerPreviewStyle() di bawah,
-      karena itu hanya dipasang di panel preview.
-    -->
-
+    <!-- JANGAN PERNAH load ../style.css di sini biar CMS ga hancur -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
     <script>
-      CMS.registerPreviewStyle("/style.css");
+      CMS.registerPreviewStyle("../style.css");
 
       // --- HELPER ---
-      // Ambil teks Inggris (sebelum ===ID===). Toleran kalau ===ID=== ke-bold (**===ID===**)
       function getEnglishBody(entry) {
         try {
           var rawBody = String(entry.getIn(['data', 'body']) || '');
@@ -32,7 +24,6 @@
         }
       }
 
-      // Tanggal selalu jadi string (objek Date bikin React error)
       function formatDate(value, fallback) {
         if (!value) return fallback;
         try {
@@ -88,7 +79,7 @@
         }
       });
 
-      // --- TEMPLATE VOICES OF IMPACT ---
+      // --- TEMPLATE VOICES OF IMPACT (FIX ANTI-CRASH LOGO) ---
       var VoicePreview = createClass({
         render: function() {
           var entry = this.props.entry;
@@ -97,9 +88,18 @@
           var quote = entry.getIn(['data', 'quote_en']) || 'Kutipan akan muncul di sini...';
           var date = formatDate(entry.getIn(['data', 'date']), 'Oct 29, 2026');
 
-          // Kalau ada logo instansi pakai itu, kalau kosong pakai logo PUSERVE
+          // LOGIKA LOGO ANTI-CRASH
           var logo = entry.getIn(['data', 'logo']);
-          var logoUrl = logo ? this.props.getAsset(logo).toString() : '/logos/LOGO_PUSERVE.png';
+          var logoUrl = '../logos/LOGO_PUSERVE.png'; // Default
+          
+          try {
+              if (logo) {
+                  var asset = this.props.getAsset(logo);
+                  if (asset) logoUrl = asset.toString();
+              }
+          } catch (e) {
+              console.warn("Logo gagal dimuat, fallback ke default");
+          }
 
           return h('div', {style: {padding: '40px 20px', backgroundColor: '#e2e8f0', minHeight: '100vh', fontFamily: 'Manrope, sans-serif', display: 'flex', alignItems: 'center', justifyContent: 'center'}},
             h('div', {style: {width: '100%', maxWidth: '850px', backgroundColor: '#071a10', borderRadius: '16px', border: '1px solid rgba(252,211,77,0.3)', padding: '50px', position: 'relative', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.3)'}},
