@@ -2,16 +2,19 @@
 layout: null
 ---
 [
-  {% for event in site.events %}
-  {
-    "title_en": {{ event.title_en | jsonify }},
-    "title_id": {{ event.title_id | jsonify }},
-    "date": "{{ event.date | date: '%Y-%m-%d' }}",
-    "thumbnail": {{ event.thumbnail | jsonify }},
-    "status": {{ event.status | jsonify }},
-    "outcome_en": {{ event.outcome_en | jsonify }},
-    "outcome_id": {{ event.outcome_id | jsonify }},
-    "fileName": {{ event.path | split: '/' | last | jsonify }}
-  }{% unless forloop.last %},{% endunless %}
+  {% assign first = true %}
+  {% for fm in site.events %}
+    {% if fm.title and fm.published != false %}
+      {% if first %}{% assign first = false %}{% else %},{% endif %}
+      {
+        "title": {{ fm.title | jsonify }},
+        "title_en": {{ fm.title_en | default: fm.title | jsonify }},
+        "title_id": {{ fm.title_id | default: fm.title | jsonify }},
+        "date": "{{ fm.date | date: '%Y-%m-%d' }}",
+        "thumbnail": {{ fm.thumbnail | jsonify }},
+        "status": {{ fm.status | jsonify }},
+        "fileName": {{ fm.path | split: '/' | last | jsonify }}
+      }
+    {% endif %}
   {% endfor %}
 ]
