@@ -112,9 +112,11 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{slug}}"
     fields:
-      - {label: "Nama Tokoh", name: "title", widget: "string", hint: "Contoh: Edeline Stefanie Baskoro"}
-      - {label: "Jabatan (English)", name: "role_en", widget: "string", hint: "Contoh: Chairperson of PUSERVE"}
-      - {label: "Jabatan (Indonesia)", name: "role_id", widget: "string", hint: "Contoh: Ketua PUSERVE"}
+      - {label: "Nama Tokoh", name: "title", widget: "string", hint: "Contoh: Noel Jacob Ottley"}
+      - {label: "Jabatan (English)", name: "role_en", widget: "string", hint: "Contoh: Vice Chairperson II (External) of PUSERVE"}
+      - {label: "Jabatan (Indonesia)", name: "role_id", widget: "string", hint: "Contoh: Wakil Ketua II (Eksternal) PUSERVE"}
+      # INI KOTAK UPLOAD LOGO INSTANSI
+      - {label: "Logo Instansi (Opsional)", name: "logo", widget: "image", required: false, hint: "Upload logo KEMLU, partner, dll. Kosongkan jika ingin otomatis pakai logo PUSERVE."}
       - {label: "Kutipan (English)", name: "quote_en", widget: "text"}
       - {label: "Kutipan (Indonesia)", name: "quote_id", widget: "text"}
       - {label: "Tanggal Dibuat", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
