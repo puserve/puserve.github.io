@@ -9,3 +9,5 @@ collections:
     output: true
   voices:
     output: false
+timezone: "Asia/Jakarta"
+future: false
