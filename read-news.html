@@ -8,19 +8,78 @@
     <title>Outlook Article | PUSERVE</title>
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     
-    <!-- TEMPAT BUAT INJECT METADATA WA SHARE -->
-    <meta id="og-title" property="og:title" content="PUSERVE Outlook">
+    <!-- TEMPAT BUAT INJECT METADATA WA SHARE (Kunci Thumbnail WA!) -->
+    <!-- JUDUL OTOMATIS SELALU 'PUSERVE Outlook' -->
+    <meta property="og:title" content="PUSERVE Outlook"> 
     <meta id="og-desc" property="og:description" content="Latest Environmental News, Opinions, and Analysis.">
+    <!-- Gambar Thumbnail diset kosong dulu, bakal diisi JS nanti -->
     <meta id="og-image" property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
     <meta property="og:type" content="article">
 
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    
+    <style>
+        /* Gaya Khusus ala AP News (Author Section) */
+        .ap-author-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding: 15px 0;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        body.eco-mode .ap-author-section { border-color: rgba(255,255,255,0.1); }
+        
+        .ap-author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--puserve-yellow);
+            background: #eee;
+        }
+        
+        .ap-author-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        
+        .ap-author-name {
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-color);
+        }
+        
+        .ap-author-name a {
+            color: var(--text-color);
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 2px;
+            transition: 0.2s ease;
+        }
+        
+        .ap-author-name a:hover {
+            color: var(--primary-green);
+        }
+        body.eco-mode .ap-author-name a:hover { color: var(--puserve-yellow); }
+        
+        .ap-author-time {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- MANGGIL NAVBAR OTOMATIS -->
     {% include navbar.html %}
     <div id="reading-progress"></div>
 
@@ -31,7 +90,6 @@
         </div>
     </main>
 
-    <!-- MANGGIL FOOTER OTOMATIS -->
     {% include footer.html %}
 
     <script>
@@ -41,11 +99,34 @@
         let currentBodyEN = "";
         let currentBodyID = "";
 
+        // Fungsi khusus ngerakit tanggal format AP News: "Updated 11:29 PM GMT+7, October 29, 2026"
+        function formatAPTime(dateStr, lang) {
+            try { 
+                const d = new Date(dateStr); 
+                if(!isNaN(d)) {
+                    const timeOpts = { hour: 'numeric', minute: '2-digit', hour12: true };
+                    const dateOpts = { month: 'long', day: 'numeric', year: 'numeric' };
+                    const timePart = d.toLocaleTimeString('en-US', timeOpts);
+                    const datePart = d.toLocaleDateString(lang === 'EN' ? 'en-US' : 'id-ID', dateOpts);
+                    const prefix = lang === 'EN' ? 'Updated' : 'Diperbarui';
+                    return `${prefix} ${timePart} GMT+7, ${datePart}`;
+                }
+            } catch(e){}
+            return dateStr;
+        }
+
+        // Mapping foto author (Bisa ditambahin kalau ada admin lain)
+        const authorPhotos = {
+            "Noel Jacob Ottley": "https://puserve.github.io/uploads/DSC_5757.JPG", // Asumsi lu pake foto profile ini
+            "PUSERVE Editorial Board": "https://puserve.github.io/logos/LOGO_PUSERVE.png",
+            // Tambahin author lain di sini kalau perlu:
+            // "Muh. Ahsan I.S. Zulni": "https://puserve.github.io/uploads/foto-ahsan.jpg",
+        };
+
         function renderArticle() {
             if (!currentFm) return;
             const lang = localStorage.getItem('puserve_lang') || 'EN';
             
-            // 1. UPDATE KONTEN ARTIKEL
             const title = lang === 'EN' ? (currentFm.title_en || currentFm.title) : (currentFm.title_id || currentFm.title);
             const mdText = lang === 'EN' ? currentBodyEN : currentBodyID;
             const bodyHTML = marked.parse(mdText);
@@ -53,49 +134,64 @@
             const wordCount = bodyHTML.replace(/<[^>]*>?/gm, '').split(/\s+/).length;
             const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
-            let cleanDate = currentFm.date;
-            try { const d = new Date(currentFm.date); if(!isNaN(d)) cleanDate = d.toLocaleDateString(lang==='EN'?'en-US':'id-ID', {day:'numeric', month:'long', year:'numeric', hour: '2-digit', minute:'2-digit'}); } catch(e){}
+            // Format tanggal jadi ala AP News
+            const apTimeStr = formatAPTime(currentFm.date, lang);
 
+            // LOGIKA GAMBAR & META THUMBNAIL
             const img1 = currentFm.thumbnail ? (currentFm.thumbnail.includes('/') ? currentFm.thumbnail : `uploads/${currentFm.thumbnail}`) : '';
-            const tagText = lang==='EN'?"PUSERVE OUTLOOK REPORT":"LAPORAN PUSERVE OUTLOOK";
             
-            // 2. LOGIKA META DESKRIPSI WA SHARE & TITLE BROWSER
-            const desc = lang === 'EN' ? (currentFm.desc_en || "PUSERVE Outlook Article") : (currentFm.desc_id || "Artikel PUSERVE Outlook");
+            // Meta Description (yang muncul di WA bareng judul "PUSERVE Outlook")
+            const desc = lang === 'EN' ? (currentFm.desc_en || title) : (currentFm.desc_id || title);
             document.title = `${title} | PUSERVE Outlook`;
-            document.getElementById('og-title').setAttribute('content', title);
             document.getElementById('og-desc').setAttribute('content', desc);
-            if (img1) document.getElementById('og-image').setAttribute('content', `https://puserve.github.io/${img1}`);
-
-            // 3. LOGIKA CLICKABLE AUTHOR (Link ke Team.html)
-            let rawAuthor = currentFm.author || 'PUSERVE Editorial Board';
-            let finalAuthor = '';
-            
-            if (rawAuthor === 'PUSERVE Editorial Board') {
-                finalAuthor = lang === 'ID' ? 'Dewan Redaksi Puserve' : 'PUSERVE Editorial Board';
-            } else {
-                // Link pintar nyari nama orang di Team.html!
-                let safeNameUrl = encodeURIComponent(rawAuthor);
-                let editorialText = lang === 'ID' ? 'Dewan Redaksi Puserve | ' : 'PUSERVE Editorial Board | ';
-                
-                finalAuthor = `${editorialText} <a href="team.html?scrollto=${safeNameUrl}" class="author-link" style="color:var(--primary-green); text-decoration:none; border-bottom: 1px dashed var(--primary-green); transition: 0.3s;" onmouseover="this.style.color='var(--puserve-yellow)'" onmouseout="this.style.color='var(--primary-green)'">${rawAuthor}</a>`;
+            // Kalau ada thumbnail artikel, paksa WA nampilin thumbnail itu, bukan logo puserve!
+            if (img1) {
+                const fullImgUrl = `https://puserve.github.io/${img1.startsWith('/') ? img1.slice(1) : img1}`;
+                document.getElementById('og-image').setAttribute('content', fullImgUrl);
             }
 
-            const metaIcon = `<span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> ${finalAuthor}</span>`;
+            // LOGIKA PENULIS (AP NEWS STYLE)
+            let rawAuthor = currentFm.author || 'PUSERVE Editorial Board';
+            
+            // Ambil foto author, kalau nggak ada pakai logo puserve
+            let authorImg = authorPhotos[rawAuthor] || "https://puserve.github.io/logos/LOGO_PUSERVE.png";
+            
+            let authorBlock = '';
+            if (rawAuthor === 'PUSERVE Editorial Board') {
+                const authorText = lang === 'ID' ? 'DEWAN REDAKSI PUSERVE' : 'PUSERVE EDITORIAL BOARD';
+                authorBlock = `<span class="ap-author-name">BY ${authorText}</span>`;
+            } else {
+                const byText = lang === 'ID' ? 'OLEH' : 'BY';
+                const editorialText = lang === 'ID' ? 'DEWAN REDAKSI PUSERVE | ' : 'PUSERVE EDITORIAL BOARD | ';
+                let safeNameUrl = encodeURIComponent(rawAuthor);
+                authorBlock = `
+                    <span class="ap-author-name">
+                        ${byText} ${editorialText} <a href="team.html?scrollto=${safeNameUrl}">${rawAuthor.toUpperCase()}</a>
+                    </span>
+                `;
+            }
 
-            let html = `
-                <div class="pr-header">
-                    <div class="pr-tag">${tagText}</div>
-                    <h1 class="pr-title">${title}</h1>
-                    <div class="pr-meta">
-                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Jakarta, ID</span>
-                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${cleanDate}</span>
-                        ${metaIcon}
-                        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ${readingTime} min read</span>
+            const apAuthorSection = `
+                <div class="ap-author-section">
+                    <img src="${authorImg}" alt="${rawAuthor}" class="ap-author-img">
+                    <div class="ap-author-info">
+                        ${authorBlock}
+                        <span class="ap-author-time">${apTimeStr} &bull; ${readingTime} min read</span>
                     </div>
                 </div>
             `;
 
+            let html = `
+                <div class="pr-header" style="margin-bottom: 20px;">
+                    <div class="pr-tag" style="margin-bottom:15px;">${lang==='EN'?"PUSERVE OUTLOOK REPORT":"LAPORAN PUSERVE OUTLOOK"}</div>
+                    <h1 class="pr-title" style="margin-bottom: 0;">${title}</h1>
+                </div>
+            `;
+
             if(img1) html += `<img src="${img1}" class="hero-img" alt="Thumbnail" onerror="this.style.display='none'">`;
+            
+            // Masukin section author ala AP News tepat di bawah gambar (atau judul kalau gak ada gambar)
+            html += apAuthorSection;
             
             html += `<div class="pr-body">${bodyHTML}</div>`;
             
@@ -105,7 +201,6 @@
             }
 
             const shareText = lang === 'EN' ? 'Share this article:' : 'Bagikan artikel ini:';
-            // UPDATE: Kalau ngirim lewat WA, link-nya bakal nyisipin bahasa (lang=EN / lang=ID) biar pas temen lu buka, bahasanya ngikut!
             const shareUrl = encodeURIComponent(`${window.location.href.split('&lang=')[0]}&lang=${lang}`);
             html += `
                 <div class="share-box">
@@ -123,7 +218,6 @@
             const params = new URLSearchParams(window.location.search);
             const fileName = params.get('file');
             
-            // LOGIKA PAKSA BAHASA DARI LINK WA
             const forcedLang = params.get('lang');
             if(forcedLang) {
                 localStorage.setItem('puserve_lang', forcedLang.toUpperCase());
