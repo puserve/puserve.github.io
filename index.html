@@ -205,7 +205,7 @@
                 </a>`;
             };
             
-            // Load Voices of Impact - VERSI AUTO ROTATE 10 DETIK
+            // Load Voices of Impact - VERSI AUTO ROTATE 10 DETIK (DENGAN OBAT ANTI SPASI)
             try {
                 const vRes = await fetch('api/voices.json');
                 const voices = await vRes.json();
@@ -221,7 +221,14 @@
                         const v = voices[index]; 
                         const quote = currentLang === 'EN' ? v.quote_en : v.quote_id;
                         const role = currentLang === 'EN' ? v.role_en : v.role_id;
-                        const logoSrc = v.logo ? (v.logo.includes('/') ? v.logo : `uploads/${v.logo}`) : 'logos/LOGO_PUSERVE.png';
+                        
+                        // INI OBAT ANTI-SPASI BUAT GAMBAR LOGO
+                        let logoSrc = 'logos/LOGO_PUSERVE.png';
+                        if(v.logo) {
+                            let rawUrl = v.logo.startsWith('/') ? v.logo.slice(1) : v.logo;
+                            if(!rawUrl.includes('uploads/')) rawUrl = `uploads/${rawUrl}`;
+                            logoSrc = encodeURI(rawUrl); 
+                        }
                         
                         document.getElementById('v-quote').innerText = `"${quote}"`;
                         document.getElementById('v-name').innerText = v.name;
@@ -245,7 +252,7 @@
                                 if (logoEl) logoEl.style.opacity = '1';
                             }, 500); 
 
-                        }, 10000); // SETTINGAN 10 DETIK ADA DI SINI
+                        }, 10000); 
                     }
 
                 } else {
