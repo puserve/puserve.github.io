@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events & Programs | PUSERVE</title>
     
-    <!-- METADATA WA SHARE -->
     <meta property="og:title" content="PUSERVE Events"> 
     <meta id="og-desc" property="og:description" content="Discover our latest environmental actions.">
     <meta id="og-image" property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
@@ -30,19 +29,16 @@
     </header>
 
     <main class="container">
-        <!-- ON GOING -->
         <div id="sec-ongoing" style="display:none;">
             <div class="section-header"><h2 class="section-title" data-en="On Going Events" data-id="Acara Berlangsung">On Going Events</h2><div class="section-line"></div></div>
             <div id="grid-ongoing" class="events-grid"></div>
         </div>
 
-        <!-- UPCOMING -->
         <div class="section-header"><h2 class="section-title" data-en="Upcoming Events" data-id="Acara Mendatang">Upcoming Events</h2><div class="section-line"></div></div>
         <div id="grid-upcoming" class="events-grid">
             <div class="skeleton-card"><div class="skeleton-img skeleton"></div><div class="skeleton-body"><div class="skeleton-tag skeleton"></div><div class="skeleton-title skeleton"></div><div class="skeleton-meta skeleton"></div></div></div>
         </div>
 
-        <!-- LATEST -->
         <div class="section-header"><h2 class="section-title" data-en="Latest Events" data-id="Acara Terbaru">Latest Events</h2><div class="section-line"></div></div>
         <div id="grid-latest" class="events-grid">
             <div class="skeleton-card"><div class="skeleton-img skeleton"></div><div class="skeleton-body"><div class="skeleton-tag skeleton"></div><div class="skeleton-title skeleton"></div><div class="skeleton-meta skeleton"></div></div></div>
@@ -62,7 +58,6 @@
 
         const formatDate = (dateStr) => { 
             try { 
-                // Ganti tanda minus (-) sama slash (/) buat Safari/iOS biar ga error
                 let safeDateStr = (dateStr || '').replace(/-/g, "/");
                 const d = new Date(safeDateStr); 
                 if (!isNaN(d)) return d.toLocaleDateString(localStorage.getItem('puserve_lang') === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); 
@@ -130,7 +125,7 @@
                         const title = currentLang === 'EN' ? (fm.title_en || fm.title_id || fm.title) : (fm.title_id || fm.title_en || fm.title);
                         const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
                         return `
-                        <a href="read.html?file=${fm.fileName}" class="card trans-link">
+                        <a href="read.html?file=${fm.fileName}&lang=${L.toUpperCase()}" class="card trans-link">
                             <img src="${img}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
                             <div class="card-body">
                                 <span class="card-tag">${STATUS_LABEL[key][L]}</span>
