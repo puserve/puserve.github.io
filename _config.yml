@@ -10,7 +10,7 @@ collections:
   voices:
     output: false
 timezone: "Asia/Jakarta"
-future: false
+future: true
 defaults:
   - scope:
       path: ""
