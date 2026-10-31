@@ -190,7 +190,7 @@
 
         const renderCard = (fm, folder) => {
             const title = currentLang === 'EN' ? (fm.title_en || fm.title) : (fm.title_id || fm.title);
-            const link = folder === 'events' ? `read.html?file=${fm.fileName}` : `read-news.html?file=${fm.fileName}`;
+            const link = fm.url;
             const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
             return `
             <a href="${link}" class="card trans-link">
