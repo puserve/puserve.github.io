@@ -8,12 +8,12 @@ layout: null
       {% if first %}{% assign first = false %}{% else %},{% endif %}
       {
         "title": {{ fm.title | jsonify }},
-        "title_en": {{ fm.title_en | default: fm.title | jsonify }},
-        "title_id": {{ fm.title_id | default: fm.title | jsonify }},
-        "date": "{{ fm.date | date: '%Y-%m-%d' }}",
+        "title_en": {{ fm.title_en | default: fm.title_id | default: fm.title | jsonify }},
+        "title_id": {{ fm.title_id | default: fm.title_en | default: fm.title | jsonify }},
+        "date": "{{ fm.date | date: '%Y-%m-%d %H:%M:%S' }}",
         "thumbnail": {{ fm.thumbnail | jsonify }},
         "status": {{ fm.status | jsonify }},
-        "fileName": "url": {{ fm.url | jsonify }}
+        "url": {{ fm.url | jsonify }}
       }
     {% endif %}
   {% endfor %}
