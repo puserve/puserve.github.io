@@ -57,7 +57,6 @@
             const emptyMsg = currentLang === 'EN' ? 'No records published yet.' : 'Belum ada catatan di kategori ini.';
 
             try {
-                // NARIK DARI MESIN JSON KITA SENDIRI, ANTI LIMIT!
                 const res = await fetch(`api/news.json`);
                 if (!res.ok) throw new Error("API Error");
                 const files = await res.json();
@@ -66,9 +65,8 @@
                 const today = new Date();
 
                 for (const fm of files) {
-                    if(!fm.title_en) continue;
+                    if(!fm.title_en && !fm.title_id && !fm.title) continue;
                     
-                    // MESIN PENGHITUNG UMUR HARI OTOMATIS
                     const eventDate = new Date(fm.date);
                     const diffTime = Math.abs(today - eventDate);
                     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
@@ -88,10 +86,10 @@
                     if (data[key].length === 0) { grids[key].innerHTML = `<div class="empty-state">${emptyMsg}</div>`; } 
                     else {
                         grids[key].innerHTML = data[key].map(fm => {
-                            const title = currentLang === 'EN' ? (fm.title_en || fm.title) : (fm.title_id || fm.title);
+                            const title = currentLang === 'EN' ? (fm.title_en || fm.title_id || fm.title) : (fm.title_id || fm.title_en || fm.title);
                             const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
                             return `
-                            <a href="read-news.html?file=${fm.fileName}" class="card trans-link">
+                            <a href="${fm.url}" class="card trans-link">
                                 <img src="${img}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
                                 <div class="card-body">
                                     <span class="card-tag">${fm.status || 'Outlook News'}</span>
