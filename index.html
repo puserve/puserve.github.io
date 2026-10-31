@@ -188,9 +188,9 @@
         let currentLang = localStorage.getItem('puserve_lang') || 'EN';
         const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(currentLang === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e){} return dateStr; };
 
-        const renderCard = (fm, folder) => {
+      const renderCard = (fm, folder) => {
             const title = currentLang === 'EN' ? (fm.title_en || fm.title) : (fm.title_id || fm.title);
-            const link = fm.url;
+            const link = fm.url;  // INI YANG BENER!
             const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
             return `
             <a href="${link}" class="card trans-link">
