@@ -13,7 +13,7 @@ layout: null
         "date": "{{ fm.date | date: '%Y-%m-%d' }}",
         "thumbnail": {{ fm.thumbnail | jsonify }},
         "status": {{ fm.status | jsonify }},
-        "fileName": {{ fm.path | split: '/' | last | jsonify }}
+        "fileName": "url": {{ fm.url | jsonify }}
       }
     {% endif %}
   {% endfor %}
