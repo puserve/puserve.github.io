@@ -1,20 +1,24 @@
 ---
 layout: null
 ---
+{% assign now_ts = site.time | date: '%s' | plus: 0 %}
 [
   {% assign first = true %}
   {% for fm in site.news %}
-    {% if fm.title and fm.published != false %}
-      {% if first %}{% assign first = false %}{% else %},{% endif %}
-      {
-        "title": {{ fm.title | jsonify }},
-        "title_en": {{ fm.title_en | default: fm.title_id | default: fm.title | jsonify }},
-        "title_id": {{ fm.title_id | default: fm.title_en | default: fm.title | jsonify }},
-        "date": "{{ fm.date | date: '%Y-%m-%d %H:%M:%S' }}",
-        "thumbnail": {{ fm.thumbnail | jsonify }},
-        "status": {{ fm.status | jsonify }},
-        "url": {{ fm.url | jsonify }}
-      }
+    {% assign item_ts = fm.date | date: '%s' | plus: 0 %}
+    {% if fm.published != false and item_ts <= now_ts %}
+      {% if fm.title_en or fm.title_id %}
+        {% if first %}{% assign first = false %}{% else %},{% endif %}
+        {
+          "title_en": {{ fm.title_en | default: fm.title_id | jsonify }},
+          "title_id": {{ fm.title_id | default: fm.title_en | jsonify }},
+          "date": "{{ fm.date | date: '%Y-%m-%d %H:%M:%S' }}",
+          "thumbnail": {{ fm.thumbnail | jsonify }},
+          "status": {{ fm.status | jsonify }},
+          "url": {{ fm.url | jsonify }}
+        }
+      {% endif %}
     {% endif %}
   {% endfor %}
+{% comment %}end{% endcomment %}
 ]
