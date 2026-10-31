@@ -123,3 +123,14 @@ collections:
       - {label: "Kutipan (English)", name: "quote_en", widget: "text"}
       - {label: "Kutipan (Indonesia)", name: "quote_id", widget: "text"}
       - {label: "Tanggal Dibuat", name: "date", widget: "datetime", format: "YYYY-MM-DD"}
+defaults:
+  - scope:
+      path: ""
+      type: "news"
+    values:
+      layout: "news-single"
+  - scope:
+      path: ""
+      type: "events"
+    values:
+      layout: "event-single"
