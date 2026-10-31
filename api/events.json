@@ -4,8 +4,8 @@ layout: null
 [
   {% assign first = true %}
   {% for fm in site.events %}
-    {% if fm.title and fm.published != false %}
-      {% if first %}{% assign first = false %}{% else %},{% endif %}
+    {% if fm.published != false %}
+      {% if fm.title_en or fm.title_id %}
       {
         "title": {{ fm.title | jsonify }},
         "title_en": {{ fm.title_en | default: fm.title_id | default: fm.title | jsonify }},
