@@ -1,5 +1,5 @@
 ---
-title: Annisa Aulia Putri
+title: Annisa Aulia Puri
 thumbnail: /uploads/LOGO_PUSERVE.png
 position: Member
 division: Documentation
