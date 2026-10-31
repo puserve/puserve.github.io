@@ -1,12 +1,10 @@
 ---
 layout: null
 ---
-{% assign now_ts = site.time | date: '%s' | plus: 0 %}
 [
   {% assign first = true %}
   {% for fm in site.news %}
-    {% assign item_ts = fm.date | date: '%s' | plus: 0 %}
-    {% if fm.published != false and item_ts <= now_ts %}
+    {% if fm.published != false %}
       {% if fm.title_en or fm.title_id %}
         {% if first %}{% assign first = false %}{% else %},{% endif %}
         {
@@ -20,5 +18,4 @@ layout: null
       {% endif %}
     {% endif %}
   {% endfor %}
-{% comment %}end{% endcomment %}
 ]
