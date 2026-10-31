@@ -267,6 +267,7 @@
         try {
             const res = await fetch('api/news.json');
             const news = await res.json();
+            const news = (await res.json()).filter(n => new Date((n.date || '').replace(/-/g, '/')) <= new Date());
             news.sort((a,b) => new Date(b.date) - new Date(a.date));
             const nGrid = document.getElementById('home-news-carousel');
             if(nGrid) nGrid.innerHTML = news.slice(0,2).map(fm => renderCard(fm, 'news')).join('') || `<div class="empty-state">No news yet.</div>`;
