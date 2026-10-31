@@ -11,3 +11,18 @@ collections:
     output: false
 timezone: "Asia/Jakarta"
 future: false
+defaults:
+  - scope:
+      path: ""
+      type: "news"
+    values:
+      layout: "news-single"
+      # BUM! INI YANG BIKIN URL JADI SINGKAT:
+      permalink: "/news/:slug/"
+  - scope:
+      path: ""
+      type: "events"
+    values:
+      layout: "event-single"
+      # BUM! INI JUGA:
+      permalink: "/events/:slug/"
