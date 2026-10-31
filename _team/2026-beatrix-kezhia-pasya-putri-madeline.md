@@ -1,9 +1,9 @@
 ---
 title: Beatrix Kezhia Pasya Putri Madeline
 thumbnail: /uploads/LOGO_PUSERVE.png
-position: Member
+position: Vice Head of Division
 division: Research, Observation, and Innovation
-major: ''
+major: International Relations
 student_id: ''
 email: beatrix.madeline@student.president.ac.id
 ---
