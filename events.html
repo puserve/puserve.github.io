@@ -125,7 +125,7 @@
                         const title = currentLang === 'EN' ? (fm.title_en || fm.title_id || fm.title) : (fm.title_id || fm.title_en || fm.title);
                         const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
                         return `
-                        <a href="read.html?file=${fm.fileName}&lang=${L.toUpperCase()}" class="card trans-link">
+                        <a href="${fm.url}" class="card trans-link">
                             <img src="${img}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
                             <div class="card-body">
                                 <span class="card-tag">${STATUS_LABEL[key][L]}</span>
