@@ -1,0 +1,18 @@
+---
+layout: null
+---
+{
+  "count": {{ site.news.size }},
+  "build_time": "{{ site.time }}",
+  "items": [
+    {% for fm in site.news %}
+    {
+      "path": {{ fm.path | jsonify }},
+      "date": "{{ fm.date }}",
+      "title_en": {{ fm.title_en | jsonify }},
+      "title_id": {{ fm.title_id | jsonify }},
+      "published": {{ fm.published | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
