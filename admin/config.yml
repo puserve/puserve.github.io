@@ -23,6 +23,8 @@ collections:
         name: "author"
         widget: "select"
         options:
+          - {label: "PUSERVE Editorial Board", value: "PUSERVE Editorial Board"}
+          - {label: "Noel Jacob Ottley", value: "Noel Jacob Ottley"}
           - {label: "Muh. Ahsan I.S. Zulni", value: "Muh. Ahsan I.S. Zulni"}
           - {label: "Aurelia C.P. Kaparang", value: "Aurelia C.P. Kaparang"}
           - {label: "Beatrix K.P. Madeline", value: "Beatrix K.P. Madeline"}
@@ -54,6 +56,8 @@ collections:
         name: "author"
         widget: "select"
         options:
+          - {label: "PUSERVE Editorial Board", value: "PUSERVE Editorial Board"}
+          - {label: "Noel Jacob Ottley", value: "Noel Jacob Ottley"}
           - {label: "Muh. Ahsan I.S. Zulni", value: "Muh. Ahsan I.S. Zulni"}
           - {label: "Aurelia C.P. Kaparang", value: "Aurelia C.P. Kaparang"}
           - {label: "Beatrix K.P. Madeline", value: "Beatrix K.P. Madeline"}
