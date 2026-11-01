@@ -23,8 +23,6 @@ collections:
         name: "author"
         widget: "select"
         options:
-          - {label: "PUSERVE Editorial Board", value: "PUSERVE Editorial Board"}
-          - {label: "Noel Jacob Ottley", value: "Noel Jacob Ottley"}
           - {label: "Muh. Ahsan I.S. Zulni", value: "Muh. Ahsan I.S. Zulni"}
           - {label: "Aurelia C.P. Kaparang", value: "Aurelia C.P. Kaparang"}
           - {label: "Beatrix K.P. Madeline", value: "Beatrix K.P. Madeline"}
@@ -52,6 +50,15 @@ collections:
       - {label: "Hasil/Dampak Acara (Outcome - English)", name: "outcome_en", widget: "string", required: false}
       - {label: "Hasil/Dampak Acara (Outcome - Indonesia)", name: "outcome_id", widget: "string", required: false}
       - {label: "Isi Laporan (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
+      - label: "Penulis Laporan"
+        name: "author"
+        widget: "select"
+        options:
+          - {label: "Muh. Ahsan I.S. Zulni", value: "Muh. Ahsan I.S. Zulni"}
+          - {label: "Aurelia C.P. Kaparang", value: "Aurelia C.P. Kaparang"}
+          - {label: "Beatrix K.P. Madeline", value: "Beatrix K.P. Madeline"}
+          - {label: "Muhammad H.F. Adzhim", value: "Muhammad H.F. Adzhim"}
+        default: "PUSERVE Editorial Board"
 
   # [SISA KOLEKSI TEAM, REPOSITORY, SETTINGS, VOICES TETAP SAMA KAYA PUNYA LU]
   - name: "team"
