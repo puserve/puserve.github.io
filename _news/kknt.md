@@ -3,7 +3,8 @@ title_en: PUSERVE Collaborates with KEMDIKTISAINTEK to Hold the “Sampah Tuntas
 title_id: PUSERVE berkolaborasi dengan KEMDIKTISAINTEK Gelar KKN Tematik Sampah Tuntas LLDIKTI Wilayah IV 2026
 desc_en: Noel is really handsome
 desc_id: Noel ganteng bgt
-date: 2026-11-02
+date: 2026-11-02 10:00:00
+location: President University, Cikarang
 author: Muh. Ahsan I.S. Zulni
 thumbnail: /uploads/THUMBNAIL NEWS-500kb.jpeg
 quote_en: Through a social engineering approach, students are positioned not as waste collectors or sorters, but as motivators and catalysts for behavioral change in the community regarding waste sorting and management starting at the source. —Dr. Lukman, S.T., M.Hum.
