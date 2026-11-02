@@ -132,6 +132,7 @@
             const img1 = rawThumbnail ? (rawThumbnail.includes('/') ? rawThumbnail : `uploads/${rawThumbnail}`).replace(/^\/+/, '') : '';
 
             // TAMPILIN PENULIS (SAMA KAYA DI NEWS)
+            <span class="ap-author-time">${cleanDate} &bull; ${readingTime} min read</span>
             const rawAuthor = {{ page.author | default: 'PUSERVE Editorial Board' | jsonify }};
             const { authorImg, nameHtml } = await buildAuthorBlock(rawAuthor, lang);
 
