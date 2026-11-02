@@ -148,11 +148,8 @@
             const outcomeText = lang === 'EN' ? {{ page.outcome_en | jsonify }} : {{ page.outcome_id | jsonify }};
             if (outcomeText) { html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">${lang === 'EN' ? 'OUTCOME' : 'HASIL'}</div><div class="outcome-text">"${outcomeText}"</div></div>`; }
 
-            // DESKRIPSI (YG ADA "Noel is handsome") CUMA BUAT METADATA WA:
-            const desc = lang === 'EN' ? ({{ page.desc_en | jsonify }} || title) : ({{ page.desc_id | jsonify }} || title);
-            const waText = encodeURIComponent(`*${title}*\n${desc}\n\n${lang === 'EN' ? 'Read more at:' : 'Baca selengkapnya di:'}\n${window.location.href}`);
-
-            html += `
+                    const waText = encodeURIComponent(`*${title}*\n\n${lang === 'EN' ? 'Read more at:' : 'Baca selengkapnya di:'}\n${window.location.href}`);
+        
                 <div class="share-box">
                     <span class="share-title">${lang === 'EN' ? 'Share this article:' : 'Bagikan artikel ini:'}</span>
                     <div class="share-buttons">
