@@ -1,1 +1,29 @@
+<style>
+    /* ===== HEADER ARTIKEL (dipakai News & Events) ===== */
+    .art-head { text-align: left; margin: 10px 0 26px; }
+    .art-kicker { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary-green); margin-bottom: 16px; }
+    .art-kicker::before { content: ""; width: 28px; height: 3px; border-radius: 2px; background: var(--puserve-yellow); flex-shrink: 0; }
+    body.eco-mode .art-kicker { color: var(--puserve-yellow); }
+    .art-title { text-align: left; font-size: clamp(1.7rem, 4.2vw, 2.5rem); line-height: 1.18; letter-spacing: -0.01em; font-weight: 800; color: var(--text-color); margin: 0 0 24px; }
 
+    /* ===== STRIP INFO (tanggal, lokasi, peserta) ===== */
+    .art-facts { display: flex; flex-wrap: wrap; gap: 16px 40px; padding: 14px 0; border-top: 1px solid var(--card-border, rgba(0,0,0,0.1)); border-bottom: 1px solid var(--card-border, rgba(0,0,0,0.1)); }
+    .art-fact { display: flex; flex-direction: column; gap: 4px; }
+    .art-fact-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+    .art-fact-value { font-size: 0.95rem; font-weight: 600; color: var(--text-color); line-height: 1.35; }
+
+    /* ===== BYLINE PENULIS ===== */
+    .ap-author-section { display: flex; align-items: center; gap: 15px; margin-top: 30px; margin-bottom: 30px; padding: 15px 0; border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    body.eco-mode .ap-author-section { border-color: rgba(255,255,255,0.1); }
+    .ap-author-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--puserve-yellow); background: #eee; }
+    .ap-author-info { display: flex; flex-direction: column; gap: 3px; }
+    .ap-author-name { font-weight: 800; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-color); }
+    .ap-author-name a { color: var(--text-color); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px; transition: 0.2s ease; }
+    .ap-author-name a:hover { color: var(--primary-green); }
+    body.eco-mode .ap-author-name a:hover { color: var(--puserve-yellow); }
+    .ap-author-time { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+
+    @media (max-width: 600px) {
+        .art-facts { gap: 14px 28px; }
+    }
+</style>
