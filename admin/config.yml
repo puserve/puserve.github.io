@@ -17,8 +17,8 @@ collections:
       - {label: "Judul (Indonesia)", name: "title_id", widget: "string"}
       - {label: "Deskripsi Singkat (WA Share - EN)", name: "desc_en", widget: "string", hint: "Teks ini muncul pas link dibagikan ke sosmed."}
       - {label: "Deskripsi Singkat (WA Share - ID)", name: "desc_id", widget: "string", hint: "Teks ini muncul pas link dibagikan ke sosmed."}
-      # UPDATE PENTING: time_format diubah jadi true biar Jam muncul di CMS!
       - {label: "Jadwal Publish", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm"}
+      - {label: "Lokasi", name: "location", widget: "string", required: false, default: "President University, Cikarang"}
       - label: "Penulis"
         name: "author"
         widget: "select"
@@ -46,12 +46,9 @@ collections:
       - {label: "Deskripsi Singkat (WA Share - EN)", name: "desc_en", widget: "string", hint: "Teks ini muncul pas link dibagikan."}
       - {label: "Deskripsi Singkat (WA Share - ID)", name: "desc_id", widget: "string", hint: "Teks ini muncul pas link dibagikan."}
       - {label: "Tanggal & Jam Acara", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm"}
+      - {label: "Lokasi", name: "location", widget: "string", required: false, default: "President University, Cikarang"}
       - {label: "Status", name: "status", widget: "select", options: ["Running", "Upcoming", "Archived"], default: "Upcoming"}
       - {label: "Jumlah Peserta", name: "attendees", widget: "string", default: "200+ Participants"}
-      - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
-      - {label: "Hasil/Dampak Acara (Outcome - English)", name: "outcome_en", widget: "string", required: false}
-      - {label: "Hasil/Dampak Acara (Outcome - Indonesia)", name: "outcome_id", widget: "string", required: false}
-      - {label: "Isi Laporan (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
       - label: "Penulis Laporan"
         name: "author"
         widget: "select"
@@ -63,6 +60,12 @@ collections:
           - {label: "Beatrix K.P. Madeline", value: "Beatrix K.P. Madeline"}
           - {label: "Muhammad H.F. Adzhim", value: "Muhammad H.F. Adzhim"}
         default: "PUSERVE Editorial Board"
+      - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
+      - {label: "Hasil/Dampak Acara (Outcome - English)", name: "outcome_en", widget: "string", required: false}
+      - {label: "Hasil/Dampak Acara (Outcome - Indonesia)", name: "outcome_id", widget: "string", required: false}
+      - {label: "Isi Laporan (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
+
+
 
   # [SISA KOLEKSI TEAM, REPOSITORY, SETTINGS, VOICES TETAP SAMA KAYA PUNYA LU]
   - name: "team"
