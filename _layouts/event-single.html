@@ -6,7 +6,7 @@
 
     {% assign page_title = page.title_en | default: page.title_id | default: page.title %}
 
-    <!-- DESKRIPSI CUMA BUAT METADATA WA AJA, GAK NONGOL DI DALAM ARTIKEL -->
+    <!-- Deskripsi hanya untuk kartu preview (og:description), tidak tampil di artikel -->
     {% assign page_desc = page.desc_en | default: page.desc_id | default: page_title %}
 
     {% if page.thumbnail %}
@@ -29,21 +29,10 @@
     <meta property="og:url" content="https://puserve.github.io{{ page.url }}">
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- PERUBAHAN PENTING: PAKE ALAMAT LENGKAP BIAR GAK HANCUR -->
     <link rel="icon" type="image/png" href="https://puserve.github.io/logos/LOGO_PUSERVE.png">
     <link rel="stylesheet" href="https://puserve.github.io/style.css">
 
-    <style>
-        .ap-author-section { display: flex; align-items: center; gap: 15px; margin-top: 30px; margin-bottom: 30px; padding: 15px 0; border-top: 1px solid rgba(0,0,0,0.1); border-bottom: 1px solid rgba(0,0,0,0.1); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-        body.eco-mode .ap-author-section { border-color: rgba(255,255,255,0.1); }
-        .ap-author-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--puserve-yellow); background: #eee; }
-        .ap-author-info { display: flex; flex-direction: column; gap: 3px; }
-        .ap-author-name { font-weight: 800; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-color); }
-        .ap-author-name a { color: var(--text-color); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 2px; transition: 0.2s ease; }
-        .ap-author-name a:hover { color: var(--primary-green); }
-        body.eco-mode .ap-author-name a:hover { color: var(--puserve-yellow); }
-        .ap-author-time { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
-    </style>
+    {% include article-style.html %}
 </head>
 <body>
 
@@ -104,56 +93,69 @@
             return { authorImg, nameHtml };
         }
 
+        // Format tanggal + jam, dikunci ke zona Asia/Jakarta
+        function formatWhen(iso, lang) {
+            try {
+                const d = new Date(iso);
+                if (isNaN(d)) return iso;
+                const loc = lang === 'EN' ? 'en-US' : 'id-ID';
+                const day = d.toLocaleDateString(loc, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
+                const time = d.toLocaleTimeString(loc, { hour: '2-digit', minute: '2-digit', hour12: lang === 'EN', timeZone: 'Asia/Jakarta' });
+                return `${day} &middot; ${time} ${lang === 'EN' ? 'GMT+7' : 'WIB'}`;
+            } catch (e) { return iso; }
+        }
+
+        function factHtml(label, value) {
+            return `<div class="art-fact"><span class="art-fact-label">${label}</span><span class="art-fact-value">${value}</span></div>`;
+        }
+
         async function renderStaticArticle() {
             const lang = localStorage.getItem('puserve_lang') || 'EN';
+            const isEN = lang === 'EN';
 
             const titleEN = {{ page.title_en | jsonify }} || {{ page.title | jsonify }};
             const titleID = {{ page.title_id | jsonify }} || titleEN;
-            const title = lang === 'EN' ? titleEN : titleID;
+            const title = isEN ? titleEN : titleID;
 
             const rawHtml = {{ content | jsonify }};
             const sep = /<p>(?:\s|<\/?(?:strong|em|b|i)>|[*_])*===ID===(?:\s|<\/?(?:strong|em|b|i)>|[*_])*<\/p>|===ID===/;
             const splitBody = rawHtml.split(sep);
             const bodyEN = splitBody[0] || "";
-            const bodyHTML = lang === 'EN' ? bodyEN : (splitBody[1] || bodyEN);
+            const bodyHTML = isEN ? bodyEN : (splitBody[1] || bodyEN);
 
             const wordCount = bodyHTML.replace(/<[^>]*>?/gm, '').split(/\s+/).length;
             const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
-            const isoDate = {{ page.date | date_to_xmlschema | jsonify }};
-            let cleanDate = isoDate;
-            try {
-                const d = new Date(isoDate);
-                if (!isNaN(d)) cleanDate = d.toLocaleDateString(lang === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Jakarta' });
-            } catch (e) {}
-
+            const when = formatWhen({{ page.date | date_to_xmlschema | jsonify }}, lang);
             const attendees = {{ page.attendees | default: '-' | jsonify }};
+            const location = {{ page.location | default: 'Jakarta, ID' | jsonify }};
+
             const rawThumbnail = {{ page.thumbnail | jsonify }};
             const img1 = rawThumbnail ? (rawThumbnail.includes('/') ? rawThumbnail : `uploads/${rawThumbnail}`).replace(/^\/+/, '') : '';
 
-            // TAMPILIN PENULIS (SAMA KAYA DI NEWS)
             const rawAuthor = {{ page.author | default: 'PUSERVE Editorial Board' | jsonify }};
             const { authorImg, nameHtml } = await buildAuthorBlock(rawAuthor, lang);
 
-            let html = `<div class="pr-header"><div class="pr-tag">${lang === 'EN' ? "OFFICIAL EVENTS & PROGRAMS REPORT" : "LAPORAN ACARA & PROGRAM RESMI"}</div><h1 class="pr-title">${title}</h1>
-                <div class="pr-meta"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Jakarta, ID</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${cleanDate}</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--puserve-yellow)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg> ${attendees}</span></div></div>`;
+            let facts = factHtml(isEN ? 'Date &amp; Time' : 'Tanggal &amp; Waktu', when);
+            facts += factHtml(isEN ? 'Location' : 'Lokasi', location);
+            if (attendees && attendees !== '-') facts += factHtml(isEN ? 'Participants' : 'Peserta', attendees);
+
+            let html = `<div class="art-head"><div class="art-kicker">${isEN ? 'Official Events &amp; Programs Report' : 'Laporan Acara &amp; Program Resmi'}</div><h1 class="art-title">${title}</h1><div class="art-facts">${facts}</div></div>`;
 
             if (img1) html += `<img src="https://puserve.github.io/${img1}" class="hero-img" alt="Thumbnail" onerror="this.style.display='none'">`;
 
-            html += `<div class="ap-author-section"><img src="${authorImg}" alt="${rawAuthor}" class="ap-author-img"><div class="ap-author-info">${nameHtml}<span class="ap-author-time">${cleanDate} &bull; ${readingTime} min read</span></div></div>`;
+            html += `<div class="ap-author-section"><img src="${authorImg}" alt="${rawAuthor}" class="ap-author-img"><div class="ap-author-info">${nameHtml}<span class="ap-author-time">${readingTime} ${isEN ? 'min read' : 'menit baca'}</span></div></div>`;
             html += `<div class="pr-body">${bodyHTML}</div>`;
 
-            // Deskripsi dari admin TIDAK ditampilkan di artikel, hanya dipakai untuk kartu preview (og:description).
-            // Outcome tetap ditampilkan di bawah kalau ada.
-            const outcomeText = lang === 'EN' ? {{ page.outcome_en | jsonify }} : {{ page.outcome_id | jsonify }};
-            if (outcomeText) { html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">${lang === 'EN' ? 'OUTCOME' : 'HASIL'}</div><div class="outcome-text">"${outcomeText}"</div></div>`; }
+            const outcomeText = isEN ? {{ page.outcome_en | jsonify }} : {{ page.outcome_id | jsonify }};
+            if (outcomeText) { html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">${isEN ? 'OUTCOME' : 'HASIL'}</div><div class="outcome-text">"${outcomeText}"</div></div>`; }
 
             // Teks pesan share: judul + "Read more at:" + link saja
-            const waText = encodeURIComponent(`*${title}*\n\n${lang === 'EN' ? 'Read more at:' : 'Baca selengkapnya di:'}\n${window.location.href}`);
+            const waText = encodeURIComponent(`*${title}*\n\n${isEN ? 'Read more at:' : 'Baca selengkapnya di:'}\n${window.location.href}`);
 
             html += `
                 <div class="share-box">
-                    <span class="share-title">${lang === 'EN' ? 'Share this article:' : 'Bagikan artikel ini:'}</span>
+                    <span class="share-title">${isEN ? 'Share this article:' : 'Bagikan artikel ini:'}</span>
                     <div class="share-buttons">
                         <a href="https://wa.me/?text=${waText}" target="_blank" class="share-btn wa-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp</a>
                         <button onclick="copyLinkText('${title.replace(/\\/g, "\\\\").replace(/'/g, "\\'")}', '${lang}')" class="share-btn copy-btn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy Link</button>
