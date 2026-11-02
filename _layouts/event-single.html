@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% assign page_title = page.title_en | default: page.title_id | default: page.title %}
-    
+
     <!-- DESKRIPSI CUMA BUAT METADATA WA AJA, GAK NONGOL DI DALAM ARTIKEL -->
     {% assign page_desc = page.desc_en | default: page.desc_id | default: page_title %}
-    
+
     {% if page.thumbnail %}
       {% if page.thumbnail contains '/' %}
         {% assign thumb_path = page.thumbnail | prepend: '/' | replace: '//', '/' %}
@@ -132,7 +132,6 @@
             const img1 = rawThumbnail ? (rawThumbnail.includes('/') ? rawThumbnail : `uploads/${rawThumbnail}`).replace(/^\/+/, '') : '';
 
             // TAMPILIN PENULIS (SAMA KAYA DI NEWS)
-            <span class="ap-author-time">${cleanDate} &bull; ${readingTime} min read</span>
             const rawAuthor = {{ page.author | default: 'PUSERVE Editorial Board' | jsonify }};
             const { authorImg, nameHtml } = await buildAuthorBlock(rawAuthor, lang);
 
@@ -141,16 +140,18 @@
 
             if (img1) html += `<img src="https://puserve.github.io/${img1}" class="hero-img" alt="Thumbnail" onerror="this.style.display='none'">`;
 
-            html += `<div class="ap-author-section"><img src="${authorImg}" alt="${rawAuthor}" class="ap-author-img"><div class="ap-author-info">${nameHtml}<span class="ap-author-time">${readingTime} min read</span></div></div>`;
+            html += `<div class="ap-author-section"><img src="${authorImg}" alt="${rawAuthor}" class="ap-author-img"><div class="ap-author-info">${nameHtml}<span class="ap-author-time">${cleanDate} &bull; ${readingTime} min read</span></div></div>`;
             html += `<div class="pr-body">${bodyHTML}</div>`;
 
-            // INI PENTING! Deskripsi yg dari admin GAK DITAMPILIN DI ARTIKEL LAGI.
-            // Outcome tetap ditampilin di bawah kalau ada.
+            // Deskripsi dari admin TIDAK ditampilkan di artikel, hanya dipakai untuk kartu preview (og:description).
+            // Outcome tetap ditampilkan di bawah kalau ada.
             const outcomeText = lang === 'EN' ? {{ page.outcome_en | jsonify }} : {{ page.outcome_id | jsonify }};
             if (outcomeText) { html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">${lang === 'EN' ? 'OUTCOME' : 'HASIL'}</div><div class="outcome-text">"${outcomeText}"</div></div>`; }
 
-                    const waText = encodeURIComponent(`*${title}*\n\n${lang === 'EN' ? 'Read more at:' : 'Baca selengkapnya di:'}\n${window.location.href}`);
-        
+            // Teks pesan share: judul + "Read more at:" + link saja
+            const waText = encodeURIComponent(`*${title}*\n\n${lang === 'EN' ? 'Read more at:' : 'Baca selengkapnya di:'}\n${window.location.href}`);
+
+            html += `
                 <div class="share-box">
                     <span class="share-title">${lang === 'EN' ? 'Share this article:' : 'Bagikan artikel ini:'}</span>
                     <div class="share-buttons">
