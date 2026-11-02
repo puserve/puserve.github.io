@@ -143,12 +143,16 @@
             html += `<div class="ap-author-section"><img src="${authorImg}" alt="${rawAuthor}" class="ap-author-img"><div class="ap-author-info">${authorBlock}<span class="ap-author-time">${apTimeStr} &bull; ${readingTime} min read</span></div></div>`;
             html += `<div class="pr-body">${bodyHTML}</div>`;
 
+            // ... (sekitar baris ke 141) ...
             const quoteText = lang === 'EN' ? {{ page.quote_en | jsonify }} : {{ page.quote_id | jsonify }};
             if (quoteText) { html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">KEY QUOTE</div><div class="outcome-text">"${quoteText}"</div></div>`; }
 
+            // INI DESKRIPSI CUMA BUAT METADATA WA AJA, JANGAN DITAMBAHIN KE 'html +='
             const desc = lang === 'EN' ? ({{ page.desc_en | jsonify }} || title) : ({{ page.desc_id | jsonify }} || title);
             const waText = encodeURIComponent(`*${title}*\n${desc}\n\n${lang === 'EN' ? 'Read more at:' : 'Baca selengkapnya di:'}\n${window.location.href}`);
-
+            
+            html += `
+                <div class="share-box">
             html += `
                 <div class="share-box">
                     <span class="share-title">${lang === 'EN' ? 'Share this article:' : 'Bagikan artikel ini:'}</span>
