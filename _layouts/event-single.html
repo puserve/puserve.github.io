@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- WAJIB: URL artikel bersarang (/events/slug/), jadi semua path relatif (logos/..., index.html, dll) harus dipatok ke root -->
     <base href="/">
 
     {% assign page_title = page.title_en | default: page.title_id | default: page.title %}
-    {% assign page_desc = page.desc_en | default: page.outcome_en | default: page_title %}
+    
+    <!-- DESKRIPSI CUMA BUAT METADATA WA AJA, GAK NONGOL DI DALAM ARTIKEL -->
+    {% assign page_desc = page.desc_en | default: page.desc_id | default: page_title %}
+    
     {% if page.thumbnail %}
       {% if page.thumbnail contains '/' %}
         {% assign thumb_path = page.thumbnail | prepend: '/' | replace: '//', '/' %}
@@ -110,7 +112,6 @@
             const titleID = {{ page.title_id | jsonify }} || titleEN;
             const title = lang === 'EN' ? titleEN : titleID;
 
-            // Pemisah EN/ID toleran terhadap **bold** di sekitar ===ID===
             const rawHtml = {{ content | jsonify }};
             const sep = /<p>(?:\s|<\/?(?:strong|em|b|i)>|[*_])*===ID===(?:\s|<\/?(?:strong|em|b|i)>|[*_])*<\/p>|===ID===/;
             const splitBody = rawHtml.split(sep);
@@ -128,10 +129,10 @@
             } catch (e) {}
 
             const attendees = {{ page.attendees | default: '-' | jsonify }};
-
             const rawThumbnail = {{ page.thumbnail | jsonify }};
             const img1 = rawThumbnail ? (rawThumbnail.includes('/') ? rawThumbnail : `uploads/${rawThumbnail}`).replace(/^\/+/, '') : '';
 
+            // TAMPILIN PENULIS (SAMA KAYA DI NEWS)
             const rawAuthor = {{ page.author | default: 'PUSERVE Editorial Board' | jsonify }};
             const { authorImg, nameHtml } = await buildAuthorBlock(rawAuthor, lang);
 
@@ -143,9 +144,12 @@
             html += `<div class="ap-author-section"><img src="${authorImg}" alt="${rawAuthor}" class="ap-author-img"><div class="ap-author-info">${nameHtml}<span class="ap-author-time">${readingTime} min read</span></div></div>`;
             html += `<div class="pr-body">${bodyHTML}</div>`;
 
+            // INI PENTING! Deskripsi yg dari admin GAK DITAMPILIN DI ARTIKEL LAGI.
+            // Outcome tetap ditampilin di bawah kalau ada.
             const outcomeText = lang === 'EN' ? {{ page.outcome_en | jsonify }} : {{ page.outcome_id | jsonify }};
             if (outcomeText) { html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">${lang === 'EN' ? 'OUTCOME' : 'HASIL'}</div><div class="outcome-text">"${outcomeText}"</div></div>`; }
 
+            // DESKRIPSI (YG ADA "Noel is handsome") CUMA BUAT METADATA WA:
             const desc = lang === 'EN' ? ({{ page.desc_en | jsonify }} || title) : ({{ page.desc_id | jsonify }} || title);
             const waText = encodeURIComponent(`*${title}*\n${desc}\n\n${lang === 'EN' ? 'Read more at:' : 'Baca selengkapnya di:'}\n${window.location.href}`);
 
@@ -161,7 +165,6 @@
             document.getElementById('pr-content').innerHTML = html;
         }
 
-        // Progress bar baca: dipasang sekali saja
         window.addEventListener('scroll', () => {
             const st = window.pageYOffset || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
