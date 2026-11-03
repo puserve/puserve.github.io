@@ -53,6 +53,11 @@
         #flipbook-container { width: 100%; height: 100%; }
         .df-container { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 
+        .book-loading { text-align: center; padding: 60px 20px; color: #fff; font-weight: 700; }
+        .book-spinner { width: 42px; height: 42px; margin: 0 auto 16px; border: 4px solid rgba(255,255,255,0.25); border-top-color: var(--puserve-yellow); border-radius: 50%; animation: bookspin 1s linear infinite; }
+        @keyframes bookspin { to { transform: rotate(360deg); } }
+        .book-loading a { color: var(--puserve-yellow); font-weight: 600; }
+
         @media (max-width: 768px) {
             .repo-item { flex-direction: column; align-items: flex-start; padding: 20px; }
             .repo-actions { width: 100%; justify-content: space-between; }
@@ -230,6 +235,9 @@
 
         // ===== FLIPBOOK 3D: library baru dimuat saat dokumen pertama dibuka =====
         const DFLIP_BASE = 'https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/';
+        // false = flipbook ringan (tetap ada efek balik halaman, tanpa mesin WebGL yang berat).
+        // Ganti ke true kalau mau efek 3D penuh dan rela menunggu lebih lama.
+        const USE_WEBGL = false;
         let flipLoading = null;
 
         function loadScript(src) {
@@ -273,11 +281,11 @@
 
             if (fmt === 'PDF') {
                 const flipId = 'flipbook-' + index;
-                container.innerHTML = `<div id="${flipId}" style="width:100%;height:100%;"><div style="text-align:center; padding: 50px; color:#fff; font-weight:700;">${lang === 'EN' ? 'Loading...' : 'Memuat...'}</div></div>`;
+                container.innerHTML = `<div id="${flipId}" style="width:100%;height:100%;"><div class="book-loading"><div class="book-spinner"></div><div>${lang === 'EN' ? 'Loading document...' : 'Memuat dokumen...'}</div><div style="font-weight:500; font-size:0.9rem; margin-top:8px; opacity:0.85;">${lang === 'EN' ? 'The first time can take a moment.' : 'Pertama kali bisa agak lama.'} <a href="${fileUrl}" target="_blank" rel="noopener">${lang === 'EN' ? 'Open the file directly' : 'Buka file langsung'}</a></div></div></div>`;
                 loadFlipbookLib().then(() => {
                     const el = window.jQuery('#' + flipId);
                     el.empty();
-                    el.flipBook(fileUrl, { webgl: true, height: '100%', backgroundColor: 'transparent', autoEnableOutline: false, autoEnableThumbnail: false });
+                    el.flipBook(fileUrl, { webgl: USE_WEBGL, height: '100%', backgroundColor: 'transparent', autoEnableOutline: false, autoEnableThumbnail: false });
                 }).catch(err => { console.error(err); failMsg(); });
             } else {
                 container.innerHTML = `<img src="${fileUrl}" alt="" style="width:100%; height:100%; object-fit:contain; border-radius:12px; background:var(--card-bg);" onerror="this.onerror=null; this.remove();">`;
@@ -289,6 +297,13 @@
             document.getElementById('flipbook-container').innerHTML = '';
         }
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBookModal(); });
+
+        // Pemanasan: library flipbook mulai diunduh saat kursor/jari menyentuh tombol pratinjau
+        ['mouseover', 'touchstart'].forEach(evt => {
+            document.getElementById('repoList').addEventListener(evt, (e) => {
+                if (e.target.closest('[onclick*="openBookModal"]')) loadFlipbookLib().catch(() => {});
+            }, { passive: true });
+        });
 
         document.addEventListener("DOMContentLoaded", loadRepository);
 
