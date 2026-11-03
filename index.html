@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="view-transition" content="same-origin">
-    
+
     <title>PUSERVE | President University Serve Environment</title>
-    
+
     <link rel="preload" as="image" href="PUSERVE BG.webp">
     <link rel="preload" as="image" href="logos/LOGO_PUSERVE.png">
-    
+
     <meta property="og:title" content="PUSERVE | Official Portal">
     <meta property="og:description" content="Real Environmental Action, Education, and Sustainability at President University.">
     <meta property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
@@ -24,7 +24,7 @@
     <meta name="apple-mobile-web-app-title" content="PUSERVE">
     <meta name="application-name" content="PUSERVE">
     <link rel="manifest" href="manifest.json">
-    
+
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
@@ -52,9 +52,9 @@
             <h1 class="massive-title-light">
                 <span class="grad-text-1">PU</span><span class="font-serif glow-s">S</span><span class="grad-text-2">ERVE</span>
             </h1>
-            
+
             <p class="hero-subtext-light animate-fade-up delay-3" data-en="As an environmental movement, we're on a mission to generate ideas and transform them into meaningful impact for our planet." data-id="Sebagai gerakan lingkungan, kami memiliki misi untuk menciptakan ide dan mengubahnya menjadi dampak nyata bagi planet kita.">As an environmental movement, we're on a mission to generate ideas and transform them into meaningful impact for our planet.</p>
-            
+
             <div class="animate-fade-up delay-3">
                 <a href="#activities" class="btn-massive-primary" data-en="Get Involved" data-id="Mulai Aksi">Get Involved</a>
             </div>
@@ -90,7 +90,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- LIVE CAMPAIGN TRACKER -->
     <section class="section-container" style="padding-top: 40px; padding-bottom: 40px;">
         <div class="section-header">
@@ -114,7 +114,7 @@
             {% endfor %}
         </div>
     </section>
-    
+
     <!-- EVENTS SECTION -->
     <section class="section-container" id="activities">
         <div class="section-header">
@@ -149,134 +149,220 @@
         </div>
     </section>
 
-    <!-- VOICES OF PUSERVE -->  
-<section class="section-container" style="padding-top: 40px; padding-bottom: 80px;">  
-    <div class="section-header">  
-        <div class="section-line"></div>  
-        <h2 class="section-title" data-en="Voices of Impact" data-id="Suara Perubahan">Voices of Impact</h2>  
-        <div class="section-line"></div>  
-    </div>
-    
-    <div class="voices-card-landscape">  
-        <div class="voices-watermark">"</div>  
-        <div class="voices-top">  
-            <div class="voices-logos">  
-                <img id="v-logo" src="logos/LOGO_PUSERVE.png" alt="Org Logo" style="transition: opacity 0.5s ease;">  
-            </div>  
-            <div class="voices-badge" data-en="OFFICIAL<br>STATEMENT" data-id="PERNYATAAN<br>RESMI">OFFICIAL<br>STATEMENT</div>  
+    <!-- VOICES OF PUSERVE -->
+    <section class="section-container" style="padding-top: 40px; padding-bottom: 80px;">
+        <div class="section-header">
+            <div class="section-line"></div>
+            <h2 class="section-title" data-en="Voices of Impact" data-id="Suara Perubahan">Voices of Impact</h2>
+            <div class="section-line"></div>
         </div>
-        
-        <div class="voices-dynamic-content" id="voices-dynamic-content" style="transition: opacity 0.5s ease;">  
-            <div class="voices-mid">
-                <p id="v-quote" data-en='"Your voice goes here..."' data-id='"Pesan Anda muncul di sini..."'>"Your voice goes here..."</p>
-            </div>
-            <div class="voices-bottom">
-                <div>
-                    <h2 id="v-name">LOREM IPSUM</h2>
-                    <p id="v-role" class="v-role-text">Loading Data...</p>
-                </div>
-                <span class="voices-date" id="v-date">-</span>
-            </div>
-        </div>
-    </div>
-</section>
 
-{% include footer.html %}
+        <div class="voices-card-landscape">
+            <div class="voices-watermark">"</div>
+            <div class="voices-top">
+                <div class="voices-logos">
+                    <img id="v-logo" src="logos/LOGO_PUSERVE.png" alt="Org Logo" style="transition: opacity 0.5s ease;">
+                </div>
+                <div class="voices-badge" data-en="OFFICIAL<br>STATEMENT" data-id="PERNYATAAN<br>RESMI">OFFICIAL<br>STATEMENT</div>
+            </div>
+
+            <div class="voices-dynamic-content" id="voices-dynamic-content" style="transition: opacity 0.5s ease;">
+                <div class="voices-mid">
+                    <p id="v-quote" data-en='"Your voice goes here..."' data-id='"Pesan Anda muncul di sini..."'>"Your voice goes here..."</p>
+                </div>
+                <div class="voices-bottom">
+                    <div>
+                        <h2 id="v-name">LOREM IPSUM</h2>
+                        <p id="v-role" class="v-role-text">Loading Data...</p>
+                    </div>
+                    <span class="voices-date" id="v-date">-</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include footer.html %}
 
 <script>
-    async function loadHomeData() {
-        let currentLang = localStorage.getItem('puserve_lang') || 'EN';
-        const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(currentLang === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e){} return dateStr; };
+(function () {
+    // Alamat API dibuat absolut (diawali "/") supaya jalan dari halaman mana pun
+    const API = { voices: '/api/voices.json', events: '/api/events.json', news: '/api/news.json' };
+    const FALLBACK_IMG = '/logos/LOGO_PUSERVE.png';
+    const cache = { voices: null, events: null, news: null };
+    let voiceTimer = null;
+    let voiceIndex = 0;
 
-      const renderCard = (fm, folder) => {
-            const title = currentLang === 'EN' ? (fm.title_en || fm.title) : (fm.title_id || fm.title);
-            const link = fm.url;  // INI YANG BENER!
-            const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
-            return `
-            <a href="${link}" class="card trans-link">
-                <img src="${img}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
-                <div class="card-body">
-                    <span class="card-tag">${fm.status || 'Highlight'}</span>
-                    <h3 class="card-title">${title}</h3>
-                    <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
-                </div>
-            </a>`;
-        };
-        
-        // 1. VOICES AUTO ROTATE (NO CUT OFF)
+    const byId = (id) => document.getElementById(id);
+    const getLang = () => localStorage.getItem('puserve_lang') || 'EN';
+    const parseDate = (s) => new Date(String(s || '').replace(/-/g, '/'));
+
+    function formatDate(dateStr) {
         try {
-            const vRes = await fetch('api/voices.json');
-            const voices = await vRes.json();
-            
-            if (voices && voices.length > 0) {
-                voices.sort((a, b) => new Date(b.date) - new Date(a.date));
-                
-                let currentIndex = 0;
-                const dynamicContent = document.getElementById('voices-dynamic-content');
-                const logoEl = document.getElementById('v-logo');
-
-                const showVoice = (index) => {
-                    const v = voices[index]; 
-                    const quote = currentLang === 'EN' ? v.quote_en : v.quote_id;
-                    const role = currentLang === 'EN' ? v.role_en : v.role_id;
-                    
-                    let logoSrc = 'logos/LOGO_PUSERVE.png';
-                    if (v.logo) {
-                        let hasExt = /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(v.logo);
-                        let finalFileName = hasExt ? v.logo : `${v.logo}.png`; 
-                        let rawUrl = finalFileName.startsWith('/') ? finalFileName.slice(1) : finalFileName;
-                        if(!rawUrl.includes('uploads/')) rawUrl = `uploads/${rawUrl}`;
-                        logoSrc = encodeURI(rawUrl); 
-                    }
-                    
-                    document.getElementById('v-quote').innerText = `"${quote}"`;
-                    document.getElementById('v-name').innerText = v.name;
-                    document.getElementById('v-role').innerText = role;
-                    document.getElementById('v-date').innerText = formatDate(v.date);
-                    logoEl.src = logoSrc;
-                };
-
-                showVoice(currentIndex);
-
-                if (voices.length > 1) {
-                    setInterval(() => {
-                        currentIndex = (currentIndex + 1) % voices.length;
-                        if (dynamicContent) dynamicContent.style.opacity = '0';
-                        if (logoEl) logoEl.style.opacity = '0';
-
-                        setTimeout(() => {
-                            showVoice(currentIndex);
-                            if (dynamicContent) dynamicContent.style.opacity = '1';
-                            if (logoEl) logoEl.style.opacity = '1';
-                        }, 500); 
-                    }, 10000); 
-                }
-            }
-        } catch(e) { console.error("Voices error:", e); }
-
-        // 2. EVENTS
-        try {
-            const res = await fetch('api/events.json');
-            const events = await res.json();
-            events.sort((a,b) => new Date(b.date) - new Date(a.date));
-            const eGrid = document.getElementById('home-events-grid');
-            if(eGrid) eGrid.innerHTML = events.slice(0,2).map(fm => renderCard(fm, 'events')).join('') || `<div class="empty-state">No events yet.</div>`;
-        } catch(e) { console.error("Events error:", e); }
-
-        // 3. NEWS
-        try {
-            const res = await fetch('api/news.json');
-            const news = await res.json();
-            const news = (await res.json()).filter(n => new Date((n.date || '').replace(/-/g, '/')) <= new Date());
-            news.sort((a,b) => new Date(b.date) - new Date(a.date));
-            const nGrid = document.getElementById('home-news-carousel');
-            if(nGrid) nGrid.innerHTML = news.slice(0,2).map(fm => renderCard(fm, 'news')).join('') || `<div class="empty-state">No news yet.</div>`;
-        } catch(e) { console.error("News error:", e); }
+            const d = parseDate(dateStr);
+            if (!isNaN(d)) return d.toLocaleDateString(getLang() === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+        } catch (e) {}
+        return dateStr || '';
     }
 
-    document.addEventListener("DOMContentLoaded", loadHomeData);
-    const langToggleCustom = document.getElementById('langToggle');
-    if(langToggleCustom) langToggleCustom.addEventListener('click', () => { setTimeout(() => { loadHomeData(); }, 100); });
+    // Ubah path dari CMS jadi URL absolut yang aman (spasi di-encode)
+    function assetUrl(p, fallback) {
+        if (!p) return fallback;
+        let s = String(p).trim();
+        if (/^https?:\/\//i.test(s)) return s;
+        s = s.replace(/^\/+/, '');
+        if (!s.includes('/')) s = 'uploads/' + s;
+        return '/' + encodeURI(s);
+    }
+
+    function voiceLogo(p) {
+        if (!p) return FALLBACK_IMG;
+        let s = String(p);
+        if (!/\.(jpg|jpeg|png|webp|gif|svg)$/i.test(s)) s += '.png';
+        return assetUrl(s, FALLBACK_IMG);
+    }
+
+    async function fetchJSON(url) {
+        const res = await fetch(url, { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status + ' - ' + url);
+        const text = await res.text();
+        let data;
+        try { data = JSON.parse(text); }
+        catch (e) { throw new Error('JSON tidak valid di ' + url + ' (' + e.message + ')'); }
+        if (!Array.isArray(data)) throw new Error('Format data salah di ' + url);
+        return data;
+    }
+
+    // Error ditampilkan di halaman (hapus bagian <small> kalau sudah stabil)
+    function showError(el, err) {
+        console.error(err);
+        if (!el) return;
+        const msg = getLang() === 'EN' ? 'Failed to load data.' : 'Gagal memuat data.';
+        el.innerHTML = '<div class="empty-state" style="color:#ef4444;">' + msg + ' <small>(' + String(err.message || err) + ')</small></div>';
+    }
+
+    // ---------- KARTU EVENTS & NEWS ----------
+    function cardHTML(fm, defaultTag) {
+        const lang = getLang();
+        const title = lang === 'EN' ? (fm.title_en || fm.title_id || '') : (fm.title_id || fm.title_en || '');
+        const img = assetUrl(fm.thumbnail, FALLBACK_IMG);
+        return `
+        <a href="${fm.url}" class="card trans-link">
+            <img src="${img}" class="card-img" alt="" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
+            <div class="card-body">
+                <span class="card-tag">${fm.status || defaultTag}</span>
+                <h3 class="card-title">${title}</h3>
+                <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
+            </div>
+        </a>`;
+    }
+
+    async function loadList(kind, gridId, defaultTag, emptyEN, emptyID) {
+        const el = byId(gridId);
+        if (!el) return;
+        try {
+            if (!cache[kind]) {
+                const data = await fetchJSON(API[kind]);
+                data.sort((a, b) => parseDate(b.date) - parseDate(a.date));
+                cache[kind] = data;
+            }
+            const items = cache[kind].slice(0, 2);
+            el.innerHTML = items.length
+                ? items.map(fm => cardHTML(fm, defaultTag)).join('')
+                : '<div class="empty-state">' + (getLang() === 'EN' ? emptyEN : emptyID) + '</div>';
+        } catch (err) { showError(el, err); }
+    }
+
+    // ---------- VOICES OF IMPACT ----------
+    function showVoice(i) {
+        const list = cache.voices;
+        if (!list || !list.length) return;
+        const v = list[i % list.length];
+        const lang = getLang();
+        const quote = lang === 'EN' ? (v.quote_en || v.quote_id) : (v.quote_id || v.quote_en);
+        const role = lang === 'EN' ? (v.role_en || v.role_id) : (v.role_id || v.role_en);
+        byId('v-quote').innerText = '"' + (quote || '') + '"';
+        byId('v-name').innerText = v.name || '';
+        byId('v-role').innerText = role || '';
+        byId('v-date').innerText = formatDate(v.date);
+        byId('v-logo').src = voiceLogo(v.logo);
+    }
+
+    function startVoiceRotation() {
+        clearInterval(voiceTimer);
+        if (!cache.voices || cache.voices.length < 2) return;
+        const box = byId('voices-dynamic-content');
+        const logo = byId('v-logo');
+        voiceTimer = setInterval(() => {
+            voiceIndex = (voiceIndex + 1) % cache.voices.length;
+            if (box) box.style.opacity = '0';
+            if (logo) logo.style.opacity = '0';
+            setTimeout(() => {
+                showVoice(voiceIndex);
+                if (box) box.style.opacity = '1';
+                if (logo) logo.style.opacity = '1';
+            }, 500);
+        }, 10000);
+    }
+
+    async function loadVoices() {
+        if (!byId('v-quote')) return;
+        try {
+            if (!cache.voices) {
+                const data = await fetchJSON(API.voices);
+                data.sort((a, b) => parseDate(b.date) - parseDate(a.date));
+                cache.voices = data;
+            }
+            voiceIndex = 0;
+            showVoice(0);
+            startVoiceRotation();
+        } catch (err) {
+            console.error(err);
+            const role = byId('v-role');
+            if (role) role.innerText = getLang() === 'EN' ? 'Failed to load.' : 'Gagal memuat.';
+        }
+    }
+
+    // ---------- ANGKA PERSEN KAMPANYE ----------
+    function animateCampaigns() {
+        document.querySelectorAll('.counter-camp').forEach(el => {
+            const target = parseFloat(el.getAttribute('data-target')) || 0;
+            const start = performance.now();
+            const duration = 1200;
+            function step(now) {
+                const p = Math.min((now - start) / duration, 1);
+                el.textContent = Math.round(target * p) + '%';
+                if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        });
+    }
+
+    function loadAll() {
+        loadVoices();
+        loadList('events', 'home-events-grid', 'Event', 'No events yet.', 'Belum ada acara.');
+        loadList('news', 'home-news-carousel', 'Outlook', 'No news yet.', 'Belum ada berita.');
+    }
+
+    function init() {
+        animateCampaigns();
+        loadAll();
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+
+    // Ganti bahasa: render ulang dari data yang sudah diambil
+    const langBtn = byId('langToggle');
+    if (langBtn) {
+        langBtn.addEventListener('click', () => {
+            setTimeout(() => {
+                loadList('events', 'home-events-grid', 'Event', 'No events yet.', 'Belum ada acara.');
+                loadList('news', 'home-news-carousel', 'Outlook', 'No news yet.', 'Belum ada berita.');
+                showVoice(voiceIndex);
+            }, 100);
+        });
+    }
+})();
 </script>
 </body>
 </html>
