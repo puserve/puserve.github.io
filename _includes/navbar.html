@@ -1,3 +1,9 @@
+<style>
+    .nav-lang { background: none; border: 1px solid var(--card-border, rgba(0,0,0,0.15)); border-radius: 999px; padding: 6px 12px; font-family: inherit; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; color: var(--text-color); cursor: pointer; transition: 0.2s ease; }
+    .nav-lang:hover { border-color: var(--primary-green); }
+    .nav-lang b { color: var(--primary-green); font-weight: 800; }
+    body.eco-mode .nav-lang b { color: var(--puserve-yellow); }
+</style>
 <nav id="navbar">
     <div class="nav-logos">
         <a href="/index.html" class="trans-link"><img src="/logos/LOGO_PU.png" alt="PU"></a>
@@ -11,6 +17,7 @@
         <li><a href="/news.html" class="trans-link" data-en="Outlook" data-id="Berita">Outlook</a></li>
         <li><a href="/repository.html" class="trans-link" data-en="Repository" data-id="Repositori">Repository</a></li>
         <li><a href="/team.html" class="trans-link" data-en="Team" data-id="Tim">Team</a></li>
+        <li><button type="button" id="navLang" class="nav-lang" aria-label="Change language / Ganti bahasa" onclick="document.getElementById('langToggle').click()"><b>EN</b> | ID</button></li>
         <li><button onclick="openJoinModal()" class="btn-join" data-en="Connect" data-id="Hubungi">Connect</button></li>
     </ul>
 </nav>
