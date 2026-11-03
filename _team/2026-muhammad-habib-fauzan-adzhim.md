@@ -1,6 +1,6 @@
 ---
 title: Muhammad Habib Fauzan Adzhim
-thumbnail: /uploads/LOGO_PUSERVE.png
+thumbnail: /uploads/1000273945.jpg-100kb.jpeg
 position: Member
 division: Research, Observation, and Innovation
 major: ''
