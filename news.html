@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Outlook | PUSERVE</title>
+    <meta name="description" content="Latest environmental news, opinions, and analysis from PUSERVE, President University.">
     <meta property="og:title" content="Outlook | PUSERVE">
     <meta property="og:description" content="Latest Environmental News, Opinions, and Analysis.">
     <meta property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 </head>
 <body>
 
@@ -21,7 +21,7 @@
         <h1 data-en="PUSERVE OUTLOOK" data-id="PUSERVE OUTLOOK">PUSERVE OUTLOOK</h1>
         <p style="font-size: 1.1rem; opacity: 0.9;" data-en="Latest Environmental News, Opinions, and Analysis." data-id="Berita, Opini, dan Analisis Lingkungan Terkini.">Latest Environmental News, Opinions, and Analysis.</p>
         <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search news..." data-en="Search news..." data-id="Cari data berita...">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search news..." data-en="Search news..." data-id="Cari berita...">
         </div>
     </header>
 
@@ -45,80 +45,96 @@
     {% include footer.html %}
 
 <script>
-    const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(localStorage.getItem('puserve_lang') === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric' }); } catch(e){} return dateStr; };
+    const getLang = () => localStorage.getItem('puserve_lang') || 'EN';
+    const esc = (v) => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-        async function loadCatalog() {
-            const grids = { 
-                highlight: document.getElementById('grid-highlight'), 
-                latest: document.getElementById('grid-latest'), 
-                archive: document.getElementById('grid-archive') 
-            };
-            let currentLang = localStorage.getItem('puserve_lang') || 'EN';
-            const emptyMsg = currentLang === 'EN' ? 'No records published yet.' : 'Belum ada catatan di kategori ini.';
+    // Tanggal dari CMS dianggap waktu Jakarta (WIB, +07:00); aman di semua browser
+    const parseJakarta = (s) => new Date(String(s || '').replace(' ', 'T') + '+07:00');
 
-            try {
-                const res = await fetch(`api/news.json`);
-                if (!res.ok) throw new Error("API Error");
-                const files = await res.json();
-                
-                let data = { highlight: [], latest: [], archive: [] };
-                const today = new Date();
+    function formatDate(dateStr) {
+        try {
+            const d = parseJakarta(dateStr);
+            if (!isNaN(d)) return d.toLocaleDateString(getLang() === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Jakarta' });
+        } catch (e) {}
+        return dateStr || '';
+    }
 
-                for (const fm of files) {
-                    if(!fm.title_en && !fm.title_id && !fm.title) continue;
-                    
-                    const eventDate = new Date(fm.date);
-                    const diffTime = Math.abs(today - eventDate);
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-                    
-                    if (diffDays <= 3) {
-                        data.highlight.push(fm);
-                    } else if (diffDays > 3 && diffDays <= 7) {
-                        data.latest.push(fm);
-                    } else {
-                        data.archive.push(fm);
-                    }
-                }
+    function assetUrl(p, fallback) {
+        if (!p) return fallback;
+        let s = String(p).trim();
+        if (/^https?:\/\//i.test(s)) return s;
+        s = s.replace(/^\/+/, '');
+        if (!s.includes('/')) s = 'uploads/' + s;
+        return '/' + encodeURI(s);
+    }
 
-                Object.keys(data).forEach(key => {
-                    if(!grids[key]) return; 
-                    data[key].sort((a, b) => new Date(b.date) - new Date(a.date));
-                    if (data[key].length === 0) { grids[key].innerHTML = `<div class="empty-state">${emptyMsg}</div>`; } 
-                    else {
-                        grids[key].innerHTML = data[key].map(fm => {
-                            const title = currentLang === 'EN' ? (fm.title_en || fm.title_id || fm.title) : (fm.title_id || fm.title_en || fm.title);
-                            const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
-                            return `
-                            <a href="${fm.url}" class="card trans-link">
-                                <img src="${img}" class="card-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
-                                <div class="card-body">
-                                    <span class="card-tag">${fm.status || 'Outlook News'}</span>
-                                    <h3 class="card-title">${title}</h3>
-                                    <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
-                                </div>
-                            </a>`;
-                        }).join('');
-                    }
-                });
-            } catch (error) { 
-                Object.values(grids).forEach(grid => { if(grid) grid.innerHTML = `<div class="empty-state" style="color:#ef4444;">Gagal memuat data dari server. Refresh halaman.</div>` }); 
+    async function loadCatalog() {
+        const grids = {
+            highlight: document.getElementById('grid-highlight'),
+            latest: document.getElementById('grid-latest'),
+            archive: document.getElementById('grid-archive')
+        };
+        const lang = getLang();
+        const emptyMsg = lang === 'EN' ? 'No records published yet.' : 'Belum ada catatan di kategori ini.';
+
+        try {
+            const res = await fetch('/api/news.json', { cache: 'no-cache' });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const files = await res.json();
+
+            const data = { highlight: [], latest: [], archive: [] };
+            const now = new Date();
+
+            for (const fm of files) {
+                if (!fm.title_en && !fm.title_id) continue;
+                const published = parseJakarta(fm.date);
+                // Berita terjadwal (tanggal di masa depan) belum ditampilkan di daftar
+                if (!isNaN(published) && published > now) continue;
+
+                const diffDays = isNaN(published) ? 999 : Math.floor((now - published) / 86400000);
+                if (diffDays <= 3) data.highlight.push(fm);
+                else if (diffDays <= 7) data.latest.push(fm);
+                else data.archive.push(fm);
             }
-        }
-        
-        document.addEventListener("DOMContentLoaded", loadCatalog);
 
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const term = e.target.value.toLowerCase();
-            document.querySelectorAll('.card').forEach(card => {
-                const title = card.querySelector('.card-title').innerText.toLowerCase();
-                card.style.display = title.includes(term) ? 'flex' : 'none';
+            Object.keys(data).forEach(key => {
+                if (!grids[key]) return;
+                data[key].sort((a, b) => parseJakarta(b.date) - parseJakarta(a.date));
+                if (data[key].length === 0) { grids[key].innerHTML = `<div class="empty-state">${emptyMsg}</div>`; return; }
+                grids[key].innerHTML = data[key].map(fm => {
+                    const title = lang === 'EN' ? (fm.title_en || fm.title_id) : (fm.title_id || fm.title_en);
+                    const img = assetUrl(fm.thumbnail, '/logos/LOGO_PUSERVE.png');
+                    return `
+                    <a href="${fm.url}" class="card trans-link">
+                        <img src="${img}" class="card-img" alt="" onerror="this.onerror=null;this.src='/logos/LOGO_PUSERVE.png'">
+                        <div class="card-body">
+                            <span class="card-tag">${esc(fm.status || 'Outlook News')}</span>
+                            <h3 class="card-title">${esc(title)}</h3>
+                            <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
+                        </div>
+                    </a>`;
+                }).join('');
             });
-        });
-
-        const langToggleCustom = document.getElementById('langToggle');
-        if(langToggleCustom) {
-            langToggleCustom.addEventListener('click', () => { setTimeout(() => { loadCatalog(); }, 100); });
+        } catch (error) {
+            console.error(error);
+            Object.values(grids).forEach(grid => { if (grid) grid.innerHTML = `<div class="empty-state" style="color:#ef4444;">${lang === 'EN' ? 'Failed to load data.' : 'Gagal memuat data.'} <small>(${esc(error.message)})</small></div>`; });
         }
-    </script>
+    }
+
+    document.addEventListener("DOMContentLoaded", loadCatalog);
+
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase();
+        document.querySelectorAll('.card').forEach(card => {
+            const title = card.querySelector('.card-title').innerText.toLowerCase();
+            card.style.display = title.includes(term) ? 'flex' : 'none';
+        });
+    });
+
+    const langToggleCustom = document.getElementById('langToggle');
+    if (langToggleCustom) {
+        langToggleCustom.addEventListener('click', () => { setTimeout(() => { loadCatalog(); }, 100); });
+    }
+</script>
 </body>
 </html>
