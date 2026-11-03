@@ -1,6 +1,6 @@
 ---
 title: Aurelia Cecillia Patricia Kaparang
-thumbnail: /uploads/LOGO_PUSERVE.png
+thumbnail: /uploads/12B AURELIA SCK MND.jpg-100kb.jpeg
 position: Member
 division: Research, Observation, and Innovation
 major: ''
