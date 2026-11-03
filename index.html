@@ -38,9 +38,9 @@
 
         <div class="aqi-top-left animate-fade-up delay-1">
             <div class="glass-box-light" style="cursor: default;">
-                <p class="aqi-label-light">CIKARANG AIR QUALITY INDEX</p>
-                <p class="aqi-score-light">118 AQI - Unhealthy <span class="pulsing-dot"></span></p>
-                <p style="font-size: 0.65rem; color: var(--text-muted); margin-top: 5px; font-weight: 600;">Live Source: Open-Meteo Global API</p>
+                <p class="aqi-label-light" data-en="CIKARANG AIR QUALITY INDEX" data-id="INDEKS KUALITAS UDARA CIKARANG">CIKARANG AIR QUALITY INDEX</p>
+                <p class="aqi-score-light"><span id="aqi-value">--</span> <span class="pulsing-dot" id="aqi-dot" style="display:none;"></span></p>
+                <p id="aqi-source" style="font-size: 0.65rem; color: var(--text-muted); margin-top: 5px; font-weight: 600;">&nbsp;</p>
             </div>
         </div>
 
@@ -56,7 +56,7 @@
             <p class="hero-subtext-light animate-fade-up delay-3" data-en="As an environmental movement, we're on a mission to generate ideas and transform them into meaningful impact for our planet." data-id="Sebagai gerakan lingkungan, kami memiliki misi untuk menciptakan ide dan mengubahnya menjadi dampak nyata bagi planet kita.">As an environmental movement, we're on a mission to generate ideas and transform them into meaningful impact for our planet.</p>
 
             <div class="animate-fade-up delay-3">
-                <a href="#activities" class="btn-massive-primary" data-en="Get Involved" data-id="Mulai Aksi">Get Involved</a>
+                <a href="#" onclick="openJoinModal(); return false;" class="btn-massive-primary" data-en="Get Involved" data-id="Mulai Aksi">Get Involved</a>
             </div>
         </div>
 
@@ -70,26 +70,40 @@
         </div>
     </section>
 
-    <!-- IMPACT COUNTER -->
+    <!-- IMPACT COUNTER (item bernilai 0 disembunyikan) -->
+    {% assign imp_w = site.data.stats.impact.warriors | default: 0 %}
+    {% assign imp_c = site.data.stats.impact.campaigns | default: 0 %}
+    {% assign imp_p = site.data.stats.impact.partners | default: 0 %}
+    {% if imp_w > 0 or imp_c > 0 or imp_p > 0 %}
     <section class="section-container" style="padding-top: 80px; padding-bottom: 0;">
         <div class="impact-box">
+            {% if imp_w > 0 %}
             <div class="impact-item">
                 <svg class="impact-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>
                 <div class="impact-num counter">{{ site.data.stats.impact.warriors | default: 0 }}</div>
                 <div class="impact-label" data-en="Active Eco-Warriors" data-id="Pahlawan Lingkungan">Active Eco-Warriors</div>
             </div>
+            {% endif %}
+            {% if imp_c > 0 %}
             <div class="impact-item">
                 <svg class="impact-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
                 <div class="impact-num counter">{{ site.data.stats.impact.campaigns | default: 0 }}</div>
                 <div class="impact-label" data-en="Campaigns Launched" data-id="Kampanye Terlaksana">Campaigns Launched</div>
             </div>
+            {% endif %}
+            {% if imp_p > 0 %}
             <div class="impact-item">
                 <svg class="impact-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 <div class="impact-num counter">{{ site.data.stats.impact.partners | default: 0 }}</div>
                 <div class="impact-label" data-en="Community Partners" data-id="Mitra Komunitas">Community Partners</div>
             </div>
+            {% endif %}
         </div>
+        {% if site.data.stats.impact.updated %}
+        <p class="impact-updated" style="text-align:center; margin-top:14px; font-size:0.8rem; color:var(--text-muted); font-weight:600;" data-en="Data as of {{ site.data.stats.impact.updated | escape }}" data-id="Data per {{ site.data.stats.impact.updated | escape }}">Data as of {{ site.data.stats.impact.updated | escape }}</p>
+        {% endif %}
     </section>
+    {% endif %}
 
     <!-- LIVE CAMPAIGN TRACKER -->
     <section class="section-container" style="padding-top: 40px; padding-bottom: 40px;">
@@ -106,7 +120,7 @@
                         <h3 data-en="{{ camp.title_en }}" data-id="{{ camp.title_id }}">{{ camp.title_en }}</h3>
                         <p data-en="{{ camp.target_en }}" data-id="{{ camp.target_id }}">{{ camp.target_en }}</p>
                     </div>
-                    <div class="campaign-percentage counter-camp" data-target="{{ camp.percentage }}">0%</div>
+                    {% if camp.percentage and camp.percentage > 0 %}<div class="campaign-percentage counter-camp" data-target="{{ camp.percentage }}">0%</div>{% else %}<div class="campaign-percentage" data-en="New" data-id="Baru">New</div>{% endif %}
                 </div>
                 <div class="progress-track"><div class="progress-fill" style="width: {{ camp.percentage }}%;"></div></div>
                 <p class="campaign-subtext" data-en="{{ camp.current_en }}" data-id="{{ camp.current_id }}">{{ camp.current_en }}</p>
@@ -195,6 +209,12 @@
     const byId = (id) => document.getElementById(id);
     const getLang = () => localStorage.getItem('puserve_lang') || 'EN';
     const parseDate = (s) => new Date(String(s || '').replace(/-/g, '/'));
+    const esc = (v) => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    // Tanggal dari CMS dianggap waktu Jakarta (WIB, +07:00)
+    function isPublished(fm) {
+        const t = new Date(String(fm.date || '').replace(' ', 'T') + '+07:00');
+        return isNaN(t) ? true : t <= new Date();
+    }
 
     function formatDate(dateStr) {
         try {
@@ -249,8 +269,8 @@
         <a href="${fm.url}" class="card trans-link">
             <img src="${img}" class="card-img" alt="" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
             <div class="card-body">
-                <span class="card-tag">${fm.status || defaultTag}</span>
-                <h3 class="card-title">${title}</h3>
+                <span class="card-tag">${esc(fm.status || defaultTag)}</span>
+                <h3 class="card-title">${esc(title)}</h3>
                 <div class="card-meta"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:5px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> ${formatDate(fm.date)}</div>
             </div>
         </a>`;
@@ -263,7 +283,7 @@
             if (!cache[kind]) {
                 const data = await fetchJSON(API[kind]);
                 data.sort((a, b) => parseDate(b.date) - parseDate(a.date));
-                cache[kind] = data;
+                cache[kind] = (kind === 'news') ? data.filter(isPublished) : data;
             }
             const items = cache[kind].slice(0, 2);
             el.innerHTML = items.length
@@ -337,6 +357,56 @@
         });
     }
 
+    // ---------- KUALITAS UDARA (Open-Meteo / CAMS, estimasi model) ----------
+    const AQI_URL = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=-6.2845&longitude=107.1715&current=us_aqi&timezone=Asia%2FJakarta';
+    const AQI_LEVELS = [
+        { max: 50,  en: 'Good',                           id: 'Baik' },
+        { max: 100, en: 'Moderate',                       id: 'Sedang' },
+        { max: 150, en: 'Unhealthy for Sensitive Groups', id: 'Tidak sehat bagi kelompok sensitif' },
+        { max: 200, en: 'Unhealthy',                      id: 'Tidak sehat' },
+        { max: 300, en: 'Very Unhealthy',                 id: 'Sangat tidak sehat' },
+        { max: Infinity, en: 'Hazardous',                 id: 'Berbahaya' }
+    ];
+    let aqiData = null;
+
+    function renderAqi() {
+        const valueEl = byId('aqi-value');
+        if (!valueEl) return;
+        const srcEl = byId('aqi-source');
+        const dot = byId('aqi-dot');
+        const isEN = getLang() === 'EN';
+        if (!aqiData) {
+            valueEl.textContent = isEN ? 'Data unavailable' : 'Data tidak tersedia';
+            if (dot) dot.style.display = 'none';
+            if (srcEl) srcEl.innerHTML = '&nbsp;';
+            return;
+        }
+        const level = AQI_LEVELS.find(l => aqiData.value <= l.max);
+        valueEl.textContent = aqiData.value + ' AQI - ' + (isEN ? level.en : level.id);
+        if (dot) dot.style.display = '';
+        if (srcEl) {
+            srcEl.innerHTML = (isEN ? 'Model estimate' : 'Estimasi model') + ' &middot; CAMS &middot; <a href="https://open-meteo.com/" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;">Open-Meteo</a>' + (aqiData.time ? ' &middot; ' + aqiData.time + ' WIB' : '');
+        }
+    }
+
+    async function loadAqi() {
+        const valueEl = byId('aqi-value');
+        if (!valueEl) return;
+        valueEl.textContent = getLang() === 'EN' ? 'Loading...' : 'Memuat...';
+        try {
+            const res = await fetch(AQI_URL);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const json = await res.json();
+            const v = json && json.current ? json.current.us_aqi : null;
+            if (v === null || v === undefined) throw new Error('us_aqi kosong');
+            aqiData = { value: Math.round(v), time: String(json.current.time || '').split('T')[1] || '' };
+        } catch (err) {
+            console.error('AQI error:', err);
+            aqiData = null;
+        }
+        renderAqi();
+    }
+
     function loadAll() {
         loadVoices();
         loadList('events', 'home-events-grid', 'Event', 'No events yet.', 'Belum ada acara.');
@@ -345,6 +415,7 @@
 
     function init() {
         animateCampaigns();
+        loadAqi();
         loadAll();
     }
 
@@ -359,6 +430,7 @@
                 loadList('events', 'home-events-grid', 'Event', 'No events yet.', 'Belum ada acara.');
                 loadList('news', 'home-news-carousel', 'Outlook', 'No news yet.', 'Belum ada berita.');
                 showVoice(voiceIndex);
+                renderAqi();
             }, 100);
         });
     }
