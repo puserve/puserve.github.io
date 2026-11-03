@@ -15,10 +15,9 @@ collections:
     fields:
       - {label: "Judul (English)", name: "title_en", widget: "string"}
       - {label: "Judul (Indonesia)", name: "title_id", widget: "string"}
-      - {label: "Deskripsi Singkat (WA Share - EN)", name: "desc_en", widget: "string", hint: "Teks ini muncul pas link dibagikan ke sosmed."}
-      - {label: "Deskripsi Singkat (WA Share - ID)", name: "desc_id", widget: "string", hint: "Teks ini muncul pas link dibagikan ke sosmed."}
-      - {label: "Jadwal Publish", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm"}
-      - {label: "Lokasi", name: "location", widget: "string", required: false, default: "President University, Cikarang"}
+      - {label: "Deskripsi Singkat (kartu preview WhatsApp - EN)", name: "desc_en", widget: "string", required: false, hint: "Hanya muncul di kartu preview saat link dibagikan, tidak tampil di artikel."}
+      - {label: "Deskripsi Singkat (kartu preview WhatsApp - ID)", name: "desc_id", widget: "string", required: false, hint: "Hanya muncul di kartu preview saat link dibagikan, tidak tampil di artikel."}
+      - {label: "Jadwal Publish", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm", hint: "Waktu Jakarta (WIB). Berita baru muncul di daftar setelah waktu ini. Halaman artikelnya tetap bisa dibuka lewat link langsung."}
       - label: "Penulis"
         name: "author"
         widget: "select"
@@ -30,10 +29,11 @@ collections:
           - {label: "Beatrix K.P. Madeline", value: "Beatrix K.P. Madeline"}
           - {label: "Muhammad H.F. Adzhim", value: "Muhammad H.F. Adzhim"}
         default: "PUSERVE Editorial Board"
+      - {label: "Lokasi", name: "location", widget: "string", required: false, default: "Jakarta, ID"}
       - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
       - {label: "Kutipan Penting (Key Quote - English)", name: "quote_en", widget: "string", required: false}
       - {label: "Kutipan Penting (Key Quote - Indonesia)", name: "quote_id", widget: "string", required: false}
-      - {label: "Isi Berita (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
+      - {label: "Isi Berita (Tulis ===ID=== di baris sendiri sbg pemisah bahasa, JANGAN di-bold)", name: "body", widget: "markdown"}
 
   - name: "events"
     label: "Events & Programs (Acara)"
@@ -43,12 +43,15 @@ collections:
     fields:
       - {label: "Nama Acara (English)", name: "title_en", widget: "string"}
       - {label: "Nama Acara (Indonesia)", name: "title_id", widget: "string"}
-      - {label: "Deskripsi Singkat (WA Share - EN)", name: "desc_en", widget: "string", hint: "Teks ini muncul pas link dibagikan."}
-      - {label: "Deskripsi Singkat (WA Share - ID)", name: "desc_id", widget: "string", hint: "Teks ini muncul pas link dibagikan."}
+      - {label: "Deskripsi Singkat (kartu preview WhatsApp - EN)", name: "desc_en", widget: "string", required: false, hint: "Hanya muncul di kartu preview saat link dibagikan, tidak tampil di artikel."}
+      - {label: "Deskripsi Singkat (kartu preview WhatsApp - ID)", name: "desc_id", widget: "string", required: false, hint: "Hanya muncul di kartu preview saat link dibagikan, tidak tampil di artikel."}
       - {label: "Tanggal & Jam Acara", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm"}
-      - {label: "Lokasi", name: "location", widget: "string", required: false, default: "President University, Cikarang"}
+      - {label: "Lokasi Acara", name: "location", widget: "string", required: false, default: "President University, Cikarang"}
       - {label: "Status", name: "status", widget: "select", options: ["Running", "Upcoming", "Archived"], default: "Upcoming"}
-      - {label: "Jumlah Peserta", name: "attendees", widget: "string", default: "200+ Participants"}
+      - {label: "Jumlah Peserta", name: "attendees", widget: "string", required: false, default: "200+ Participants", hint: "Isi '-' atau kosongkan kalau tidak ingin ditampilkan."}
+      - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
+      - {label: "Hasil/Dampak Acara (Outcome - English)", name: "outcome_en", widget: "string", required: false}
+      - {label: "Hasil/Dampak Acara (Outcome - Indonesia)", name: "outcome_id", widget: "string", required: false}
       - label: "Penulis Laporan"
         name: "author"
         widget: "select"
@@ -60,14 +63,8 @@ collections:
           - {label: "Beatrix K.P. Madeline", value: "Beatrix K.P. Madeline"}
           - {label: "Muhammad H.F. Adzhim", value: "Muhammad H.F. Adzhim"}
         default: "PUSERVE Editorial Board"
-      - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
-      - {label: "Hasil/Dampak Acara (Outcome - English)", name: "outcome_en", widget: "string", required: false}
-      - {label: "Hasil/Dampak Acara (Outcome - Indonesia)", name: "outcome_id", widget: "string", required: false}
-      - {label: "Isi Laporan (Gunakan ===ID=== sbg pemisah bahasa)", name: "body", widget: "markdown"}
+      - {label: "Isi Laporan (Tulis ===ID=== di baris sendiri sbg pemisah bahasa, JANGAN di-bold)", name: "body", widget: "markdown"}
 
-
-
-  # [SISA KOLEKSI TEAM, REPOSITORY, SETTINGS, VOICES TETAP SAMA KAYA PUNYA LU]
   - name: "team"
     label: "Team Members (Pengurus)"
     folder: "_team"
@@ -107,9 +104,10 @@ collections:
             name: "impact"
             widget: "object"
             fields:
-              - {label: "Jumlah Eco-Warriors", name: "warriors", widget: "number"}
-              - {label: "Jumlah Kampanye", name: "campaigns", widget: "number"}
-              - {label: "Jumlah Mitra/Partner", name: "partners", widget: "number"}
+              - {label: "Jumlah Eco-Warriors", name: "warriors", widget: "number", hint: "Angka 0 = bagian ini disembunyikan di web."}
+              - {label: "Jumlah Kampanye", name: "campaigns", widget: "number", hint: "Angka 0 = bagian ini disembunyikan di web."}
+              - {label: "Jumlah Mitra/Partner", name: "partners", widget: "number", hint: "Angka 0 = bagian ini disembunyikan di web."}
+              - {label: "Data diperbarui per", name: "updated", widget: "string", required: false, hint: "Teks bebas, contoh: 3 November 2026. Tampil di bawah angka dampak."}
           - label: "KAMPANYE BERJALAN (LIVE CAMPAIGNS)"
             name: "campaigns"
             widget: "list"
@@ -119,10 +117,11 @@ collections:
               - {label: "Judul Kampanye (ID)", name: "title_id", widget: "string"}
               - {label: "Teks Target (EN)", name: "target_en", widget: "string"}
               - {label: "Teks Target (ID)", name: "target_id", widget: "string"}
-              - {label: "Persentase Progress (0-100)", name: "percentage", widget: "number", min: 0, max: 100}
+              - {label: "Persentase Progress (0-100)", name: "percentage", widget: "number", min: 0, max: 100, hint: "Angka 0 ditampilkan sebagai 'Baru'."}
               - {label: "Warna Progress Bar (Hex Code)", name: "color", widget: "string", default: "#10b981", hint: "Contoh: Hijau #10b981, Biru #3b82f6, Kuning #fcd34d"}
               - {label: "Status Saat Ini (EN)", name: "current_en", widget: "string", hint: "Contoh: 750 / 1,000 trees planted"}
               - {label: "Status Saat Ini (ID)", name: "current_id", widget: "string", hint: "Contoh: 750 / 1.000 pohon ditanam"}
+
   - name: "voices"
     label: "Voices of Impact (Kutipan)"
     folder: "_voices"
@@ -132,7 +131,6 @@ collections:
       - {label: "Nama Tokoh", name: "title", widget: "string", hint: "Contoh: Noel Jacob Ottley"}
       - {label: "Jabatan (English)", name: "role_en", widget: "string", hint: "Contoh: Vice Chairperson II (External) of PUSERVE"}
       - {label: "Jabatan (Indonesia)", name: "role_id", widget: "string", hint: "Contoh: Wakil Ketua II (Eksternal) PUSERVE"}
-      # INI KOTAK UPLOAD LOGO INSTANSI
       - {label: "Logo Instansi (Opsional)", name: "logo", widget: "image", required: false, hint: "Upload logo KLH, partner, dll. Kosongkan jika ingin otomatis pakai logo PUSERVE."}
       - {label: "Kutipan (English)", name: "quote_en", widget: "text"}
       - {label: "Kutipan (Indonesia)", name: "quote_id", widget: "text"}
