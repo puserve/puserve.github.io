@@ -1,5 +1,5 @@
 ---
-title: Aurelia Cecillia Patricia Kaparang
+title: Aurelia Caecillia Patricia Kaparang
 thumbnail: /uploads/12B AURELIA SCK MND.jpg-100kb.jpeg
 position: Member
 division: Research, Observation, and Innovation
