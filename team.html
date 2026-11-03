@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Team | PUSERVE</title>
+    <meta name="description" content="Meet the passionate minds and hands behind PUSERVE's environmental initiatives.">
     <meta property="og:title" content="Our Team | PUSERVE">
     <meta property="og:description" content="Meet the passionate minds and hands behind PUSERVE's environmental initiatives.">
     <meta property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 
     <!-- CSS TAMBAHAN ANTI GEPENG DAN ANTI TITIK-TITIK -->
     <style>
@@ -31,16 +31,16 @@
             flex-direction: column;
             justify-content: flex-start;
         }
-        /* OBAT ANTI TITIK-TITIK BUAT NAMA PANJANG */
+        /* NAMA PANJANG TIDAK DIPOTONG */
         .team-card-fixed .team-name {
-            white-space: normal !important; 
+            white-space: normal !important;
             word-wrap: break-word !important;
             overflow: visible !important;
             text-overflow: clip !important;
             line-height: 1.3 !important;
             margin-bottom: 8px !important;
         }
-        /* OBAT ANTI TITIK-TITIK BUAT JABATAN PANJANG */
+        /* JABATAN PANJANG TIDAK DIPOTONG */
         .team-card-fixed .team-role {
             white-space: normal !important;
             display: block !important;
@@ -71,12 +71,12 @@
     <div id="team-modal" class="modal-overlay">
         <div class="modal-content-box" style="text-align: center;">
             <span class="close-modal-btn" onclick="closeTeamModal()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
-            
-            <img id="modal-t-img" src="logos/LOGO_PUSERVE.png" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px; border: 3px solid var(--puserve-yellow); display: block;">
-            
+
+            <img id="modal-t-img" src="/logos/LOGO_PUSERVE.png" alt="" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px; border: 3px solid var(--puserve-yellow); display: block;">
+
             <h3 id="modal-t-name" style="color: var(--text-color); margin-bottom: 5px; font-size: 1.6rem; font-weight: 800;">Nama Lengkap</h3>
             <div id="modal-t-role" style="color: var(--primary-green); font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;">Jabatan - Divisi</div>
-            
+
             <div class="popup-data">
                 <div class="popup-row" id="row-major">
                     <div class="p-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
@@ -84,7 +84,7 @@
                     <div class="p-colon">:</div>
                     <div class="p-val"><span id="modal-t-major"></span></div>
                 </div>
-                
+
                 <div class="popup-row copyable" id="row-id" onclick="copyTeamData('modal-t-id', 'Student ID')" title="Click to Copy">
                     <div class="p-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></div>
                     <div class="p-label"><strong data-en="Student ID" data-id="NIM">Student ID</strong></div>
@@ -104,11 +104,27 @@
 
     {% include footer.html %}
 
-
-    
     <script>
-        let teamData = [];
-        
+        // Data anggota ditanam saat situs dibuat (build), jadi TIDAK ada request ke GitHub API
+        // dan tidak ada 45 permintaan berurutan. Halaman langsung tampil.
+        const teamData = [
+            {% assign first = true %}
+            {% for m in site.team %}
+              {% if m.title and m.published != false %}
+                {% if first %}{% assign first = false %}{% else %},{% endif %}
+                {
+                    "title": {{ m.title | jsonify }},
+                    "thumbnail": {{ m.thumbnail | jsonify }},
+                    "position": {{ m.position | jsonify }},
+                    "division": {{ m.division | jsonify }},
+                    "major": {{ m.major | jsonify }},
+                    "student_id": {{ m.student_id | jsonify }},
+                    "email": {{ m.email | jsonify }}
+                }
+              {% endif %}
+            {% endfor %}
+        ];
+
         const divTranslations = {
             "Advisor": "Advisor",
             "Board of Director": "Dewan Direksi",
@@ -123,94 +139,75 @@
             "Documentation": "Dokumentasi"
         };
 
-        async function loadTeam() {
+        const divisionsOrder = [
+            "Advisor", "Board of Director", "Secretary", "Treasure",
+            "Human Resources", "General Resources", "Research, Observation, and Innovation",
+            "Internal Public Relations", "External Public Relations", "Multimedia", "Documentation"
+        ];
+        const hierarchy = { "Advisor": 1, "Chairperson": 2, "Vice Chairperson 1": 3, "Vice Chairperson 2": 4, "Head of Division": 5, "Vice Head of Division": 6, "Member": 7 };
+
+        const FALLBACK_IMG = '/logos/LOGO_PUSERVE.png';
+        const getLang = () => localStorage.getItem('puserve_lang') || 'EN';
+        const esc = (v) => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+        function imgUrl(p) {
+            if (!p) return FALLBACK_IMG;
+            let s = String(p).trim();
+            if (/^https?:\/\//i.test(s)) return s;
+            s = s.replace(/^\/+/, '');
+            if (!s.includes('/')) s = 'uploads/' + s;
+            return '/' + encodeURI(s);
+        }
+
+        // Urutkan sekali di awal supaya nomor indeks kartu selalu cocok dengan teamData
+        teamData.sort((a, b) => (hierarchy[a.position] || 99) - (hierarchy[b.position] || 99));
+
+        function renderTeam() {
             const container = document.getElementById('team-container');
-            let currentLang = localStorage.getItem('puserve_lang') || 'EN';
-            const emptyMsg = currentLang === 'EN' ? 'Team data is currently being updated.' : 'Data tim sedang dalam pembaruan.';
+            const lang = getLang();
+            const emptyMsg = lang === 'EN' ? 'Team data is currently being updated.' : 'Data tim sedang dalam pembaruan.';
 
-            try {
-                const res = await fetch(`https://api.github.com/repos/puserve/puserve.github.io/contents/_team`);
-                if (!res.ok) throw new Error("API Error");
-                const files = await res.json();
-                
-                for (const file of files) {
-                    if (!file.name.endsWith('.md') || file.name.startsWith('TEMPLATE')) continue;
-                    const mdText = await (await fetch(file.download_url)).text();
-                    const parts = mdText.split('---');
-                    if (parts.length >= 3) {
-                        const fm = jsyaml.load(parts[1]); 
-                        teamData.push(fm);
-                    }
-                }
+            if (teamData.length === 0) { container.innerHTML = `<div class="empty-state">${emptyMsg}</div>`; return; }
 
-                if (teamData.length === 0) { container.innerHTML = `<div class="empty-state">${emptyMsg}</div>`; return; }
-
-                const hierarchy = { "Advisor": 1, "Chairperson": 2, "Vice Chairperson 1": 3, "Vice Chairperson 2": 4, "Head of Division": 5, "Vice Head of Division": 6, "Member": 7 };
-                teamData.sort((a, b) => (hierarchy[a.position] || 99) - (hierarchy[b.position] || 99));
-
-                const divisionsOrder = [
-                    "Advisor", "Board of Director", "Secretary", "Treasure", 
-                    "Human Resources", "General Resources", "Research, Observation, and Innovation", 
-                    "Internal Public Relations", "External Public Relations", "Multimedia", "Documentation"
-                ];
-
-                let htmlContent = '';
-                
-                divisionsOrder.forEach(divName => {
-                    const membersInDiv = teamData.filter(m => m.division === divName);
-                    
-                    if (membersInDiv.length > 0) {
-                        const divTitleID = divTranslations[divName] || divName;
-                        htmlContent += `<h2 class="div-title" data-en="${divName}" data-id="${divTitleID}" style="text-align: center; margin-top: 50px; margin-bottom: 25px;">${currentLang === 'EN' ? divName : divTitleID}</h2>`;
-                        
-                        const leaders = membersInDiv.filter(m => m.position !== 'Member');
-                        const members = membersInDiv.filter(m => m.position === 'Member');
-
-                        const renderCards = (group) => {
-                            if (group.length === 0) return '';
-                            let groupHtml = `<div class="team-grid-fixed">`;
-                            group.forEach(fm => {
-                                const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
-                                const globalIndex = teamData.indexOf(fm); 
-                                
-                                groupHtml += `
-                                    <div class="team-card team-card-fixed" onclick="openTeamModal(${globalIndex})">
-                                        <img src="${img}" class="team-img" onerror="this.src='logos/LOGO_PUSERVE.png'">
-                                        <h3 class="team-name">${fm.title || 'PUSERVE Member'}</h3>
-                                        <span class="team-role">${fm.position || 'Member'}</span>
-                                    </div>
-                                `;
-                            });
-                            groupHtml += `</div>`;
-                            return groupHtml;
-                        };
-
-                        htmlContent += renderCards(leaders);
-                        htmlContent += renderCards(members);
-                    }
+            const renderCards = (group) => {
+                if (group.length === 0) return '';
+                let html = `<div class="team-grid-fixed">`;
+                group.forEach(fm => {
+                    const idx = teamData.indexOf(fm);
+                    const name = fm.title || 'PUSERVE Member';
+                    html += `
+                        <div class="team-card team-card-fixed" onclick="openTeamModal(${idx})" role="button" tabindex="0" onkeydown="if(event.key==='Enter'){this.click();}">
+                            <img src="${imgUrl(fm.thumbnail)}" class="team-img" alt="${esc(name)}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
+                            <h3 class="team-name">${esc(name)}</h3>
+                            <span class="team-role">${esc(fm.position || 'Member')}</span>
+                        </div>`;
                 });
+                return html + `</div>`;
+            };
 
-                container.innerHTML = htmlContent;
-
-            } catch (error) { 
-                container.innerHTML = `<div class="empty-state">Failed to load team data. Make sure to upload members via CMS.</div>`; 
-            }
+            let htmlContent = '';
+            divisionsOrder.forEach(divName => {
+                const membersInDiv = teamData.filter(m => m.division === divName);
+                if (membersInDiv.length === 0) return;
+                const divTitleID = divTranslations[divName] || divName;
+                htmlContent += `<h2 class="div-title" data-en="${esc(divName)}" data-id="${esc(divTitleID)}" style="text-align: center; margin-top: 50px; margin-bottom: 25px;">${esc(lang === 'EN' ? divName : divTitleID)}</h2>`;
+                htmlContent += renderCards(membersInDiv.filter(m => m.position !== 'Member'));
+                htmlContent += renderCards(membersInDiv.filter(m => m.position === 'Member'));
+            });
+            container.innerHTML = htmlContent;
         }
 
         function openTeamModal(index) {
             const fm = teamData[index];
-            const img = fm.thumbnail ? (fm.thumbnail.includes('/') ? fm.thumbnail : `uploads/${fm.thumbnail}`) : 'logos/LOGO_PUSERVE.png';
-            
-            document.getElementById('modal-t-img').src = img;
+            if (!fm) return;
+            document.getElementById('modal-t-img').src = imgUrl(fm.thumbnail);
             document.getElementById('modal-t-name').innerText = fm.title || '-';
-            
+
             const roleEl = document.getElementById('modal-t-role');
             let divName = fm.division || '-';
-            if (localStorage.getItem('puserve_lang') === 'ID' && divTranslations[divName]) { divName = divTranslations[divName]; }
-            
+            if (getLang() === 'ID' && divTranslations[divName]) { divName = divTranslations[divName]; }
             roleEl.innerText = `${fm.position || '-'} - ${divName}`;
-            if(localStorage.getItem('puserve_eco') === 'true') { roleEl.style.color = 'var(--puserve-yellow)'; } 
-            else { roleEl.style.color = 'var(--primary-green)'; }
+            roleEl.style.color = (localStorage.getItem('puserve_eco') === 'true') ? 'var(--puserve-yellow)' : 'var(--primary-green)';
 
             if (fm.position === "Advisor") {
                 document.getElementById('row-major').style.display = 'none';
@@ -229,13 +226,13 @@
         function closeTeamModal() {
             document.getElementById('team-modal').classList.remove('show');
         }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeTeamModal(); });
 
         function copyTeamData(elementId, labelName) {
             const textToCopy = document.getElementById(elementId).innerText;
             if (!textToCopy || textToCopy === '-') return;
-            
             navigator.clipboard.writeText(textToCopy).then(() => {
-                const isID = localStorage.getItem('puserve_lang') === 'ID';
+                const isID = getLang() === 'ID';
                 if (typeof showToast === 'function') {
                     showToast(isID ? `${labelName} berhasil disalin!` : `${labelName} copied!`);
                 } else {
@@ -244,43 +241,40 @@
             });
         }
 
-        document.addEventListener("DOMContentLoaded", loadTeam);
-        
+        // LINK PINTAR DARI HALAMAN BERITA/EVENT (?scrollto=Nama): gulir ke kartu lalu buka pop-up
+        function handleScrollTo() {
+            const target = new URLSearchParams(window.location.search).get('scrollto');
+            if (!target) return;
+            const wanted = target.trim().toLowerCase();
+            const card = Array.from(document.querySelectorAll('.team-card-fixed')).find(c => {
+                const n = c.querySelector('.team-name');
+                return n && n.innerText.trim().toLowerCase() === wanted;
+            });
+            if (!card) return;
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            card.classList.add('pulse-glow');
+            setTimeout(() => { card.click(); }, 800);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderTeam();
+            setTimeout(handleScrollTo, 300);
+        });
+
         const langToggleCustom = document.getElementById('langToggle');
-        if(langToggleCustom) {
-            langToggleCustom.addEventListener('click', () => { 
-                setTimeout(() => { 
-                    let currentLang = localStorage.getItem('puserve_lang') || 'EN';
+        if (langToggleCustom) {
+            langToggleCustom.addEventListener('click', () => {
+                setTimeout(() => {
+                    const lang = getLang();
                     document.querySelectorAll('.div-title').forEach(el => {
-                        el.innerText = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
+                        el.innerText = lang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
                     });
                     document.querySelectorAll('.popup-data strong[data-en]').forEach(el => {
-                        el.innerHTML = currentLang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
+                        el.innerHTML = lang === 'EN' ? el.getAttribute('data-en') : el.getAttribute('data-id');
                     });
-                }, 100); 
+                }, 100);
             });
         }
-        // LOGIKA LINK PINTAR DARI HALAMAN BERITA (AUTO SCROLL & CLICK MODAL)
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const params = new URLSearchParams(window.location.search);
-                const scrollToName = params.get('scrollto');
-                
-                if (scrollToName) {
-                    // Cari semua kartu team yang ada namanya
-                    const cards = document.querySelectorAll('.team-card-fixed');
-                    cards.forEach(card => {
-                        const nameEl = card.querySelector('.team-name');
-                        if (nameEl && nameEl.innerText.toLowerCase() === scrollToName.toLowerCase()) {
-                            // Ketemu! Langsung Scroll ke mukanya, terus pura-pura di-klik!
-                            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            card.classList.add('pulse-glow'); // Kasih efek dikit biar tau yang mana
-                            setTimeout(() => { card.click(); }, 800);
-                        }
-                    });
-                }
-            }, 1500); // Nunggu grid team-nya ke-render dulu
-        });
     </script>
 </body>
 </html>
