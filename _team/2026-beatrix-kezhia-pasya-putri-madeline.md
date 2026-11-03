@@ -1,6 +1,6 @@
 ---
 title: Beatrix Kezhia Pasya Putri Madeline
-thumbnail: /uploads/LOGO_PUSERVE.png
+thumbnail: /uploads/biya-100kb.jpeg
 position: Vice Head of Division
 division: Research, Observation, and Innovation
 major: International Relations
