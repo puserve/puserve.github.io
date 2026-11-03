@@ -6,9 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="view-transition" content="same-origin">
-    
+
     <title>Public Repository | PUSERVE</title>
-    
+    <meta name="description" content="Official documents, guidelines, and public resources of PUSERVE.">
+
     <meta property="og:title" content="Public Repository | PUSERVE">
     <meta property="og:description" content="Official documents, guidelines, and public resources of PUSERVE.">
     <meta property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
@@ -16,15 +17,7 @@
 
     <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
     <link rel="stylesheet" href="style.css">
-    
-    <!-- LINK SERVER DFLIP (JSDELIVR) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/css/dflip.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/css/themify-icons.min.css">
-    <script>var dFlipLocation = "https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/";</script>
-    <script src="https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/js/dflip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-    
+
     <style>
         .filter-tabs { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;}
         .filter-btn { padding: 10px 25px; border-radius: 30px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text-color); font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.95rem; }
@@ -33,32 +26,31 @@
         .repo-list { display: flex; flex-direction: column; gap: 20px; }
         .repo-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 25px 30px; display: flex; align-items: center; justify-content: space-between; gap: 20px; transition: 0.4s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
         .repo-item:hover { transform: translateY(-5px); border-color: var(--puserve-yellow); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
-        
+
         .repo-left { display: flex; align-items: center; gap: 25px; flex: 1; }
         .repo-icon { width: 50px; height: 50px; background: rgba(10, 54, 34, 0.05); border-radius: 12px; display: flex; justify-content: center; align-items: center; color: var(--primary-green); flex-shrink: 0; }
         body.eco-mode .repo-icon { background: rgba(255,255,255,0.05); color: var(--puserve-yellow); }
-        
+
         .repo-details { display: flex; flex-direction: column; gap: 5px; cursor: pointer; }
         .repo-title { font-size: 1.2rem; color: var(--text-color); font-weight: 700; transition: color 0.3s;}
         .repo-item:hover .repo-title { color: var(--primary-green); }
         body.eco-mode .repo-item:hover .repo-title { color: var(--puserve-yellow); }
         .repo-meta { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; display: flex; gap: 15px; flex-wrap: wrap;}
-        
+
         .repo-actions { display: flex; gap: 10px; align-items: center; }
         .repo-download { padding: 12px 25px; background: var(--puserve-yellow); color: var(--dark-green); border-radius: 10px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s; white-space: nowrap;}
         .repo-download:hover { background: var(--primary-green); color: white; transform: scale(1.05); }
 
         .repo-search-container { max-width: 600px; margin: 0 auto 30px auto; width: 100%; }
-        .repo-search-input { width: 100%; padding: 15px 25px; border-radius: 30px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text-color); font-size: 1rem; outline: none; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .repo-search-input { width: 100%; padding: 15px 25px; border-radius: 30px; border: 1px solid var(--card-border); background: var(--card-bg); color: var(--text-color); font-size: 1rem; outline: none; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.03); box-sizing: border-box; }
         .repo-search-input:focus { border-color: var(--primary-green); box-shadow: 0 5px 20px rgba(10, 54, 34, 0.1); }
         body.eco-mode .repo-search-input:focus { border-color: var(--puserve-yellow); }
 
-        /* FLIPBOOK MODAL STYLE */
+        /* FLIPBOOK MODAL */
         #book-modal .modal-content-box { max-width: 1000px; width: 95%; height: 85vh; padding: 0; background: transparent; border: none; box-shadow: none; display: flex; flex-direction: column; position: relative; }
         .close-book-btn { position: absolute; top: -40px; right: 0; color: white; cursor: pointer; background: #ef4444; border-radius: 50%; width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; z-index: 10000; box-shadow: 0 4px 10px rgba(0,0,0,0.5); transition: 0.3s; }
         .close-book-btn:hover { transform: scale(1.1) rotate(90deg); background: white; color: #ef4444; }
         #flipbook-container { width: 100%; height: 100%; }
-        
         .df-container { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 
         @media (max-width: 768px) {
@@ -79,13 +71,13 @@
     </header>
 
     <main class="container">
-        
+
         <div class="repo-search-container">
             <input type="text" id="repoSearchInput" class="repo-search-input" placeholder="Search documents..." data-en="Search documents..." data-id="Cari dokumen...">
         </div>
 
         <div class="filter-tabs" id="filterContainer">
-            <button class="filter-btn active" onclick="filterRepo('all')" data-en="All Documents" data-id="Semua Dokumen">All Documents</button>
+            <button class="filter-btn active" onclick="filterRepo('all', this)" data-en="All Documents" data-id="Semua Dokumen">All Documents</button>
         </div>
 
         <div class="repo-list" id="repoList">
@@ -105,56 +97,71 @@
 
     {% include footer.html %}
 
-<script>
+    <script>
         let repoData = [];
-        let categories = new Set();
 
-        const formatDate = (dateStr) => { try { const d = new Date(dateStr); if (!isNaN(d)) return d.toLocaleDateString(localStorage.getItem('puserve_lang') === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e){} return dateStr; };
+        const getLang = () => localStorage.getItem('puserve_lang') || 'EN';
+        const esc = (v) => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        const catId = (c) => String(c || '').toLowerCase().replace(/[^a-z0-9]/g, '-');
+
+        const formatDate = (dateStr) => {
+            try {
+                const d = new Date(String(dateStr).replace(/-/g, '/'));
+                if (!isNaN(d)) return d.toLocaleDateString(getLang() === 'EN' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+            } catch (e) {}
+            return dateStr || '';
+        };
+
+        // Path dari CMS (mis. "/uploads/File Panduan.pdf") jadi URL absolut yang aman
+        function fileHref(p) {
+            if (!p) return '';
+            let s = String(p).trim();
+            if (/^https?:\/\//i.test(s)) return s;
+            s = s.replace(/^\/+/, '');
+            if (!s.includes('/')) s = 'uploads/' + s;
+            return '/' + encodeURI(s);
+        }
 
         const getFormatIcon = (format) => {
             const fmt = (format || 'FILE').toUpperCase();
-            if(fmt === 'ZIP') return `<path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>`;
-            if(fmt === 'IMAGE' || fmt === 'JPG' || fmt === 'PNG') return `<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline>`;
+            if (fmt === 'ZIP') return `<path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>`;
+            if (fmt === 'IMAGE' || fmt === 'JPG' || fmt === 'PNG') return `<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline>`;
             return `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>`;
         };
 
+        function buildFilters() {
+            const lang = getLang();
+            const cats = [...new Set(repoData.map(d => d.category).filter(Boolean))];
+            let html = `<button class="filter-btn active" onclick="filterRepo('all', this)">${lang === 'EN' ? 'All Documents' : 'Semua Dokumen'}</button>`;
+            cats.forEach(cat => { html += `<button class="filter-btn" onclick="filterRepo('${catId(cat)}', this)">${esc(cat)}</button>`; });
+            document.getElementById('filterContainer').innerHTML = html;
+        }
+
         async function loadRepository() {
             const container = document.getElementById('repoList');
-            const filterContainer = document.getElementById('filterContainer');
-            let currentLang = localStorage.getItem('puserve_lang') || 'EN';
-            const emptyMsg = currentLang === 'EN' ? 'No documents available.' : 'Belum ada dokumen yang tersedia.';
-
+            const lang = getLang();
             try {
-                const res = await fetch(`api/repository.json`);
-                if (!res.ok) throw new Error("Gagal Load JSON");
-                const files = await res.json();
-                
-                repoData = [];
-                categories.clear();
+                // Data dari situs sendiri (bukan GitHub API), jadi tidak kena batas 60 request/jam
+                const res = await fetch('/api/repository.json', { cache: 'no-cache' });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const items = await res.json();
 
-                for (const fm of files) {
-                    if(!fm.title_en) continue;
-                    const fmt = (fm.format || '').toUpperCase();
+                repoData = items.map(fm => {
+                    const fmt = String(fm.format || '').toUpperCase();
                     fm.canPreview = (fmt === 'PDF' || fmt === 'IMAGE' || fmt === 'JPG' || fmt === 'PNG');
-                    
-                    repoData.push(fm);
-                    if(fm.category) categories.add(fm.category);
-                }
-
-                let filterHTML = `<button class="filter-btn active" onclick="filterRepo('all')" data-en="All Documents" data-id="Semua Dokumen">${currentLang === 'EN' ? 'All Documents' : 'Semua Dokumen'}</button>`;
-                categories.forEach(cat => {
-                    const safeCatId = cat.toLowerCase().replace(/[^a-z0-9]/g, '-');
-                    filterHTML += `<button class="filter-btn" onclick="filterRepo('${safeCatId}')">${cat}</button>`;
+                    return fm;
                 });
-                filterContainer.innerHTML = filterHTML;
+                repoData.sort((a, b) => new Date(String(b.date).replace(/-/g, '/')) - new Date(String(a.date).replace(/-/g, '/')));
 
-                if (repoData.length === 0) { container.innerHTML = `<div class="empty-state">${emptyMsg}</div>`; return; }
-
-                repoData.sort((a, b) => new Date(b.date) - new Date(a.date));
-                renderRepoList(repoData, currentLang);
-
-            } catch (error) { 
-                container.innerHTML = `<div class="empty-state" style="color:#ef4444;">Gagal memuat dokumen. Refresh halaman.</div>`; 
+                if (repoData.length === 0) {
+                    container.innerHTML = `<div class="empty-state">${lang === 'EN' ? 'No documents available.' : 'Belum ada dokumen yang tersedia.'}</div>`;
+                    return;
+                }
+                buildFilters();
+                renderRepoList(repoData, lang);
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = `<div class="empty-state" style="color:#ef4444;">${lang === 'EN' ? 'Failed to load documents.' : 'Gagal memuat dokumen.'} <small>(${esc(error.message)})</small></div>`;
             }
         }
 
@@ -165,46 +172,35 @@
                 return;
             }
 
-            container.innerHTML = dataToRender.map((fm, index) => {
+            container.innerHTML = dataToRender.map((fm) => {
+                const index = repoData.indexOf(fm);
                 const title = lang === 'EN' ? (fm.title_en || fm.title_id) : (fm.title_id || fm.title_en);
-                const safeCatId = (fm.category || '').toLowerCase().replace(/[^a-z0-9]/g, '-');
-                
-                // MENGATASI MASALAH ALAMAT FILE YANG BENER
-                let fileUrl = '#';
-                if(fm.file_url) {
-                    // Kalau alamat filenya pake spasi, wajib encodeURI biar nggak error di browser
-                    let rawUrl = fm.file_url.startsWith('/') ? fm.file_url.slice(1) : fm.file_url;
-                    if(!rawUrl.includes('uploads/')) rawUrl = `uploads/${rawUrl}`;
-                    fileUrl = encodeURI(rawUrl); // <--- INI OBAT MUJARABNYA!
-                }
-
-                const dlClick = fileUrl === '#' ? `onclick="showToast('${lang === 'EN' ? 'File not available for download.' : 'File belum tersedia untuk diunduh.'}'); return false;"` : `target="_blank"`;
-                
+                const href = fileHref(fm.file_url);
+                const unavailable = lang === 'EN' ? 'File not available for download.' : 'File belum tersedia untuk diunduh.';
+                const dlAttrs = href ? `href="${href}" target="_blank" rel="noopener" download` : `href="#" onclick="showToast('${unavailable}'); return false;"`;
                 const titleAction = fm.canPreview ? `onclick="openBookModal(${index})"` : ``;
-                const hoverStyle = fm.canPreview ? `style="cursor: pointer;" title="${lang==='EN'?'Click to preview document':'Klik untuk melihat dokumen'}"` : `style="cursor: default;"`;
+                const hoverStyle = fm.canPreview ? `style="cursor: pointer;" title="${lang === 'EN' ? 'Click to preview document' : 'Klik untuk melihat dokumen'}"` : `style="cursor: default;"`;
 
                 return `
-                <div class="repo-item" data-category="${safeCatId}">
+                <div class="repo-item" data-category="${catId(fm.category)}">
                     <div class="repo-left">
                         <div class="repo-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                ${getFormatIcon(fm.format)}
-                            </svg>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${getFormatIcon(fm.format)}</svg>
                         </div>
                         <div class="repo-details" ${titleAction} ${hoverStyle}>
-                            <h3 class="repo-title">${title}</h3>
+                            <h3 class="repo-title">${esc(title)}</h3>
                             <div class="repo-meta">
-                                <span style="font-weight:700; color:var(--primary-green); padding: 2px 8px; background: rgba(10,54,34,0.1); border-radius: 4px;">${fm.format || 'FILE'}</span>
-                                <span>${fm.size ? `💾 ${fm.size}` : ''}</span>
-                                <span>📅 ${lang === 'EN' ? 'Updated' : 'Diperbarui'} ${formatDate(fm.date)}</span>
-                                <span style="color: var(--puserve-yellow); font-weight:700;">${fm.category || ''}</span>
+                                <span style="font-weight:700; color:var(--primary-green); padding: 2px 8px; background: rgba(10,54,34,0.1); border-radius: 4px;">${esc(fm.format || 'FILE')}</span>
+                                ${fm.size ? `<span>${esc(fm.size)}</span>` : ''}
+                                <span>${lang === 'EN' ? 'Updated' : 'Diperbarui'} ${formatDate(fm.date)}</span>
+                                ${fm.category ? `<span style="color: var(--primary-green); font-weight:700;">${esc(fm.category)}</span>` : ''}
                             </div>
                         </div>
                     </div>
                     <div class="repo-actions">
-                        ${fm.canPreview ? `<button class="filter-btn" style="padding: 10px 15px; border-color: var(--primary-green); color: var(--primary-green);" onclick="openBookModal(${index})" title="Read Book"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></button>` : ''}
-                        <a href="${fileUrl}" class="repo-download" ${dlClick}>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> 
+                        ${fm.canPreview ? `<button class="filter-btn" style="padding: 10px 15px; border-color: var(--primary-green); color: var(--primary-green);" onclick="openBookModal(${index})" title="Preview" aria-label="Preview"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>` : ''}
+                        <a ${dlAttrs} class="repo-download">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                             <span>${lang === 'EN' ? 'Download' : 'Unduh'}</span>
                         </a>
                     </div>
@@ -212,24 +208,19 @@
             }).join('');
         }
 
-        function filterRepo(category) {
-            document.querySelectorAll('.filter-tabs .filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+        function filterRepo(category, btn) {
+            document.querySelectorAll('.filter-tabs .filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
             document.querySelectorAll('.repo-item').forEach(item => {
-                if(category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
+                item.style.display = (category === 'all' || item.getAttribute('data-category') === category) ? 'flex' : 'none';
             });
         }
 
         document.getElementById('repoSearchInput').addEventListener('input', function(e) {
             const term = e.target.value.toLowerCase();
-            document.querySelectorAll('.filter-tabs .filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.filter-tabs .filter-btn').forEach(b => b.classList.remove('active'));
             const allBtn = document.querySelector('.filter-tabs .filter-btn:first-child');
-            if(allBtn) allBtn.classList.add('active'); 
-
+            if (allBtn) allBtn.classList.add('active');
             document.querySelectorAll('.repo-item').forEach(item => {
                 const title = item.querySelector('.repo-title').innerText.toLowerCase();
                 const cat = (item.getAttribute('data-category') || '').toLowerCase();
@@ -237,52 +228,73 @@
             });
         });
 
+        // ===== FLIPBOOK 3D: library baru dimuat saat dokumen pertama dibuka =====
+        const DFLIP_BASE = 'https://cdn.jsdelivr.net/npm/@dearhive/dearflip-jquery-flipbook@1.7.3/dflip/';
+        let flipLoading = null;
+
+        function loadScript(src) {
+            return new Promise((resolve, reject) => {
+                const s = document.createElement('script');
+                s.src = src;
+                s.onload = resolve;
+                s.onerror = () => reject(new Error('Gagal memuat ' + src));
+                document.body.appendChild(s);
+            });
+        }
+        function loadCss(href) {
+            const l = document.createElement('link');
+            l.rel = 'stylesheet';
+            l.href = href;
+            document.head.appendChild(l);
+        }
+        function loadFlipbookLib() {
+            if (window.jQuery && window.jQuery.fn && window.jQuery.fn.flipBook) return Promise.resolve();
+            if (flipLoading) return flipLoading;
+            window.dFlipLocation = DFLIP_BASE;
+            loadCss(DFLIP_BASE + 'css/dflip.min.css');
+            loadCss(DFLIP_BASE + 'css/themify-icons.min.css');
+            const jq = (window.jQuery) ? Promise.resolve() : loadScript('https://code.jquery.com/jquery-3.6.0.min.js');
+            flipLoading = jq.then(() => loadScript(DFLIP_BASE + 'js/dflip.min.js')).catch(err => { flipLoading = null; throw err; });
+            return flipLoading;
+        }
+
         function openBookModal(index) {
             const fm = repoData[index];
-            if(!fm || !fm.canPreview) return;
-
-            let fileUrl = '#';
-            if(fm.file_url) {
-                // SAMA KAYAK YANG DI ATAS, WAJIB ENCODE URI!
-                let rawUrl = fm.file_url.startsWith('/') ? fm.file_url.slice(1) : fm.file_url;
-                if(!rawUrl.includes('uploads/')) rawUrl = `uploads/${rawUrl}`;
-                fileUrl = encodeURI(rawUrl); 
-            }
-
-            const fmt = (fm.format || '').toUpperCase();
-            document.getElementById('book-modal').classList.add('show');
+            if (!fm || !fm.canPreview) return;
+            const lang = getLang();
+            const fileUrl = fileHref(fm.file_url);
+            const fmt = String(fm.format || '').toUpperCase();
             const container = document.getElementById('flipbook-container');
-            
+            document.getElementById('book-modal').classList.add('show');
+
+            const failMsg = () => {
+                container.innerHTML = `<div style="text-align:center; padding: 50px; color: #fff; font-weight: 700;">${lang === 'EN' ? 'Preview is unavailable.' : 'Pratinjau tidak tersedia.'}<br><a href="${fileUrl}" target="_blank" rel="noopener" style="color: var(--puserve-yellow);">${lang === 'EN' ? 'Open the file directly' : 'Buka file langsung'}</a></div>`;
+            };
+
             if (fmt === 'PDF') {
                 const flipId = 'flipbook-' + index;
-                container.innerHTML = `<div id="${flipId}" style="width:100%;height:100%;"></div>`;
-                
-                if (window.jQuery && $.fn.flipBook) {
-                    $(`#${flipId}`).flipBook(fileUrl, {
-                        webgl: true,
-                        height: '100%',
-                        backgroundColor: 'transparent',
-                        autoEnableOutline: false,
-                        autoEnableThumbnail: false
-                    });
-                } else {
-                    container.innerHTML = `<div style="text-align:center; padding: 50px; color: white; background: #ef4444; border-radius: 12px; font-weight: 700;">Gagal memuat mesin 3D. Refresh halaman. ❌</div>`;
-                }
-            } else if (fmt === 'IMAGE' || fmt === 'JPG' || fmt === 'PNG') {
-                container.innerHTML = `<img src="${fileUrl}" style="width:100%; height:100%; object-fit:contain; border-radius:12px; background:var(--card-bg);">`;
+                container.innerHTML = `<div id="${flipId}" style="width:100%;height:100%;"><div style="text-align:center; padding: 50px; color:#fff; font-weight:700;">${lang === 'EN' ? 'Loading...' : 'Memuat...'}</div></div>`;
+                loadFlipbookLib().then(() => {
+                    const el = window.jQuery('#' + flipId);
+                    el.empty();
+                    el.flipBook(fileUrl, { webgl: true, height: '100%', backgroundColor: 'transparent', autoEnableOutline: false, autoEnableThumbnail: false });
+                }).catch(err => { console.error(err); failMsg(); });
+            } else {
+                container.innerHTML = `<img src="${fileUrl}" alt="" style="width:100%; height:100%; object-fit:contain; border-radius:12px; background:var(--card-bg);" onerror="this.onerror=null; this.remove();">`;
             }
         }
 
         function closeBookModal() {
             document.getElementById('book-modal').classList.remove('show');
-            document.getElementById('flipbook-container').innerHTML = ''; 
+            document.getElementById('flipbook-container').innerHTML = '';
         }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeBookModal(); });
 
         document.addEventListener("DOMContentLoaded", loadRepository);
 
         const langToggleCustom = document.getElementById('langToggle');
-        if(langToggleCustom) {
-            langToggleCustom.addEventListener('click', () => { setTimeout(() => { let currentLang = localStorage.getItem('puserve_lang') || 'EN'; renderRepoList(repoData, currentLang); }, 100); });
+        if (langToggleCustom) {
+            langToggleCustom.addEventListener('click', () => { setTimeout(() => { buildFilters(); renderRepoList(repoData, getLang()); }, 100); });
         }
     </script>
 </body>
