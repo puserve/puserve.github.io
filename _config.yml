@@ -1,3 +1,19 @@
+url: "https://puserve.github.io"
+timezone: "Asia/Jakarta"
+
+# Diperlukan karena acara "Upcoming" bertanggal masa depan.
+# Berita terjadwal disembunyikan dari daftar lewat JavaScript (lihat news.html dan index.html).
+future: true
+
+plugins:
+  - jekyll-sitemap
+
+# File contoh untuk CMS tidak perlu ikut diterbitkan sebagai halaman
+exclude:
+  - _news/TEMPLATE.md
+  - _events/TEMPLATE.md
+  - _repository/TEMPLATE.md
+
 collections:
   news:
     output: true
@@ -6,23 +22,20 @@ collections:
   team:
     output: true
   repository:
-    output: true
+    output: false
   voices:
     output: false
-timezone: "Asia/Jakarta"
-future: true
+
 defaults:
   - scope:
       path: ""
       type: "news"
     values:
       layout: "news-single"
-      # BUM! INI YANG BIKIN URL JADI SINGKAT:
       permalink: "/news/:slug/"
   - scope:
       path: ""
       type: "events"
     values:
       layout: "event-single"
-      # BUM! INI JUGA:
       permalink: "/events/:slug/"
