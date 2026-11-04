@@ -1,11 +1,11 @@
 ---
 title_en: PUSERVE Collaborates with KEMDIKTISAINTEK to Hold the “Sampah Tuntas” Thematic Community Service Program (KKN) for LLDIKTI Region IV in 2026
 title_id: PUSERVE berkolaborasi dengan KEMDIKTISAINTEK Gelar KKN Tematik Sampah Tuntas LLDIKTI Wilayah IV 2026
-desc_en: Noel is really handsome
-desc_id: Noel ganteng bgt
+desc_en: PUSERVE and LLDIKTI IV students from West Java & Banten collaborate in the KKN "Sampah Tuntas" Program. We act as facilitators of behavioral change in Greater Bandung and Sumedang to empower waste management at the source. Read our concrete actions here!
+desc_id: PUSERVE dan ribuan mahasiswa LLDIKTI IV dari Jawa Barat & Banten berkolaborasi dalam KKN Tematik "Sampah Tuntas". Kami turun ke Bandung Raya dan Sumedang sebagai fasilitator perubahan perilaku masyarakat untuk mengelola sampah dari sumbernya. Baca aksi nyata kami di sini!
 date: 2026-11-02 10:00:00
-location: President University, Cikarang
 author: Muh. Ahsan I.S. Zulni
+location: President University, Cikarang
 thumbnail: /uploads/THUMBNAIL NEWS-500kb.jpeg
 quote_en: Through a social engineering approach, students are positioned not as waste collectors or sorters, but as motivators and catalysts for behavioral change in the community regarding waste sorting and management starting at the source. —Dr. Lukman, S.T., M.Hum.
 quote_id: Pendekatan rekayasa sosial (social engineering), mahasiswa diposisikan bukan sebagai petugas pengangkut atau pemilah sampah, melainkan sebagai motivator dan penggerak perubahan perilaku masyarakat dalam memilah dan mengelola sampah sejak dari sumbernya. -Dr. Lukman, S.T., M.Hum.
