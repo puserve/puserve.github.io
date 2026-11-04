@@ -20,13 +20,21 @@ collections:
   events:
     output: true
   team:
-    output: true
+    output: false
   repository:
     output: false
   voices:
     output: false
 
 defaults:
+  - scope:
+      path: "admin/**/*"
+    values:
+      sitemap: false
+  - scope:
+      path: "uploads/**/*"
+    values:
+      sitemap: false
   - scope:
       path: ""
       type: "news"
