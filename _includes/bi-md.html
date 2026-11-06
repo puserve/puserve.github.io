@@ -1,0 +1,1 @@
+{% assign _bm_en = include.en | default: include.id %}{% assign _bm_id = include.id | default: include.en %}<div class="l-en">{{ _bm_en | markdownify }}</div><div class="l-id">{{ _bm_id | markdownify }}</div>
