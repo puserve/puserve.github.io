@@ -65,6 +65,17 @@
     .faq .faq-a { padding: 0 0 16px; color: var(--text-muted); line-height: 1.7; }
     .faq .faq-a p { margin: 0 0 0.8em; }
 
+    /* ===== "Ways to Get Involved": judul di tengah, tiga kotak sama lebar dan sama tinggi ===== */
+    .pg-center .pg-h2 { justify-content: center; text-align: center; }
+    .pg-center .pg-h2::after { content: ""; width: 28px; height: 3px; border-radius: 2px; background: var(--puserve-yellow); flex-shrink: 0; }
+    .pg-ways { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 1000px; margin: 0 auto; align-items: stretch; }
+    .pg-ways .pg-card { align-items: center; text-align: center; height: 100%; }
+    .pg-ways .pg-card p { flex: 1; }                       /* teks mengisi ruang, jadi tombol selalu rata di bawah */
+    .pg-ways .pg-btn { align-self: center; margin-top: 14px; }
+    @media (max-width: 800px) {
+        .pg-ways { grid-template-columns: 1fr; max-width: 460px; }
+    }
+
     .pg-cta { text-align: center; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 36px 24px; }
     .pg-cta h2 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 900; color: var(--text-color); }
     .pg-cta p { margin: 0 0 18px; color: var(--text-muted); }
