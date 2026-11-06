@@ -1,0 +1,25 @@
+# Data halaman Cara Bergabung (join.html). Bisa diedit lewat Sveltia: Web Settings & Stats > Halaman Cara Bergabung.
+# Bagian yang dikosongkan otomatis TIDAK ditampilkan di web.
+
+# Pilihan: "open" (dibuka), "soon" (segera dibuka), "closed" (ditutup). Kosongkan untuk menyembunyikan banner.
+recruitment_status: ""
+period_en: ""
+period_id: ""
+
+intro_en: "Choose how you would like to take part. Fill out the form and our team will get back to you shortly."
+intro_id: "Pilih cara yang paling sesuai untuk terlibat. Isi formulir dan tim kami akan segera menghubungi Anda."
+
+# Contoh isi (hapus tanda # dan sesuaikan dengan kondisi sebenarnya):
+# requirements:
+#   - {text_en: "Active student of ...", text_id: "Mahasiswa aktif ..."}
+requirements: []
+
+# Contoh isi:
+# steps:
+#   - {title_en: "Fill out the form", title_id: "Isi formulir", text_en: "...", text_id: "..."}
+steps: []
+
+# Contoh isi:
+# faqs:
+#   - {q_en: "Is membership free?", q_id: "Apakah keanggotaan gratis?", a_en: "...", a_id: "..."}
+faqs: []
