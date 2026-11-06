@@ -2,6 +2,10 @@
 # Ini bukan kunci rahasia. Kalau pindah akun Formspree, ganti nilainya di sini saja.
 formspree_id: "xzeegbpp"
 
+# Alamat Web App Google Apps Script (berakhiran /exec) untuk form kontak, newsletter, dan balasan otomatis.
+# Selama kosong, formulir memakai Formspree di atas sebagai cadangan.
+contact_endpoint: "https://script.google.com/macros/s/AKfycbyI-efd7xbw2Kwh_KBwXTLXBczRaderCtB6Wm089EHVh1TjdHpZ4hP0WdKZyJgkwhNlxw/exec"
+
 url: "https://puserve.github.io"
 timezone: "Asia/Jakarta"
 
@@ -50,4 +54,4 @@ defaults:
       type: "events"
     values:
       layout: "event-single"
-      permalink: "/events/:slug/"  
+      permalink: "/events/:slug/"
