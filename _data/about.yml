@@ -1,0 +1,54 @@
+# Data halaman Tentang (about.html). Bisa diedit lewat Sveltia: Web Settings & Stats > Halaman Tentang.
+# Bagian yang dikosongkan otomatis TIDAK ditampilkan di web.
+# Teks pengantar di bawah diambil dari kalimat yang sudah ada di web (footer dan artikel KKN). Silakan sesuaikan.
+
+founded: ""
+
+intro_en: |
+  A movement focused on environmental protection, sustainability, and social service.
+
+  PUSERVE operates through two channels: hands-on field projects and forums for the exchange of ideas. Our mission is to educate students and the public about the environment and to collaborate with the government and local communities.
+intro_id: |
+  Gerakan yang berfokus pada perlindungan lingkungan, keberlanjutan, dan pengabdian sosial.
+
+  PUSERVE bergerak melalui dua jalur, yaitu proyek lapangan dan forum pertukaran gagasan. Misi kami mengedukasi mahasiswa dan masyarakat tentang lingkungan serta berkolaborasi dengan pemerintah dan komunitas lokal.
+
+vision_en: ""
+vision_id: ""
+
+history_en: ""
+history_id: ""
+
+# "match" harus sama persis dengan nilai Divisi di data Team.
+# Isi "desc_en" dan "desc_id" untuk menampilkan tugas tiap divisi.
+divisions:
+  - {match: "Advisor", name_en: "Advisor", name_id: "Advisor", desc_en: "", desc_id: ""}
+  - {match: "Board of Director", name_en: "Board of Director", name_id: "Dewan Direksi", desc_en: "", desc_id: ""}
+  - {match: "Secretary", name_en: "Secretary", name_id: "Sekretaris", desc_en: "", desc_id: ""}
+  - {match: "Treasure", name_en: "Treasurer", name_id: "Bendahara", desc_en: "", desc_id: ""}
+  - {match: "Human Resources", name_en: "Human Resources", name_id: "Sumber Daya Manusia", desc_en: "", desc_id: ""}
+  - {match: "General Resources", name_en: "General Resources", name_id: "Sumber Daya Umum", desc_en: "", desc_id: ""}
+  - {match: "Research, Observation, and Innovation", name_en: "Research, Observation, and Innovation", name_id: "Penelitian, Observasi, dan Inovasi", desc_en: "", desc_id: ""}
+  - {match: "Internal Public Relations", name_en: "Internal Public Relations", name_id: "Humas Internal", desc_en: "", desc_id: ""}
+  - {match: "External Public Relations", name_en: "External Public Relations", name_id: "Humas Eksternal", desc_en: "", desc_id: ""}
+  - {match: "Multimedia", name_en: "Multimedia", name_id: "Multimedia", desc_en: "", desc_id: ""}
+  - {match: "Documentation", name_en: "Documentation", name_id: "Dokumentasi", desc_en: "", desc_id: ""}
+
+# Logo di /logos sudah ada di situs. Cek ejaan nama lengkap CEDRS dan hubungan formalnya dengan PUSERVE.
+affiliations:
+  - name: "President University"
+    logo: "/logos/LOGO_PU.png"
+    url: ""
+    desc_en: ""
+    desc_id: ""
+  - name: "CEDRS (Center for Environment, Disaster Resilience and Sustainability)"
+    logo: "/logos/LOGO_CEDRS.png"
+    url: ""
+    desc_en: ""
+    desc_id: ""
+
+# Mitra tanpa logo tampil sebagai nama saja.
+partners:
+  - name: "LLDIKTI Wilayah IV"
+    logo: ""
+    url: ""
