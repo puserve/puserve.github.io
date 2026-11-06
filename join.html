@@ -1,0 +1,141 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Join | PUSERVE</title>
+    <meta name="description" content="Volunteer, collaborate, or get in touch with PUSERVE at President University.">
+    <meta property="og:title" content="How to Join | PUSERVE">
+    <meta property="og:description" content="Volunteer, collaborate, or get in touch with PUSERVE.">
+    <meta property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
+    <link rel="stylesheet" href="style.css">
+    {% include page-style.html %}
+</head>
+<body>
+
+    {% include navbar.html %}
+
+    {% assign jn = site.data.join %}
+
+    {% assign has_period = false %}
+    {% if jn.period_en != nil and jn.period_en != '' %}{% assign has_period = true %}{% endif %}
+    {% if jn.period_id != nil and jn.period_id != '' %}{% assign has_period = true %}{% endif %}
+
+    {% assign has_intro = false %}
+    {% if jn.intro_en != nil and jn.intro_en != '' %}{% assign has_intro = true %}{% endif %}
+    {% if jn.intro_id != nil and jn.intro_id != '' %}{% assign has_intro = true %}{% endif %}
+
+    <header class="page-hero">
+        <h1 data-en="How to Join" data-id="Cara Bergabung">How to Join</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9;" data-en="Volunteer, collaborate, or get in touch with PUSERVE." data-id="Jadi relawan, berkolaborasi, atau hubungi PUSERVE.">Volunteer, collaborate, or get in touch with PUSERVE.</p>
+    </header>
+
+    <main class="container">
+
+        {% if jn.recruitment_status == 'open' or jn.recruitment_status == 'soon' or jn.recruitment_status == 'closed' %}
+        <section class="pg-section" style="margin-top: 40px; margin-bottom: 0;">
+            <div class="status-banner">
+                {% if jn.recruitment_status == 'open' %}
+                <span class="status-pill open"><span class="l-en">Open</span><span class="l-id">Dibuka</span></span>
+                <span><span class="l-en">Recruitment is open</span><span class="l-id">Pendaftaran sedang dibuka</span></span>
+                {% elsif jn.recruitment_status == 'soon' %}
+                <span class="status-pill soon"><span class="l-en">Soon</span><span class="l-id">Segera</span></span>
+                <span><span class="l-en">Recruitment opens soon</span><span class="l-id">Pendaftaran segera dibuka</span></span>
+                {% else %}
+                <span class="status-pill closed"><span class="l-en">Closed</span><span class="l-id">Ditutup</span></span>
+                <span><span class="l-en">Recruitment is currently closed</span><span class="l-id">Pendaftaran sedang ditutup</span></span>
+                {% endif %}
+                {% if has_period %}
+                <span style="color: var(--text-muted); font-weight: 600;">{% include bi.html en=jn.period_en id=jn.period_id %}</span>
+                {% endif %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if has_intro %}
+        <section class="pg-section" style="margin-top: 32px;">
+            <div class="pg-prose">{% include bi-md.html en=jn.intro_en id=jn.intro_id %}</div>
+        </section>
+        {% endif %}
+
+        <section class="pg-section">
+            <h2 class="pg-h2" data-en="Ways to Get Involved" data-id="Cara Terlibat">Ways to Get Involved</h2>
+            <div class="pg-grid">
+                <div class="pg-card">
+                    <h3><span class="l-en">Volunteer / Eco-Warrior</span><span class="l-id">Relawan / Eco-Warrior</span></h3>
+                    <p><span class="l-en">Join our field projects and forums for the exchange of ideas.</span><span class="l-id">Ikut serta dalam proyek lapangan dan forum pertukaran gagasan kami.</span></p>
+                    <button type="button" class="pg-btn" onclick="openJoinModal('Volunteer')"><span class="l-en">Get in touch</span><span class="l-id">Hubungi kami</span></button>
+                </div>
+                <div class="pg-card">
+                    <h3><span class="l-en">Partnership / Sponsor</span><span class="l-id">Kemitraan / Sponsor</span></h3>
+                    <p><span class="l-en">Collaborate with PUSERVE on programs, campaigns, or sponsorship.</span><span class="l-id">Berkolaborasi dengan PUSERVE dalam program, kampanye, atau sponsor.</span></p>
+                    <button type="button" class="pg-btn" onclick="openJoinModal('Partnership')"><span class="l-en">Get in touch</span><span class="l-id">Hubungi kami</span></button>
+                </div>
+                <div class="pg-card">
+                    <h3><span class="l-en">Media / Press</span><span class="l-id">Media / Pers</span></h3>
+                    <p><span class="l-en">Request information, interviews, or materials.</span><span class="l-id">Minta informasi, wawancara, atau materi.</span></p>
+                    <button type="button" class="pg-btn" onclick="openJoinModal('Media/Press')"><span class="l-en">Get in touch</span><span class="l-id">Hubungi kami</span></button>
+                </div>
+            </div>
+        </section>
+
+        {% if jn.requirements.size > 0 %}
+        <section class="pg-section">
+            <h2 class="pg-h2" data-en="Requirements" data-id="Persyaratan">Requirements</h2>
+            <ul class="req-list">
+                {% for r in jn.requirements %}
+                <li>{% include bi.html en=r.text_en id=r.text_id %}</li>
+                {% endfor %}
+            </ul>
+        </section>
+        {% endif %}
+
+        {% if jn.steps.size > 0 %}
+        <section class="pg-section">
+            <h2 class="pg-h2" data-en="How It Works" data-id="Alur Pendaftaran">How It Works</h2>
+            <ol class="steps">
+                {% for st in jn.steps %}
+                <li>
+                    <strong>{% include bi.html en=st.title_en id=st.title_id %}</strong>
+                    {% assign has_step_text = false %}
+                    {% if st.text_en != nil and st.text_en != '' %}{% assign has_step_text = true %}{% endif %}
+                    {% if st.text_id != nil and st.text_id != '' %}{% assign has_step_text = true %}{% endif %}
+                    {% if has_step_text %}<span class="step-text">{% include bi.html en=st.text_en id=st.text_id %}</span>{% endif %}
+                </li>
+                {% endfor %}
+            </ol>
+        </section>
+        {% endif %}
+
+        {% if jn.faqs.size > 0 %}
+        <section class="pg-section">
+            <h2 class="pg-h2" data-en="Frequently Asked Questions" data-id="Pertanyaan yang Sering Diajukan">Frequently Asked Questions</h2>
+            <div class="faq">
+                {% for f in jn.faqs %}
+                <details>
+                    <summary>{% include bi.html en=f.q_en id=f.q_id %}</summary>
+                    <div class="faq-a">{% include bi-md.html en=f.a_en id=f.a_id %}</div>
+                </details>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="pg-section">
+            <div class="pg-cta">
+                <h2 data-en="Still have a question?" data-id="Masih ada pertanyaan?">Still have a question?</h2>
+                <p data-en="Send us a message and we will get back to you." data-id="Kirim pesan kepada kami dan kami akan membalas.">Send us a message and we will get back to you.</p>
+                <button type="button" class="pg-btn alt" onclick="openJoinModal('General Question')"><span class="l-en">Send a message</span><span class="l-id">Kirim pesan</span></button>
+            </div>
+        </section>
+
+    </main>
+
+    {% include footer.html %}
+
+</body>
+</html>
