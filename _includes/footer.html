@@ -29,7 +29,7 @@
         <h2 style="color: var(--dark-green); font-weight: 900; font-size: 2rem; margin-bottom: 10px; text-align: center;" data-en="Get Involved" data-id="Mari Bergabung">Get Involved</h2>
         <p style="color: var(--text-muted); text-align: center; margin-bottom: 30px; font-weight: 500;" data-en="Fill out the form below and our team will get back to you shortly." data-id="Isi formulir di bawah dan tim kami akan segera menghubungi Anda.">Fill out the form below and our team will get back to you shortly.</p>
 
-        <form id="puserve-contact-form" action="https://formspree.io/f/xzeegbpp" method="POST">
+        <form id="puserve-contact-form" action="https://formspree.io/f/{{ site.formspree_id | default: 'xzeegbpp' }}" method="POST">
             <!-- Honeypot anti-spam: dibiarkan kosong oleh manusia -->
             <input type="text" name="_gotcha" style="display:none;" tabindex="-1" autocomplete="off">
 
@@ -101,7 +101,7 @@
                 <a href="https://maps.app.goo.gl/chRf67w8mQhZfHst5?g_st=ac" target="_blank" rel="noopener" class="contact-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> <span data-en="President University, Cikarang Baru, Bekasi 17550 - Indonesia" data-id="President University, Cikarang Baru, Bekasi 17550 - Indonesia">President University, Cikarang Baru, Bekasi 17550 - Indonesia</span></a>
             </div>
             <div class="footer-heading" style="margin-top: 30px;" data-en="Newsletter" data-id="Buletin">Newsletter</div>
-            <form id="newsletter-form" action="https://formspree.io/f/xzeegbpp" method="POST" class="newsletter-form">
+            <form id="newsletter-form" action="https://formspree.io/f/{{ site.formspree_id | default: 'xzeegbpp' }}" method="POST" class="newsletter-form">
                 <input type="hidden" name="inquiry_type" value="Newsletter">
                 <input type="hidden" name="message" value="Newsletter subscription request">
                 <input type="hidden" name="_subject" value="[PUSERVE] Newsletter signup">
