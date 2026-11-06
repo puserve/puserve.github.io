@@ -1,0 +1,253 @@
+<style>
+    /* ===== TOMBOL KALENDER ===== */
+    .art-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .art-btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--card-border, rgba(0,0,0,0.15)); background: var(--card-bg, #fff); color: var(--text-color); font-family: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: 0.2s ease; }
+    .art-btn:hover { border-color: var(--primary-green); color: var(--primary-green); transform: translateY(-1px); }
+    body.eco-mode .art-btn:hover { border-color: var(--puserve-yellow); color: var(--puserve-yellow); }
+    .art-btn svg { flex-shrink: 0; }
+
+    /* ===== GALERI ===== */
+    .gal-section { margin-top: 48px; }
+    .gal-title { font-size: 1.15rem; font-weight: 800; color: var(--text-color); margin: 0 0 6px; text-align: left; }
+    .gal-sub { font-size: 0.85rem; color: var(--text-muted); margin: 0 0 16px; }
+    .gal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+    .gal-thumb { position: relative; padding: 0; border: 0; background: #e5e7eb; border-radius: 12px; overflow: hidden; cursor: zoom-in; aspect-ratio: 4 / 3; }
+    .gal-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
+    .gal-thumb:hover img { transform: scale(1.05); }
+    .gal-thumb:focus-visible { outline: 3px solid var(--puserve-yellow); outline-offset: 2px; }
+
+    /* ===== LIGHTBOX ===== */
+    .lb { position: fixed; inset: 0; z-index: 10001; display: none; align-items: center; justify-content: center; background: rgba(5, 15, 10, 0.94); }
+    .lb.open { display: flex; }
+    .lb-img { max-width: 92vw; max-height: 78vh; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .lb-bar { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 18px 22px; color: #fff; text-align: center; font-size: 0.9rem; }
+    .lb-btn { position: absolute; width: 46px; height: 46px; border-radius: 50%; border: 0; background: rgba(255,255,255,0.12); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+    .lb-btn:hover { background: rgba(255,255,255,0.25); }
+    .lb-btn:focus-visible { outline: 3px solid var(--puserve-yellow); }
+    .lb-close { top: 16px; right: 16px; }
+    .lb-prev { left: 14px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 14px; top: 50%; transform: translateY(-50%); }
+    .lb.single .lb-prev, .lb.single .lb-next { display: none; }
+    @media (max-width: 600px) {
+        .gal-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+        .lb-prev { left: 6px; } .lb-next { right: 6px; }
+        .lb-btn { width: 40px; height: 40px; }
+    }
+</style>
+
+<script>
+    const escAttr = (v) => String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+    /* =====================  TAMBAH KE KALENDER  ===================== */
+    function pad2(n) { return String(n).padStart(2, '0'); }
+    function utcStamp(d) { return d.getUTCFullYear() + pad2(d.getUTCMonth() + 1) + pad2(d.getUTCDate()) + 'T' + pad2(d.getUTCHours()) + pad2(d.getUTCMinutes()) + pad2(d.getUTCSeconds()) + 'Z'; }
+    function ymd(iso) { return String(iso).slice(0, 10).replace(/-/g, ''); }
+    function addDaysYmd(s, n) {
+        const d = new Date(Date.UTC(+s.slice(0, 4), +s.slice(4, 6) - 1, +s.slice(6, 8) + n));
+        return d.getUTCFullYear() + pad2(d.getUTCMonth() + 1) + pad2(d.getUTCDate());
+    }
+
+    // Jam 00:00 dianggap acara seharian penuh. Tanpa jam selesai, acara berjam dianggap berdurasi 2 jam.
+    function calendarTimes(cal) {
+        const start = new Date(cal.startISO);
+        if (isNaN(start)) return null;
+        if (String(cal.startISO).indexOf('T00:00:00') > -1) {
+            const s = ymd(cal.startISO);
+            let last = cal.endISO ? ymd(cal.endISO) : s;
+            if (last < s) last = s;
+            const e = addDaysYmd(last, 1);
+            // Akhir hari terakhir (00:00 WIB hari berikutnya) dalam milidetik UTC
+            const endMs = Date.UTC(+e.slice(0, 4), +e.slice(4, 6) - 1, +e.slice(6, 8)) - 7 * 3600 * 1000;
+            return { allDay: true, start: s, end: e, endMs: endMs };
+        }
+        let end = cal.endISO ? new Date(cal.endISO) : null;
+        if (!end || isNaN(end) || end <= start) end = new Date(start.getTime() + 2 * 3600 * 1000);
+        return { allDay: false, start: utcStamp(start), end: utcStamp(end), endMs: end.getTime() };
+    }
+
+    function calDetails(cal) {
+        return (cal.description ? cal.description + '\n\n' : '') + cal.url;
+    }
+
+    function googleCalUrl(cal, t) {
+        const q = new URLSearchParams({
+            action: 'TEMPLATE',
+            text: cal.title,
+            dates: t.start + '/' + t.end,
+            details: calDetails(cal),
+            location: cal.location || '',
+            ctz: 'Asia/Jakarta'
+        });
+        return 'https://calendar.google.com/calendar/render?' + q.toString();
+    }
+
+    function icsEscape(s) {
+        return String(s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\r?\n/g, '\\n');
+    }
+    function icsFold(line) {
+        const out = [];
+        let rest = line;
+        while (rest.length > 74) { out.push(rest.slice(0, 74)); rest = ' ' + rest.slice(74); }
+        out.push(rest);
+        return out.join('\r\n');
+    }
+    function buildIcs(cal, t) {
+        const lines = [
+            'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//PUSERVE//Events//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+            'BEGIN:VEVENT',
+            'UID:' + (cal.uid || ymd(cal.startISO)) + '@puserve.github.io',
+            'DTSTAMP:' + utcStamp(new Date()),
+            (t.allDay ? 'DTSTART;VALUE=DATE:' : 'DTSTART:') + t.start,
+            (t.allDay ? 'DTEND;VALUE=DATE:' : 'DTEND:') + t.end,
+            'SUMMARY:' + icsEscape(cal.title),
+            'DESCRIPTION:' + icsEscape(calDetails(cal))
+        ];
+        if (cal.location) lines.push('LOCATION:' + icsEscape(cal.location));
+        lines.push('URL:' + cal.url, 'END:VEVENT', 'END:VCALENDAR');
+        return lines.map(icsFold).join('\r\n') + '\r\n';
+    }
+
+    // Tombol hanya muncul untuk acara yang belum selesai
+    function calendarHtml(cal, isEN) {
+        const t = calendarTimes(cal);
+        if (!t || t.endMs < Date.now()) return '';
+        const icon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>';
+        return `<div class="art-actions">
+            <a class="art-btn" href="${escAttr(googleCalUrl(cal, t))}" target="_blank" rel="noopener">${icon}${isEN ? 'Add to Google Calendar' : 'Tambah ke Google Calendar'}</a>
+            <button type="button" class="art-btn" id="cal-ics">${icon}${isEN ? 'Download .ics (Apple / Outlook)' : 'Unduh .ics (Apple / Outlook)'}</button>
+        </div>`;
+    }
+
+    function bindCalendar(cal) {
+        const btn = document.getElementById('cal-ics');
+        const t = calendarTimes(cal);
+        if (!btn || !t) return;
+        btn.onclick = () => {
+            const blob = new Blob([buildIcs(cal, t)], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = (cal.slug || 'event') + '.ics';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        };
+    }
+
+    /* =====================  GALERI + LIGHTBOX  ===================== */
+    function galleryUrl(p) {
+        let s = String(p).trim();
+        if (/^https?:\/\//i.test(s)) return s;
+        s = s.replace(/^\/+/, '');
+        if (!s.includes('/')) s = 'uploads/' + s;
+        return '/' + encodeURI(s);
+    }
+
+    function galleryHtml(items, title, isEN) {
+        if (!items || !items.length) return '';
+        const thumbs = items.map((p, i) =>
+            `<button type="button" class="gal-thumb" data-i="${i}" aria-label="${isEN ? 'Open photo' : 'Buka foto'} ${i + 1}"><img src="${galleryUrl(p)}" alt="${escAttr(title)} - ${i + 1}" loading="lazy" decoding="async"></button>`
+        ).join('');
+        return `<section class="gal-section" aria-label="${isEN ? 'Photo gallery' : 'Galeri foto'}">
+            <h2 class="gal-title">${isEN ? 'Photo Gallery' : 'Galeri Foto'}</h2>
+            <p class="gal-sub">${items.length} ${isEN ? 'photos &middot; tap to enlarge' : 'foto &middot; ketuk untuk memperbesar'}</p>
+            <div class="gal-grid">${thumbs}</div>
+        </section>`;
+    }
+
+    const lbState = { items: [], title: '', isEN: true, i: 0, opener: null };
+
+    function ensureLightbox() {
+        if (document.getElementById('lb')) return;
+        const el = document.createElement('div');
+        el.id = 'lb';
+        el.className = 'lb';
+        el.setAttribute('role', 'dialog');
+        el.setAttribute('aria-modal', 'true');
+        el.innerHTML = `
+            <button type="button" class="lb-btn lb-close" id="lb-close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            <button type="button" class="lb-btn lb-prev" id="lb-prev"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+            <img class="lb-img" id="lb-img" alt="">
+            <button type="button" class="lb-btn lb-next" id="lb-next"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+            <div class="lb-bar" id="lb-bar"></div>`;
+        document.body.appendChild(el);
+
+        el.addEventListener('click', (e) => { if (e.target === el) closeLightbox(); });
+        document.getElementById('lb-close').addEventListener('click', closeLightbox);
+        document.getElementById('lb-prev').addEventListener('click', () => stepLightbox(-1));
+        document.getElementById('lb-next').addEventListener('click', () => stepLightbox(1));
+
+        // Geser jari untuk pindah foto
+        let x0 = null;
+        el.addEventListener('touchstart', (e) => { x0 = e.changedTouches[0].clientX; }, { passive: true });
+        el.addEventListener('touchend', (e) => {
+            if (x0 === null) return;
+            const dx = e.changedTouches[0].clientX - x0;
+            x0 = null;
+            if (Math.abs(dx) > 50) stepLightbox(dx < 0 ? 1 : -1);
+        }, { passive: true });
+
+        document.addEventListener('keydown', (e) => {
+            const lb = document.getElementById('lb');
+            if (!lb || !lb.classList.contains('open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            else if (e.key === 'ArrowLeft') stepLightbox(-1);
+            else if (e.key === 'ArrowRight') stepLightbox(1);
+            else if (e.key === 'Tab') {
+                // Fokus tetap di dalam lightbox
+                const f = Array.from(lb.querySelectorAll('button')).filter(b => b.offsetParent !== null);
+                if (!f.length) return;
+                const first = f[0], last = f[f.length - 1];
+                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+            }
+        });
+    }
+
+    function showLightbox(i) {
+        const n = lbState.items.length;
+        lbState.i = (i + n) % n;
+        const img = document.getElementById('lb-img');
+        img.src = galleryUrl(lbState.items[lbState.i]);
+        img.alt = lbState.title + ' - ' + (lbState.i + 1);
+        document.getElementById('lb-bar').textContent = (lbState.i + 1) + ' / ' + n;
+        // Muat foto tetangga lebih dulu supaya geser terasa cepat
+        [1, -1].forEach(d => { const im = new Image(); im.src = galleryUrl(lbState.items[(lbState.i + d + n) % n]); });
+    }
+
+    function openLightbox(i, opener) {
+        ensureLightbox();
+        const lb = document.getElementById('lb');
+        lbState.opener = opener || null;
+        lb.classList.toggle('single', lbState.items.length < 2);
+        document.getElementById('lb-close').setAttribute('aria-label', lbState.isEN ? 'Close' : 'Tutup');
+        document.getElementById('lb-prev').setAttribute('aria-label', lbState.isEN ? 'Previous photo' : 'Foto sebelumnya');
+        document.getElementById('lb-next').setAttribute('aria-label', lbState.isEN ? 'Next photo' : 'Foto berikutnya');
+        showLightbox(i);
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('lb-close').focus();
+    }
+
+    function closeLightbox() {
+        const lb = document.getElementById('lb');
+        if (!lb) return;
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+        if (lbState.opener && lbState.opener.focus) lbState.opener.focus();
+    }
+
+    function stepLightbox(d) { if (lbState.items.length > 1) showLightbox(lbState.i + d); }
+
+    function initGallery(items, title, isEN) {
+        if (!items || !items.length) return;
+        ensureLightbox();
+        lbState.items = items;
+        lbState.title = title;
+        lbState.isEN = isEN;
+        document.querySelectorAll('.gal-thumb').forEach(btn => {
+            btn.onclick = () => openLightbox(+btn.getAttribute('data-i'), btn);
+        });
+    }
+</script>
