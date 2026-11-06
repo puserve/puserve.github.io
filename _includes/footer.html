@@ -89,6 +89,8 @@
                 <li><a href="/news.html" class="trans-link" data-en="PUSERVE Outlook" data-id="PUSERVE Outlook">PUSERVE Outlook</a></li>
                 <li><a href="/repository.html" class="trans-link" data-en="Repository" data-id="Repositori">Repository</a></li>
                 <li><a href="/team.html" class="trans-link" data-en="Our Team" data-id="Tim Kami">Our Team</a></li>
+                <li><a href="/about.html" class="trans-link" data-en="About Us" data-id="Tentang Kami">About Us</a></li>
+                <li><a href="/join.html" class="trans-link" data-en="How to Join" data-id="Cara Bergabung">How to Join</a></li>
                 <li><a href="#" onclick="openJoinModal(); return false;" class="trans-link" data-en="Connect With Us" data-id="Hubungi Kami">Connect With Us</a></li>
             </ul>
         </div>
@@ -118,7 +120,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 <script>
     function showToast(msg) { const tm = document.getElementById('toast-msg'); if(tm){ tm.innerText = msg; } let toast = document.getElementById("toast"); if(toast){ toast.classList.add("show"); setTimeout(() => { toast.classList.remove("show"); }, 3000); } }
-    function openJoinModal() { const mm = document.getElementById('mobile-menu'); if(mm) mm.classList.remove('active'); const jm = document.getElementById('join-modal'); if(jm) jm.classList.add('show'); }
+    // Bisa dipanggil dengan jenis keperluan: openJoinModal('Volunteer' | 'Partnership' | 'Media/Press' | 'General Question')
+    function openJoinModal(type) {
+        const mm = document.getElementById('mobile-menu'); if(mm) mm.classList.remove('active');
+        if (typeof type === 'string' && type) {
+            const sel = document.querySelector('#puserve-contact-form select[name="inquiry_type"]');
+            if (sel) sel.value = type;
+        }
+        const jm = document.getElementById('join-modal'); if(jm) jm.classList.add('show');
+    }
     function closeJoinModal() { const jm = document.getElementById('join-modal'); if(jm) jm.classList.remove('show'); }
     function closeEgg() { const em = document.getElementById('easter-egg-modal'); if(em) em.classList.remove('show'); }
 
