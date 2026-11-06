@@ -1,3 +1,7 @@
+# ID formulir Formspree (bagian akhir alamat https://formspree.io/f/XXXXXXXX).
+# Ini bukan kunci rahasia. Kalau pindah akun Formspree, ganti nilainya di sini saja.
+formspree_id: "xzeegbpp"
+
 url: "https://puserve.github.io"
 timezone: "Asia/Jakarta"
 
@@ -46,4 +50,4 @@ defaults:
       type: "events"
     values:
       layout: "event-single"
-      permalink: "/events/:slug/"
+      permalink: "/events/:slug/"  
