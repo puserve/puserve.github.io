@@ -78,7 +78,4 @@ affiliations:
     url: ''
     desc_en: ''
     desc_id: ''
-partners:
-  - name: LLDIKTI Wilayah IV
-    logo: ''
-    url: ''
+partners: []
