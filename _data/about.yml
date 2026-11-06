@@ -20,8 +20,8 @@ divisions:
   - match: Board of Director
     name_en: Board of Director
     name_id: Dewan Direksi
-    desc_en: GABUT JIRRRR
-    desc_id: GABUT JIR
+    desc_en: ''
+    desc_id: ''
   - match: Secretary
     name_en: Secretary
     name_id: Sekretaris
