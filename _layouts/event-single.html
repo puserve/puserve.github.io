@@ -48,6 +48,8 @@
 
     {% include footer.html %}
 
+    {% include event-extras.html %}
+
     <script>
         function copyLinkText(title, lang) {
             const readMore = lang === 'EN' ? 'Read more at:' : 'Baca selengkapnya di:';
@@ -130,6 +132,29 @@
             const attendees = {{ page.attendees | default: '-' | jsonify }};
             const location = {{ page.location | default: 'Jakarta, ID' | jsonify }};
 
+            // Galeri foto (kolom "gallery" dari CMS). Nilai kosong dilewati.
+            const galleryItems = [
+                {% assign gfirst = true %}
+                {% for g in page.gallery %}
+                  {% if g != nil and g != '' %}
+                    {% if gfirst %}{% assign gfirst = false %}{% else %},{% endif %}
+                    {{ g | jsonify }}
+                  {% endif %}
+                {% endfor %}
+            ];
+
+            // Data untuk tombol "Tambah ke Kalender"
+            const calData = {
+                title: title,
+                startISO: {{ page.date | date_to_xmlschema | jsonify }},
+                endISO: {% if page.end_date != nil and page.end_date != '' %}{{ page.end_date | date_to_xmlschema | jsonify }}{% else %}null{% endif %},
+                location: location,
+                description: isEN ? ({{ page.desc_en | jsonify }} || '') : ({{ page.desc_id | jsonify }} || {{ page.desc_en | jsonify }} || ''),
+                url: window.location.href.split('#')[0],
+                uid: {{ page.url | jsonify }}.replace(/\W+/g, '-'),
+                slug: {{ page.slug | default: 'event' | jsonify }}
+            };
+
             const rawThumbnail = {{ page.thumbnail | jsonify }};
             const img1 = rawThumbnail ? (rawThumbnail.includes('/') ? rawThumbnail : `uploads/${rawThumbnail}`).replace(/^\/+/, '') : '';
 
@@ -140,7 +165,7 @@
             facts += factHtml(isEN ? 'Location' : 'Lokasi', location);
             if (attendees && attendees !== '-') facts += factHtml(isEN ? 'Participants' : 'Peserta', attendees);
 
-            let html = `<div class="art-head"><div class="art-kicker">${isEN ? 'Official Events &amp; Programs Report' : 'Laporan Acara &amp; Program Resmi'}</div><h1 class="art-title">${title}</h1><div class="art-facts">${facts}</div></div>`;
+            let html = `<div class="art-head"><div class="art-kicker">${isEN ? 'Official Events &amp; Programs Report' : 'Laporan Acara &amp; Program Resmi'}</div><h1 class="art-title">${title}</h1><div class="art-facts">${facts}</div>${calendarHtml(calData, isEN)}</div>`;
 
             if (img1) html += `<img src="https://puserve.github.io/${img1}" class="hero-img" alt="Thumbnail" onerror="this.style.display='none'">`;
 
@@ -149,6 +174,8 @@
 
             const outcomeText = isEN ? {{ page.outcome_en | jsonify }} : {{ page.outcome_id | jsonify }};
             if (outcomeText) { html += `<div class="outcome-box" style="margin-top:40px;"><div class="outcome-title">${isEN ? 'OUTCOME' : 'HASIL'}</div><div class="outcome-text">"${outcomeText}"</div></div>`; }
+
+            html += galleryHtml(galleryItems, title, isEN);
 
             // Teks pesan share: judul + "Read more at:" + link saja
             const waText = encodeURIComponent(`*${title}*\n\n${isEN ? 'Read more at:' : 'Baca selengkapnya di:'}\n${window.location.href}`);
@@ -163,6 +190,8 @@
                 </div>
             `;
             document.getElementById('pr-content').innerHTML = html;
+            bindCalendar(calData);
+            initGallery(galleryItems, title, isEN);
         }
 
         window.addEventListener('scroll', () => {
