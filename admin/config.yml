@@ -6,6 +6,21 @@ backend:
 media_folder: "uploads"
 public_folder: "/uploads"
 
+# OPSIONAL (nonaktif): pengecil foto otomatis saat unggah dari Sveltia.
+# Aktifkan dengan menghapus tanda "#" di baris-baris di bawah, lalu COBA unggah 1 foto dulu.
+# Catatan: sebagian sumber menyebut foto lama berformat lain bisa tampil kosong di editor CMS
+# setelah opsi ini aktif (di situs tetap normal). Kalau terjadi, beri tanda "#" lagi.
+# media_libraries:
+#   default:
+#     config:
+#       max_file_size: 10485760   # 10 MB
+#       transformations:
+#         raster_image:
+#           format: webp
+#           quality: 85
+#           width: 1600
+#           height: 1600
+
 collections:
   - name: "news"
     label: "PUSERVE Outlook (Berita)"
@@ -45,11 +60,13 @@ collections:
       - {label: "Nama Acara (Indonesia)", name: "title_id", widget: "string"}
       - {label: "Deskripsi Singkat (kartu preview WhatsApp - EN)", name: "desc_en", widget: "string", required: false, hint: "Hanya muncul di kartu preview saat link dibagikan, tidak tampil di artikel."}
       - {label: "Deskripsi Singkat (kartu preview WhatsApp - ID)", name: "desc_id", widget: "string", required: false, hint: "Hanya muncul di kartu preview saat link dibagikan, tidak tampil di artikel."}
-      - {label: "Tanggal & Jam Acara", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm"}
+      - {label: "Tanggal & Jam Acara", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm", hint: "Jam 00:00 dianggap acara seharian penuh di tombol kalender."}
+      - {label: "Tanggal & Jam Selesai (opsional)", name: "end_date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss", date_format: "YYYY-MM-DD", time_format: "HH:mm", required: false, hint: "Dipakai tombol Tambah ke Kalender. Kosong = berdurasi 2 jam (atau 1 hari kalau jamnya 00:00)."}
       - {label: "Lokasi Acara", name: "location", widget: "string", required: false, default: "President University, Cikarang"}
       - {label: "Status", name: "status", widget: "select", options: ["Running", "Upcoming", "Archived"], default: "Upcoming"}
       - {label: "Jumlah Peserta", name: "attendees", widget: "string", required: false, default: "200+ Participants", hint: "Isi '-' atau kosongkan kalau tidak ingin ditampilkan."}
       - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
+      - {label: "Galeri Foto (bisa pilih banyak sekaligus)", name: "gallery", widget: "image", multiple: true, required: false, hint: "Foto dokumentasi acara. Tampil sebagai galeri dengan pembesar foto di halaman acara. Idealnya lebar maksimal 1600 px dan di bawah 500 KB per foto."}
       - {label: "Hasil/Dampak Acara (Outcome - English)", name: "outcome_en", widget: "string", required: false}
       - {label: "Hasil/Dampak Acara (Outcome - Indonesia)", name: "outcome_id", widget: "string", required: false}
       - label: "Penulis Laporan"
@@ -121,6 +138,86 @@ collections:
               - {label: "Warna Progress Bar (Hex Code)", name: "color", widget: "string", default: "#10b981", hint: "Contoh: Hijau #10b981, Biru #3b82f6, Kuning #fcd34d"}
               - {label: "Status Saat Ini (EN)", name: "current_en", widget: "string", hint: "Contoh: 750 / 1,000 trees planted"}
               - {label: "Status Saat Ini (ID)", name: "current_id", widget: "string", hint: "Contoh: 750 / 1.000 pohon ditanam"}
+
+      - label: "Halaman Tentang (About)"
+        name: "about"
+        file: "_data/about.yml"
+        fields:
+          - {label: "Tahun berdiri", name: "founded", widget: "string", required: false}
+          - {label: "Siapa kami (English)", name: "intro_en", widget: "markdown", required: false}
+          - {label: "Siapa kami (Indonesia)", name: "intro_id", widget: "markdown", required: false}
+          - {label: "Visi & misi (English)", name: "vision_en", widget: "markdown", required: false}
+          - {label: "Visi & misi (Indonesia)", name: "vision_id", widget: "markdown", required: false}
+          - {label: "Perjalanan / sejarah (English)", name: "history_en", widget: "markdown", required: false}
+          - {label: "Perjalanan / sejarah (Indonesia)", name: "history_id", widget: "markdown", required: false}
+          - label: "Struktur divisi"
+            name: "divisions"
+            widget: "list"
+            required: false
+            summary: "{{fields.name_en}}"
+            fields:
+              - {label: "Divisi di data Team (harus cocok)", name: "match", widget: "select", options: ["Advisor", "Board of Director", "Secretary", "Treasure", "Human Resources", "General Resources", "Research, Observation, and Innovation", "Internal Public Relations", "External Public Relations", "Multimedia", "Documentation"]}
+              - {label: "Nama tampil (EN)", name: "name_en", widget: "string"}
+              - {label: "Nama tampil (ID)", name: "name_id", widget: "string"}
+              - {label: "Tugas divisi (EN)", name: "desc_en", widget: "text", required: false}
+              - {label: "Tugas divisi (ID)", name: "desc_id", widget: "text", required: false}
+          - label: "Afiliasi"
+            name: "affiliations"
+            widget: "list"
+            required: false
+            summary: "{{fields.name}}"
+            fields:
+              - {label: "Nama lembaga", name: "name", widget: "string"}
+              - {label: "Logo", name: "logo", widget: "image", required: false}
+              - {label: "Tautan situs (opsional)", name: "url", widget: "string", required: false}
+              - {label: "Keterangan (EN)", name: "desc_en", widget: "text", required: false}
+              - {label: "Keterangan (ID)", name: "desc_id", widget: "text", required: false}
+          - label: "Mitra"
+            name: "partners"
+            widget: "list"
+            required: false
+            summary: "{{fields.name}}"
+            fields:
+              - {label: "Nama mitra", name: "name", widget: "string"}
+              - {label: "Logo (opsional)", name: "logo", widget: "image", required: false}
+              - {label: "Tautan situs (opsional)", name: "url", widget: "string", required: false}
+      - label: "Halaman Cara Bergabung"
+        name: "join"
+        file: "_data/join.yml"
+        fields:
+          - {label: "Status pendaftaran", name: "recruitment_status", widget: "select", required: false, options: [{label: "Dibuka", value: "open"}, {label: "Segera dibuka", value: "soon"}, {label: "Ditutup", value: "closed"}], hint: "Kosongkan untuk menyembunyikan banner status."}
+          - {label: "Periode pendaftaran (EN)", name: "period_en", widget: "string", required: false, hint: "Contoh: 1 - 15 February 2027"}
+          - {label: "Periode pendaftaran (ID)", name: "period_id", widget: "string", required: false, hint: "Contoh: 1 - 15 Februari 2027"}
+          - {label: "Pengantar (English)", name: "intro_en", widget: "markdown", required: false}
+          - {label: "Pengantar (Indonesia)", name: "intro_id", widget: "markdown", required: false}
+          - label: "Persyaratan"
+            name: "requirements"
+            widget: "list"
+            required: false
+            summary: "{{fields.text_en}}"
+            fields:
+              - {label: "Persyaratan (EN)", name: "text_en", widget: "string"}
+              - {label: "Persyaratan (ID)", name: "text_id", widget: "string"}
+          - label: "Alur pendaftaran"
+            name: "steps"
+            widget: "list"
+            required: false
+            summary: "{{fields.title_en}}"
+            fields:
+              - {label: "Judul langkah (EN)", name: "title_en", widget: "string"}
+              - {label: "Judul langkah (ID)", name: "title_id", widget: "string"}
+              - {label: "Penjelasan (EN)", name: "text_en", widget: "text", required: false}
+              - {label: "Penjelasan (ID)", name: "text_id", widget: "text", required: false}
+          - label: "Pertanyaan yang sering diajukan (FAQ)"
+            name: "faqs"
+            widget: "list"
+            required: false
+            summary: "{{fields.q_en}}"
+            fields:
+              - {label: "Pertanyaan (EN)", name: "q_en", widget: "string"}
+              - {label: "Pertanyaan (ID)", name: "q_id", widget: "string"}
+              - {label: "Jawaban (EN)", name: "a_en", widget: "markdown"}
+              - {label: "Jawaban (ID)", name: "a_id", widget: "markdown"}
 
   - name: "voices"
     label: "Voices of Impact (Kutipan)"
