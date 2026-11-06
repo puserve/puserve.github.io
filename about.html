@@ -1,0 +1,148 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | PUSERVE</title>
+    <meta name="description" content="About PUSERVE (President University Serve Environment): who we are, how we are organized, and the institutions we work with.">
+    <meta property="og:title" content="About | PUSERVE">
+    <meta property="og:description" content="Who we are, how we are organized, and the institutions we work with.">
+    <meta property="og:image" content="https://puserve.github.io/logos/LOGO_PUSERVE.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="logos/LOGO_PUSERVE.png">
+    <link rel="stylesheet" href="style.css">
+    {% include page-style.html %}
+</head>
+<body>
+
+    {% include navbar.html %}
+
+    {% assign ab = site.data.about %}
+
+    {% assign has_intro = false %}
+    {% if ab.intro_en != nil and ab.intro_en != '' %}{% assign has_intro = true %}{% endif %}
+    {% if ab.intro_id != nil and ab.intro_id != '' %}{% assign has_intro = true %}{% endif %}
+
+    {% assign has_vision = false %}
+    {% if ab.vision_en != nil and ab.vision_en != '' %}{% assign has_vision = true %}{% endif %}
+    {% if ab.vision_id != nil and ab.vision_id != '' %}{% assign has_vision = true %}{% endif %}
+
+    {% assign has_history = false %}
+    {% if ab.history_en != nil and ab.history_en != '' %}{% assign has_history = true %}{% endif %}
+    {% if ab.history_id != nil and ab.history_id != '' %}{% assign has_history = true %}{% endif %}
+
+    <header class="page-hero">
+        <h1 data-en="About PUSERVE" data-id="Tentang PUSERVE">About PUSERVE</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9;" data-en="Who we are, how we are organized, and the institutions we work with." data-id="Siapa kami, bagaimana kami diorganisasi, dan lembaga yang bekerja sama dengan kami.">Who we are, how we are organized, and the institutions we work with.</p>
+    </header>
+
+    <main class="container">
+
+        {% if has_intro %}
+        <section class="pg-section">
+            <h2 class="pg-h2" data-en="Who We Are" data-id="Siapa Kami">Who We Are</h2>
+            <div class="pg-prose">{% include bi-md.html en=ab.intro_en id=ab.intro_id %}</div>
+            {% if ab.founded != nil and ab.founded != '' %}
+            <p class="pg-meta"><span class="l-en">Founded</span><span class="l-id">Berdiri</span> {{ ab.founded | escape }}</p>
+            {% endif %}
+        </section>
+        {% endif %}
+
+        {% if has_vision %}
+        <section class="pg-section">
+            <h2 class="pg-h2" data-en="Vision &amp; Mission" data-id="Visi &amp; Misi">Vision &amp; Mission</h2>
+            <div class="pg-prose">{% include bi-md.html en=ab.vision_en id=ab.vision_id %}</div>
+        </section>
+        {% endif %}
+
+        {% if has_history %}
+        <section class="pg-section">
+            <h2 class="pg-h2" data-en="Our Story" data-id="Perjalanan Kami">Our Story</h2>
+            <div class="pg-prose">{% include bi-md.html en=ab.history_en id=ab.history_id %}</div>
+        </section>
+        {% endif %}
+
+        {% if ab.divisions.size > 0 %}
+        <section class="pg-section">
+            <h2 class="pg-h2" data-en="How We Are Organized" data-id="Struktur Organisasi">How We Are Organized</h2>
+            <div class="pg-grid">
+                {% for d in ab.divisions %}
+                  {% assign members = site.team | where: "division", d.match %}
+                  {% if members.size > 0 %}
+                  <div class="pg-card">
+                      <span class="pg-count">{{ members.size }} <span class="l-en">members</span><span class="l-id">anggota</span></span>
+                      <h3>{% include bi.html en=d.name_en id=d.name_id %}</h3>
+                      {% assign has_desc = false %}
+                      {% if d.desc_en != nil and d.desc_en != '' %}{% assign has_desc = true %}{% endif %}
+                      {% if d.desc_id != nil and d.desc_id != '' %}{% assign has_desc = true %}{% endif %}
+                      {% if has_desc %}
+                      <p>{% include bi.html en=d.desc_en id=d.desc_id %}</p>
+                      {% endif %}
+                  </div>
+                  {% endif %}
+                {% endfor %}
+            </div>
+            <p style="margin-top: 18px;"><a class="pg-btn alt" href="/team.html"><span class="l-en">Meet the team</span><span class="l-id">Kenali tim kami</span></a></p>
+        </section>
+        {% endif %}
+
+        {% if ab.affiliations.size > 0 %}
+        <section class="pg-section">
+            <h2 class="pg-h2" data-en="Affiliations" data-id="Afiliasi">Affiliations</h2>
+            <div class="logo-grid">
+                {% for a in ab.affiliations %}
+                  {% if a.url != nil and a.url != '' %}
+                  <a class="logo-tile" href="{{ a.url }}" target="_blank" rel="noopener">
+                  {% else %}
+                  <div class="logo-tile">
+                  {% endif %}
+                    {% if a.logo != nil and a.logo != '' %}<img src="{{ a.logo }}" alt="{{ a.name | escape }}" loading="lazy">{% endif %}
+                    <span class="logo-name">{{ a.name | escape }}</span>
+                  {% if a.url != nil and a.url != '' %}
+                  </a>
+                  {% else %}
+                  </div>
+                  {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        {% if ab.partners.size > 0 %}
+        <section class="pg-section">
+            <h2 class="pg-h2" data-en="Partners" data-id="Mitra">Partners</h2>
+            <div class="logo-grid">
+                {% for p in ab.partners %}
+                  {% if p.url != nil and p.url != '' %}
+                  <a class="logo-tile" href="{{ p.url }}" target="_blank" rel="noopener">
+                  {% else %}
+                  <div class="logo-tile">
+                  {% endif %}
+                    {% if p.logo != nil and p.logo != '' %}<img src="{{ p.logo }}" alt="{{ p.name | escape }}" loading="lazy">{% endif %}
+                    <span class="logo-name">{{ p.name | escape }}</span>
+                  {% if p.url != nil and p.url != '' %}
+                  </a>
+                  {% else %}
+                  </div>
+                  {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+
+        <section class="pg-section">
+            <div class="pg-cta">
+                <h2 data-en="Want to take part?" data-id="Ingin terlibat?">Want to take part?</h2>
+                <p data-en="Volunteer, collaborate with us, or get in touch for media requests." data-id="Jadi relawan, berkolaborasi dengan kami, atau hubungi kami untuk keperluan media.">Volunteer, collaborate with us, or get in touch for media requests.</p>
+                <a class="pg-btn" href="/join.html"><span class="l-en">How to join</span><span class="l-id">Cara bergabung</span></a>
+            </div>
+        </section>
+
+    </main>
+
+    {% include footer.html %}
+
+</body>
+</html>
