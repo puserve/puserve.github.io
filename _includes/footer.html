@@ -1,3 +1,6 @@
+{% assign fs_id = site.formspree_id | default: 'xzeegbpp' %}
+{% assign form_endpoint = "https://formspree.io/f/" | append: fs_id %}
+{% if site.contact_endpoint != nil and site.contact_endpoint != '' %}{% assign form_endpoint = site.contact_endpoint %}{% endif %}
 <!-- SMART FAB (GEAR) -->
 <div class="fab-container" id="fabContainer">
     <div class="fab-options">
@@ -29,9 +32,10 @@
         <h2 style="color: var(--dark-green); font-weight: 900; font-size: 2rem; margin-bottom: 10px; text-align: center;" data-en="Get Involved" data-id="Mari Bergabung">Get Involved</h2>
         <p style="color: var(--text-muted); text-align: center; margin-bottom: 30px; font-weight: 500;" data-en="Fill out the form below and our team will get back to you shortly." data-id="Isi formulir di bawah dan tim kami akan segera menghubungi Anda.">Fill out the form below and our team will get back to you shortly.</p>
 
-        <form id="puserve-contact-form" action="https://formspree.io/f/{{ site.formspree_id | default: 'xzeegbpp' }}" method="POST">
+        <form id="puserve-contact-form" action="{{ form_endpoint }}" method="POST">
             <!-- Honeypot anti-spam: dibiarkan kosong oleh manusia -->
             <input type="text" name="_gotcha" style="display:none;" tabindex="-1" autocomplete="off">
+            <input type="hidden" name="form_type" value="contact">
 
             <div style="margin-bottom: 15px; text-align: left;">
                 <label style="display: block; margin-bottom: 8px; font-weight: 700; color: var(--text-color); font-size: 0.9rem;" data-en="Full Name" data-id="Nama Lengkap">Full Name</label>
@@ -53,13 +57,21 @@
                 </select>
             </div>
 
+            <div style="margin-bottom: 15px; text-align: left;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 700; color: var(--text-color); font-size: 0.9rem;" data-en="Reply language" data-id="Bahasa balasan">Reply language</label>
+                <select name="reply_language" id="reply-language" style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--bg-color); color: var(--text-color); font-family: inherit; font-size: 1rem; box-sizing: border-box; cursor: pointer;">
+                    <option value="ID">Bahasa Indonesia</option>
+                    <option value="EN">English</option>
+                </select>
+            </div>
+
             <div style="margin-bottom: 25px; text-align: left;">
                 <label style="display: block; margin-bottom: 8px; font-weight: 700; color: var(--text-color); font-size: 0.9rem;" data-en="Message" data-id="Pesan">Message</label>
                 <textarea name="message" rows="4" required style="width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--bg-color); color: var(--text-color); font-family: inherit; font-size: 1rem; box-sizing: border-box; resize: vertical;"></textarea>
             </div>
 
             <button type="submit" id="submit-form-btn" style="width: 100%; padding: 15px; border: none; border-radius: 8px; background: var(--primary-green); color: white; font-weight: 800; font-size: 1.1rem; cursor: pointer; transition: 0.3s; font-family: inherit;" data-en="Send Message" data-id="Kirim Pesan">Send Message</button>
-            <p style="font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-top: 12px; line-height: 1.5;" data-en="Your name and email are only used to reply to this message." data-id="Nama dan email Anda hanya dipakai untuk membalas pesan ini.">Your name and email are only used to reply to this message.</p>
+            <p style="font-size: 0.78rem; color: var(--text-muted); text-align: center; margin-top: 12px; line-height: 1.5;" data-en="Your name and email are only used to reply to this message. You will receive an automatic confirmation by email." data-id="Nama dan email Anda hanya dipakai untuk membalas pesan ini. Anda akan menerima konfirmasi otomatis lewat email.">Your name and email are only used to reply to this message. You will receive an automatic confirmation by email.</p>
             <p id="form-status" style="text-align: center; margin-top: 15px; font-weight: 700; display: none;"></p>
         </form>
     </div>
@@ -101,10 +113,12 @@
                 <a href="https://maps.app.goo.gl/chRf67w8mQhZfHst5?g_st=ac" target="_blank" rel="noopener" class="contact-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> <span data-en="President University, Cikarang Baru, Bekasi 17550 - Indonesia" data-id="President University, Cikarang Baru, Bekasi 17550 - Indonesia">President University, Cikarang Baru, Bekasi 17550 - Indonesia</span></a>
             </div>
             <div class="footer-heading" style="margin-top: 30px;" data-en="Newsletter" data-id="Buletin">Newsletter</div>
-            <form id="newsletter-form" action="https://formspree.io/f/{{ site.formspree_id | default: 'xzeegbpp' }}" method="POST" class="newsletter-form">
+            <form id="newsletter-form" action="{{ form_endpoint }}" method="POST" class="newsletter-form">
                 <input type="hidden" name="inquiry_type" value="Newsletter">
                 <input type="hidden" name="message" value="Newsletter subscription request">
                 <input type="hidden" name="_subject" value="[PUSERVE] Newsletter signup">
+                <input type="hidden" name="form_type" value="newsletter">
+                <input type="hidden" name="reply_language" value="ID">
                 <input type="text" name="_gotcha" style="display:none;" tabindex="-1" autocomplete="off">
                 <input type="email" name="email" placeholder="Email Address" data-en="Email Address" data-id="Alamat Email" aria-label="Email" required class="newsletter-input">
                 <button type="submit" class="newsletter-btn" data-en="Join" data-id="Ikut">Join</button>
@@ -121,7 +135,13 @@
 <script>
     function showToast(msg) { const tm = document.getElementById('toast-msg'); if(tm){ tm.innerText = msg; } let toast = document.getElementById("toast"); if(toast){ toast.classList.add("show"); setTimeout(() => { toast.classList.remove("show"); }, 3000); } }
     // Bisa dipanggil dengan jenis keperluan: openJoinModal('Volunteer' | 'Partnership' | 'Media/Press' | 'General Question')
+    // Pilihan "Bahasa balasan" di form kontak mengikuti bahasa yang sedang dipakai di situs
+    function setReplyLanguage() {
+        const sel = document.getElementById('reply-language');
+        if (sel) sel.value = (localStorage.getItem('puserve_lang') === 'EN') ? 'EN' : 'ID';
+    }
     function openJoinModal(type) {
+        setReplyLanguage();
         const mm = document.getElementById('mobile-menu'); if(mm) mm.classList.remove('active');
         if (typeof type === 'string' && type) {
             const sel = document.querySelector('#puserve-contact-form select[name="inquiry_type"]');
@@ -162,7 +182,7 @@
     }
     const langToggle = document.getElementById('langToggle');
     if(langToggle) {
-        langToggle.addEventListener('click', () => { currentLang = currentLang === 'EN' ? 'ID' : 'EN'; localStorage.setItem('puserve_lang', currentLang); applyLanguage(); if(fabContainer) fabContainer.classList.remove('open'); showToast(currentLang === 'EN' ? "Language: English" : "Bahasa: Indonesia"); });
+        langToggle.addEventListener('click', () => { currentLang = currentLang === 'EN' ? 'ID' : 'EN'; localStorage.setItem('puserve_lang', currentLang); applyLanguage(); setReplyLanguage(); if(fabContainer) fabContainer.classList.remove('open'); showToast(currentLang === 'EN' ? "Language: English" : "Bahasa: Indonesia"); });
     }
 
     // ===== MODE GELAP (class CSS tetap "eco-mode") =====
@@ -208,21 +228,58 @@
         applyEcoMode();
         applyLanguage();
 
-        // ===== NEWSLETTER (dikirim lewat Formspree) =====
+        // ===== PENGIRIMAN FORM =====
+        // Alamat tujuan diatur di _config.yml: contact_endpoint (Google Apps Script) atau formspree_id (cadangan).
+        // true = pesan error menampilkan penyebab teknis (untuk uji coba). Ubah ke false kalau sudah stabil.
+        const FORM_DEBUG = true;
+        const isAppsScript = (url) => /script\.google(usercontent)?\.com/.test(url);
+
+        async function submitForm(form) {
+            const url = form.action;
+            const data = new FormData(form);
+            data.set('source_page', window.location.pathname);
+            if (isAppsScript(url)) {
+                // Tanpa header khusus supaya tidak memicu preflight CORS
+                const res = await fetch(url, { method: 'POST', body: new URLSearchParams(data) });
+                const text = await res.text();
+                let json;
+                try { json = JSON.parse(text); }
+                catch (e) { throw new Error('Respons bukan JSON (HTTP ' + res.status + '): ' + text.replace(/\s+/g, ' ').slice(0, 90)); }
+                return { ok: !!json.ok, error: json.error || null, ref: json.ref || null };
+            }
+            const res = await fetch(url, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+            if (res.ok) return { ok: true, error: null, ref: null };
+            let msg = null;
+            try { const j = await res.json(); if (j && j.errors) msg = j.errors.map(e => e.message).join(', '); } catch (e) {}
+            return { ok: false, error: msg || ('HTTP ' + res.status), ref: null };
+        }
+
+        function errorText(code, isEN) {
+            if (code === 'invalid_email') return isEN ? 'Please enter a valid email address.' : 'Mohon isi alamat email yang valid.';
+            if (code === 'missing') return isEN ? 'Please fill in your name and message.' : 'Mohon isi nama dan pesan Anda.';
+            return isEN ? 'Something went wrong. Please try again.' : 'Terjadi kesalahan. Silakan coba lagi.';
+        }
+
+        setReplyLanguage();
+
+        // ===== NEWSLETTER =====
         const nlForm = document.getElementById('newsletter-form');
         if (nlForm) {
             nlForm.addEventListener('submit', async (event) => {
                 event.preventDefault();
                 const btn = nlForm.querySelector('button[type="submit"]');
                 const isEN = (localStorage.getItem('puserve_lang') || 'EN') === 'EN';
+                const rl = nlForm.querySelector('[name="reply_language"]');
+                if (rl) rl.value = isEN ? 'EN' : 'ID';
                 if (btn) { btn.disabled = true; btn.style.opacity = '0.7'; }
                 try {
-                    const res = await fetch(nlForm.action, { method: 'POST', body: new FormData(nlForm), headers: { 'Accept': 'application/json' } });
-                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    const r = await submitForm(nlForm);
+                    if (!r.ok) throw new Error(r.error || 'error');
                     nlForm.reset();
                     showToast(isEN ? 'Thanks! You are subscribed.' : 'Terima kasih! Anda sudah berlangganan.');
                 } catch (err) {
-                    showToast(isEN ? 'Something went wrong. Please try again.' : 'Terjadi kesalahan. Silakan coba lagi.');
+                    console.error('Newsletter error:', err);
+                    showToast(errorText(err && err.message, isEN) + (FORM_DEBUG && err && err.message ? ' [' + err.message + ']' : ''));
                 } finally {
                     if (btn) { btn.disabled = false; btn.style.opacity = '1'; }
                 }
@@ -236,42 +293,36 @@
                 event.preventDefault();
                 const status = document.getElementById("form-status");
                 const btn = document.getElementById("submit-form-btn");
-                const lang = localStorage.getItem('puserve_lang') || 'EN';
+                const isEN = (localStorage.getItem('puserve_lang') || 'EN') === 'EN';
 
-                btn.innerText = lang === 'EN' ? "Sending..." : "Mengirim...";
+                btn.innerText = isEN ? "Sending..." : "Mengirim...";
                 btn.style.opacity = "0.7";
+                btn.disabled = true;
+                status.style.display = "block";
+                status.style.color = "var(--text-muted)";
+                status.textContent = "";
 
-                const data = new FormData(event.target);
-                fetch(event.target.action, {
-                    method: contactForm.method,
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                }).then(response => {
-                    if (response.ok) {
-                        status.style.display = "block";
+                try {
+                    const r = await submitForm(contactForm);
+                    if (r.ok) {
                         status.style.color = "var(--primary-green)";
-                        status.innerHTML = lang === 'EN' ? "✅ Message sent successfully!" : "✅ Pesan berhasil dikirim!";
+                        status.textContent = (isEN ? "✅ Message sent successfully!" : "✅ Pesan berhasil dikirim!") + (r.ref ? (isEN ? " Reference: " : " Nomor referensi: ") + r.ref : "");
                         contactForm.reset();
-                        setTimeout(() => { closeJoinModal(); status.style.display = "none"; }, 3000);
+                        setReplyLanguage();
+                        setTimeout(() => { closeJoinModal(); status.style.display = "none"; }, 4500);
                     } else {
-                        response.json().then(data => {
-                            status.style.display = "block";
-                            status.style.color = "#ef4444";
-                            if (Object.hasOwn(data, 'errors')) {
-                                status.innerHTML = "❌ " + data["errors"].map(error => error["message"]).join(", ");
-                            } else {
-                                status.innerHTML = lang === 'EN' ? "❌ Oops! There was a problem." : "❌ Oops! Terjadi kesalahan.";
-                            }
-                        })
+                        status.style.color = "#ef4444";
+                        status.textContent = "❌ " + errorText(r.error, isEN) + (FORM_DEBUG && r.error ? " [" + r.error + "]" : "");
                     }
-                }).catch(error => {
-                    status.style.display = "block";
+                } catch (err) {
+                    console.error('Contact form error:', err);
                     status.style.color = "#ef4444";
-                    status.innerHTML = lang === 'EN' ? "❌ Oops! Check your connection." : "❌ Oops! Periksa koneksi Anda.";
-                }).finally(() => {
-                    btn.innerText = lang === 'EN' ? "Send Message" : "Kirim Pesan";
+                    status.textContent = "❌ " + (isEN ? "Oops! Check your connection." : "Oops! Periksa koneksi Anda.") + (FORM_DEBUG && err && err.message ? " [" + err.message + "]" : "");
+                } finally {
+                    btn.innerText = isEN ? "Send Message" : "Kirim Pesan";
                     btn.style.opacity = "1";
-                });
+                    btn.disabled = false;
+                }
             });
         }
     });
