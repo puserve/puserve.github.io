@@ -306,18 +306,18 @@
                     const r = await submitForm(contactForm);
                     if (r.ok) {
                         status.style.color = "var(--primary-green)";
-                        status.textContent = (isEN ? "✅ Message sent successfully!" : "✅ Pesan berhasil dikirim!") + (r.ref ? (isEN ? " Reference: " : " Nomor referensi: ") + r.ref : "");
+                        status.textContent = (isEN ? " Message sent successfully!" : " Pesan berhasil dikirim!") + (r.ref ? (isEN ? " Reference: " : " Nomor referensi: ") + r.ref : "");
                         contactForm.reset();
                         setReplyLanguage();
                         setTimeout(() => { closeJoinModal(); status.style.display = "none"; }, 4500);
                     } else {
                         status.style.color = "#ef4444";
-                        status.textContent = "❌ " + errorText(r.error, isEN) + (FORM_DEBUG && r.error ? " [" + r.error + "]" : "");
+                        status.textContent = "✖ " + errorText(r.error, isEN) + (FORM_DEBUG && r.error ? " [" + r.error + "]" : "");
                     }
                 } catch (err) {
                     console.error('Contact form error:', err);
                     status.style.color = "#ef4444";
-                    status.textContent = "❌ " + (isEN ? "Oops! Check your connection." : "Oops! Periksa koneksi Anda.") + (FORM_DEBUG && err && err.message ? " [" + err.message + "]" : "");
+                    status.textContent = "✖ " + (isEN ? "Oops! Check your connection." : "Oops! Periksa koneksi Anda.") + (FORM_DEBUG && err && err.message ? " [" + err.message + "]" : "");
                 } finally {
                     btn.innerText = isEN ? "Send Message" : "Kirim Pesan";
                     btn.style.opacity = "1";
