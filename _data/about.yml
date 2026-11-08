@@ -15,73 +15,83 @@ vision_id: |-
   Visi : Menjadi komunitas yang berperan aktif dalam melestarikan alam dan lingkungan dengan menciptakan inovasi untuk meningkatkan kesadaran masyarakat dalam menjaga keberlangsungan ekosistem dan mendorong perubahan positif bagi keseimbangan alam dan kesejahteraan seluruh makhluk hidup.
 
   Misi: Mengedukasi mahasiswa serta masyarakat tentang lingkungan, mempromosikan gaya hidup ramah lingkungan, dan mendukung keanekaragaman hayati melalui upaya konservasi. Komunitas ini berkolaborasi dengan komunitas lokal dan pemerintah untuk memajukan kebijakan lingkungan dan mengambil tindakan dengan inisiatif untuk memastikan masa depan yang berkelanjutan.
-history_en: Lorem Ipsum
-history_id: Lorem Ipsum
+history_en: |-
+  Our journey began in 2024 under the name PRESERVE, an organization deeply rooted in President University. We were established to address complex environmental and social challenges through concrete, student-led initiatives and actionable projects. Recognizing the critical role of youth leadership, we aimed to integrate environmental advocacy with comprehensive community engagement. From the very beginning, our goal was to empower students to apply their knowledge while developing practical skills in sustainability.
+
+  In 2025, we evolved into PUSERVE to align our identity more seamlessly with our academic institution. The transition from the prefix "Pre" to "PU" specifically reflects President University, harmonizing our movement with the wider campus ecosystem. Despite this adjustment in our name, our core abbreviation and foundational mission remain steadfastly the same. We continue to operate by prioritizing tangible, measurable outcomes over mere awareness campaigns.
+
+  Today, we proudly operate under the umbrella of the Center for Environment, Disaster, Resilience, and Sustainability (CEDRS). This strategic affiliation provides us with the necessary legitimacy and direction to significantly expand our environmental impact. By combining on-the-ground fieldwork with thought leadership platforms, we strive to bridge the gap between environmental crises and social inequalities. Ultimately, we are committed to preparing students to become future leaders in sustainable development.
+history_id: |-
+  Perjalanan kami dimulai pada tahun 2024 di bawah naungan nama PRESERVE, sebuah organisasi yang berakar kuat di President University. Kami didirikan untuk mengatasi tantangan lingkungan dan sosial yang kompleks melalui inisiatif nyata dan proyek yang dipimpin oleh mahasiswa. Dengan menyadari peran penting kepemimpinan generasi muda, kami bertujuan untuk mengintegrasikan advokasi lingkungan dengan keterlibatan masyarakat. Sejak awal, tujuan kami adalah memberdayakan mahasiswa untuk menerapkan pengetahuan mereka sekaligus mengembangkan keterampilan praktis dalam membangun keberlanjutan.
+
+  Pada tahun 2025, kami bertransformasi menjadi PUSERVE untuk menyelaraskan identitas kami secara lebih harmonis dengan institusi akademik kami. Transisi dari awalan "Pre" menjadi "PU" secara khusus merepresentasikan President University, yang mengintegrasikan pergerakan kami dengan ekosistem kampus secara menyeluruh. Meskipun terdapat penyesuaian nama ini, singkatan inti dan misi fundamental kami tetap teguh dan tidak berubah. Kami terus beroperasi dengan mengutamakan hasil yang nyata dan terukur, bukan sekadar meluncurkan kampanye kesadaran semata.
+
+  Saat ini, kami dengan bangga beroperasi di bawah naungan Center for Environment, Disaster, Resilience, and Sustainability (CEDRS). Afiliasi strategis ini memberikan kami arahan dan legitimasi yang diperlukan untuk memperluas skala dampak lingkungan kami. Dengan menggabungkan kerja lapangan secara langsung dengan platform diskusi strategis, kami berupaya menjembatani kesenjangan antara krisis lingkungan dan ketimpangan sosial. Pada akhirnya, kami berkomitmen penuh untuk mempersiapkan mahasiswa agar menjadi pemimpin masa depan dalam sektor pembangunan berkelanjutan.
 divisions:
   - match: Advisor
     name_en: Advisor
     name_id: Advisor
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: Provides strategic direction and oversight to ensure all organizational initiatives consistently align with our core values of environmental conservation.
+    desc_id: Memberikan arahan strategis dan pengawasan untuk memastikan seluruh inisiatif organisasi sejalan dengan nilai-nilai inti pelestarian lingkungan.
   - match: Board of Director
     name_en: Board of Director
     name_id: Dewan Direksi
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: Leads the organization by establishing strategic directions, managing internal coordination, and expanding external partnership networks.
+    desc_id: Memimpin organisasi dengan menetapkan arah strategis, mengelola koordinasi internal, dan memperluas jaringan kemitraan eksternal.
   - match: Secretary
     name_en: Secretary
     name_id: Sekretaris
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: Manages administrative affairs, official correspondence, and ensures that all organizational activities are properly documented and archived.
+    desc_id: Mengelola urusan administratif, surat-menyurat resmi, dan memastikan seluruh aktivitas organisasi terdokumentasi serta terarsipkan dengan baik.
   - match: Treasure
     name_en: Treasurer
     name_id: Bendahara
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: Takes responsibility for managing financial planning, budget allocation, and transparent reporting for every organizational activity.
+    desc_id: Bertanggung jawab dalam mengelola perencanaan keuangan, alokasi anggaran, dan pelaporan yang transparan untuk setiap kegiatan organisasi.
   - match: Human Resources
     name_en: Human Resources
     name_id: Sumber Daya Manusia
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: Develops the quality, engagement, and well-being of members to ensure optimal work effectiveness within the organization.
+    desc_id: Mengembangkan kualitas, keterlibatan, dan kesejahteraan anggota untuk memastikan efektivitas kerja yang optimal di dalam organisasi.
   - match: General Resources
     name_en: General Resources
     name_id: Sumber Daya Umum
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: Manages, prepares, and ensures the readiness of all logistical needs, inventory, and operational facility layouts professionally to support the seamless execution of the organization's work programs and official events.
+    desc_id: Mengelola, mempersiapkan, dan memastikan kesiapan seluruh kebutuhan logistik, inventaris, serta tata letak fasilitas operasional secara profesional untuk mendukung kelancaran program kerja dan acara resmi organisasi secara efektif.
   - match: Research, Observation, and Innovation
     name_en: Research, Observation, and Innovation
     name_id: Penelitian, Observasi, dan Inovasi
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: Menjaga komunikasi internal yang efektif dan memastikan distribusi informasi yang tepat waktu kepada seluruh anggota organisasi.
+    desc_id: Menyediakan data, hasil riset, dan solusi inovatif sebagai landasan strategis dalam merancang program-program lingkungan organisasi.
   - match: Internal Public Relations
     name_en: Internal Public Relations
     name_id: Humas Internal
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: Maintains effective internal communication and ensures the timely distribution of information to all organizational members.
+    desc_id: Menjaga komunikasi internal yang efektif dan memastikan distribusi informasi yang tepat waktu kepada seluruh anggota organisasi.
   - match: External Public Relations
     name_en: External Public Relations
     name_id: Humas Eksternal
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: Builds strategic partnerships, maintains the organization's public image, and manages protocol and external guest relations with professional ethical standards to ensure harmonious and sustainable institutional relationships.
+    desc_id: Membangun kemitraan strategis, menjaga citra publik organisasi, serta mengelola tata protokoler dan penyambutan tamu eksternal dengan standar etika profesional untuk memastikan hubungan kelembagaan yang harmonis dan berkelanjutan.
   - match: Multimedia
     name_en: Multimedia
     name_id: Multimedia
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: Designs creative visual and digital content to communicate the organization's message and strengthen its brand identity.
+    desc_id: Merancang konten visual dan digital yang kreatif untuk mengomunikasikan pesan organisasi dan memperkuat identitas merek.
   - match: Documentation
     name_en: Documentation
     name_id: Dokumentasi
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: Captures and systematically archives every organizational activity for publication, evaluation, and accountability reporting purposes.
+    desc_id: Mengabadikan dan mengarsipkan setiap kegiatan organisasi secara sistematis untuk keperluan publikasi, evaluasi, dan laporan pertanggungjawaban.
 affiliations:
   - name: President University
-    logo: /logos/LOGO_PU.png
+    logo: /uploads/LOGO PU.png
     url: https://president.ac.id/
-    desc_en: Lorem Ipsum
-    desc_id: Lorem Ipsum
+    desc_en: The higher education institution where this movement is deeply rooted, providing a strategic platform for students to innovate and lead actionable projects in environmental sustainability.
+    desc_id: Institusi pendidikan tinggi yang menjadi akar berdirinya pergerakan ini, menyediakan wadah strategis bagi mahasiswa untuk berinovasi dan memimpin proyek nyata dalam keberlanjutan lingkungan.
   - name: CEDRS (Center for Environment, Disaster Resilience and Sustainability)
-    logo: /logos/LOGO_CEDRS.png
+    logo: /uploads/LOGO CEDRS.jpeg
     url: ''
-    desc_en: ''
-    desc_id: ''
+    desc_en: The strategic research center that oversees PUSERVE, providing direction, legitimacy, and cross-sector collaboration opportunities in our efforts to address environmental and social crises.
+    desc_id: Pusat kajian strategis yang menaungi PUSERVE, memberikan arahan, legitimasi, dan peluang kolaborasi lintas sektor dalam upaya menangani krisis lingkungan dan sosial.
 partners: []
