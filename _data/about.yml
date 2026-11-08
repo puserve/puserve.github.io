@@ -21,64 +21,64 @@ divisions:
   - match: Advisor
     name_en: Advisor
     name_id: Advisor
-    desc_en: ''
-    desc_id: ''
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
   - match: Board of Director
     name_en: Board of Director
     name_id: Dewan Direksi
-    desc_en: ''
-    desc_id: ''
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
   - match: Secretary
     name_en: Secretary
     name_id: Sekretaris
-    desc_en: ''
-    desc_id: ''
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
   - match: Treasure
     name_en: Treasurer
     name_id: Bendahara
-    desc_en: ''
-    desc_id: ''
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
   - match: Human Resources
     name_en: Human Resources
     name_id: Sumber Daya Manusia
-    desc_en: ''
-    desc_id: ''
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
   - match: General Resources
     name_en: General Resources
     name_id: Sumber Daya Umum
-    desc_en: ''
-    desc_id: ''
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
   - match: Research, Observation, and Innovation
     name_en: Research, Observation, and Innovation
     name_id: Penelitian, Observasi, dan Inovasi
-    desc_en: ''
-    desc_id: ''
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
   - match: Internal Public Relations
     name_en: Internal Public Relations
     name_id: Humas Internal
-    desc_en: ''
-    desc_id: ''
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
   - match: External Public Relations
     name_en: External Public Relations
     name_id: Humas Eksternal
-    desc_en: ''
-    desc_id: ''
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
   - match: Multimedia
     name_en: Multimedia
     name_id: Multimedia
-    desc_en: ''
-    desc_id: ''
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
   - match: Documentation
     name_en: Documentation
     name_id: Dokumentasi
-    desc_en: ''
-    desc_id: ''
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
 affiliations:
   - name: President University
     logo: /logos/LOGO_PU.png
-    url: ''
-    desc_en: ''
-    desc_id: ''
+    url: https://president.ac.id/
+    desc_en: Lorem Ipsum
+    desc_id: Lorem Ipsum
   - name: CEDRS (Center for Environment, Disaster Resilience and Sustainability)
     logo: /logos/LOGO_CEDRS.png
     url: ''
