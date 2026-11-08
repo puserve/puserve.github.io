@@ -15,13 +15,18 @@
     <link rel="stylesheet" href="style.css">
     {% include page-style.html %}
     
-   <!-- KODINGAN SAKTI RATA KANAN KIRI KHUSUS ABOUT US (TERMASUK KOTAK ORGANISASI) -->
+<!-- KODINGAN SAKTI RATA KANAN KIRI KHUSUS ABOUT US (KEBAL BADAI ZOOM) -->
     <style>
         .pg-prose p,
         .pg-prose li,
         .pg-card p {
             text-align: justify !important;
             text-justify: inter-word !important;
+            /* TAMBAHAN SAKTI BIAR GAK HANCUR PAS DI-ZOOM/DI HP: */
+            word-wrap: break-word !important;
+            hyphens: auto !important;
+            -webkit-hyphens: auto !important;
+            -ms-hyphens: auto !important;
         }
     </style>
 </head>
