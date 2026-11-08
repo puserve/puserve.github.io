@@ -15,33 +15,69 @@
     <link rel="stylesheet" href="style.css">
     {% include page-style.html %}
     
-<!-- KODINGAN SAKTI RATA KANAN KIRI KHUSUS ABOUT US (KEBAL BADAI ZOOM) -->
+    <!-- KODINGAN SAKTI RATA KANAN KIRI + KOTAK IMAJINER ANTI BADAI ZOOM -->
     <style>
-        /* Buat teks paragraf utama */
+        /* Buat teks paragraf utama (History, Visi Misi, dll) */
         .pg-prose p,
         .pg-prose li {
             text-align: justify !important;
             text-justify: inter-word !important;
         }
 
-        /* Buat teks di dalem kotak organisasi (Lebih Flexible & Elastis) */
+        /* Buat Kotak "How We Are Organized" biar Nurut Pas Di-Zoom */
+        .pg-grid {
+            /* Kita pake flex biar kalau di-zoom dia mau turun ke bawah dengan mulus */
+            display: flex !important;
+            flex-wrap: wrap !important;
+            justify-content: center !important;
+            align-items: stretch !important;
+            gap: 20px !important;
+        }
+
+        /* Ini dia kotak Imajiner-nya Bosku! */
+        .pg-card {
+            /* Bikin ukuran kotaknya lebih konsisten dan gak gampang jebol */
+            flex: 1 1 30% !important; /* Standarnya bagi 3 kotak sebaris */
+            min-width: 250px !important; /* Gak boleh lebih kecil dari ini */
+            max-width: 380px !important; /* Gak boleh ngelebar berlebihan */
+            
+            /* Penting biar teks justify di dalemnya punya batas yang jelas */
+            box-sizing: border-box !important;
+            display: flex !important;
+            flex-direction: column !important;
+            padding: 25px !important; 
+        }
+
+        /* Buat Teks di Dalem Kotaknya Biar Justify Sempurna */
         .pg-card p {
             text-align: justify !important;
             text-justify: inter-word !important;
             
-            /* JURUS FLEKSIBEL: */
-            word-wrap: break-word !important; /* Paksa patah kata kalau kepanjangan */
-            overflow-wrap: break-word !important; 
+            /* Patahin kata yang brutal panjangnya biar gak ngerusak pinggiran kotak */
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
             
-            /* JURUS TANDA STRIP OTOMATIS: */
+            /* Tambahin hyphens otomatis */
             -webkit-hyphens: auto !important;
             -ms-hyphens: auto !important;
             hyphens: auto !important;
+            
+            /* Biar spasi atas bawah teksnya rapi di dalem flexbox */
+            margin-top: auto !important;
         }
         
-        /* Bikin imaginary box biar kotaknya gak nyusut terlalu ekstrem pas di-zoom */
-        .pg-card {
-             min-width: 250px !important;
+        /* Tambahan: Bikin judul div-nya rapi juga pas di-zoom */
+        .pg-card h3 {
+             word-wrap: break-word !important;
+             overflow-wrap: break-word !important;
+        }
+
+        /* Responsif darurat buat HP/Zoom super gede */
+        @media (max-width: 850px) {
+            .pg-card { flex: 1 1 45% !important; } /* Turun ke 2 kotak sebaris */
+        }
+        @media (max-width: 550px) {
+            .pg-card { flex: 1 1 100% !important; } /* Turun ke 1 kotak penuh sebaris */
         }
     </style>
 </head>
