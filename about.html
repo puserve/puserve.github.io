@@ -17,16 +17,31 @@
     
 <!-- KODINGAN SAKTI RATA KANAN KIRI KHUSUS ABOUT US (KEBAL BADAI ZOOM) -->
     <style>
+        /* Buat teks paragraf utama */
         .pg-prose p,
-        .pg-prose li,
+        .pg-prose li {
+            text-align: justify !important;
+            text-justify: inter-word !important;
+        }
+
+        /* Buat teks di dalem kotak organisasi (Lebih Flexible & Elastis) */
         .pg-card p {
             text-align: justify !important;
             text-justify: inter-word !important;
-            /* TAMBAHAN SAKTI BIAR GAK HANCUR PAS DI-ZOOM/DI HP: */
-            word-wrap: break-word !important;
-            hyphens: auto !important;
+            
+            /* JURUS FLEKSIBEL: */
+            word-wrap: break-word !important; /* Paksa patah kata kalau kepanjangan */
+            overflow-wrap: break-word !important; 
+            
+            /* JURUS TANDA STRIP OTOMATIS: */
             -webkit-hyphens: auto !important;
             -ms-hyphens: auto !important;
+            hyphens: auto !important;
+        }
+        
+        /* Bikin imaginary box biar kotaknya gak nyusut terlalu ekstrem pas di-zoom */
+        .pg-card {
+             min-width: 250px !important;
         }
     </style>
 </head>
