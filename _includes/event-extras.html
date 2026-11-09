@@ -33,6 +33,25 @@
         .lb-prev { left: 6px; } .lb-next { right: 6px; }
         .lb-btn { width: 40px; height: 40px; }
     }
+
+    /* ===== PENDAFTARAN ACARA (RSVP) ===== */
+    .rsvp-box { margin: 28px 0 8px; padding: 22px 24px; border: 1px solid var(--card-border, #e5e7eb); border-left: 4px solid var(--puserve-yellow); border-radius: 14px; background: var(--card-bg, #fff); }
+    .rsvp-box h2 { font-size: 1.15rem; font-weight: 800; color: var(--text-color); margin: 0 0 4px; text-align: left; }
+    .rsvp-seats { font-size: 0.85rem; font-weight: 700; color: var(--primary-green); margin: 0 0 14px; min-height: 1.2em; }
+    body.eco-mode .rsvp-seats { color: var(--puserve-yellow); }
+    .rsvp-seats.full { color: #b91c1c; }
+    .rsvp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .rsvp-field { display: flex; flex-direction: column; gap: 6px; }
+    .rsvp-field.wide { grid-column: 1 / -1; }
+    .rsvp-field label { font-size: 0.8rem; font-weight: 700; color: var(--text-color); }
+    .rsvp-field input { padding: 11px 13px; border-radius: 8px; border: 1px solid var(--card-border, #d1d5db); background: var(--bg-color, #fff); color: var(--text-color); font-family: inherit; font-size: 1rem; box-sizing: border-box; width: 100%; }
+    .rsvp-field input:focus-visible { outline: 3px solid var(--puserve-yellow); outline-offset: 1px; }
+    .rsvp-submit { margin-top: 14px; padding: 12px 22px; border: 0; border-radius: 10px; background: var(--primary-green); color: #fff; font-family: inherit; font-weight: 800; font-size: 0.95rem; cursor: pointer; transition: 0.2s; }
+    .rsvp-submit:hover { filter: brightness(1.12); }
+    .rsvp-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .rsvp-status { margin: 12px 0 0; font-weight: 700; font-size: 0.9rem; }
+    .rsvp-note { margin: 10px 0 0; font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; }
+    @media (max-width: 600px) { .rsvp-grid { grid-template-columns: 1fr; } }
 </style>
 
 <script>
@@ -248,6 +267,108 @@
         lbState.isEN = isEN;
         document.querySelectorAll('.gal-thumb').forEach(btn => {
             btn.onclick = () => openLightbox(+btn.getAttribute('data-i'), btn);
+        });
+    }
+
+    /* =====================  PENDAFTARAN ACARA (RSVP)  ===================== */
+    // Hanya tampil kalau pendaftaran dibuka di CMS, acara belum selesai, dan formulir memakai Google Apps Script.
+    function rsvpHtml(cfg, isEN) {
+        if (!cfg || !cfg.open || !cfg.endpoint || !/script\.google(usercontent)?\.com/.test(cfg.endpoint)) return '';
+        if (cfg.endMs && cfg.endMs < Date.now()) return '';
+        const L = isEN
+            ? { title: 'Register to attend', name: 'Full name', email: 'Email', org: 'Institution / study program (optional)', btn: 'Register', note: 'We will email you a confirmation. Your name and email are only used for this event.' }
+            : { title: 'Daftar untuk hadir', name: 'Nama lengkap', email: 'Email', org: 'Asal instansi / program studi (opsional)', btn: 'Daftar', note: 'Kami akan mengirim konfirmasi lewat email. Nama dan email Anda hanya dipakai untuk acara ini.' };
+        return `<section class="rsvp-box" id="rsvp-box" aria-label="${L.title}">
+            <h2>${L.title}</h2>
+            <p class="rsvp-seats" id="rsvp-seats" aria-live="polite"></p>
+            <form id="rsvp-form">
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none;">
+                <div class="rsvp-grid">
+                    <div class="rsvp-field"><label for="rsvp-name">${L.name}</label><input id="rsvp-name" name="name" type="text" required maxlength="80" autocomplete="name"></div>
+                    <div class="rsvp-field"><label for="rsvp-email">${L.email}</label><input id="rsvp-email" name="email" type="email" required maxlength="254" autocomplete="email"></div>
+                    <div class="rsvp-field wide"><label for="rsvp-org">${L.org}</label><input id="rsvp-org" name="affiliation" type="text" maxlength="100" autocomplete="organization"></div>
+                </div>
+                <button type="submit" class="rsvp-submit" id="rsvp-submit">${L.btn}</button>
+                <p class="rsvp-status" id="rsvp-status" role="status" aria-live="polite"></p>
+                <p class="rsvp-note">${L.note}</p>
+            </form>
+        </section>`;
+    }
+
+    function rsvpErrorText(code, ref, isEN) {
+        const m = {
+            full: isEN ? 'Sorry, this event is full.' : 'Maaf, kuota acara ini sudah penuh.',
+            closed: isEN ? 'Registration for this event is closed.' : 'Pendaftaran untuk acara ini sudah ditutup.',
+            ended: isEN ? 'This event has already ended.' : 'Acara ini sudah selesai.',
+            already: (isEN ? 'This email is already registered for this event' : 'Email ini sudah terdaftar untuk acara ini') + (ref ? ' (' + ref + ').' : '.'),
+            invalid_email: isEN ? 'Please enter a valid email address.' : 'Mohon isi alamat email yang valid.',
+            missing: isEN ? 'Please fill in your name.' : 'Mohon isi nama Anda.',
+            rate: isEN ? 'Too many registrations from this email. Please try again later.' : 'Terlalu banyak pendaftaran dari email ini. Coba lagi nanti.',
+            event_not_found: isEN ? 'Event not found.' : 'Acara tidak ditemukan.'
+        };
+        return m[code] || (isEN ? 'Something went wrong. Please try again.' : 'Terjadi kesalahan. Silakan coba lagi.');
+    }
+
+    function bindRsvp(cfg, isEN) {
+        const form = document.getElementById('rsvp-form');
+        if (!form) return;
+        const box = document.getElementById('rsvp-box');
+        const seats = document.getElementById('rsvp-seats');
+        const status = document.getElementById('rsvp-status');
+        const btn = document.getElementById('rsvp-submit');
+
+        // Sisa kursi dari server. Kalau gagal, diabaikan diam-diam.
+        fetch(cfg.endpoint + '?action=stats&event=' + encodeURIComponent(cfg.eventUrl))
+            .then(r => r.json())
+            .then(s => {
+                if (!s || !s.ok) return;
+                if (!s.open) { box.style.display = 'none'; return; }
+                if (s.capacity > 0) {
+                    const left = Math.max(0, s.capacity - s.registered);
+                    if (left === 0) {
+                        seats.textContent = isEN ? 'Fully booked' : 'Kuota penuh';
+                        seats.classList.add('full');
+                        btn.disabled = true;
+                        form.querySelectorAll('input').forEach(i => { i.disabled = true; });
+                    } else {
+                        seats.textContent = isEN ? left + ' of ' + s.capacity + ' seats left' : 'Sisa ' + left + ' dari ' + s.capacity + ' kursi';
+                    }
+                } else if (s.registered > 0) {
+                    seats.textContent = isEN ? s.registered + ' registered' : s.registered + ' orang sudah mendaftar';
+                }
+            }).catch(() => {});
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            btn.disabled = true;
+            status.style.color = 'var(--text-muted)';
+            status.textContent = isEN ? 'Sending...' : 'Mengirim...';
+            const data = new FormData(form);
+            data.set('form_type', 'rsvp');
+            data.set('event', cfg.eventUrl);
+            data.set('reply_language', isEN ? 'EN' : 'ID');
+            data.set('source_page', window.location.pathname);
+            try {
+                const res = await fetch(cfg.endpoint, { method: 'POST', body: new URLSearchParams(data) });
+                const text = await res.text();
+                let json;
+                try { json = JSON.parse(text); } catch (err) { throw new Error('Respons bukan JSON: ' + text.slice(0, 80)); }
+                if (json.ok) {
+                    status.style.color = 'var(--primary-green)';
+                    status.textContent = (isEN ? 'Registered! Your number: ' : 'Terdaftar! Nomor pendaftaran: ') + json.ref +
+                        (isEN ? '. A confirmation was sent to ' : '. Konfirmasi dikirim ke ') + data.get('email') +
+                        (isEN ? ' (check your spam folder too).' : ' (cek juga folder spam).');
+                    form.reset();
+                    return;                                   // tombol tetap nonaktif supaya tidak terkirim ganda
+                }
+                status.style.color = '#b91c1c';
+                status.textContent = rsvpErrorText(json.error, json.ref, isEN);
+            } catch (err) {
+                console.error('RSVP error:', err);
+                status.style.color = '#b91c1c';
+                status.textContent = isEN ? 'Could not send. Check your connection and try again.' : 'Gagal mengirim. Periksa koneksi Anda lalu coba lagi.';
+            }
+            btn.disabled = false;
         });
     }
 </script>
