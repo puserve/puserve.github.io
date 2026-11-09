@@ -6,6 +6,10 @@ formspree_id: "xzeegbpp"
 # Selama kosong, formulir memakai Formspree di atas sebagai cadangan.
 contact_endpoint: "https://script.google.com/macros/s/AKfycbyI-efd7xbw2Kwh_KBwXTLXBczRaderCtB6Wm089EHVh1TjdHpZ4hP0WdKZyJgkwhNlxw/exec"
 
+# Analitik ringan tanpa cookie (opsional). Daftar gratis di goatcounter.com, lalu isi kode situs di sini.
+# Contoh: kalau alamat dashboard Anda https://puserve.goatcounter.com, isi dengan "puserve". Kosong = analitik mati.
+goatcounter_code: ""
+
 url: "https://puserve.github.io"
 timezone: "Asia/Jakarta"
 
