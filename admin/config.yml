@@ -65,6 +65,8 @@ collections:
       - {label: "Lokasi Acara", name: "location", widget: "string", required: false, default: "President University, Cikarang"}
       - {label: "Status", name: "status", widget: "select", options: ["Running", "Upcoming", "Archived"], default: "Upcoming"}
       - {label: "Jumlah Peserta", name: "attendees", widget: "string", required: false, default: "200+ Participants", hint: "Isi '-' atau kosongkan kalau tidak ingin ditampilkan."}
+      - {label: "Buka pendaftaran peserta (RSVP)", name: "rsvp_open", widget: "boolean", default: false, hint: "Aktif = muncul formulir Daftar di halaman acara (hanya untuk acara yang belum selesai). Perlu Apps Script aktif."}
+      - {label: "Kuota peserta", name: "rsvp_capacity", widget: "number", value_type: "int", min: 0, default: 0, required: false, hint: "0 = tanpa batas. Kalau terisi, pendaftaran otomatis ditutup saat kuota penuh."}
       - {label: "Foto Utama (Thumbnail)", name: "thumbnail", widget: "image", required: false}
       - {label: "Galeri Foto (bisa pilih banyak sekaligus)", name: "gallery", widget: "image", multiple: true, required: false, hint: "Foto dokumentasi acara. Tampil sebagai galeri dengan pembesar foto di halaman acara. Idealnya lebar maksimal 1600 px dan di bawah 500 KB per foto."}
       - {label: "Hasil/Dampak Acara (Outcome - English)", name: "outcome_en", widget: "string", required: false}
