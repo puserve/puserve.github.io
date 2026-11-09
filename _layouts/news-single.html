@@ -16,7 +16,7 @@
         {% assign thumb_path = page.thumbnail | prepend: '/uploads/' %}
       {% endif %}
     {% else %}
-      {% assign thumb_path = '/logos/LOGO_PUSERVE.png' %}
+      {% assign thumb_path = '/og-default.png' %}
     {% endif %}
     {% assign og_image = thumb_path | prepend: 'https://puserve.github.io' | uri_escape %}
 
@@ -28,6 +28,23 @@
     <meta property="og:image" content="{{ og_image }}">
     <meta property="og:url" content="https://puserve.github.io{{ page.url }}">
     <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://puserve.github.io{{ page.url }}">
+
+    <!-- Data terstruktur untuk Google (Artikel berita) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": {{ page_title | jsonify }},
+      "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+      "dateModified": {{ page.date | date_to_xmlschema | jsonify }},
+      "author": {% if page.author != nil and page.author != '' and page.author != 'PUSERVE Editorial Board' %}{ "@type": "Person", "name": {{ page.author | jsonify }} }{% else %}{ "@type": "Organization", "name": "PUSERVE Editorial Board" }{% endif %},
+      "publisher": { "@type": "Organization", "name": "PUSERVE", "logo": { "@type": "ImageObject", "url": "https://puserve.github.io/logos/LOGO_PUSERVE.png" } },
+      "image": [{{ og_image | jsonify }}],
+      "description": {{ page_desc | strip_html | strip_newlines | jsonify }},
+      "mainEntityOfPage": { "@type": "WebPage", "@id": {{ page.url | prepend: 'https://puserve.github.io' | jsonify }} }
+    }
+    </script>
 
     <link rel="icon" type="image/png" href="https://puserve.github.io/logos/LOGO_PUSERVE.png">
     <link rel="stylesheet" href="https://puserve.github.io/style.css">
