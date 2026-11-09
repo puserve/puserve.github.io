@@ -17,7 +17,7 @@
     <div class="easter-egg-content">
         <span class="close-egg" onclick="closeEgg()">&times;</span>
         <div class="warning-header">⚠️ CLASSIFIED ARCHIVE ⚠️</div>
-        <img src="/easter_egg.jpeg" alt="Top Secret Easter Egg">
+        <img src="/easter_egg.jpeg" alt="Top Secret Easter Egg" loading="lazy" decoding="async">
         <p class="prank-text">"You found the secret! Don't forget to throw your trash in the right bin!"</p>
     </div>
 </div>
@@ -82,9 +82,9 @@
     <div class="footer-grid">
         <div class="footer-brand">
             <div class="footer-logos">
-                <img src="/logos/LOGO_PU.png" alt="PU">
-                <img src="/logos/LOGO_CEDRS.png" alt="CEDRS">
-                <img src="/logos/LOGO_PUSERVE.png" alt="PUSERVE">
+                <img src="/logos/LOGO_PU.png" alt="PU" loading="lazy" decoding="async">
+                <img src="/logos/LOGO_CEDRS.png" alt="CEDRS" loading="lazy" decoding="async">
+                <img src="/logos/LOGO_PUSERVE.png" alt="PUSERVE" loading="lazy" decoding="async">
             </div>
             <div><div class="brand-name">PUSERVE</div><div class="brand-sub">PRESIDENT UNIVERSITY</div></div>
             <p class="footer-desc" data-en="A movement focused on environmental protection, sustainability, and social service." data-id="Gerakan yang berfokus pada perlindungan lingkungan, keberlanjutan, dan pengabdian sosial.">A movement focused on environmental protection, sustainability, and social service.</p>
@@ -130,8 +130,6 @@
     </div>
 </footer>
 
-<!-- Dipertahankan karena team.html (belum dicek) mungkin memakainya. Aman dihapus setelah dipastikan tidak dipakai. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 <script>
     function showToast(msg) { const tm = document.getElementById('toast-msg'); if(tm){ tm.innerText = msg; } let toast = document.getElementById("toast"); if(toast){ toast.classList.add("show"); setTimeout(() => { toast.classList.remove("show"); }, 3000); } }
     // Bisa dipanggil dengan jenis keperluan: openJoinModal('Volunteer' | 'Partnership' | 'Media/Press' | 'General Question')
@@ -306,18 +304,18 @@
                     const r = await submitForm(contactForm);
                     if (r.ok) {
                         status.style.color = "var(--primary-green)";
-                        status.textContent = (isEN ? " Message sent successfully!" : " Pesan berhasil dikirim!") + (r.ref ? (isEN ? " Reference: " : " Nomor referensi: ") + r.ref : "");
+                        status.textContent = (isEN ? "✅ Message sent successfully!" : "✅ Pesan berhasil dikirim!") + (r.ref ? (isEN ? " Reference: " : " Nomor referensi: ") + r.ref : "");
                         contactForm.reset();
                         setReplyLanguage();
                         setTimeout(() => { closeJoinModal(); status.style.display = "none"; }, 4500);
                     } else {
                         status.style.color = "#ef4444";
-                        status.textContent = "✖ " + errorText(r.error, isEN) + (FORM_DEBUG && r.error ? " [" + r.error + "]" : "");
+                        status.textContent = "❌ " + errorText(r.error, isEN) + (FORM_DEBUG && r.error ? " [" + r.error + "]" : "");
                     }
                 } catch (err) {
                     console.error('Contact form error:', err);
                     status.style.color = "#ef4444";
-                    status.textContent = "✖ " + (isEN ? "Oops! Check your connection." : "Oops! Periksa koneksi Anda.") + (FORM_DEBUG && err && err.message ? " [" + err.message + "]" : "");
+                    status.textContent = "❌ " + (isEN ? "Oops! Check your connection." : "Oops! Periksa koneksi Anda.") + (FORM_DEBUG && err && err.message ? " [" + err.message + "]" : "");
                 } finally {
                     btn.innerText = isEN ? "Send Message" : "Kirim Pesan";
                     btn.style.opacity = "1";
@@ -327,3 +325,8 @@
         }
     });
 </script>
+
+{% if site.goatcounter_code != nil and site.goatcounter_code != '' %}
+<!-- Analitik ringan tanpa cookie (GoatCounter). Aktif kalau goatcounter_code diisi di _config.yml -->
+<script data-goatcounter="https://{{ site.goatcounter_code }}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+{% endif %}
