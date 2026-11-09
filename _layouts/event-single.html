@@ -16,7 +16,7 @@
         {% assign thumb_path = page.thumbnail | prepend: '/uploads/' %}
       {% endif %}
     {% else %}
-      {% assign thumb_path = '/logos/LOGO_PUSERVE.png' %}
+      {% assign thumb_path = '/og-default.png' %}
     {% endif %}
     {% assign og_image = thumb_path | prepend: 'https://puserve.github.io' | uri_escape %}
 
@@ -28,6 +28,25 @@
     <meta property="og:image" content="{{ og_image }}">
     <meta property="og:url" content="https://puserve.github.io{{ page.url }}">
     <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://puserve.github.io{{ page.url }}">
+
+    <!-- Data terstruktur untuk Google (Event) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": {{ page_title | jsonify }},
+      "startDate": {{ page.date | date_to_xmlschema | jsonify }},
+      {% if page.end_date != nil and page.end_date != '' %}"endDate": {{ page.end_date | date_to_xmlschema | jsonify }},{% endif %}
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      {% if page.location != nil and page.location != '' %}"location": { "@type": "Place", "name": {{ page.location | jsonify }}, "address": {{ page.location | jsonify }} },{% endif %}
+      "image": [{{ og_image | jsonify }}],
+      "description": {{ page_desc | strip_html | strip_newlines | jsonify }},
+      "organizer": { "@type": "Organization", "name": "PUSERVE", "url": "https://puserve.github.io/" },
+      "url": {{ page.url | prepend: 'https://puserve.github.io' | jsonify }}
+    }
+    </script>
 
     <link rel="icon" type="image/png" href="https://puserve.github.io/logos/LOGO_PUSERVE.png">
     <link rel="stylesheet" href="https://puserve.github.io/style.css">
@@ -155,6 +174,15 @@
                 slug: {{ page.slug | default: 'event' | jsonify }}
             };
 
+            // Pendaftaran acara: hanya aktif kalau formulir memakai Google Apps Script (contact_endpoint di _config.yml)
+            const calTimes = calendarTimes(calData);
+            const rsvpCfg = {
+                open: {{ page.rsvp_open | default: false | jsonify }},
+                endpoint: {{ site.contact_endpoint | default: '' | jsonify }},
+                eventUrl: {{ page.url | jsonify }},
+                endMs: calTimes ? calTimes.endMs : 0
+            };
+
             const rawThumbnail = {{ page.thumbnail | jsonify }};
             const img1 = rawThumbnail ? (rawThumbnail.includes('/') ? rawThumbnail : `uploads/${rawThumbnail}`).replace(/^\/+/, '') : '';
 
@@ -166,6 +194,7 @@
             if (attendees && attendees !== '-') facts += factHtml(isEN ? 'Participants' : 'Peserta', attendees);
 
             let html = `<div class="art-head"><div class="art-kicker">${isEN ? 'Official Events &amp; Programs Report' : 'Laporan Acara &amp; Program Resmi'}</div><h1 class="art-title">${title}</h1><div class="art-facts">${facts}</div>${calendarHtml(calData, isEN)}</div>`;
+            html += rsvpHtml(rsvpCfg, isEN);
 
             if (img1) html += `<img src="https://puserve.github.io/${img1}" class="hero-img" alt="Thumbnail" onerror="this.style.display='none'">`;
 
@@ -191,6 +220,7 @@
             `;
             document.getElementById('pr-content').innerHTML = html;
             bindCalendar(calData);
+            bindRsvp(rsvpCfg, isEN);
             initGallery(galleryItems, title, isEN);
         }
 
