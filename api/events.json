@@ -11,9 +11,13 @@ layout: null
           "title_en": {{ fm.title_en | default: fm.title_id | jsonify }},
           "title_id": {{ fm.title_id | default: fm.title_en | jsonify }},
           "date": "{{ fm.date | date: '%Y-%m-%d %H:%M:%S' }}",
+          "end_date": {% if fm.end_date != nil and fm.end_date != '' %}"{{ fm.end_date | date: '%Y-%m-%d %H:%M:%S' }}"{% else %}null{% endif %},
+          "location": {{ fm.location | jsonify }},
           "thumbnail": {{ fm.thumbnail | jsonify }},
           "status": {{ fm.status | jsonify }},
-          "url": {{ fm.url | jsonify }}
+          "url": {{ fm.url | jsonify }},
+          "rsvp_open": {{ fm.rsvp_open | default: false | jsonify }},
+          "rsvp_capacity": {{ fm.rsvp_capacity | default: 0 | jsonify }}
         }
       {% endif %}
     {% endif %}
