@@ -19,7 +19,6 @@ future: true
 
 plugins:
   - jekyll-sitemap
-  url: "https://puserve.github.io"
 
 # File contoh untuk CMS tidak perlu ikut diterbitkan sebagai halaman
 exclude:
