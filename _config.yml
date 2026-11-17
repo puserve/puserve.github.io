@@ -59,3 +59,7 @@ defaults:
     values:
       layout: "event-single"
       permalink: "/events/:slug/"
+
+plugins:
+  - jekyll-sitemap
+url: "https://puserve.github.io"
