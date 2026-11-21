@@ -5,5 +5,5 @@ position: Head of Division
 division: Human Resources
 major: International Relations
 student_id: ''
-email: Jansen.wenur@student.president.ac.id
+email: jansen.wenur@student.president.ac.id
 ---
